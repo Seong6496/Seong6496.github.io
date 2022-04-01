@@ -151,9 +151,9 @@ CSS로 얼마든지 꾸미기가 가능하니 문법의 의미로써만 받아�
 <pre><code class='lang'>print('hello world')</code></pre>
 ```
 
-```
-<code class="python">print('hello world')</code>
-```
+
+<pre><code class="python">print('hello world')</code></pre>
+
 
 두번째 방법은( "\`\`\`") 를 사용하는 방법입니다.
 
