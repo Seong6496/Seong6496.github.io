@@ -16,14 +16,14 @@ lang: en
 prefer_datetime_locale:
 
 # Change to your timezone › http://www.timezoneconverter.com/cgi-bin/findzone/findzone
-timezone: Asia/Seoul
+timezone: Asia/Shanghai
 
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: HM DATALab                          # the main title
+title: HMDATALab                          # the main title
 
-tagline: Data_analysis,Math,Coding  # it will display as the sub-title
+tagline: Data_analysis,Math,Coding   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   A minimal, responsive, and powerful Jekyll theme for presenting professional writing.
@@ -32,20 +32,20 @@ description: >-                        # used by seo meta and the atom feed
 url: 'https://Seong6496.github.io'
 
 github:
-  username: Seong6496            # change to your github username
+  username: Seong6496             # change to your github username
 
 twitter:
-  username: hyeonmo6496           # change to your twitter username
+  username: twitter_username            # change to your twitter username
 
 social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
-  name: your_full_name
+  name: Seong6496
   email: sung2417@gmail.com             # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://github.com/Seong6496      # change to your twitter homepage
-    - https://twitter.com/hyeonmo6496       # change to your github homepage
+    - https://twitter.com/hyeonmo6496      # change to your twitter homepage
+    - https://github.com/Seong6496       # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
     # - https://www.linkedin.com/in/username
