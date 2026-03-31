@@ -1,12 +1,12 @@
 ---
 layout: page
-title: Terms of Service — LaTeX Equation Converter
+title: Terms of Service — LaTeXFlow
 permalink: /latexflow/terms/
 ---
 
 *Last updated: March 18, 2026*
 
-By installing or using **LaTeX Equation Converter for Google Docs** ("the Add-on"), you agree to these Terms of Service.
+By installing or using **LaTeXFlow for Google Docs™** ("the Add-on"), you agree to these Terms of Service.
 
 ---
 

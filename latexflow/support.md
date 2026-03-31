@@ -1,10 +1,10 @@
 ---
 layout: page
-title: Support — LaTeX Equation Converter
+title: Support — LaTeXFlow
 permalink: /latexflow/support/
 ---
 
-Need help with **LaTeX Equation Converter for Google Docs**? Here's how to get support.
+Need help with **LaTeXFlow for Google Docs™**? Here's how to get support.
 
 ---
 
@@ -42,7 +42,7 @@ A. The preview uses Temml to render your formula. Check your LaTeX syntax — co
 A. The scanner detects `$...$` (inline) and `$$...$$` (display) delimiters. Make sure your formulas use these delimiters and are not inside special objects like drawings or images.
 
 **Q. How do I turn off data collection?**
-A. Go to **Extensions → LaTeX Converter → Data Collection Settings** in Google Docs. You can withdraw consent at any time. See our [Privacy Policy](/latexflow/privacy/) for details.
+A. Go to **Extensions → LaTeXFlow → Data Collection Settings** in Google Docs. You can withdraw consent at any time. See our [Privacy Policy](/latexflow/privacy/) for details.
 
 ---
 

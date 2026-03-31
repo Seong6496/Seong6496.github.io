@@ -1,12 +1,12 @@
 ---
 layout: page
-title: Privacy Policy — LaTeX Equation Converter
+title: Privacy Policy — LaTeXFlow
 permalink: /latexflow/privacy/
 ---
 
 *Last updated: March 18, 2026*
 
-This Privacy Policy describes how **LaTeX Equation Converter for Google Docs** ("the Add-on") collects, uses, and protects your information.
+This Privacy Policy describes how **LaTeXFlow for Google Docs™** ("the Add-on") collects, uses, and protects your information.
 
 ---
 
