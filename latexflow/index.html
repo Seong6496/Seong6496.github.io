@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LaTeXFlow — LaTeX Equations for Google Docs</title>
+  <meta name="description" content="Convert LaTeX math formulas into high-quality images inside Google Docs. Scan your entire document and convert all formulas with a single click." />
+  <meta name="google-site-verification" content="CHyPDPLcZJFDFFsbZ2URfOsY68wd8e4Ib42NQJ5Skio" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #2563eb;
+      --blue-dark: #1d4ed8;
+      --blue-light: #eff6ff;
+      --text: #111827;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --bg: #ffffff;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--blue); }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--blue);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: background 0.15s;
+    }
+    .nav-cta:hover { background: var(--blue-dark); color: #fff; }
+
+    /* HERO */
+    .hero {
+      padding: 100px 24px 80px;
+      text-align: center;
+      background: linear-gradient(180deg, #f0f7ff 0%, #ffffff 100%);
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+      letter-spacing: 0.02em;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      max-width: 780px;
+      margin: 0 auto 20px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--blue);
+    }
+    .hero p {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 0 auto 36px;
+    }
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+      padding: 13px 28px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); color: #fff; }
+    .btn-secondary {
+      background: #fff;
+      color: var(--text);
+      padding: 13px 28px;
+      border-radius: 10px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      border: 1px solid var(--border);
+      transition: border-color 0.15s, transform 0.1s;
+    }
+    .btn-secondary:hover { border-color: #9ca3af; transform: translateY(-1px); }
+
+
+    /* SECTION COMMON */
+    section { padding: 80px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 520px;
+    }
+
+    /* FEATURES */
+    .features { background: #fafafa; }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 52px;
+    }
+    .feature-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: box-shadow 0.2s;
+    }
+    .feature-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
+    .feature-icon {
+      font-size: 1.8rem;
+      margin-bottom: 14px;
+    }
+    .feature-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* HOW IT WORKS */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 52px;
+      max-width: 680px;
+    }
+    .step {
+      display: flex;
+      gap: 20px;
+      position: relative;
+      padding-bottom: 36px;
+    }
+    .step:last-child { padding-bottom: 0; }
+    .step-line {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-connector {
+      width: 2px;
+      flex: 1;
+      background: var(--border);
+      margin-top: 6px;
+    }
+    .step:last-child .step-connector { display: none; }
+    .step-body { padding-top: 6px; }
+    .step-body h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .step-body p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .step-code {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      background: var(--blue-light);
+      color: var(--blue);
+      padding: 2px 8px;
+      border-radius: 5px;
+      margin-top: 6px;
+    }
+
+    /* WHO IT'S FOR */
+    .audience { background: #fafafa; }
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 52px;
+    }
+    .audience-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .audience-card .emoji { font-size: 2rem; margin-bottom: 10px; }
+    .audience-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
+    .audience-card p { font-size: 0.85rem; color: var(--text-muted); }
+
+    /* CTA */
+    .cta {
+      background: var(--blue);
+      color: #fff;
+      text-align: center;
+      padding: 80px 24px;
+    }
+    .cta h2 {
+      font-size: clamp(1.6rem, 3vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+    .cta p {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-bottom: 32px;
+    }
+    .btn-white {
+      background: #fff;
+      color: var(--blue);
+      padding: 13px 32px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: opacity 0.15s, transform 0.1s;
+      display: inline-block;
+    }
+    .btn-white:hover { opacity: 0.92; transform: translateY(-1px); }
+
+    /* FOOTER */
+    footer {
+      background: #f9fafb;
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-logo { font-weight: 700; font-size: 0.95rem; }
+    .footer-logo span { color: var(--blue); }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hero { padding: 72px 24px 60px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">LaTeX<span>Flow</span></div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="support/">Support</a>
+    </div>
+    <a class="nav-cta" href="https://workspace.google.com/marketplace" target="_blank">Install Free</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">✦ Google Docs Add-on</div>
+  <h1>Write <em>LaTeX</em>.<br/>Convert in one click.</h1>
+  <p>LaTeXFlow scans your entire document and converts every math formula into a crisp, professional image — no copy-paste, no one-by-one clicks.</p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="https://workspace.google.com/marketplace" target="_blank">Install from Marketplace</a>
+    <a class="btn-secondary" href="#how-it-works">See how it works ↓</a>
+  </div>
+</div>
+
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-inner">
+    <div class="section-label">Features</div>
+    <div class="section-title">Everything you need for math in Docs</div>
+    <p class="section-subtitle">From a single formula to an entire paper full of equations — LaTeXFlow handles it all.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Batch Scan & Convert</h3>
+        <p>Scan your entire document and convert every <code>$...$</code> and <code>$$...$$</code> formula to a high-resolution image in seconds.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👁️</div>
+        <h3>Live Preview</h3>
+        <p>See your equation rendered in real time as you type. Catch errors before they end up in your document.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎹</div>
+        <h3>Symbol Palette</h3>
+        <p>Not sure of the syntax? Browse 130+ symbols across Greek letters, operators, fractions, integrals, matrices, and more.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">↩️</div>
+        <h3>Revert to LaTeX</h3>
+        <p>Need to edit an equation? Click the image and revert it back to editable LaTeX text — no re-typing required.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏷️</div>
+        <h3>Tag Selection</h3>
+        <p>Got raw LaTeX without delimiters? Select the text and tag it as <code>$...$</code> with one click, then scan as usual.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📐</div>
+        <h3>High-Fidelity Typesetting</h3>
+        <p>Powered by MathJax and Temml. Inline and display equations are automatically sized to match your document's flow.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="section-inner">
+    <div class="section-label">How it works</div>
+    <div class="section-title">Three steps to a clean document</div>
+    <p class="section-subtitle">Works whether you're starting fresh or cleaning up an existing document.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-line">
+          <div class="step-num">1</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-body">
+          <h3>Write LaTeX in your document</h3>
+          <p>Type your formulas using standard LaTeX delimiters. Inline equations with <code>$...$</code>, centered display equations with <code>$$...$$</code>.</p>
+          <div class="step-code">$E = mc^2$&nbsp;&nbsp;&nbsp;$$\int_0^\infty e^{-x^2}dx$$</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-line">
+          <div class="step-num">2</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-body">
+          <h3>Open LaTeXFlow and scan</h3>
+          <p>Go to <strong>Extensions → LaTeX Converter → Open Equation Panel</strong>. Switch to the Scan tab and click <strong>Scan Document</strong>. Every formula appears as a preview card.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-line">
+          <div class="step-num">3</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-body">
+          <h3>Convert All — done</h3>
+          <p>Hit <strong>Convert All</strong>. LaTeXFlow replaces every formula with a crisp image in place. Edit individual cards first if you need last-minute adjustments.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="audience">
+  <div class="section-inner">
+    <div class="section-label">Who it's for</div>
+    <div class="section-title">Built for anyone who writes math</div>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="emoji">🎓</div>
+        <h3>Students</h3>
+        <p>Type lecture notes in LaTeX and convert them instantly.</p>
+      </div>
+      <div class="audience-card">
+        <div class="emoji">🔬</div>
+        <h3>Researchers</h3>
+        <p>Draft papers and reports with professional typesetting.</p>
+      </div>
+      <div class="audience-card">
+        <div class="emoji">📖</div>
+        <h3>Educators</h3>
+        <p>Create clean, readable worksheets and slides.</p>
+      </div>
+      <div class="audience-card">
+        <div class="emoji">👥</div>
+        <h3>Teams</h3>
+        <p>Collaborate on shared Docs with consistent equation formatting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta">
+  <h2>Ready to write math, not fight it?</h2>
+  <p>Free to install. Works instantly in Google Docs.</p>
+  <a class="btn-white" href="https://workspace.google.com/marketplace" target="_blank">Install LaTeXFlow →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">LaTeX<span>Flow</span></div>
+    <div class="footer-links">
+      <a href="privacy/">Privacy Policy</a>
+      <a href="terms/">Terms of Service</a>
+      <a href="support/">Support</a>
+    </div>
+    <div class="footer-copy">© 2026 LaTeXFlow</div>
+  </div>
+</footer>
+
+</body>
+</html>
