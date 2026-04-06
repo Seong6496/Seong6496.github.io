@@ -4,7 +4,7 @@ title: Privacy Policy — LaTeXFlow
 permalink: /latexflow/privacy/
 ---
 
-*Last updated: March 18, 2026*
+*Last updated: April 6, 2026*
 
 This Privacy Policy describes how **LaTeXFlow for Google Docs™** ("the Add-on") collects, uses, and protects your information.
 
@@ -16,9 +16,21 @@ The Add-on is developed and maintained by an individual developer (contact: sung
 
 ---
 
-## 2. Information We Collect
+## 2. Google Workspace Data Access
 
-### 2a. Optional Training Data (Opt-in Only)
+LaTeXFlow accesses your Google Docs™ document solely to provide its core functionality:
+
+- **Document reading**: The Add-on scans your document body to detect LaTeX expressions enclosed in `$...$` and `$$...$$` delimiters.
+- **Document writing**: Detected expressions are replaced in-place with rendered equation images. The Add-on also reads inline image metadata to support reverting images back to editable LaTeX text.
+- **Sidebar and dialogs**: The Add-on displays a sidebar panel for LaTeX input and live preview, and a modal dialog for managing data collection consent, within Google Docs™.
+
+Your document content is processed within Google's infrastructure (Apps Script) and is **not transmitted to external servers**. The Add-on never stores or shares the text content of your document.
+
+---
+
+## 3. Information We Collect
+
+### 3a. Optional Training Data (Opt-in Only)
 
 When you **explicitly consent**, the Add-on collects:
 
@@ -32,9 +44,9 @@ When you **explicitly consent**, the Add-on collects:
 
 **This data is used solely for training future OCR/recognition models** that improve the Add-on's ability to automatically detect and convert equations.
 
-**Personally identifiable information (name, email, document content) is never collected.**
+**Personally identifiable information (name, email) is never collected. Document text content is never stored or transmitted.**
 
-### 2b. Error Logs
+### 3b. Error Logs
 
 If a conversion error occurs, the Add-on automatically records:
 - The LaTeX string that caused the error
@@ -45,15 +57,15 @@ This data is stored in a private Google Sheet accessible only to the developer, 
 
 ---
 
-## 3. How We Store Data
+## 4. How We Store Data
 
-Training data (§2a) is stored in **Google Cloud Storage (GCS)** using a dedicated service account. Access is restricted to the developer only.
+Training data (§3a) is stored in **Google Cloud Storage (GCS)** using a dedicated service account. Access is restricted to the developer only.
 
-Error logs (§2b) are stored in a **private Google Sheets** file.
+Error logs (§3b) are stored in a **private Google Sheets** file.
 
 ---
 
-## 4. Your Consent and Control
+## 5. Your Consent and Control
 
 - On first launch, the Add-on displays a **consent dialog** asking whether you agree to share anonymized training data.
 - You may **decline** at any time — the Add-on's core functionality (equation insertion) works fully without consent.
@@ -64,7 +76,7 @@ We do not collect training data unless you have explicitly agreed.
 
 ---
 
-## 5. Data Retention
+## 6. Data Retention
 
 Training data is retained indefinitely for model training purposes.
 Error logs are retained for up to 12 months and then deleted.
@@ -73,7 +85,7 @@ You may request deletion of your anonymized training data by contacting us at su
 
 ---
 
-## 6. Third-Party Services
+## 7. Third-Party Services
 
 The Add-on uses the following third-party services:
 
@@ -87,19 +99,19 @@ These services are governed by their own privacy policies.
 
 ---
 
-## 7. Children's Privacy
+## 8. Children's Privacy
 
 The Add-on is not directed at children under 13. We do not knowingly collect data from children under 13.
 
 ---
 
-## 8. Changes to This Policy
+## 9. Changes to This Policy
 
 We may update this policy from time to time. The "Last updated" date at the top of this page will reflect any changes. Continued use of the Add-on after changes constitutes acceptance.
 
 ---
 
-## 9. Contact
+## 10. Contact
 
 For privacy-related questions or data deletion requests:
 
