@@ -44,7 +44,7 @@ const allowedDomains = [
   'fonts.gstatic.com',
   'fonts.googleapis.com',
   'cdn.jsdelivr.net',
-  'polyfill.io'
+  'cdnjs.cloudflare.com'
 ];
 
 /* Requests that include the following path will be banned */
