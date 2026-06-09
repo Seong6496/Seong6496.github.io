@@ -21,12 +21,12 @@ timezone: Asia/Seoul
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: HMDATALab                         # the main title
+title: Math System                       # the main title
 
-tagline: Data Scientist,Math,Coding   # it will display as the sub-title
+tagline: LaTeX·수식·도구 이야기            # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
-  A minimal, responsive, and powerful Jekyll theme for presenting professional writing.
+  Math System 블로그 — LaTeX, 수식, Google Docs·Word 에서 수학 글쓰기를 다루는 곳. LaTeXFlow 가 운영합니다.
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
 url: 'https://mathsystem.dev'
@@ -116,6 +116,7 @@ assets:
     env:          # [development|production]
 
 paginate: 10
+paginate_path: '/blog/page:num/'
 
 # ------------ The following options are not recommended to be modified ------------------
 
