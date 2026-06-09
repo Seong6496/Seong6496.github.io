@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LaTeX Scan — Web Prototype</title>
+
+<!-- Temml: 미리보기 렌더링 (애드온 Sidebar.html과 동일 라이브러리) -->
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/temml@0.10.32/dist/Temml-Latin-Modern.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/temml@0.10.32/dist/temml.min.js"></script>
+<!-- JSZip: .docx(zip) 압축 해제 · 재패키징 -->
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<!-- MathJax(SVG 출력): LaTeX → PNG 변환용 (애드온 Sidebar.html 과 동일 설정) -->
+<script>
+  MathJax = {
+    loader:  { load: ['input/tex', 'output/svg'] },
+    svg:     { fontCache: 'none' },   // 글리프 인라인 → canvas 변환 가능한 자기완결 SVG
+    startup: { typeset: false }       // 페이지 자동 타이프셋 방지
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" id="MathJax-script" async></script>
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Roboto, 'Malgun Gothic', sans-serif;
+    color: #202124; background: #f1f3f4; line-height: 1.5;
+  }
+  header {
+    background: #1a73e8; color: #fff; padding: 16px 24px;
+  }
+  header h1 { font-size: 18px; font-weight: 600; }
+  header p  { font-size: 12px; opacity: .85; margin-top: 2px; }
+  main { max-width: 920px; margin: 24px auto; padding: 0 16px; }
+
+  /* ── 업로드 단계 ── */
+  #drop-zone {
+    background: #fff; border: 2px dashed #bdc1c6; border-radius: 12px;
+    padding: 56px 24px; text-align: center; cursor: pointer;
+    transition: border-color .15s, background .15s;
+  }
+  #drop-zone:hover, #drop-zone.over { border-color: #1a73e8; background: #e8f0fe; }
+  #drop-zone .big   { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  #drop-zone .small { font-size: 12px; color: #5f6368; }
+  #status { margin-top: 14px; font-size: 13px; min-height: 18px; text-align: center; }
+  #status.error { color: #d93025; }
+
+  /* ── 리뷰 단계 ── */
+  .toolbar {
+    background: #fff; border-radius: 10px; padding: 14px 18px;
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    margin-bottom: 16px; box-shadow: 0 1px 2px rgba(0,0,0,.08);
+  }
+  .toolbar .doc { font-weight: 600; font-size: 14px; }
+  .toolbar .counts { font-size: 12px; color: #5f6368; }
+  .toolbar .spacer { flex: 1; }
+  button {
+    font-family: inherit; font-size: 13px; border: none; border-radius: 6px;
+    padding: 8px 14px; cursor: pointer;
+  }
+  .btn-primary  { background: #1a73e8; color: #fff; }
+  .btn-primary:disabled { background: #a0c3ff; cursor: not-allowed; }
+  .btn-ghost    { background: #f1f3f4; color: #3c4043; }
+
+  .section-label {
+    font-size: 12px; font-weight: 600; color: #5f6368;
+    text-transform: uppercase; letter-spacing: .5px; margin: 18px 4px 8px;
+  }
+
+  /* ── 카드 공통 ── */
+  .card {
+    background: #fff; border-radius: 10px; margin-bottom: 12px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.08); overflow: hidden;
+  }
+  .card-head {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px; border-bottom: 1px solid #eceff1;
+  }
+  .badge {
+    font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px;
+  }
+  .badge.display { background: #e8f0fe; color: #1a73e8; }
+  .badge.inline  { background: #e6f4ea; color: #137333; }
+  .loc { font-size: 12px; color: #5f6368; }
+  .card-head .spacer { flex: 1; }
+  .card-body { padding: 14px; }
+  .preview {
+    background: #fafafa; border: 1px solid #eceff1; border-radius: 6px;
+    padding: 14px; text-align: center; font-size: 18px; min-height: 48px;
+  }
+  .preview.err { color: #d93025; font-size: 12px; text-align: left; font-family: monospace; }
+  .latex-src {
+    margin-top: 10px; font-family: 'Consolas', monospace; font-size: 12px;
+    background: #f1f3f4; border-radius: 4px; padding: 8px 10px;
+    white-space: pre-wrap; word-break: break-all;
+  }
+  .context {
+    margin-top: 8px; font-size: 12px; color: #5f6368;
+  }
+  .context mark { background: #fff2a8; color: #202124; border-radius: 2px; }
+
+  /* skipped 상태 */
+  .card.skipped { opacity: .5; }
+  .card.skipped .preview { filter: grayscale(1); }
+
+  /* ── 모호성 카드 ── */
+  .card.ambig { border: 1px solid #f9c846; }
+  .card.ambig .card-head { background: #fef7e0; border-bottom-color: #f9e2a0; }
+  .ambig-warn { font-size: 12px; color: #b06000; font-weight: 600; }
+  .ambig-text {
+    font-size: 12px; background: #f1f3f4; border-radius: 4px;
+    padding: 8px 10px; margin-bottom: 12px; word-break: break-all;
+  }
+  .options { display: flex; gap: 12px; flex-wrap: wrap; }
+  .option {
+    flex: 1; min-width: 240px; border: 1px solid #eceff1;
+    border-radius: 8px; padding: 12px;
+  }
+  .option h4 { font-size: 12px; margin-bottom: 4px; }
+  .option .desc { font-size: 11px; color: #5f6368; margin-bottom: 8px; }
+  .option .mini-preview {
+    font-size: 14px; text-align: center; padding: 8px;
+    background: #fafafa; border-radius: 4px; margin-bottom: 8px;
+  }
+  .option .mini-preview + .mini-preview { margin-top: 4px; }
+
+  .empty { color: #5f6368; font-size: 13px; padding: 24px; text-align: center; }
+
+  /* Generate 결과 안내 */
+  #gen-note {
+    background: #e8f0fe; border: 1px solid #aecbfa; border-radius: 8px;
+    padding: 14px 16px; font-size: 12px; margin-top: 16px;
+  }
+  #gen-note code { background: #fff; padding: 1px 4px; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>LaTeX Scan — Web Prototype</h1>
+  <p>.docx 업로드 → $…$ / $$…$$ 수식 탐지 → 리뷰 · Skip · 모호성 해결 (애드온 Scan 탭의 웹 버전 골격)</p>
+</header>
+
+<main>
+  <!-- 1단계: 업로드 -->
+  <section id="upload-stage">
+    <div id="drop-zone">
+      <div class="big">📄 .docx 파일을 여기에 끌어다 놓으세요</div>
+      <div class="small">또는 클릭해서 선택 — Google Docs에서 「파일 → 다운로드 → Microsoft Word(.docx)」</div>
+    </div>
+    <input type="file" id="file-input" accept=".docx" hidden />
+    <label style="display:block; margin-top:12px; font-size:13px; color:#555;">
+      <input type="checkbox" id="bracket-mode" checked />
+      ChatGPT 스타일 <code>[\...]</code> 수식도 인식 (markdown 렌더링으로 백슬래시를 잃은 케이스)
+    </label>
+    <div id="status"></div>
+  </section>
+
+  <!-- 2단계: 리뷰 -->
+  <section id="review-stage" hidden>
+    <div class="toolbar">
+      <span class="doc" id="doc-name"></span>
+      <span class="counts" id="counts"></span>
+      <span class="spacer"></span>
+      <button class="btn-ghost"   id="btn-reset">처음으로</button>
+      <button class="btn-primary" id="btn-generate">PNG 변환 · 내보내기</button>
+    </div>
+
+    <div id="ambig-wrap" hidden>
+      <div class="section-label">⚠ 모호성 — 해석을 선택하거나 건너뛰세요</div>
+      <div id="ambig-list"></div>
+    </div>
+
+    <div class="section-label">탐지된 수식</div>
+    <div id="eq-list"></div>
+
+    <div id="gen-note" hidden></div>
+  </section>
+</main>
+
+<script>
+'use strict';
+
+/* ============================================================
+ * 상태
+ * ========================================================== */
+const DOCX_PATH = 'word/document.xml';
+const RELS_PATH = 'word/_rels/document.xml.rels';
+const CT_PATH   = '[Content_Types].xml';
+let blockText  = {};   // key -> 원본 단락 텍스트 (문맥 스니펫용)
+let scanState  = [];   // [{ eq, status: 'pending' | 'skipped' }]
+let ambigState = [];   // 미해결 모호성 항목
+
+let docxZip      = null;  // 원본 .docx (JSZip) — 내보내기 때 재패키징
+let origDocXml   = '';    // 원본 word/document.xml 문자열 (불변, 변환 입력)
+let origRelsXml  = '';    // 원본 word/_rels/document.xml.rels 문자열 (불변)
+let docxFileName = '';    // 업로드한 파일명
+
+/* ============================================================
+ * 1. 파일 업로드 + .docx 파싱
+ * ========================================================== */
+const fileInput = document.getElementById('file-input');
+const dropZone  = document.getElementById('drop-zone');
+
+dropZone.addEventListener('click', () => fileInput.click());
+dropZone.addEventListener('dragover', e => {
+  e.preventDefault(); dropZone.classList.add('over');
+});
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault(); dropZone.classList.remove('over');
+  if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+});
+fileInput.addEventListener('change', () => {
+  if (fileInput.files[0]) loadFile(fileInput.files[0]);
+});
+
+function setStatus(msg, kind) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.className = kind || '';
+}
+
+async function loadFile(file) {
+  if (!file.name.toLowerCase().endsWith('.docx')) {
+    setStatus('.docx 파일만 지원합니다.', 'error');
+    return;
+  }
+  setStatus('문서 분석 중…', '');
+  try {
+    const buf    = await file.arrayBuffer();
+    const blocks = await parseDocx(buf);
+    const result = scanAll(blocks);
+    showReview(file.name, result.equations, result.ambiguous);
+  } catch (err) {
+    console.error(err);
+    setStatus('분석 실패: ' + err.message, 'error');
+  }
+}
+
+/**
+ * .docx 를 풀어 단락/표 셀 텍스트 블록 배열로 변환한다.
+ * 애드온의 scanDocument()가 DocumentApp API로 하던 일을, 여기서는
+ * word/document.xml 을 직접 파싱해 동일한 입력(텍스트 + 위치)을 만든다.
+ */
+async function parseDocx(buf) {
+  const zip   = await JSZip.loadAsync(buf);
+  const entry = zip.file(DOCX_PATH);
+  if (!entry) throw new Error('word/document.xml 을 찾을 수 없습니다.');
+
+  // 내보내기 단계에서 재사용할 원본 보관
+  docxZip     = zip;
+  origDocXml  = await entry.async('string');
+  const relsEntry = zip.file(RELS_PATH);
+  origRelsXml = relsEntry ? await relsEntry.async('string') : '';
+
+  const xml  = new DOMParser().parseFromString(origDocXml, 'application/xml');
+  const body = xml.getElementsByTagName('w:body')[0];
+  if (!body) throw new Error('문서 본문(w:body)이 없습니다.');
+
+  const blocks = [];
+  let idx = 0;
+  for (const node of Array.from(body.children)) {
+    if (node.nodeName === 'w:p') {
+      blocks.push({ paraIndex: idx, cellPath: null, text: paraText(node) });
+      idx++;
+    } else if (node.nodeName === 'w:tbl') {
+      const tableIndex = idx;
+      childrenNamed(node, 'w:tr').forEach((row, r) => {
+        childrenNamed(row, 'w:tc').forEach((cell, c) => {
+          childrenNamed(cell, 'w:p').forEach((p, pIdx) => {
+            blocks.push({
+              paraIndex: null,
+              cellPath:  { tableIndex, rowIndex: r, colIndex: c, cellChildIndex: pIdx },
+              text:      paraText(p),
+            });
+          });
+        });
+      });
+      idx++;
+    }
+  }
+  return blocks;
+}
+
+function childrenNamed(node, name) {
+  return Array.from(node.children).filter(n => n.nodeName === name);
+}
+function paraText(pNode) {
+  let s = '';
+  for (const t of Array.from(pNode.getElementsByTagName('w:t'))) s += t.textContent;
+  return s;
+}
+
+/* ============================================================
+ * 2. 수식 탐지 — src/Code.gs 의 _scanTextForEquations 를 그대로 포팅
+ *    (순수 문자열 처리라 Apps Script API 의존성 없음)
+ * ========================================================== */
+function scanAll(blocks) {
+  const equations = [];
+  const ambiguous = [];
+  blockText = {};
+  // bracket mode 토글: ChatGPT-style `[\...]` 추가 인식 (격리 entry — 이 한
+  // 줄의 if/호출 제거하면 $/$$ 만 처리하는 원래 동작으로 즉시 복귀).
+  const bracketEl = document.getElementById('bracket-mode');
+  const bracketEnabled = bracketEl ? bracketEl.checked : true;
+
+  blocks.forEach(b => {
+    blockText[keyOf(b.paraIndex, b.cellPath)] = b.text;
+    _scanTextForEquations(b.text, b.paraIndex, b.cellPath, equations, ambiguous);
+    if (bracketEnabled) {
+      _scanBracketEquations(b.text, b.paraIndex, b.cellPath, equations);
+    }
+  });
+  return { equations, ambiguous };
+}
+
+function keyOf(paraIndex, cellPath) {
+  return cellPath ? 'c:' + JSON.stringify(cellPath) : 'p:' + paraIndex;
+}
+
+function _scanTextForEquations(text, paraIndex, cellPath, equations, ambiguous) {
+  const displayRanges = [];
+  const displayRegex  = /\$\$([\s\S]+?)\$\$/g;
+  let match;
+
+  // Display equations ($$...$$) are always unambiguous
+  while ((match = displayRegex.exec(text)) !== null) {
+    equations.push({
+      id:         equations.length + 1,
+      latex:      match[1].trim(),
+      type:       'display',
+      paraIndex:  paraIndex,
+      cellPath:   cellPath || null,
+      matchStart: match.index,
+      matchEnd:   match.index + match[0].length,
+    });
+    displayRanges.push([match.index, match.index + match[0].length]);
+  }
+
+  // Collect single-$ positions not inside $$...$$
+  const singlePos = [];
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] !== '$') continue;
+    if (text[i + 1] === '$') { i++; continue; }
+    const inDisplay = displayRanges.some(([ds, de]) => i >= ds && i < de);
+    if (!inDisplay) singlePos.push(i);
+  }
+
+  if (singlePos.length === 0) return;
+
+  const makeEqs = function(positions) {
+    const result = [];
+    for (let i = 0; i + 1 < positions.length; i += 2) {
+      const s = positions[i], e = positions[i + 1];
+      result.push({
+        latex:      text.slice(s + 1, e).trim(),
+        type:       'inline',
+        paraIndex:  paraIndex,
+        cellPath:   cellPath || null,
+        matchStart: s,
+        matchEnd:   e + 1,
+      });
+    }
+    return result;
+  };
+
+  if (singlePos.length % 2 === 0) {
+    // Even count: unambiguous, pair up and add directly
+    makeEqs(singlePos).forEach(function(eq) {
+      eq.id = equations.length + 1;
+      equations.push(eq);
+    });
+  } else {
+    // Odd count: present two options to user
+    ambiguous.push({
+      id:        'amb-' + (ambiguous.length + 1),
+      paraIndex: paraIndex,
+      cellPath:  cellPath || null,
+      text:      text,
+      options: [
+        { label: 'A', desc: 'Treat first $ as plain text', equations: makeEqs(singlePos.slice(1)) },
+        { label: 'B', desc: 'Treat last $ as plain text',  equations: makeEqs(singlePos.slice(0, -1)) },
+      ],
+    });
+  }
+}
+
+/**
+ * Bracket-mode scanner — 격리된 entry.
+ *
+ * ChatGPT 의 markdown 렌더링이 `\[ ... \]` 의 백슬래시를 잃어 `[ ... ]` 로
+ * 만든 케이스에 대한 heuristic. **_scanTextForEquations 의 $/$$ 처리와
+ * 완전히 분리** — 이 함수를 호출하지 않거나 삭제해도 $/$$ 동작은 무영향.
+ *
+ * Heuristic — bracket 안 내용에 LaTeX 시그니처가 하나라도 있어야 매칭:
+ *   - `\` (LaTeX 명령: \frac, \int, \sum, ...)
+ *   - `^` (위첨자) / `_` (아래첨자)
+ *   - `=` (등식: f(x)=..., y=..., ...)
+ *
+ * 산문 `[참고]`, `[1]`, `[표 1]`, `[1번 문제]` 류는 시그니처 0 → 매칭 안 됨.
+ * 구간 표기 `[1,5]` 처럼 시그니처 없는 식은 놓치며, 사용자가 `\[1,5\]` 또는
+ * `$[1,5]$` 로 직접 보정 후 재시도.
+ *
+ * 닫기: `]` 또는 `\]` (depth 추적, 내부 `[\sqrt{[a+b]}]` 같은 nested 처리).
+ * 매칭 결과는 type='display' — `\[ \]` 가 원래 display math.
+ */
+const BRACKET_LATEX_SIG = /[\\^_=]/;
+function _scanBracketEquations(text, paraIndex, cellPath, equations) {
+  // 자체적으로 $ / $$ range 를 계산해 bracket scan 에서 제외 — `$E[X^2]$`
+  // 같이 수식 안 `[X^2]` 가 over-count 되는 걸 방지. equations 인자에서
+  // matchStart/matchEnd 를 가져오지 않는 이유는 그 배열이 caller 측에서
+  // 다른 단락의 매칭도 누적할 수 있어서 (test-multi-run 의 ground truth
+  // 단계처럼). text 안에서 직접 계산하는 게 안전한 self-contained 동작.
+  const occupied = [];
+  let m;
+  const dr = /\$\$([\s\S]+?)\$\$/g;
+  while ((m = dr.exec(text)) !== null) occupied.push([m.index, m.index + m[0].length]);
+  const sp = [];
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] !== '$') continue;
+    if (text[i + 1] === '$') { i++; continue; }
+    if (occupied.some(([a, b]) => i >= a && i < b)) continue;
+    sp.push(i);
+  }
+  if (sp.length % 2 === 0) {
+    for (let i = 0; i + 1 < sp.length; i += 2) occupied.push([sp[i], sp[i + 1] + 1]);
+  }
+
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] !== '[') continue;
+    if (occupied.some(([s, e]) => i >= s && i < e)) continue;
+
+    let depth = 1, pos = i + 1;
+    let closeIdx = -1, closeLen = 0;
+    while (pos < text.length) {
+      if (text[pos] === '\\' && text[pos + 1] === ']') {
+        depth--;
+        if (depth === 0) { closeIdx = pos; closeLen = 2; break; }
+        pos += 2; continue;
+      }
+      if (text[pos] === ']') {
+        depth--;
+        if (depth === 0) { closeIdx = pos; closeLen = 1; break; }
+        pos++; continue;
+      }
+      if (text[pos] === '[') { depth++; pos++; continue; }
+      pos++;
+    }
+    if (closeIdx === -1) continue;
+
+    const inner = text.slice(i + 1, closeIdx);
+    if (!BRACKET_LATEX_SIG.test(inner)) { i = closeIdx; continue; }
+
+    const latex = inner.trim();
+    if (latex.length === 0) { i = closeIdx; continue; }
+
+    equations.push({
+      id:         equations.length + 1,
+      latex:      latex,
+      type:       'display',
+      paraIndex:  paraIndex,
+      cellPath:   cellPath || null,
+      matchStart: i,
+      matchEnd:   closeIdx + closeLen,
+    });
+    i = closeIdx + closeLen - 1;  // for++ 가 1 더하므로 -1
+  }
+}
+
+/* ============================================================
+ * 3. 리뷰 UI
+ * ========================================================== */
+function showReview(fileName, equations, ambiguous) {
+  docxFileName = fileName;
+  scanState  = equations.map(eq => ({ eq, status: 'pending' }));
+  ambigState = ambiguous.slice();
+  document.getElementById('upload-stage').hidden = true;
+  document.getElementById('review-stage').hidden = false;
+  document.getElementById('doc-name').textContent = fileName;
+  document.getElementById('gen-note').hidden = true;
+  renderAll();
+}
+
+function renderAll() {
+  const ambigWrap = document.getElementById('ambig-wrap');
+  const ambigList = document.getElementById('ambig-list');
+  const eqList    = document.getElementById('eq-list');
+
+  ambigWrap.hidden = ambigState.length === 0;
+  ambigList.innerHTML = '';
+  ambigState.forEach(amb => ambigList.appendChild(buildAmbigCard(amb)));
+
+  eqList.innerHTML = '';
+  if (scanState.length === 0) {
+    eqList.innerHTML = '<div class="card"><p class="empty">탐지된 $…$ 수식이 없습니다.</p></div>';
+  } else {
+    scanState.forEach((entry, i) => eqList.appendChild(buildEqCard(entry, i)));
+  }
+  updateToolbar();
+}
+
+function updateToolbar() {
+  const kept    = scanState.filter(e => e.status !== 'skipped').length;
+  const skipped = scanState.length - kept;
+  document.getElementById('counts').textContent =
+    `선택 ${kept} · 건너뜀 ${skipped} · 미해결 모호성 ${ambigState.length}`;
+  document.getElementById('btn-generate').disabled = kept === 0;
+}
+
+function locLabel(eq) {
+  if (eq.cellPath) {
+    const cp = eq.cellPath;
+    return `표 ${cp.tableIndex + 1} · 행 ${cp.rowIndex + 1} · 열 ${cp.colIndex + 1}`;
+  }
+  return `단락 ${eq.paraIndex + 1}`;
+}
+
+function previewInto(el, latex, isDisplay) {
+  try {
+    el.innerHTML = temml.renderToString(latex, { displayMode: isDisplay, throwOnError: true });
+    el.classList.remove('err');
+  } catch (e) {
+    el.textContent = '렌더 오류: ' + e.message;
+    el.classList.add('err');
+  }
+}
+
+function contextHtml(eq) {
+  const text = blockText[keyOf(eq.paraIndex, eq.cellPath)];
+  if (text == null) return '';
+  const R = 45;
+  const s = eq.matchStart, e = eq.matchEnd;
+  const before = (s - R > 0 ? '…' : '') + text.slice(Math.max(0, s - R), s);
+  const mid    = text.slice(s, e);
+  const after  = text.slice(e, e + R) + (e + R < text.length ? '…' : '');
+  return `문맥: ${escHtml(before)}<mark>${escHtml(mid)}</mark>${escHtml(after)}`;
+}
+
+function buildEqCard(entry, index) {
+  const eq = entry.eq;
+  const card = document.createElement('div');
+  card.className = 'card eq-card' + (entry.status === 'skipped' ? ' skipped' : '');
+
+  const isDisplay = eq.type === 'display';
+  card.innerHTML = `
+    <div class="card-head">
+      <span class="badge ${eq.type}">${isDisplay ? 'DISPLAY $$' : 'INLINE $'}</span>
+      <span class="loc">${locLabel(eq)}</span>
+      <span class="spacer"></span>
+      <button class="btn-ghost btn-skip">${entry.status === 'skipped' ? '되돌리기' : '건너뛰기'}</button>
+    </div>
+    <div class="card-body">
+      <div class="preview"></div>
+      <div class="latex-src">${escHtml(eq.latex)}</div>
+      <div class="context">${contextHtml(eq)}</div>
+    </div>`;
+
+  previewInto(card.querySelector('.preview'), eq.latex, isDisplay);
+  card.querySelector('.btn-skip').addEventListener('click', () => {
+    entry.status = entry.status === 'skipped' ? 'pending' : 'skipped';
+    renderAll();
+  });
+  return card;
+}
+
+function buildAmbigCard(amb) {
+  const card = document.createElement('div');
+  card.className = 'card ambig';
+
+  const optionsHtml = amb.options.map((opt, oi) => `
+    <div class="option">
+      <h4>해석 ${opt.label}</h4>
+      <div class="desc">${escHtml(opt.desc)} — 수식 ${opt.equations.length}개</div>
+      <div class="opt-previews" data-opt="${oi}"></div>
+      <button class="btn-primary btn-use" data-opt="${oi}">이 해석 사용</button>
+    </div>`).join('');
+
+  card.innerHTML = `
+    <div class="card-head">
+      <span class="ambig-warn">⚠ $ 개수가 홀수 — 수식 구간이 모호합니다</span>
+      <span class="spacer"></span>
+      <button class="btn-ghost btn-skip-amb">건너뛰기</button>
+    </div>
+    <div class="card-body">
+      <div class="ambig-text">${escHtml(amb.text)}</div>
+      <div class="options">${optionsHtml}</div>
+    </div>`;
+
+  // 각 해석의 수식 미리보기 채우기
+  amb.options.forEach((opt, oi) => {
+    const box = card.querySelector(`.opt-previews[data-opt="${oi}"]`);
+    if (opt.equations.length === 0) {
+      box.innerHTML = '<div class="mini-preview">(수식 없음)</div>';
+    }
+    opt.equations.forEach(eq => {
+      const mp = document.createElement('div');
+      mp.className = 'mini-preview';
+      previewInto(mp, eq.latex, eq.type === 'display');
+      box.appendChild(mp);
+    });
+  });
+
+  card.querySelectorAll('.btn-use').forEach(btn => {
+    btn.addEventListener('click', () => resolveAmbiguity(amb.id, +btn.dataset.opt));
+  });
+  card.querySelector('.btn-skip-amb').addEventListener('click', () => {
+    ambigState = ambigState.filter(a => a.id !== amb.id);
+    renderAll();
+  });
+  return card;
+}
+
+/** 모호성 해결: 선택한 해석의 수식을 일반 목록에 추가하고 카드 제거 */
+function resolveAmbiguity(ambId, optIdx) {
+  const amb = ambigState.find(a => a.id === ambId);
+  if (!amb) return;
+  amb.options[optIdx].equations.forEach(eq => {
+    scanState.push({ eq, status: 'pending' });
+  });
+  ambigState = ambigState.filter(a => a.id !== ambId);
+  renderAll();
+}
+
+/* ============================================================
+ * 4. 내보내기 — 선택 수식을 PNG 로 렌더해 .docx 에 삽입·재패키징
+ *
+ *  파이프라인:
+ *   ① 선택 수식 수집 (중복 latex 는 1회만 렌더)
+ *   ② MathJax SVG → canvas → PNG (latexToPngBase64)
+ *   ③ document.xml 의 $…$ 텍스트를 <w:drawing> 인라인 이미지로 치환
+ *   ④ word/media/ 에 PNG, document.xml.rels 에 관계 추가 후 zip 재패키징
+ *
+ *  - 원본 LaTeX 는 이미지 alt(descr="AIMATH_FORMULA::v1::…")에 저장 →
+ *    애드온과 동일 규약이라 역변환·호환 가능.
+ *  - origDocXml/origRelsXml 은 불변 입력이라 재실행해도 결과가 동일(멱등).
+ * ========================================================== */
+const EMU_PER_PX  = 9525;                      // 1px = 9525 EMU (96dpi)
+const FORMULA_TAG = 'AIMATH_FORMULA::v1::';    // 애드온과 동일한 alt 텍스트 규약
+const SIZE_SCALE  = 2;   // 표시 배율 — 2 = 애드온이 삽입하는 2x PNG 자연 크기와 동일
+                         //            (1 = 1x 논리 크기, 인라인 14px / display 22px)
+const RUN_RE      = /<w:r(?:\s[^>]*)?>[\s\S]*?<\/w:r>/g;
+const WT_RE       = /<w:t(?:\s[^>]*)?>([\s\S]*?)<\/w:t>/;
+const WT_RE_G     = /<w:t(?:\s[^>]*)?>([\s\S]*?)<\/w:t>/g;
+const PARA_RE     = /<w:p(?:\s[^>]*)?>[\s\S]*?<\/w:p>/g;
+
+document.getElementById('btn-generate').addEventListener('click', onGenerate);
+
+async function onGenerate() {
+  const btn  = document.getElementById('btn-generate');
+  const note = document.getElementById('gen-note');
+
+  const selected = scanState.filter(e => e.status !== 'skipped').map(e => e.eq);
+  if (selected.length === 0) return;
+
+  const origLabel = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = '변환 중…';
+  note.hidden = false;
+  note.innerHTML = 'MathJax 로딩 중…';
+
+  try {
+    if (typeof MathJax === 'undefined' || !MathJax.startup) {
+      throw new Error('MathJax 가 아직 로드되지 않았습니다. 잠시 후 다시 시도하세요.');
+    }
+    await MathJax.startup.promise;
+
+    const selectedSet = new Set(selected.map(e => e.latex));
+
+    // ① 문서에서 실제 치환 대상 수집 (중복 latex+type 은 1개로)
+    const targets = collectTargets(origDocXml, selectedSet);
+    if (targets.length === 0) throw new Error('문서에서 치환할 수식을 찾지 못했습니다.');
+
+    // ② 각 수식 PNG 렌더 → 이미지/관계 캐시
+    const cache  = new Map();   // 'latex|type' → {rId,imageName,cx,cy,b64}
+    const failed = [];
+    for (let i = 0; i < targets.length; i++) {
+      const t = targets[i];
+      note.innerHTML = `수식 렌더링 중… ${i + 1} / ${targets.length}`;
+      try {
+        const png = await latexToPngBase64(t.latex, t.type === 'display');
+        const n   = cache.size;                  // image1.png / rId1~6 은 원본이 사용중
+        // 표시 크기 = 1x 논리크기(canvasW/2) × SIZE_SCALE.  PNG 자체는 2x 해상도라 선명함 유지.
+        cache.set(t.latex + '|' + t.type, {
+          rId:       'rId' + (n + 7),
+          imageName: 'image' + (n + 2) + '.png',
+          cx:        Math.round((png.canvasW / 2) * SIZE_SCALE * EMU_PER_PX),
+          cy:        Math.round((png.canvasH / 2) * SIZE_SCALE * EMU_PER_PX),
+          b64:       png.b64,
+        });
+      } catch (e) {
+        console.error('render failed:', t.latex, e);
+        failed.push(t.latex);
+      }
+    }
+    if (cache.size === 0) throw new Error('수식 렌더링에 모두 실패했습니다.');
+
+    // ③ document.xml / rels 변환
+    note.innerHTML = '.docx 재조립 중…';
+    let drawCount = 0;
+    const newDocXml  = transformDocumentXml(origDocXml, selectedSet, cache,
+                                            () => { drawCount++; });
+    const newRelsXml = addImageRelationships(origRelsXml, cache);
+
+    // ③-2. [Content_Types].xml 에 image/png MIME 보장.
+    // 텍스트-only docx (Minimal-class) 는 원본에 image/png 선언이 없어,
+    // word/media/imageN.png 를 추가해도 Word 가 "등록 안 된 MIME → 손상 파일"
+    // 으로 복구 모드에 들어간다. Default Extension="png" 한 줄만 보강.
+    const ctEntry = docxZip.file(CT_PATH);
+    if (ctEntry) {
+      const origCtXml = await ctEntry.async('string');
+      const newCtXml  = ensurePngContentType(origCtXml);
+      if (newCtXml !== origCtXml) docxZip.file(CT_PATH, newCtXml);
+    }
+
+    // ④ zip 에 반영 후 재패키징
+    docxZip.file(DOCX_PATH, newDocXml);
+    docxZip.file(RELS_PATH, newRelsXml);
+    cache.forEach(c => docxZip.file('word/media/' + c.imageName, c.b64, { base64: true }));
+
+    const blob = await docxZip.generateAsync({
+      type:     'blob',
+      mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    });
+    const baseName = docxFileName.replace(/\.docx$/i, '');
+    triggerDownload(blob, baseName + ' (PNG 변환).docx');
+
+    note.innerHTML =
+      `<strong>완료:</strong> 수식 ${drawCount}개를 PNG 이미지로 변환해 ` +
+      `<code>${escHtml(baseName)} (PNG 변환).docx</code> 로 내려받았습니다.<br>` +
+      `각 이미지 alt 텍스트에 원본 LaTeX(<code>${escHtml(FORMULA_TAG)}…</code>)를 저장해 ` +
+      `애드온과 호환되며 역변환이 가능합니다.` +
+      (failed.length
+        ? `<br><span style="color:#d93025">⚠ 렌더 실패 ${failed.length}개는 원본 텍스트로 남겨두었습니다.</span>`
+        : '');
+  } catch (err) {
+    console.error(err);
+    note.innerHTML = '<strong style="color:#d93025">변환 실패:</strong> ' + escHtml(err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = origLabel;
+  }
+}
+
+/** 단일 텍스트에서 수식 탐지 (위치순 정렬) — _scanTextForEquations 재사용 */
+function equationsInText(text) {
+  const eqs = [], amb = [];
+  _scanTextForEquations(text, 0, null, eqs, amb);
+  // 격리 entry — bracket mode 가 켜져 있으면 ChatGPT-style `[\...]` 도 합산.
+  // scanDocument 와 정책 일치 (한 곳만 매칭하고 다른 곳이 무시하면 변환 누락).
+  const bracketEl = (typeof document !== 'undefined') ? document.getElementById('bracket-mode') : null;
+  if (!bracketEl || bracketEl.checked) {
+    _scanBracketEquations(text, 0, null, eqs);
+  }
+  return eqs.sort((a, b) => a.matchStart - b.matchStart);
+}
+
+/**
+ * 단락 안의 모든 <w:r> 를 순서대로 수집하고, 각 run 의 모든 <w:t> 텍스트를 이어 붙인
+ * 단락 전체 텍스트와 run 별 offset 매핑을 반환한다.
+ *  - 한 run 안 다중 <w:t> 도 합쳐 본다 (WT_RE_G).
+ *  - 비-텍스트 노드 (<w:br/> 등) 는 run XML 안에 그대로 남아 있고, run 자체가 수식에
+ *    걸치지 않으면 원본 XML 그대로 재발행되므로 보존된다.
+ */
+function collectRunsInParagraph(paraXml) {
+  const runs = [];
+  let paraText = '';
+  for (const m of paraXml.matchAll(RUN_RE)) {
+    const runXml = m[0];
+    const attrs  = (runXml.match(/^<w:r((?:\s[^>]*)?)>/) || ['', ''])[1];
+    const rPr    = (runXml.match(/<w:rPr(?:\s[^>]*)?\/>|<w:rPr(?:\s[^>]*)?>[\s\S]*?<\/w:rPr>/) || [''])[0];
+    let text = '';
+    const re = new RegExp(WT_RE_G.source, 'g');
+    let wm;
+    while ((wm = re.exec(runXml)) !== null) text += xmlUnescape(wm[1]);
+    const textStart = paraText.length;
+    paraText += text;
+    runs.push({
+      xmlStart: m.index, xmlEnd: m.index + runXml.length,
+      textStart, textEnd: paraText.length,
+      attrs, rPr, runXml,
+    });
+  }
+  return { runs, paraText };
+}
+
+/** document.xml 의 모든 단락을 훑어 선택된 수식의 (latex,type) 목록을 중복 없이 수집.
+ *  단락 단위 텍스트 합산이므로 멀티-<w:t> 수식도 잡힌다. */
+function collectTargets(xml, selectedSet) {
+  const seen = new Set(), targets = [];
+  xml.replace(PARA_RE, function(paraXml) {
+    const { paraText } = collectRunsInParagraph(paraXml);
+    equationsInText(paraText).forEach(eq => {
+      if (!selectedSet.has(eq.latex)) return;
+      const key = eq.latex + '|' + eq.type;
+      if (!seen.has(key)) { seen.add(key); targets.push({ latex: eq.latex, type: eq.type }); }
+    });
+    return paraXml;
+  });
+  return targets;
+}
+
+/**
+ * document.xml 문자열을 단락 단위로 변환한다 (후보 A — Stage 1-A P0).
+ *
+ *  - 단락 안 모든 <w:r> 의 <w:t> 텍스트를 이어 붙여 paraText 를 만들고, 그 위에서
+ *    수식 패턴을 매칭한다. 이 단계에서 멀티-<w:t> 수식이 비로소 잡힌다.
+ *  - 매칭 결과를 run 별로 다시 분류해 ‘앞-텍스트 run → 드로잉 run → 뒤-텍스트 run’ 로
+ *    splice 한다. 수식이 통째로 삼킨 가운데 run 들은 빈 결과를 낸다 (드로잉은 시작 run
+ *    한 번만 발행).
+ *  - 매칭이 0건이면 단락 XML 을 바이트 동일하게 반환 → 단일-run 경로 회귀 방지.
+ *  - 컨테이너(<w:hyperlink>, <w:sdt>, <w:fldSimple>, <w:ins>, <w:del>) 와 run 사이
+ *    비-텍스트 노드(<w:br/>, <w:tab/>, <w:cr/>, <w:pPr>) 는 ‘run 사이 chunk’ 그대로
+ *    재발행되어 보존된다. 매칭에 안 걸린 run 도 원본 XML 그대로 보존.
+ *  - 매칭에 걸린 run 의 wrapper attrs/rPr 은 ‘시작 run’ 의 것을 사용한다.
+ */
+function transformDocumentXml(xml, selectedSet, cache, onDraw) {
+  let docPrId = 1000;   // 기존 도형 id(1) 과 충돌 회피
+  let emitted = 0;
+  const drew = () => { emitted++; onDraw(); };
+  const replaced = xml.replace(PARA_RE, function(paraXml) {
+    const { runs, paraText } = collectRunsInParagraph(paraXml);
+    if (runs.length === 0) return paraXml;
+
+    const eqs = equationsInText(paraText).filter(e => selectedSet.has(e.latex));
+    if (eqs.length === 0) return paraXml;
+    // 렌더 실패로 캐시에 없는 수식이 섞여 있으면 단락 전체 원본 유지
+    if (eqs.some(e => !cache.has(e.latex + '|' + e.type))) return paraXml;
+
+    let out = '', cursor = 0;
+    for (const r of runs) {
+      // run 직전 chunk (<w:pPr>, <w:hyperlink ...>, 컨테이너 닫힘 등) 그대로
+      out += paraXml.slice(cursor, r.xmlStart);
+      cursor = r.xmlEnd;
+
+      // 이 run 을 건드리는 수식이 없으면 원본 XML 그대로 (비-텍스트 노드 포함 보존)
+      const overlapping = eqs.filter(eq => eq.matchStart < r.textEnd && eq.matchEnd > r.textStart);
+      if (overlapping.length === 0) { out += r.runXml; continue; }
+
+      // 시작 run 의 attrs/rPr 로 드로잉을 감싼다. 텍스트 조각도 동일 attrs/rPr 로 재발행.
+      const textRun = s => '<w:r' + r.attrs + '>' + r.rPr +
+                           '<w:t xml:space="preserve">' + escHtml(s) + '</w:t></w:r>';
+
+      let pos = r.textStart;
+      while (pos < r.textEnd) {
+        const inside = overlapping.find(eq => eq.matchStart <= pos && pos < eq.matchEnd);
+        if (inside) {
+          // 수식이 ‘이 run 안에서 시작’ 할 때만 드로잉 발행 (가운데/끝 run 에선 생략)
+          if (pos === inside.matchStart) {
+            const c = cache.get(inside.latex + '|' + inside.type);
+            out += '<w:r' + r.attrs + '><w:rPr/>' + buildDrawingXml(c, inside.latex, ++docPrId) + '</w:r>';
+            drew();
+          }
+          pos = Math.min(inside.matchEnd, r.textEnd);
+        } else {
+          const next = overlapping.find(eq => eq.matchStart > pos && eq.matchStart < r.textEnd);
+          const segEnd  = next ? next.matchStart : r.textEnd;
+          const segText = paraText.slice(pos, segEnd);
+          if (segText.length > 0) out += textRun(segText);
+          pos = segEnd;
+        }
+      }
+    }
+    // 마지막 run 뒤의 chunk (</w:p> 등)
+    out += paraXml.slice(cursor);
+    return out;
+  });
+  // 텍스트-only docx (D02~D10 류) 는 원본에 xmlns:a / xmlns:pic 가 없다.
+  // drawing 을 한 건이라도 발행했으면 두 prefix 를 <w:document> 루트에 보장한다 —
+  // 미선언 prefix 가 들어가면 Word 가 "파일 손상" 으로 거부한다.
+  if (emitted === 0) return replaced;
+  return replaced.replace(/<w:document(\s[^>]*)?>/, function(m, attrs) {
+    attrs = attrs || '';
+    let add = '';
+    if (!/\sxmlns:a=/.test(attrs))   add += ' xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"';
+    if (!/\sxmlns:pic=/.test(attrs)) add += ' xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture"';
+    return add ? '<w:document' + attrs + add + '>' : m;
+  });
+}
+
+/** 인라인 이미지 <w:drawing> 생성 — 원본 image1.png 의 구조를 그대로 따른다 */
+function buildDrawingXml(c, latex, id) {
+  const descr = escHtml(FORMULA_TAG + latex);
+  const name  = escHtml(c.imageName);
+  return '<w:drawing>' +
+    '<wp:inline distB="19050" distT="19050" distL="19050" distR="19050">' +
+    '<wp:extent cx="' + c.cx + '" cy="' + c.cy + '"/>' +
+    '<wp:effectExtent b="0" l="0" r="0" t="0"/>' +
+    '<wp:docPr descr="' + descr + '" id="' + id + '" name="' + name + '"/>' +
+    '<a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">' +
+    '<pic:pic>' +
+      '<pic:nvPicPr>' +
+        '<pic:cNvPr descr="' + descr + '" id="' + id + '" name="' + name + '"/>' +
+        '<pic:cNvPicPr preferRelativeResize="0"/>' +
+      '</pic:nvPicPr>' +
+      '<pic:blipFill>' +
+        '<a:blip r:embed="' + c.rId + '"/>' +
+        '<a:srcRect b="0" l="0" r="0" t="0"/>' +
+        '<a:stretch><a:fillRect/></a:stretch>' +
+      '</pic:blipFill>' +
+      '<pic:spPr>' +
+        '<a:xfrm><a:off x="0" y="0"/><a:ext cx="' + c.cx + '" cy="' + c.cy + '"/></a:xfrm>' +
+        '<a:prstGeom prst="rect"/><a:ln/>' +
+      '</pic:spPr>' +
+    '</pic:pic>' +
+    '</a:graphicData></a:graphic>' +
+    '</wp:inline></w:drawing>';
+}
+
+/** [Content_Types].xml 에 `<Default Extension="png" ContentType="image/png"/>` 가 없으면 추가.
+ *  - 이미 어떤 형태(Default 또는 Override)로 png 가 등록돼 있으면 손대지 않음 (멱등).
+ *  - 텍스트-only docx 는 이 선언이 빠져 있어 Word 가 "복구 가능한 손상" 으로 표시. */
+function ensurePngContentType(ctXml) {
+  if (/Extension="png"|ContentType="image\/png"/i.test(ctXml)) return ctXml;
+  return ctXml.replace(/<Types(\s[^>]*)?>/,
+    m => m + '<Default Extension="png" ContentType="image/png"/>');
+}
+
+/** document.xml.rels 에 이미지 관계를 추가한다 (image/png MIME 은 ensurePngContentType 가 보장) */
+function addImageRelationships(relsXml, cache) {
+  let add = '';
+  cache.forEach(c => {
+    add += '<Relationship Id="' + c.rId + '" ' +
+           'Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" ' +
+           'Target="media/' + c.imageName + '"/>';
+  });
+  return relsXml.replace('</Relationships>', add + '</Relationships>');
+}
+
+function xmlUnescape(s) {
+  return s.replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+          .replace(/&quot;/g, '"').replace(/&apos;/g, "'")
+          .replace(/&#39;/g, "'").replace(/&amp;/g, '&');
+}
+
+function triggerDownload(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a   = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.rel = 'noopener';
+  a.style.display = 'none';
+  // 일부 브라우저(Firefox 등)는 <a> 가 DOM 에 붙어 있어야 download 속성을 인정한다.
+  // 빠지면 blob URL 의 UUID 가 그대로 파일명(확장자 없음)이 된다.
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => {
+    a.remove();
+    URL.revokeObjectURL(url);
+  }, 1000);
+}
+
+/* ── LaTeX → PNG base64 (MathJax SVG → canvas) — Sidebar.html 와 동일 ── */
+function latexToPngBase64(latex, isDisplay) {
+  return MathJax.startup.promise.then(() => {
+    const wrapper = MathJax.tex2svg(latex, { display: isDisplay });
+    const svgEl   = wrapper.querySelector('svg');
+    if (!svgEl) throw new Error('SVG 생성 실패');
+
+    function parseEx(attr) {
+      const m = String(attr || '').match(/^([\d.]+)/);
+      return m ? parseFloat(m[1]) : 0;
+    }
+    const wEx = parseEx(svgEl.getAttribute('width'));
+    const hEx = parseEx(svgEl.getAttribute('height'));
+
+    const targetH = isDisplay ? 22 : 14;
+    const scale   = hEx > 0 ? targetH / hEx : 20;
+    const w = Math.max(Math.round(wEx * scale), 10);
+    const h = Math.max(Math.round(hEx * scale), 10);
+
+    svgEl.setAttribute('width',  w + 'px');
+    svgEl.setAttribute('height', h + 'px');
+    svgEl.setAttribute('color', '#000000');   // MathJax 의 fill:currentColor 명시
+
+    const svgStr = new XMLSerializer().serializeToString(svgEl);
+
+    function tryRender(url) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width  = w * 2;            // 2배 해상도로 선명하게
+          canvas.height = h * 2;
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.scale(2, 2);
+          ctx.drawImage(img, 0, 0, w, h);
+          if (url.startsWith('blob:')) URL.revokeObjectURL(url);
+          canvas.toBlob(blob => {
+            if (!blob) { reject(new Error('PNG 변환 실패')); return; }
+            const reader = new FileReader();
+            reader.onload  = () => resolve({
+              b64: reader.result.split(',')[1],
+              canvasW: canvas.width, canvasH: canvas.height,
+            });
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+          }, 'image/png');
+        };
+        img.onerror = () => {
+          if (url.startsWith('blob:')) URL.revokeObjectURL(url);
+          reject(new Error('SVG 이미지 로드 실패'));
+        };
+        img.src = url;
+      });
+    }
+
+    // Blob URL 우선, 실패 시 data: URL 폴백 (Firefox canvas taint 우회)
+    const blobUrl = URL.createObjectURL(new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' }));
+    return tryRender(blobUrl).catch(() =>
+      tryRender('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgStr)));
+  });
+}
+
+document.getElementById('btn-reset').addEventListener('click', () => {
+  scanState = []; ambigState = []; blockText = {};
+  docxZip = null; origDocXml = ''; origRelsXml = ''; docxFileName = '';
+  fileInput.value = '';
+  document.getElementById('review-stage').hidden = true;
+  document.getElementById('upload-stage').hidden = false;
+  setStatus('', '');
+});
+
+/* ============================================================
+ * 유틸
+ * ========================================================== */
+function escHtml(s) {
+  return String(s).replace(/[&<>"]/g, c => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]
+  ));
+}
+</script>
+</body>
+</html>

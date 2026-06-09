@@ -23,6 +23,8 @@ LaTeXFlow accesses your Google Docs™ document solely to provide its core funct
 - **Document reading**: The Add-on scans your document body to detect LaTeX expressions enclosed in `$...$` and `$$...$$` delimiters.
 - **Document writing**: Detected expressions are replaced in-place with rendered equation images. The Add-on also reads inline image metadata to support reverting images back to editable LaTeX text.
 - **Sidebar and dialogs**: The Add-on displays a sidebar panel for LaTeX input and live preview, and a modal dialog for managing data collection consent, within Google Docs™.
+- **External rendering libraries**: The Add-on loads Temml and MathJax from jsDelivr CDN to render LaTeX expressions as images within the sidebar. No document content is included in these requests.
+- **User identification**: The Add-on reads your Google account email address solely to associate anonymized error logs and optional training data with your session. Your email is never shared with third parties or stored in plain text outside of Google's infrastructure.
 
 Your document content is processed within Google's infrastructure (Apps Script) and is **not transmitted to external servers**. The Add-on never stores or shares the text content of your document.
 
