@@ -58,6 +58,13 @@ google_site_verification:               # fill in to your verification string
 google_analytics:
   id:                 # fill in your Google Analytics ID
   # Google Analytics pageviews report settings
+
+cloudflare_analytics:
+  # Cloudflare Web Analytics beacon token. Get it from:
+  # Cloudflare dashboard -> Analytics & Logs -> Web Analytics -> Add a site
+  # -> domain: mathsystem.dev -> copy the value of data-cf-beacon "token".
+  # Script only injects when this is non-empty AND jekyll env is production.
+  token: ''
   pv:
     proxy_endpoint:   # fill in the Google Analytics superProxy endpoint of Google App Engine
     cache_path:       # the local PV cache data, friendly to visitors from GFW region
