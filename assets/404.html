@@ -18,7 +18,7 @@ redirect_from:
   {%- endcapture -%}
 
   {%- capture _archives_page -%}
-    <a href="{{ 'archives' | relative_url }}">{{ site.data.locales[lang].not_found.archives_page }}</a>
+    <a href="{{ '/blog/archives/' | relative_url }}">{{ site.data.locales[lang].not_found.archives_page }}</a>
   {%- endcapture -%}
 
   <p>{{site.data.locales[lang].not_found.statment }}</p>

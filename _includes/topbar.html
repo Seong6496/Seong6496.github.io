@@ -31,9 +31,11 @@
             <span>{{ page.title }}</span>
           {% endif %}
 
+        {% elsif item == 'blog' %}
+          <!-- /blog/ prefix is implied; the Home link covers root navigation -->
         {% elsif page.layout == 'category' or page.layout == 'tag' %}
           <span>
-            <a href="{{ item | relative_url }}">
+            <a href="{{ item | prepend: '/blog/' | append: '/' | relative_url }}">
               {{ site.data.locales[lang].tabs[item] | default: page.title }}
             </a>
           </span>

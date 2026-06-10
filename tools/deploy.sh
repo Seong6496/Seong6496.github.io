@@ -56,17 +56,10 @@ build() {
 }
 
 test() {
-  # The three URL patterns ignored below come from Chirpy theme files
-  # (vendored 404.html and sub-category/sub-tag page back-links) that
-  # we cannot edit from this repo. The targets (/blog/categories/,
-  # /blog/tags/, /blog/archives/) exist; only the back-link href is
-  # stuck on the pre-/blog root. Fix tracked as a follow-up: override
-  # the offending Chirpy templates locally and drop these ignores.
   bundle exec htmlproofer \
     --disable-external \
     --check-html \
     --allow_hash_href \
-    --url-ignore "/^\/categories$/,/^\/tags$/,/^\/archives$/" \
     "$SITE_DIR"
 }
 
