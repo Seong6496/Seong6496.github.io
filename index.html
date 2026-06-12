@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -189,12 +191,62 @@
     .badge--live { background: var(--badge-live-bg); color: var(--badge-live-text); }
     .badge--beta { background: var(--badge-beta-bg); color: var(--badge-beta-text); }
 
+    /* writing — latest posts pulled from _posts/ at build time */
+    .writing {
+      padding: 56px 0 80px;
+      border-top: 0.5px solid var(--border);
+    }
+    .writing .eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--text-hint);
+      text-transform: uppercase;
+      margin: 0 0 28px;
+    }
+    .writing-list {
+      list-style: none;
+      margin: 0 0 24px;
+      padding: 0;
+    }
+    .writing-item { border-bottom: 0.5px solid var(--border-soft); }
+    .writing-item:last-child { border-bottom: 0; }
+    .writing-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      padding: 14px 0;
+      color: var(--text);
+      transition: color 0.15s;
+    }
+    .writing-link:hover { color: var(--accent); }
+    .writing-title {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 500;
+      flex: 1;
+    }
+    .writing-date {
+      font-size: 13px;
+      color: var(--text-hint);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .writing-more {
+      font-size: 14px;
+      color: var(--accent);
+    }
+    .writing-more:hover { color: var(--accent-hover); }
+
     @media (max-width: 900px) {
       .shell { padding: 0 18px; }
       .hero { padding: 56px 0 48px; }
       .hero h1 { font-size: 1.75rem; }
       .product-grid { grid-template-columns: 1fr; gap: 12px; }
       .product-card { padding: 22px 22px 20px; }
+      .writing { padding: 40px 0 56px; }
+      .writing-link { flex-direction: column; align-items: flex-start; gap: 4px; padding: 12px 0; }
+      .writing-title { font-size: 16px; }
     }
   </style>
 </head>
@@ -235,13 +287,24 @@
       </a>
     </div>
   </section>
+
+  <section class="writing">
+    <p class="eyebrow">Writing</p>
+    <ul class="writing-list">
+      {% for post in site.posts limit:3 %}
+      <li class="writing-item">
+        <a class="writing-link" href="{{ post.url | relative_url }}">
+          <span class="writing-title">{{ post.title }}</span>
+          <time class="writing-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+    <a class="writing-more" href="/blog/">블로그 더 보기 →</a>
+  </section>
 </div>
 
-<!-- blog-entry / footer — Phase 3~4 에서 시안 마크업으로 교체. -->
-
-<section class="blog-entry" style="padding: 70px 24px; text-align: center; border-top: 0.5px solid var(--border);">
-  <a class="btn-primary" href="/blog/">블로그 보기 →</a>
-</section>
+<!-- footer — Phase 4 운영 정보 블록은 푸터 위 별도 작업. -->
 
 <footer style="border-top: 0.5px solid var(--border); padding: 28px 24px; text-align: center;">
   <div class="footer-copy" style="font-size: 12px; color: var(--text-hint);">© 2026 Math System</div>
