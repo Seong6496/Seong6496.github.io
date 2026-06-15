@@ -1,0 +1,27 @@
+name: 'Scheduled rebuild (publish future posts)'
+on:
+  schedule:
+    - cron: '0 0 * * *'   # daily 00:00 UTC = 09:00 KST
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Push empty commit to trigger Pages deploy
+        run: |
+          git commit --allow-empty -m "scheduled rebuild $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push origin HEAD:master

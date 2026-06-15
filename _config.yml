@@ -125,6 +125,13 @@ assets:
 paginate: 10
 paginate_path: '/blog/page:num/'
 
+# Scheduled publishing — keep `future: false` so posts with a future `date:` are
+# excluded from the build until that date arrives. The daily cron in
+# .github/workflows/scheduled-rebuild.yml triggers a rebuild every day at
+# 09:00 KST; on that rebuild any post whose `date:` is now in the past is
+# included and goes live automatically.
+future: false
+
 # ------------ The following options are not recommended to be modified ------------------
 
 kramdown:
