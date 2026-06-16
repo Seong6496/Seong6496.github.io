@@ -1,6 +1,6 @@
 ---
 title: "LaTeX 명령어 치트시트 — 논문 한 편에 실제로 쓰는 것만"
-date: 2026-07-08 09:00:00 +0900
+date: 2026-07-01 09:00:00 +0900
 categories: [LaTeX, Reference]
 tags: [latex, 치트시트, cheatsheet, reference, 명령어, 입문]
 math: true

@@ -1,6 +1,6 @@
 ---
 title: "LaTeX 수학 기호 전체 목록 — 관계·집합·논리·연산·화살표"
-date: 2026-07-13 09:00:00 +0900
+date: 2026-07-06 09:00:00 +0900
 categories: [LaTeX, Reference]
 tags: [latex, 수학기호, 관계, 집합, 논리, 화살표, mathbb, reference]
 math: true

@@ -1,6 +1,6 @@
 ---
 title: "LaTeX 그리스 문자 전체 목록 — 소·대문자와 이형 문자까지"
-date: 2026-07-10 09:00:00 +0900
+date: 2026-07-03 09:00:00 +0900
 categories: [LaTeX, Reference]
 tags: [latex, 그리스문자, alpha, beta, gamma, sigma, varepsilon, varphi, reference]
 math: true

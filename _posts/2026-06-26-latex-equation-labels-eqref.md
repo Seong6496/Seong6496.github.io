@@ -1,6 +1,6 @@
 ---
 title: "LaTeX 수식 번호와 참조 — \\label과 \\eqref"
-date: 2026-07-03 10:00:00 +0900
+date: 2026-06-26 09:00:00 +0900
 categories: [LaTeX, 수식]
 tags: [latex, 수식번호, label, eqref, ref, amsmath, 수식]
 math: true

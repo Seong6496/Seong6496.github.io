@@ -1,6 +1,6 @@
 ---
 title: "LaTeX 수식에서 흔히 하는 5가지 실수와 해결법"
-date: 2026-07-06 09:00:00 +0900
+date: 2026-06-29 09:00:00 +0900
 categories: [LaTeX, 수식]
 tags: [latex, 수식, 실수, 디버깅, 첨자, sin, left, right, text, 입문]
 math: true
