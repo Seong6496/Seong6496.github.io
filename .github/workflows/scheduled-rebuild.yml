@@ -5,26 +5,17 @@ on:
   workflow_dispatch: {}
 
 permissions:
-  contents: write
+  actions: write
+  contents: read
 
 jobs:
-  rebuild:
+  trigger-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Configure git
+      - name: Dispatch Automatic build
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-      - name: Touch sentinel and push
-        run: |
-          mkdir -p _data
-          date -u +%Y-%m-%dT%H:%M:%SZ > _data/last_rebuild.txt
-          git add _data/last_rebuild.txt
-          git commit -m "scheduled rebuild $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          git push origin HEAD:master
+          gh workflow run pages-deploy.yml \
+            --repo ${{ github.repository }} \
+            --ref master
