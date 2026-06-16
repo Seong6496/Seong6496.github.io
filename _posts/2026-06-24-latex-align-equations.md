@@ -243,7 +243,7 @@ $$\begin{align*} a &= b & c &= d \\ e &= f & g &= h \end{align*}$$
 ---
 
 이전 글: [#4 LaTeX 행렬과 연립방정식 — pmatrix·bmatrix·cases]({% post_url 2026-06-22-latex-matrix-cases %})
-다음 글: [#6 LaTeX 수식 번호와 참조 — `\label`과 `\eqref`]({% post_url 2026-07-03-latex-equation-labels-eqref %})
+다음 글: [#6 LaTeX 수식 번호와 참조 — `\label`과 `\eqref`]({% post_url 2026-06-26-latex-equation-labels-eqref %})
 
 > **Google Docs / Word 의 수식을 한 번에 깔끔하게** — [LaTeXFlow Web 바로 가기](https://mathsystem.dev/latexflow/web/) (sign-in 없이 즉시)
 {: .prompt-info }

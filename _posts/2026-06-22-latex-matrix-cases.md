@@ -244,7 +244,7 @@ $$f(x) = \begin{cases} x^2 & \text{if } x \geq 0 \\ -x & \text{if } x < 0 \end{c
 ---
 
 이전 글: [#3 LaTeX 그리스 문자와 수학 기호 완전 정복]({% post_url 2026-06-11-latex-greek-symbols %})
-다음 글: #5 LaTeX `align` 환경으로 수식 정렬하기 (작성 예정)
+다음 글: [#5 LaTeX `align` 환경으로 수식 정렬하기]({% post_url 2026-06-24-latex-align-equations %})
 
 > **Google Docs / Word 의 수식을 한 번에 깔끔하게** — [LaTeXFlow Web 바로 가기](https://mathsystem.dev/latexflow/web/) (sign-in 없이 즉시)
 {: .prompt-info }

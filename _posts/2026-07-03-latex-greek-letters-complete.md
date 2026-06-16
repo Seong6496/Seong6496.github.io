@@ -197,8 +197,8 @@ $\mathcal{N}$   % 정규 분포
 
 ---
 
-이전 글: #8 LaTeX 명령어 치트시트 (TODO: link)
-다음 글: #10 LaTeX 수학 기호 전체 목록 (TODO: link)
+이전 글: [#8 LaTeX 명령어 치트시트 — 논문 한 편에 실제로 쓰는 것만]({% post_url 2026-07-01-latex-command-cheatsheet %})
+다음 글: [#10 LaTeX 수학 기호 전체 목록 — 관계·집합·논리·연산·화살표]({% post_url 2026-07-06-latex-math-symbols-complete %})
 
 > **Google Docs / Word 의 수식을 한 번에 깔끔하게** — [LaTeXFlow Web 바로 가기](https://mathsystem.dev/latexflow/web/) (sign-in 없이 즉시)
 {: .prompt-info }
