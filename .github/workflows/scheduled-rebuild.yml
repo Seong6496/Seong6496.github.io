@@ -21,7 +21,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Push empty commit to trigger Pages deploy
+      - name: Touch sentinel and push
         run: |
-          git commit --allow-empty -m "scheduled rebuild $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          mkdir -p _data
+          date -u +%Y-%m-%dT%H:%M:%SZ > _data/last_rebuild.txt
+          git add _data/last_rebuild.txt
+          git commit -m "scheduled rebuild $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           git push origin HEAD:master
