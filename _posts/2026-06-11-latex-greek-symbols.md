@@ -249,14 +249,14 @@ $a_1, a_2, \ldots, a_n$        % 나열 — 아래쪽 점이 자연
 
 LaTeX 그리스 문자는 단순한 작명 규칙 위에 두 가지 함정 — 대문자 명령어가 모든 글자에 있지는 않다, 같은 문자에 이형 모양이 있다 — 만 비켜 가면 사실상 끝납니다. 수학 기호도 분류별로 자주 쓰는 7~10개씩만 손에 익히면 본문 흐름이 끊기지 않습니다.
 
-이 글은 **자주 쓰는 핵심** 기준이라 분야에 따라 더 세밀한 기호가 필요할 수 있습니다. 그리스 문자 24자 전체 (소·대·이형 포함) 와 수학 기호 전체 표는 별도 reference 글 — [#9 그리스 문자 전체 목록]({% post_url 2026-07-03-latex-greek-letters-complete %}), [#10 수학 기호 전체 목록]({% post_url 2026-07-06-latex-math-symbols-complete %}) — 에서 다룹니다.
+이 글은 **자주 쓰는 핵심** 기준이라 분야에 따라 더 세밀한 기호가 필요할 수 있습니다. 그리스 문자 24자 전체 (소·대·이형 포함) 와 수학 기호 전체 표는 별도 reference 글 — <a href="/blog/posts/latex-greek-letters-complete/">#9 그리스 문자 전체 목록</a>, <a href="/blog/posts/latex-math-symbols-complete/">#10 수학 기호 전체 목록</a> — 에서 다룹니다.
 
 다음 글에서는 **행렬과 연립방정식** — `pmatrix`·`bmatrix`·`cases` 환경 — 으로 한 줄 수식을 넘어선 구조적 식 표기를 정리합니다.
 
 ---
 
 이전 글: [#2 LaTeX 분수·제곱·루트·적분 — 가장 자주 쓰는 5가지]({% post_url 2026-06-10-latex-fraction-integral %})
-다음 글: [#4 LaTeX 행렬과 연립방정식 — pmatrix·bmatrix·cases]({% post_url 2026-06-22-latex-matrix-cases %})
+다음 글: <a href="/blog/posts/latex-matrix-cases/">#4 LaTeX 행렬과 연립방정식 — pmatrix·bmatrix·cases</a>
 
 > **Google Docs / Word 의 수식을 한 번에 깔끔하게** — [LaTeXFlow Web 바로 가기](https://mathsystem.dev/latexflow/web/) (sign-in 없이 즉시)
 {: .prompt-info }
