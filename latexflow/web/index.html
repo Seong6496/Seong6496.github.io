@@ -309,6 +309,7 @@ function scanAll(blocks) {
   blocks.forEach(b => {
     blockText[keyOf(b.paraIndex, b.cellPath)] = b.text;
     _scanTextForEquations(b.text, b.paraIndex, b.cellPath, equations, ambiguous);
+    _scanStdLatexEquations(b.text, b.paraIndex, b.cellPath, equations);  // R5 격리 — 이 한 줄 제거 = std \(\)/\[\] 비활성
     if (bracketEnabled) {
       _scanBracketEquations(b.text, b.paraIndex, b.cellPath, equations);
     }
@@ -466,6 +467,79 @@ function _scanBracketEquations(text, paraIndex, cellPath, equations) {
       matchEnd:   closeIdx + closeLen,
     });
     i = closeIdx + closeLen - 1;  // for++ 가 1 더하므로 -1
+  }
+}
+
+/**
+ * Standard LaTeX delimiter scanner — 격리된 entry (R5 isolation 패턴).
+ *
+ * `\(...\)` (inline) 과 `\[...\]` (display) 표준 LaTeX 구분자를 인식한다.
+ * `_scanBracketEquations` 와 동일한 격리 원칙:
+ *   - `_scanTextForEquations` 의 $/$$ 처리와 **완전히 분리**.
+ *   - scanAll / equationsInText 의 callsite 한 줄씩 (총 2 줄) 제거 = 즉시 롤백.
+ *   - 자체적으로 $/$$ occupied range 를 계산해 `$\\(x\\)$` 같은 nested
+ *     case 에서 std-LaTeX scan 이 over-count 되는 걸 방지.
+ *
+ * 백슬래시 escape 라 paired delimiter — 항상 unambiguous (모호성 흐름 안 탐).
+ *
+ * 알려진 한계: bracket-mode 가 ON 인 상태에서 `\\[E=mc^2\\]` 같은 std display
+ * 가 있으면 bracket scanner 가 `[E=mc^2\\]` 도 별개로 매칭해 중복 entry 가
+ * 생길 수 있다. 사용자가 리뷰 UI 에서 한쪽을 skip 하거나 bracket-mode 를 끄면
+ * 된다. 합치는 설계는 라운드 후속 결정 사항.
+ */
+function _scanStdLatexEquations(text, paraIndex, cellPath, equations) {
+  // $/$$ 자체 계산 — _scanBracketEquations 와 동일 패턴.
+  const occupied = [];
+  let m;
+  const dr = /\$\$([\s\S]+?)\$\$/g;
+  while ((m = dr.exec(text)) !== null) occupied.push([m.index, m.index + m[0].length]);
+  const sp = [];
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] !== '$') continue;
+    if (text[i + 1] === '$') { i++; continue; }
+    if (occupied.some(([a, b]) => i >= a && i < b)) continue;
+    sp.push(i);
+  }
+  if (sp.length % 2 === 0) {
+    for (let i = 0; i + 1 < sp.length; i += 2) occupied.push([sp[i], sp[i + 1] + 1]);
+  }
+
+  const overlaps = function(s, e) {
+    return occupied.some(([a, b]) => s < b && e > a);
+  };
+
+  // Display \[...\] — paired 백슬래시 escape, 항상 unambiguous.
+  const stdDisplay = /\\\[([\s\S]+?)\\\]/g;
+  while ((m = stdDisplay.exec(text)) !== null) {
+    const s = m.index, e = m.index + m[0].length;
+    if (overlaps(s, e)) continue;
+    equations.push({
+      id:         equations.length + 1,
+      latex:      m[1].trim(),
+      type:       'display',
+      paraIndex:  paraIndex,
+      cellPath:   cellPath || null,
+      matchStart: s,
+      matchEnd:   e,
+    });
+    occupied.push([s, e]);
+  }
+
+  // Inline \(...\) — paired 백슬래시 escape, 항상 unambiguous.
+  const stdInline = /\\\(([\s\S]+?)\\\)/g;
+  while ((m = stdInline.exec(text)) !== null) {
+    const s = m.index, e = m.index + m[0].length;
+    if (overlaps(s, e)) continue;
+    equations.push({
+      id:         equations.length + 1,
+      latex:      m[1].trim(),
+      type:       'inline',
+      paraIndex:  paraIndex,
+      cellPath:   cellPath || null,
+      matchStart: s,
+      matchEnd:   e,
+    });
+    occupied.push([s, e]);
   }
 }
 
@@ -689,6 +763,9 @@ async function onGenerate() {
           cy:        Math.round((png.canvasH / 2) * SIZE_SCALE * EMU_PER_PX),
           b64:       png.b64,
         });
+        // PRD §4.6 데이터 수집 — fire-and-forget, opt-out 시 no-op.
+        // 법적 근거·범위: docs/technical_guide/web_data_collection_privacy.md
+        submitWebPair(t.latex, png.b64, t.type);
       } catch (e) {
         console.error('render failed:', t.latex, e);
         failed.push(t.latex);
@@ -747,12 +824,19 @@ async function onGenerate() {
 function equationsInText(text) {
   const eqs = [], amb = [];
   _scanTextForEquations(text, 0, null, eqs, amb);
+  _scanStdLatexEquations(text, 0, null, eqs);  // R5 격리 — 이 한 줄 제거 = std \(\)/\[\] 비활성
   // 격리 entry — bracket mode 가 켜져 있으면 ChatGPT-style `[\...]` 도 합산.
   // scanDocument 와 정책 일치 (한 곳만 매칭하고 다른 곳이 무시하면 변환 누락).
   const bracketEl = (typeof document !== 'undefined') ? document.getElementById('bracket-mode') : null;
   if (!bracketEl || bracketEl.checked) {
     _scanBracketEquations(text, 0, null, eqs);
   }
+  // Ambiguity 분기로 빠진 매칭도 합산한다. transform 단계에서 호출될 때는
+  // 사용자가 이미 해석을 선택한 후라 selectedSet 에 옳은 latex 만 들어 있고,
+  // caller 의 selectedSet filter 가 다른 옵션 매칭을 자연스럽게 거른다.
+  // 이 줄이 없으면 홀수-$ 단락의 모든 매칭이 transform 에서 누락된다 (export 단계
+  // 의 equationsInText 가 단락 텍스트만 보고 amb 를 무시했기 때문).
+  amb.forEach(a => a.options.forEach(opt => opt.equations.forEach(eq => eqs.push(eq))));
   return eqs.sort((a, b) => a.matchStart - b.matchStart);
 }
 
@@ -867,14 +951,18 @@ function transformDocumentXml(xml, selectedSet, cache, onDraw) {
     return out;
   });
   // 텍스트-only docx (D02~D10 류) 는 원본에 xmlns:a / xmlns:pic 가 없다.
-  // drawing 을 한 건이라도 발행했으면 두 prefix 를 <w:document> 루트에 보장한다 —
-  // 미선언 prefix 가 들어가면 Word 가 "파일 손상" 으로 거부한다.
+  // drawing 을 한 건이라도 발행했으면 세 prefix (wp / a / pic) 를 <w:document>
+  // 루트에 보장한다 — 미선언 prefix 가 들어가면 Word 가 "파일 손상" 으로 거부한다.
+  // (xmlns:wp 는 Word 산출 docx 에는 기본 박혀있어 그동안 우연히 통과했으나
+  //  minimal docx — D13_delimiter_test 등 — 에서 처음 surface.)
   if (emitted === 0) return replaced;
   return replaced.replace(/<w:document(\s[^>]*)?>/, function(m, attrs) {
     attrs = attrs || '';
     let add = '';
+    if (!/\sxmlns:wp=/.test(attrs))  add += ' xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"';
     if (!/\sxmlns:a=/.test(attrs))   add += ' xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"';
     if (!/\sxmlns:pic=/.test(attrs)) add += ' xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture"';
+    if (!/\sxmlns:r=/.test(attrs))   add += ' xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"';
     return add ? '<w:document' + attrs + add + '>' : m;
   });
 }
@@ -917,7 +1005,9 @@ function ensurePngContentType(ctXml) {
     m => m + '<Default Extension="png" ContentType="image/png"/>');
 }
 
-/** document.xml.rels 에 이미지 관계를 추가한다 (image/png MIME 은 ensurePngContentType 가 보장) */
+/** document.xml.rels 에 이미지 관계를 추가한다 (image/png MIME 은 ensurePngContentType 가 보장).
+ *  원본 rels 가 비어 있는 minimal docx (D13 처럼 `word/_rels/document.xml.rels` 자체가 없는
+ *  경우 loadDocx 가 '' 로 fallback) 는 skeleton 을 먼저 만든 뒤 추가한다. */
 function addImageRelationships(relsXml, cache) {
   let add = '';
   cache.forEach(c => {
@@ -925,6 +1015,11 @@ function addImageRelationships(relsXml, cache) {
            'Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" ' +
            'Target="media/' + c.imageName + '"/>';
   });
+  if (!relsXml || !relsXml.includes('</Relationships>')) {
+    relsXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+              '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
+              '</Relationships>';
+  }
   return relsXml.replace('</Relationships>', add + '</Relationships>');
 }
 
@@ -1031,6 +1126,84 @@ function escHtml(s) {
   return String(s).replace(/[&<>"]/g, c => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]
   ));
+}
+
+/* ============================================================
+ * 5. 데이터 수집 — PRD §4.6
+ *
+ *  법적 근거·범위·운영 정책: docs/technical_guide/web_data_collection_privacy.md
+ *   - PIPA §28-2 (가명정보 특례) + GDPR Art.6(1)(f) (정당한 이익)
+ *   - 별도 동의 UI 없음. 처리방침 고지 + opt-out 플래그 (Art.21 반대권).
+ *   - 수집 대상: latex 본문 · 렌더 PNG · delimiter · 가명 해시 · 타임스탬프.
+ *   - 본문·파일 메타·직접 식별자는 수집·전송하지 않음.
+ *
+ *  중단 방법 (사용자):
+ *    localStorage.setItem('latexflow_collect_optout', '1')
+ *
+ *  엔드포인트 override (개발용):
+ *    window.LATEXFLOW_COLLECT_ENDPOINT = '<URL>'
+ * ========================================================== */
+const COLLECT_ENDPOINT_DEFAULT =
+  'https://asia-northeast3-docsaddon-489707.cloudfunctions.net/collect-web-pair';
+const ANON_HASH_KEY  = 'latexflow_anon_hash';
+const OPTOUT_KEY     = 'latexflow_collect_optout';
+
+/** 브라우저 세션 가명 해시 — 첫 호출 시 16 hex 난수 생성·보관. IP/이메일과 무관. */
+function getAnonHash() {
+  try {
+    let h = localStorage.getItem(ANON_HASH_KEY);
+    if (h && /^[0-9a-f]{16}$/.test(h)) return h;
+    const buf = new Uint8Array(8);
+    crypto.getRandomValues(buf);
+    h = Array.from(buf, b => b.toString(16).padStart(2, '0')).join('');
+    localStorage.setItem(ANON_HASH_KEY, h);
+    return h;
+  } catch {
+    // localStorage 비활성(시크릿 모드 등) — 휘발 해시로 동작, 수집은 진행.
+    const buf = new Uint8Array(8);
+    crypto.getRandomValues(buf);
+    return Array.from(buf, b => b.toString(16).padStart(2, '0')).join('');
+  }
+}
+
+/** type → 처리방침 enum delimiter. 스캐너가 정확한 토큰을 보존하지 않으므로
+ *  inline=$, display=$$ 로 정규화 (애드온 데이터셋과 동일 granularity). */
+function delimiterForType(type) {
+  return type === 'display' ? '$$' : '$';
+}
+
+/** 수식 (LaTeX, PNG) 쌍을 수집 엔드포인트로 fire-and-forget POST.
+ *  - opt-out 시 즉시 종료. 네트워크 오류는 무시(콘솔 debug 만). */
+function submitWebPair(latex, pngB64, type) {
+  try {
+    if (typeof localStorage !== 'undefined' &&
+        localStorage.getItem(OPTOUT_KEY) === '1') return;
+    if (!latex || !pngB64) return;
+
+    const endpoint =
+      (typeof window !== 'undefined' && window.LATEXFLOW_COLLECT_ENDPOINT) ||
+      COLLECT_ENDPOINT_DEFAULT;
+
+    const payload = JSON.stringify({
+      latex:     latex,
+      png:       pngB64,
+      delimiter: delimiterForType(type),
+      anon_hash: getAnonHash(),
+      timestamp: new Date().toISOString(),
+    });
+
+    fetch(endpoint, {
+      method:      'POST',
+      mode:        'cors',
+      credentials: 'omit',
+      cache:       'no-store',
+      keepalive:   true,
+      headers:     { 'Content-Type': 'application/json' },
+      body:        payload,
+    }).catch(err => console.debug('collect submit failed:', err && err.message));
+  } catch (err) {
+    console.debug('collect submit skipped:', err && err.message);
+  }
 }
 </script>
 </body>
