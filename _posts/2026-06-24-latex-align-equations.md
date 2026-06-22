@@ -10,7 +10,7 @@ description: "LaTeX 의 align 환경으로 여러 줄 수식을 등호 기준으
 
 수식 한 줄을 여러 단계로 풀어 쓸 때, 등호가 가지런히 정렬되어 있으면 식의 흐름이 한눈에 들어옵니다. Word 에서는 탭과 공백을 손으로 맞추다가 컴파일·내보내기 한 번에 어긋나기 일쑤지만, LaTeX 의 **`align` 환경** 은 `&` 위치 하나로 모든 행의 정렬점을 잡아 줍니다.
 
-[이전 글 #4]({% post_url 2026-06-22-latex-matrix-cases %}) 에서 행렬과 `cases` 의 `&` 가 열 구분자였다면, `align` 의 `&` 는 **정렬 표시자** 입니다. 같은 기호가 환경에 따라 의미가 달라진다는 점이 처음에는 헷갈리지만, 한 번 익히면 두 환경을 자유롭게 오갈 수 있습니다.
+[이전 글 #4](/blog/posts/latex-matrix-cases/) 에서 행렬과 `cases` 의 `&` 가 열 구분자였다면, `align` 의 `&` 는 **정렬 표시자** 입니다. 같은 기호가 환경에 따라 의미가 달라진다는 점이 처음에는 헷갈리지만, 한 번 익히면 두 환경을 자유롭게 오갈 수 있습니다.
 
 ## 1. 왜 align — equation 의 한계
 
@@ -37,7 +37,7 @@ description: "LaTeX 의 align 환경으로 여러 줄 수식을 등호 기준으
 
 `equation` 은 한 줄짜리 식만 가정하기 때문에 `\\` 줄바꿈이 위 코드에서는 오류를 냅니다 (또는 정렬이 깨진 채로 출력). 등호를 세로로 맞추려면 **여러 줄을 한 번에 다루면서 정렬점을 표시할 수 있는 환경** — `align` — 이 필요합니다.
 
-`align` 은 `amsmath` 패키지가 제공합니다. 프리앰블에 다음 한 줄이 있어야 합니다 ([#4]({% post_url 2026-06-22-latex-matrix-cases %}) 와 같음).
+`align` 은 `amsmath` 패키지가 제공합니다. 프리앰블에 다음 한 줄이 있어야 합니다 ([#4](/blog/posts/latex-matrix-cases/) 와 같음).
 
 ```latex
 \usepackage{amsmath}
@@ -99,7 +99,7 @@ $$\begin{align*} 2x + 3y &= 7 \\ x - y &= 1 \end{align*}$$
 
 위 예처럼 **연립방정식** 을 보일 때 `align*` 이 유용합니다. 정렬점 `&` 를 등호 앞에 두면 두 식의 등호가 세로로 맞춰져 시각적으로 깔끔해집니다.
 
-> **`cases` vs `align*` 연립방정식**: [#4 의 `cases`]({% post_url 2026-06-22-latex-matrix-cases %}) 는 함수의 **조건부 정의** ("x ≥ 0 일 때 ...") 용입니다. 같은 변수에 대한 두 식을 연립한다면 `align*` 이 맞습니다. 둘은 외양은 비슷해 보여도 의미가 다릅니다.
+> **`cases` vs `align*` 연립방정식**: [#4 의 `cases`](/blog/posts/latex-matrix-cases/) 는 함수의 **조건부 정의** ("x ≥ 0 일 때 ...") 용입니다. 같은 변수에 대한 두 식을 연립한다면 `align*` 이 맞습니다. 둘은 외양은 비슷해 보여도 의미가 다릅니다.
 {: .prompt-info }
 
 `equation*` 과 마찬가지로, 번호가 필요 없는 자리에는 별표 환경을 쓰는 것이 관례입니다. 본문에서 식을 참조하지 않는 단순 보조 식은 번호를 빼는 편이 깔끔합니다.
@@ -222,7 +222,7 @@ $$\begin{align*} a &= b & c &= d \\ e &= f & g &= h \end{align*}$$
 \end{align}
 ```
 
-[#4 의 행렬]({% post_url 2026-06-22-latex-matrix-cases %}) 도 같은 원칙입니다.
+[#4 의 행렬](/blog/posts/latex-matrix-cases/) 도 같은 원칙입니다.
 
 ## 정리
 
@@ -242,8 +242,8 @@ $$\begin{align*} a &= b & c &= d \\ e &= f & g &= h \end{align*}$$
 
 ---
 
-이전 글: [#4 LaTeX 행렬과 연립방정식 — pmatrix·bmatrix·cases]({% post_url 2026-06-22-latex-matrix-cases %})
-다음 글: [#6 LaTeX 수식 번호와 참조 — `\label`과 `\eqref`]({% post_url 2026-06-26-latex-equation-labels-eqref %})
+이전 글: [#4 LaTeX 행렬과 연립방정식 — pmatrix·bmatrix·cases](/blog/posts/latex-matrix-cases/)
+다음 글: [#6 LaTeX 수식 번호와 참조 — `\label`과 `\eqref`](/blog/posts/latex-equation-labels-eqref/)
 
 > **Google Docs / Word 의 수식을 한 번에 깔끔하게** — [LaTeXFlow Web 바로 가기](https://mathsystem.dev/latexflow/web/) (sign-in 없이 즉시)
 {: .prompt-info }

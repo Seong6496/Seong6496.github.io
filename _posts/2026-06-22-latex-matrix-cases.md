@@ -10,7 +10,7 @@ description: "LaTeX 의 행렬 환경 네 가지 — pmatrix·bmatrix·vmatrix·
 
 선형대수 한 학기, 미분방정식 한 학기 — 그 사이 등장하는 수식의 절반이 행렬과 조건부 정의입니다. Word 의 수식 편집기로 3×3 행렬을 그리다 보면 괄호와 줄 간격이 매번 어긋나고, Google Docs 는 행렬 셀이 추가될 때마다 손이 갑니다. LaTeX 에서는 이 두 패턴이 **`pmatrix`** 와 **`cases`** 두 환경으로 깔끔하게 정리됩니다.
 
-[이전 글 #3]({% post_url 2026-06-11-latex-greek-symbols %}) 에서 그리스 문자와 수학 기호를 정리했다면, 이번 글에서는 그 기호들이 가장 많이 들어가는 자리 — 행렬 안과 조건부 정의의 오른쪽 — 의 환경 네 가지를 한 번에 짚습니다. 핵심은 **괄호 모양은 환경 이름의 첫 글자**, **셀 사이는 `&`, 행 사이는 `\\`** 두 규칙입니다.
+[이전 글 #3](/blog/posts/latex-greek-symbols/) 에서 그리스 문자와 수학 기호를 정리했다면, 이번 글에서는 그 기호들이 가장 많이 들어가는 자리 — 행렬 안과 조건부 정의의 오른쪽 — 의 환경 네 가지를 한 번에 짚습니다. 핵심은 **괄호 모양은 환경 이름의 첫 글자**, **셀 사이는 `&`, 행 사이는 `\\`** 두 규칙입니다.
 
 ## 1. pmatrix — 가장 흔한 소괄호 행렬
 
@@ -55,7 +55,7 @@ a_11
 a_{11}
 ```
 
-이 규칙은 [#2 에서 정리한 위·아래첨자 규칙]({% post_url 2026-06-10-latex-fraction-integral %}) 과 동일합니다. 행렬 셀이 늘어날수록 첨자 실수가 누적되므로 처음 적을 때부터 중괄호 습관을 들이는 편이 안전합니다.
+이 규칙은 [#2 에서 정리한 위·아래첨자 규칙](/blog/posts/latex-fraction-integral/) 과 동일합니다. 행렬 셀이 늘어날수록 첨자 실수가 누적되므로 처음 적을 때부터 중괄호 습관을 들이는 편이 안전합니다.
 
 ## 2. bmatrix·Bmatrix — 괄호 모양만 다른 동기 환경
 
@@ -243,8 +243,8 @@ $$f(x) = \begin{cases} x^2 & \text{if } x \geq 0 \\ -x & \text{if } x < 0 \end{c
 
 ---
 
-이전 글: [#3 LaTeX 그리스 문자와 수학 기호 완전 정복]({% post_url 2026-06-11-latex-greek-symbols %})
-다음 글: [#5 LaTeX `align` 환경으로 수식 정렬하기]({% post_url 2026-06-24-latex-align-equations %})
+이전 글: [#3 LaTeX 그리스 문자와 수학 기호 완전 정복](/blog/posts/latex-greek-symbols/)
+다음 글: [#5 LaTeX `align` 환경으로 수식 정렬하기](/blog/posts/latex-align-equations/)
 
 > **Google Docs / Word 의 수식을 한 번에 깔끔하게** — [LaTeXFlow Web 바로 가기](https://mathsystem.dev/latexflow/web/) (sign-in 없이 즉시)
 {: .prompt-info }

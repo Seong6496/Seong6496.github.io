@@ -150,7 +150,7 @@ $v = 9.8 \, \text{m/s}^2$
 $f(x) = x^2 \quad \text{for } x \geq 0$
 ```
 
-`\text{}` 는 `amsmath` 패키지가 필요합니다. [#6 수식 번호와 참조]({% post_url 2026-06-26-latex-equation-labels-eqref %}) 글에서 다룬 `\eqref` 와 같은 패키지에 함께 있습니다.
+`\text{}` 는 `amsmath` 패키지가 필요합니다. [#6 수식 번호와 참조](/blog/posts/latex-equation-labels-eqref/) 글에서 다룬 `\eqref` 와 같은 패키지에 함께 있습니다.
 
 **원칙**: 수식 환경 안에 영문 단어를 적을 일이 생기면 무조건 `\text{}` 로 감싸기. 한국어는 폰트 설정에 따라 어차피 안 나올 수 있으니, `\text{}` 안에 적어 두면 일관됩니다.
 
@@ -250,8 +250,8 @@ LaTeX Warning: Reference `eq:newton' on page 1 undefined on input line 42.
 
 ---
 
-이전 글: [#6 LaTeX 수식 번호와 참조 — `\label`과 `\eqref`]({% post_url 2026-06-26-latex-equation-labels-eqref %})
-다음 글: [#8 LaTeX 명령어 치트시트 — 논문 한 편에 실제로 쓰는 것만]({% post_url 2026-07-01-latex-command-cheatsheet %})
+이전 글: [#6 LaTeX 수식 번호와 참조 — `\label`과 `\eqref`](/blog/posts/latex-equation-labels-eqref/)
+다음 글: [#8 LaTeX 명령어 치트시트 — 논문 한 편에 실제로 쓰는 것만](/blog/posts/latex-command-cheatsheet/)
 
 > **Google Docs / Word 의 수식을 한 번에 깔끔하게** — [LaTeXFlow Web 바로 가기](https://mathsystem.dev/latexflow/web/) (sign-in 없이 즉시)
 {: .prompt-info }
