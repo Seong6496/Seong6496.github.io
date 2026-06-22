@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>LaTeX Scan — Web Prototype</title>
+<title>LaTeXFlow Scan · .docx 의 LaTeX 수식 → 이미지 변환</title>
 
 <!-- Temml: 미리보기 렌더링 (애드온 Sidebar.html과 동일 라이브러리) -->
 <link rel="stylesheet"
@@ -21,128 +21,270 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" id="MathJax-script" async></script>
 
+<!-- Design tokens — mathsystem.dev paper theme (STIX Two Text + Noto Serif KR) + LaTeXFlow mono (JetBrains Mono) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
 <style>
+  /* ============================================================
+     Design tokens — mathsystem.dev paper theme (실측 2026-06-22)
+     + LaTeXFlow Web 추가: --font-mono, --warn-stripe
+     dark mode 는 light only 로 시작 (paper theme 본질 + 작업
+     시간 짧음). 활성화 시 mathsystem.dev 의 @media block 복사.
+     ============================================================ */
+  :root {
+    /* palette */
+    --paper:      #FBFAF6;
+    --white:      #FFFFFF;
+    --ink-900:    #191919;
+    --ink-600:    #5C5A53;
+    --ink-500:    #75726A;
+    --ink-400:    #9B9890;
+    --accent-700: #1F4FA3;
+    --accent-800: #173E82;
+    --hairline:      rgba(0, 0, 0, 0.12);
+    --hairline-soft: rgba(0, 0, 0, 0.08);
+
+    /* status — mathsystem.dev badge tokens */
+    --badge-live-bg:   #E1F5EE;
+    --badge-live-text: #0F6E56;
+    --badge-beta-bg:   #FAEEDA;
+    --badge-beta-text: #854F0B;
+
+    /* LaTeXFlow 추가: 모호성 카드 좌측 stripe (시안의 mid-tone mustard) */
+    --warn-stripe: #D8B45A;
+
+    /* semantic alias */
+    --bg:           var(--paper);
+    --bg-card:      var(--white);
+    --text:         var(--ink-900);
+    --text-muted:   var(--ink-500);
+    --text-hint:    var(--ink-400);
+    --accent:       var(--accent-700);
+    --accent-hover: var(--accent-800);
+    --border:       var(--hairline);
+    --border-soft:  var(--hairline-soft);
+
+    /* typography */
+    --font-display: 'STIX Two Text', 'Noto Serif KR', 'Times New Roman', serif;
+    --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo',
+                    'Pretendard', 'Noto Sans KR', sans-serif;
+    --font-mono:    'JetBrains Mono', 'D2Coding', ui-monospace, 'SF Mono', monospace;
+
+    /* shape */
+    --radius:    8px;
+    --radius-lg: 12px;
+  }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    font-family: 'Segoe UI', Roboto, 'Malgun Gothic', sans-serif;
-    color: #202124; background: #f1f3f4; line-height: 1.5;
+    font-family: var(--font-body);
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.5;
   }
   header {
-    background: #1a73e8; color: #fff; padding: 16px 24px;
+    background: var(--bg-card);
+    color: var(--text);
+    padding: 11px 16px;
+    border-bottom: 0.5px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-  header h1 { font-size: 18px; font-weight: 600; }
-  header p  { font-size: 12px; opacity: .85; margin-top: 2px; }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+  }
+  .brand-name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--text);
+  }
+  .brand-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .brand-link {
+    font-size: 11px;
+    color: var(--text-hint);
+    text-decoration: none;
+    transition: color .12s;
+  }
+  .brand-link:hover { color: var(--text); }
+  .task-intro {
+    font-size: 13px;
+    color: var(--ink-600);
+    margin: 0 0 14px;
+    line-height: 1.5;
+  }
   main { max-width: 920px; margin: 24px auto; padding: 0 16px; }
 
   /* ── 업로드 단계 ── */
   #drop-zone {
-    background: #fff; border: 2px dashed #bdc1c6; border-radius: 12px;
+    background: var(--bg-card);
+    border: 1.5px dashed #B9C6DE;
+    border-radius: var(--radius);
     padding: 56px 24px; text-align: center; cursor: pointer;
     transition: border-color .15s, background .15s;
   }
-  #drop-zone:hover, #drop-zone.over { border-color: #1a73e8; background: #e8f0fe; }
-  #drop-zone .big   { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
-  #drop-zone .small { font-size: 12px; color: #5f6368; }
-  #status { margin-top: 14px; font-size: 13px; min-height: 18px; text-align: center; }
-  #status.error { color: #d93025; }
+  #drop-zone:hover, #drop-zone.over {
+    border-color: var(--accent);
+    background: rgba(31, 79, 163, 0.04);
+  }
+  #drop-zone .big   { font-size: 14px; color: var(--text); margin-bottom: 8px; }
+  #drop-zone .small { font-size: 12px; color: var(--text-hint); line-height: 1.5; }
+  #status { margin-top: 14px; font-size: 13px; min-height: 18px; text-align: center; color: var(--text-muted); }
+  #status.error { color: var(--badge-beta-text); }
 
   /* ── 리뷰 단계 ── */
   .toolbar {
-    background: #fff; border-radius: 10px; padding: 14px 18px;
-    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-    margin-bottom: 16px; box-shadow: 0 1px 2px rgba(0,0,0,.08);
+    background: var(--bg-card);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 11px 16px;
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    margin-bottom: 16px;
   }
-  .toolbar .doc { font-weight: 600; font-size: 14px; }
-  .toolbar .counts { font-size: 12px; color: #5f6368; }
+  .toolbar .doc { font-weight: 500; font-size: 13px; color: var(--text); }
+  .toolbar .counts { font-size: 12px; color: var(--text-muted); }
   .toolbar .spacer { flex: 1; }
   button {
-    font-family: inherit; font-size: 13px; border: none; border-radius: 6px;
-    padding: 8px 14px; cursor: pointer;
+    font-family: inherit; font-size: 12.5px; border: none; border-radius: 6px;
+    padding: 7px 14px; cursor: pointer;
+    transition: background .12s;
   }
-  .btn-primary  { background: #1a73e8; color: #fff; }
-  .btn-primary:disabled { background: #a0c3ff; cursor: not-allowed; }
-  .btn-ghost    { background: #f1f3f4; color: #3c4043; }
+  .btn-primary  { background: var(--accent); color: var(--white); }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-primary:disabled { background: var(--accent); opacity: 0.4; cursor: not-allowed; }
+  .btn-ghost    { background: transparent; color: var(--text-muted); border: 0.5px solid var(--border); }
+  .btn-ghost:hover { background: var(--bg); color: var(--text); }
 
   .section-label {
-    font-size: 12px; font-weight: 600; color: #5f6368;
-    text-transform: uppercase; letter-spacing: .5px; margin: 18px 4px 8px;
+    font-size: 11px; font-weight: 500; color: var(--text-hint);
+    letter-spacing: 0.07em; margin: 18px 4px 8px;
   }
 
   /* ── 카드 공통 ── */
   .card {
-    background: #fff; border-radius: 10px; margin-bottom: 12px;
-    box-shadow: 0 1px 2px rgba(0,0,0,.08); overflow: hidden;
+    background: var(--bg-card);
+    border: 0.5px solid var(--border);
+    border-left: 2px solid var(--accent);
+    border-radius: var(--radius);
+    margin-bottom: 8px; overflow: hidden;
   }
   .card-head {
     display: flex; align-items: center; gap: 10px;
-    padding: 10px 14px; border-bottom: 1px solid #eceff1;
+    padding: 10px 14px; border-bottom: 0.5px solid var(--border-soft);
   }
   .badge {
-    font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px;
+    font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 5px;
   }
-  .badge.display { background: #e8f0fe; color: #1a73e8; }
-  .badge.inline  { background: #e6f4ea; color: #137333; }
-  .loc { font-size: 12px; color: #5f6368; }
+  .badge.display { background: rgba(31, 79, 163, 0.08); color: var(--accent); }
+  .badge.inline  { background: var(--badge-live-bg); color: var(--badge-live-text); }
+  .loc { font-size: 11px; color: var(--text-hint); }
   .card-head .spacer { flex: 1; }
   .card-body { padding: 14px; }
   .preview {
-    background: #fafafa; border: 1px solid #eceff1; border-radius: 6px;
+    background: var(--bg);
+    border: 0.5px solid var(--border-soft);
+    border-radius: 6px;
     padding: 14px; text-align: center; font-size: 18px; min-height: 48px;
+    color: var(--text);
   }
-  .preview.err { color: #d93025; font-size: 12px; text-align: left; font-family: monospace; }
+  .preview.err {
+    color: var(--badge-beta-text);
+    background: var(--badge-beta-bg);
+    font-size: 12px; text-align: left; font-family: var(--font-mono);
+  }
   .latex-src {
-    margin-top: 10px; font-family: 'Consolas', monospace; font-size: 12px;
-    background: #f1f3f4; border-radius: 4px; padding: 8px 10px;
+    margin-top: 10px; font-family: var(--font-mono); font-size: 12px;
+    background: var(--bg);
+    border: 0.5px solid var(--border-soft);
+    border-radius: 4px; padding: 8px 10px;
+    color: var(--text);
     white-space: pre-wrap; word-break: break-all;
   }
   .context {
-    margin-top: 8px; font-size: 12px; color: #5f6368;
+    margin-top: 8px; font-size: 12px; color: var(--text-muted);
   }
-  .context mark { background: #fff2a8; color: #202124; border-radius: 2px; }
+  .context mark {
+    background: rgba(216, 180, 90, 0.25);
+    color: var(--text); border-radius: 2px;
+  }
 
   /* skipped 상태 */
   .card.skipped { opacity: .5; }
   .card.skipped .preview { filter: grayscale(1); }
 
-  /* ── 모호성 카드 ── */
-  .card.ambig { border: 1px solid #f9c846; }
-  .card.ambig .card-head { background: #fef7e0; border-bottom-color: #f9e2a0; }
-  .ambig-warn { font-size: 12px; color: #b06000; font-weight: 600; }
+  /* ── 모호성 카드 — 좌측 mustard stripe ── */
+  .card.ambig {
+    border: 0.5px solid var(--border);
+    border-left: 2px solid var(--warn-stripe);
+  }
+  .card.ambig .card-head {
+    background: var(--badge-beta-bg);
+    border-bottom-color: var(--border-soft);
+  }
+  .ambig-warn { font-size: 12px; color: var(--badge-beta-text); font-weight: 500; }
   .ambig-text {
-    font-size: 12px; background: #f1f3f4; border-radius: 4px;
+    font-size: 12px; font-family: var(--font-mono);
+    background: var(--bg);
+    border: 0.5px solid var(--border-soft);
+    border-radius: 4px;
     padding: 8px 10px; margin-bottom: 12px; word-break: break-all;
   }
   .options { display: flex; gap: 12px; flex-wrap: wrap; }
   .option {
-    flex: 1; min-width: 240px; border: 1px solid #eceff1;
-    border-radius: 8px; padding: 12px;
+    flex: 1; min-width: 240px;
+    background: var(--bg);
+    border: 0.5px solid var(--border-soft);
+    border-radius: var(--radius); padding: 12px;
   }
-  .option h4 { font-size: 12px; margin-bottom: 4px; }
-  .option .desc { font-size: 11px; color: #5f6368; margin-bottom: 8px; }
+  .option h4 { font-size: 12px; font-weight: 500; margin-bottom: 4px; color: var(--text); }
+  .option .desc { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; }
   .option .mini-preview {
     font-size: 14px; text-align: center; padding: 8px;
-    background: #fafafa; border-radius: 4px; margin-bottom: 8px;
+    background: var(--bg-card);
+    border: 0.5px solid var(--border-soft);
+    border-radius: 4px; margin-bottom: 8px;
+    color: var(--text);
   }
   .option .mini-preview + .mini-preview { margin-top: 4px; }
 
-  .empty { color: #5f6368; font-size: 13px; padding: 24px; text-align: center; }
+  .empty { color: var(--text-hint); font-size: 13px; padding: 24px; text-align: center; }
 
   /* Generate 결과 안내 */
   #gen-note {
-    background: #e8f0fe; border: 1px solid #aecbfa; border-radius: 8px;
+    background: var(--bg-card);
+    border: 0.5px solid var(--border);
+    border-left: 2px solid var(--accent);
+    border-radius: var(--radius);
     padding: 14px 16px; font-size: 12px; margin-top: 16px;
+    color: var(--text);
   }
-  #gen-note code { background: #fff; padding: 1px 4px; border-radius: 3px; }
+  #gen-note code {
+    font-family: var(--font-mono);
+    background: var(--bg); padding: 1px 4px; border-radius: 3px;
+  }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>LaTeX Scan — Web Prototype</h1>
-  <p>.docx 업로드 → $…$ / $$…$$ 수식 탐지 → 리뷰 · Skip · 모호성 해결 (애드온 Scan 탭의 웹 버전 골격)</p>
+  <div class="brand">
+    <span class="brand-name">LaTeXFlow</span>
+    <span class="brand-sub">Scan</span>
+  </div>
+  <a class="brand-link" href="https://mathsystem.dev/" target="_blank" rel="noopener">MathSystem ↗</a>
 </header>
 
 <main>
+  <p class="task-intro">.docx 업로드 → 수식 탐지 → 리뷰 · Skip · 모호성 해결</p>
+
   <!-- 1단계: 업로드 -->
   <section id="upload-stage">
     <div id="drop-zone">
