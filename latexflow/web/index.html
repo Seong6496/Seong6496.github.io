@@ -1046,12 +1046,23 @@ function triggerDownload(blob, filename) {
   }, 1000);
 }
 
+/* ── MathJax 렌더 에러 감지 (PRD candidate prd_candidate_render_error_warn.md §조사 결과 2026-06-22)
+ *   Shape A: <g data-mml-node="merror" data-mjx-error="...">  (구조적 에러)
+ *   Shape B: <g data-mml-node="mtext" fill="red" stroke="red"> (undefined command — D11 #2)
+ */
+function hasRenderError(svgEl) {
+  return !!svgEl.querySelector(
+    '[data-mjx-error], g[data-mml-node="mtext"][fill="red"][stroke="red"]'
+  );
+}
+
 /* ── LaTeX → PNG base64 (MathJax SVG → canvas) — Sidebar.html 와 동일 ── */
 function latexToPngBase64(latex, isDisplay) {
   return MathJax.startup.promise.then(() => {
     const wrapper = MathJax.tex2svg(latex, { display: isDisplay });
     const svgEl   = wrapper.querySelector('svg');
     if (!svgEl) throw new Error('SVG 생성 실패');
+    if (hasRenderError(svgEl)) throw new Error('render-error: visual error in SVG output');
 
     function parseEx(attr) {
       const m = String(attr || '').match(/^([\d.]+)/);
