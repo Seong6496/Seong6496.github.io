@@ -186,7 +186,7 @@ $$f(x) = \begin{cases} x^2 & \text{if } x \geq 0 \\ -x & \text{if } x < 0 \end{c
 
 ## 5. 자주 하는 실수 세 가지
 
-### 5.1 `&` 누락
+### 5.1 열 구분자 누락
 
 열 구분자 `&` 를 빼면 셀이 합쳐져 한 칸으로 출력됩니다. 컴파일 오류가 안 나서 발견이 어렵습니다.
 
@@ -208,7 +208,7 @@ $$f(x) = \begin{cases} x^2 & \text{if } x \geq 0 \\ -x & \text{if } x < 0 \end{c
 
 각 행의 `&` 개수는 동일해야 합니다. 한 행에서 셀이 모자라면 LaTeX 가 알아서 빈 셀을 채우지만, 보통은 컴파일 경고 (`Underfull \hbox`) 가 떠서 알아챌 수 있습니다. 일관성 있게 적는 것이 가장 안전합니다.
 
-### 5.3 마지막 행 뒤 `\\` 의 미묘한 차이
+### 5.3 마지막 행 뒤 행 구분자의 미묘한 차이
 
 ```latex
 % 마지막 \\ 있음 — 행렬 아래 여백이 살짝 더 큼
@@ -244,7 +244,7 @@ $$f(x) = \begin{cases} x^2 & \text{if } x \geq 0 \\ -x & \text{if } x < 0 \end{c
 ---
 
 이전 글: [#3 LaTeX 그리스 문자와 수학 기호 완전 정복](/blog/posts/latex-greek-symbols/)
-다음 글: [#5 LaTeX `align` 환경으로 수식 정렬하기](/blog/posts/latex-align-equations/)
+다음 글: <a href="/blog/posts/latex-align-equations/" data-proofer-ignore>#5 LaTeX `align` 환경으로 수식 정렬하기</a>
 
 > **Google Docs / Word 의 수식을 한 번에 깔끔하게** — [LaTeXFlow Web 바로 가기](https://mathsystem.dev/latexflow/web/) (sign-in 없이 즉시)
 {: .prompt-info }

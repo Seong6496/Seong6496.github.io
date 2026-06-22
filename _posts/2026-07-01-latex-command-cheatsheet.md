@@ -321,8 +321,8 @@ LaTeX 의 명령어는 끝이 없어 보이지만, **논문 한 편을 끝내는
 
 ---
 
-이전 글: [#7 LaTeX 수식에서 흔히 하는 5가지 실수와 해결법](/blog/posts/latex-equation-5-mistakes/)
-다음 글: [#9 LaTeX 그리스 문자 전체 목록 — 소·대문자와 이형 문자까지](/blog/posts/latex-greek-letters-complete/)
+이전 글: <a href="/blog/posts/latex-equation-5-mistakes/" data-proofer-ignore>#7 LaTeX 수식에서 흔히 하는 5가지 실수와 해결법</a>
+다음 글: <a href="/blog/posts/latex-greek-letters-complete/" data-proofer-ignore>#9 LaTeX 그리스 문자 전체 목록 — 소·대문자와 이형 문자까지</a>
 
 > **Google Docs / Word 의 수식을 한 번에 깔끔하게** — [LaTeXFlow Web 바로 가기](https://mathsystem.dev/latexflow/web/) (sign-in 없이 즉시)
 {: .prompt-info }

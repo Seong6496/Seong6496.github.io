@@ -10,7 +10,7 @@ description: "LaTeX 수학 기호를 용도별로 한 번에 정리한 reference
 
 LaTeX 수식의 절반은 그리스 문자고 나머지 절반은 **수학 기호** — 관계 (=, ≤, ≈), 집합 (∈, ⊂), 논리 (∀, ⇒), 연산 (×, ±, ⊕), 화살표 (→, ↦) 입니다. 이 기호들은 외우기 어렵지 않지만, "분명 있었는데 명령어가 뭐였더라" 의 빈도가 가장 높은 영역이기도 합니다.
 
-이 글은 책의 부록 B 후반부 (B.2~B.7) 를 한 페이지 reference 로 옮긴 것입니다. [#9 그리스 문자 전체 목록](/blog/posts/latex-greek-letters-complete/) 과 함께 옆 탭에 띄워두고 수식 작업 시 색인용으로 쓰면 됩니다.
+이 글은 책의 부록 B 후반부 (B.2~B.7) 를 한 페이지 reference 로 옮긴 것입니다. <a href="/blog/posts/latex-greek-letters-complete/" data-proofer-ignore>#9 그리스 문자 전체 목록</a> 과 함께 옆 탭에 띄워두고 수식 작업 시 색인용으로 쓰면 됩니다.
 
 전제: 프리앰블에 `\usepackage{amsmath}` + `\usepackage{amssymb}` 가 있어야 일부 기호가 동작합니다.
 
@@ -261,14 +261,14 @@ $\widehat{\boldsymbol{\beta}}$      % 여러 토큰 — 넓은 모자
 
 수학 기호는 외우는 게 아니라 **반복적으로 찾아 쓰며 손에 익히는 것** 입니다. 처음에는 이 글의 표를 옆 탭에 띄워두고 색인용으로 쓰다가, 자주 쓰는 30 개 정도가 손에 붙으면 나머지는 그때그때 찾으면 됩니다.
 
-이 글이 reference 트랙의 마지막 묶음입니다. [그리스 문자](/blog/posts/latex-greek-letters-complete/) + 수학 기호 (이 글) + [치트시트](/blog/posts/latex-command-cheatsheet/) 세 글이 곁에 있으면, LaTeX 본문 작업의 99% 가 한 페이지 안에서 해결됩니다.
+이 글이 reference 트랙의 마지막 묶음입니다. <a href="/blog/posts/latex-greek-letters-complete/" data-proofer-ignore>그리스 문자</a> + 수학 기호 (이 글) + <a href="/blog/posts/latex-command-cheatsheet/" data-proofer-ignore>치트시트</a> 세 글이 곁에 있으면, LaTeX 본문 작업의 99% 가 한 페이지 안에서 해결됩니다.
 
 다음 글 (#11) 부터는 책 1·2장의 내용을 바탕으로 **Word/Docs 로 논문 쓰다 막힌 분께 — LaTeX 가 다른 이유** 라는 essay 형식으로 넘어갑니다. 이 시리즈의 "왜" 를 다루는 글입니다.
 
 ---
 
-이전 글: [#9 LaTeX 그리스 문자 전체 목록 — 소·대문자와 이형 문자까지](/blog/posts/latex-greek-letters-complete/)
-다음 글: [#11 Word·Google Docs 로 논문 쓰다 막힌 분께 — LaTeX 가 다른 이유](/blog/posts/latex-vs-word-docs/)
+이전 글: <a href="/blog/posts/latex-greek-letters-complete/" data-proofer-ignore>#9 LaTeX 그리스 문자 전체 목록 — 소·대문자와 이형 문자까지</a>
+다음 글: <a href="/blog/posts/latex-vs-word-docs/" data-proofer-ignore>#11 Word·Google Docs 로 논문 쓰다 막힌 분께 — LaTeX 가 다른 이유</a>
 
 > **Google Docs / Word 의 수식을 한 번에 깔끔하게** — [LaTeXFlow Web 바로 가기](https://mathsystem.dev/latexflow/web/) (sign-in 없이 즉시)
 {: .prompt-info }
