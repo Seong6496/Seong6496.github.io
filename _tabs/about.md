@@ -17,9 +17,7 @@ Math System 은 LaTeX·수식과 수학 글쓰기를 다루는 곳입니다.
 
 ## 운영
 
-- 운영자: Seong6496 (개인)
-- 연락: [sung2417@gmail.com](mailto:sung2417@gmail.com) / [GitHub Issues](https://github.com/Seong6496/google-docs-latex-addon/issues)
-- 코드: 도구 소스는 [GitHub](https://github.com/Seong6496) 에 공개
+개인이 운영합니다. 연락처 / 문의는 [Contact](/blog/contact/), 도구 소스는 [GitHub](https://github.com/Seong6496) 에 공개되어 있습니다.
 
 ## 정책
 

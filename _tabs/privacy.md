@@ -15,7 +15,7 @@ LaTeXFlow 도구 사용 시의 *데이터 처리* (LaTeX 학습 데이터, Add-o
 
 ## 1. 운영자
 
-Math System 은 개인 운영자 (Seong6496, [sung2417@gmail.com](mailto:sung2417@gmail.com)) 가 관리합니다.
+본 사이트는 개인이 관리합니다. 연락은 §10 참조.
 
 ## 2. 수집되는 데이터
 
