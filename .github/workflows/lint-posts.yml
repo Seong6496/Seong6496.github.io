@@ -1,0 +1,32 @@
+name: Lint posts
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - '_posts/**.md'
+      - '_drafts/**.md'
+  pull_request:
+    paths:
+      - '_posts/**.md'
+      - '_drafts/**.md'
+
+jobs:
+  heading-inline-code:
+    name: No inline-code in headings (Chirpy h-anchor mismatch)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Detect ^#{1,6} ...`...` pattern
+        run: |
+          set +e
+          violations=$(grep -rEn '^#{1,6} .*`.*`' _posts/ _drafts/ 2>/dev/null)
+          if [ -n "$violations" ]; then
+            echo "::error::Heading with inline-code detected. Chirpy theme h-anchor renderer (refactor-content.html) wraps heading text in <span class=mr-2>, producing nested <code><span></code> mismatch (round 12 §2.2 incident). Remove backticks from heading text — keep markdown body backticks as-is."
+            echo ""
+            echo "Violations:"
+            echo "$violations"
+            exit 1
+          fi
+          echo "no heading inline-code violations — OK"
