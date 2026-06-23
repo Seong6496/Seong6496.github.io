@@ -15,10 +15,6 @@ Math System 은 LaTeX·수식과 수학 글쓰기를 다루는 곳입니다.
 
 도구는 모두 *수학을 다루는 사람* 의 일상 작업 마찰을 줄이는 게 목적입니다.
 
-## 운영
-
-개인이 운영합니다. 연락처 / 문의는 [Contact](/blog/contact/), 도구 소스는 [GitHub](https://github.com/Seong6496) 에 공개되어 있습니다.
-
 ## 정책
 
 - [Privacy Policy](/blog/privacy/) — 사이트 (블로그 + 도구 페이지) 의 쿠키 / 제3자 서비스 / 광고
