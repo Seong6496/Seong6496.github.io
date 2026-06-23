@@ -297,6 +297,20 @@
   <a class="brand-link" href="https://mathsystem.dev/" target="_blank" rel="noopener">MathSystem ↗</a>
 </header>
 
+<!--
+  AdSense top banner slot — header 직후 자리.
+  paper theme hairline 톤 (border-bottom: 0.5px solid var(--border)) 박힌 wrapper 권장.
+  승인 후 박을 코드 (publisher ID + ad slot ID 받은 후):
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="XXXXXXXXXX"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  Privacy Policy (mathsystem.dev/privacy/) 가 AdSense cookies 명시 — 정책 충족.
+-->
+
 <main>
   <p class="task-intro">.docx 업로드 → 수식 탐지 → 리뷰 · Skip · 모호성 해결</p>
 
@@ -334,6 +348,13 @@
 
     <div id="gen-note" hidden></div>
   </section>
+
+<!--
+  AdSense footer banner slot — main 끝, footer 직전 자리.
+  도구 동작 흐름 (drop → review → download) 완료 후 자리라 사용자 활동 침범 0.
+  paper theme hairline 톤 (border-top: 0.5px solid var(--border)) 박힌 wrapper 권장.
+  승인 후 박을 코드는 top banner 와 동일 패턴, data-ad-slot 만 다름.
+-->
 </main>
 
 <script>
