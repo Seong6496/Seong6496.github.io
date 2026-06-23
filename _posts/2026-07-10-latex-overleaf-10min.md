@@ -146,15 +146,15 @@ Overleaf 의 편집 화면은 세 영역으로 나뉩니다.
 
 가장 자주 만나는 세 가지:
 
-### 6.1 `! Undefined control sequence`
+### 6.1 ! Undefined control sequence
 
 존재하지 않는 명령어를 썼습니다. 보통 `\sectionn{}` 처럼 `n` 을 하나 더 친 오타입니다. 오류 메시지의 줄 번호를 확인해 그 줄을 보면 거의 바로 보입니다.
 
-### 6.2 `! Missing $ inserted`
+### 6.2 ! Missing $ inserted
 
 수식 명령어 (`\frac`, `^`, `_` 등) 를 수식 환경 밖에서 썼습니다. 해당 부분을 `$...$` 로 감싸 주세요.
 
-### 6.3 `! LaTeX Error: File 'X.sty' not found`
+### 6.3 ! LaTeX Error: File 'X.sty' not found
 
 패키지가 빠졌습니다. Overleaf 의 패키지 매니저는 대부분 자동이지만, 일부는 프리앰블에 `\usepackage{X}` 한 줄을 추가하면 해결됩니다.
 
