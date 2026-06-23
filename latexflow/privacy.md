@@ -6,7 +6,7 @@ permalink: /latexflow/privacy/
 
 *Last updated: 2026-06-23*
 
-> 📋 **Site-wide privacy** (cookies, advertising, third-party services on the blog and tool pages): [mathsystem.dev/privacy/](/privacy/). This page covers **only the LaTeXFlow tool itself** (Add-on permissions, Web app data processing).
+> 📋 **Site-wide privacy** (cookies, advertising, third-party services on the blog and tool pages): [mathsystem.dev/blog/privacy/](/blog/privacy/). This page covers **only the LaTeXFlow tool itself** (Add-on permissions, Web app data processing).
 
 This Privacy Policy describes how **LaTeXFlow** — both the **Google Docs™ Add-on** ("the Add-on") and the **Web app at mathsystem.dev** ("the Web app") — collects, uses, and protects your information. Where a section differs between the two products, the distinction is called out explicitly.
 

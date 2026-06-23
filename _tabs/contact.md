@@ -24,4 +24,4 @@ order: 6
 - [LaTeXFlow Privacy](/latexflow/privacy/) — 도구 데이터 처리
 - [LaTeXFlow Terms](/latexflow/terms/) — 도구 사용 약관
 - [LaTeXFlow Support](/latexflow/support/) — 도구 지원 / FAQ
-- [Site Privacy](/privacy/) — 사이트 전체 privacy / 쿠키 / 광고
+- [Site Privacy](/blog/privacy/) — 사이트 전체 privacy / 쿠키 / 광고

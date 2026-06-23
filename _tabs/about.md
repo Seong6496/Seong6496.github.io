@@ -23,6 +23,6 @@ Math System 은 LaTeX·수식과 수학 글쓰기를 다루는 곳입니다.
 
 ## 정책
 
-- [Privacy Policy](/privacy/) — 사이트 (블로그 + 도구 페이지) 의 쿠키 / 제3자 서비스 / 광고
+- [Privacy Policy](/blog/privacy/) — 사이트 (블로그 + 도구 페이지) 의 쿠키 / 제3자 서비스 / 광고
 - [LaTeXFlow 도구 데이터 처리](/latexflow/privacy/) — 도구 고유 데이터 (LaTeX 학습 데이터 등)
 - [LaTeXFlow Terms](/latexflow/terms/) — 도구 사용 약관
