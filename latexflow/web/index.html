@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>LaTeXFlow Scan · .docx 의 LaTeX 수식 → 이미지 변환</title>
+<title>LaTeXFlow Scan · Convert LaTeX in .docx to images</title>
 
 <!-- Temml: 미리보기 렌더링 (애드온 Sidebar.html과 동일 라이브러리) -->
 <link rel="stylesheet"
@@ -20,6 +20,19 @@
   };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" id="MathJax-script" async></script>
+
+<!-- Google Identity Services + Google API client (Drive Picker — Google Docs 호환 path A) -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://apis.google.com/js/api.js" async defer></script>
+<script>
+  /* Google Cloud Project: mathsystem-latexflow-web (신설 2026-06-24, addon 트랙 trust scope 격리)
+     credential 둘 다 OAuth spec 상 public — client_id 는 명시 public, API key 는 referrer restriction (mathsystem.dev/* + localhost:8765/*) 박힘.
+     진짜 secret (client_secret) 는 PKCE/Implicit flow 라 우리 path 에 안 들어옴. */
+  const GOOGLE_OAUTH_CLIENT_ID = '650642356147-8198gmm6efia9qb76rq4fl4m8fgo36kp.apps.googleusercontent.com';
+  const GOOGLE_API_KEY         = 'AIzaSyAzN-HvxZ6cU8xJJS6EkeoCt26QxDT00v4';
+  const GOOGLE_SCOPE           = 'https://www.googleapis.com/auth/drive.file';
+  const DRIVE_EXPORT_DOCX_MIME = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+</script>
 
 <!-- Design tokens — mathsystem.dev paper theme (STIX Two Text + Noto Serif KR) + LaTeXFlow mono (JetBrains Mono) -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -63,8 +76,10 @@
     --text-hint:    var(--ink-400);
     --accent:       var(--accent-700);
     --accent-hover: var(--accent-800);
+    --accent-bg:    rgba(31, 79, 163, 0.08);
     --border:       var(--hairline);
     --border-soft:  var(--hairline-soft);
+    --border-strong: rgba(0, 0, 0, 0.22);
 
     /* typography */
     --font-display: 'STIX Two Text', 'Noto Serif KR', 'Times New Roman', serif;
@@ -115,28 +130,144 @@
     transition: color .12s;
   }
   .brand-link:hover { color: var(--text); }
-  .task-intro {
+  main { padding: 0 16px; }
+
+  /* 업로드 단계 — 중앙 480px container (review 단계는 별도 폭 유지) */
+  #upload-stage {
+    max-width: 480px;
+    margin: 56px auto 24px;
+  }
+
+  /* 단계 흐름 표시 — pill 첫 단계 강조 + arrow chain */
+  .steps {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 10px;
     font-size: 13px;
-    color: var(--ink-600);
-    margin: 0 0 14px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .steps .pill {
+    background: var(--accent-bg);
+    color: var(--accent);
+    padding: 3px 10px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .steps .arrow { color: var(--text-hint); font-size: 12px; }
+
+  /* iPad 안내 link — fine print */
+  .subnote {
+    font-size: 12px;
+    color: var(--text-hint);
+    margin-bottom: 24px;
     line-height: 1.5;
   }
-  main { max-width: 920px; margin: 24px auto; padding: 0 16px; }
+  .subnote a {
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .subnote a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
-  /* ── 업로드 단계 ── */
-  #drop-zone {
+  /* 업로드 옵션 카드 — drive-btn / divider / dropzone / option 한 묶음 */
+  #upload-stage > .card {
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 26px;
+  }
+
+  /* Drive Picker 버튼 — full-width peer 옵션 */
+  .drive-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px;
+    font: 500 14px var(--font-body);
+    color: var(--text);
     background: var(--bg-card);
-    border: 1.5px dashed #B9C6DE;
+    border: 0.5px solid var(--border-strong);
     border-radius: var(--radius);
-    padding: 56px 24px; text-align: center; cursor: pointer;
+    cursor: pointer;
+    transition: background .15s, border-color .15s;
+  }
+  .drive-btn:hover:not(:disabled) { background: rgba(0, 0, 0, 0.02); }
+  .drive-btn:active:not(:disabled) { transform: scale(0.99); }
+  .drive-btn:disabled {
+    color: var(--text-hint);
+    cursor: progress;
+    opacity: 0.7;
+  }
+  .drive-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+  /* divider — fine print 톤 simplification */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+    color: var(--text-hint);
+    margin: 16px 0;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--border);
+  }
+
+  /* dropzone — 카드 안 적정 높이 */
+  #drop-zone {
+    border: 1.5px dashed var(--border-strong);
+    border-radius: var(--radius);
+    background: var(--bg-card);
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 32px 20px;
+    cursor: pointer;
     transition: border-color .15s, background .15s;
   }
   #drop-zone:hover, #drop-zone.over {
     border-color: var(--accent);
-    background: rgba(31, 79, 163, 0.04);
+    background: var(--accent-bg);
   }
-  #drop-zone .big   { font-size: 14px; color: var(--text); margin-bottom: 8px; }
+  #drop-zone .doc-icon { font-size: 28px; margin-bottom: 10px; opacity: 0.6; }
+  #drop-zone .big   { font-size: 14px; color: var(--text); margin-bottom: 4px; }
   #drop-zone .small { font-size: 12px; color: var(--text-hint); line-height: 1.5; }
+
+  /* 대괄호 모드 체크박스 — 카드 안 dropzone 아래 */
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 18px;
+    cursor: pointer;
+  }
+  .option input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+  .option code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text);
+    background: var(--bg);
+    padding: 1px 4px;
+    border-radius: 3px;
+  }
   #status { margin-top: 14px; font-size: 13px; min-height: 18px; text-align: center; color: var(--text-muted); }
   #status.error { color: var(--badge-beta-text); }
 
@@ -168,8 +299,8 @@
     letter-spacing: 0.07em; margin: 18px 4px 8px;
   }
 
-  /* ── 카드 공통 ── */
-  .card {
+  /* ── 카드 공통 (review-stage 수식 카드) ── */
+  #review-stage .card {
     background: var(--bg-card);
     border: 0.5px solid var(--border);
     border-left: 2px solid var(--accent);
@@ -240,7 +371,7 @@
   .options { display: flex; gap: 12px; flex-wrap: wrap; }
   .option {
     flex: 1; min-width: 240px;
-    background: var(--bg);
+    background: var(--bg-card);
     border: 0.5px solid var(--border-soft);
     border-radius: var(--radius); padding: 12px;
   }
@@ -312,19 +443,42 @@
 -->
 
 <main>
-  <p class="task-intro">.docx 업로드 → 수식 탐지 → 리뷰 · Skip · 모호성 해결</p>
-
   <!-- 1단계: 업로드 -->
   <section id="upload-stage">
-    <div id="drop-zone">
-      <div class="big">📄 .docx 파일을 여기에 끌어다 놓으세요</div>
-      <div class="small">또는 클릭해서 선택 — Google Docs에서 「파일 → 다운로드 → Microsoft Word(.docx)」</div>
+    <div class="steps">
+      <span class="pill">Upload</span>
+      <span class="arrow">→</span>
+      <span>Detect equations</span>
+      <span class="arrow">→</span>
+      <span>Review · Skip · Resolve ambiguity</span>
     </div>
-    <input type="file" id="file-input" accept=".docx" hidden />
-    <label style="display:block; margin-top:12px; font-size:13px; color:#555;">
-      <input type="checkbox" id="bracket-mode" checked />
-      대괄호 <code>[\...]</code> 수식도 인식 (AI 챗봇 출력에 흔함)
-    </label>
+    <div class="card">
+      <button type="button" id="picker-button" class="drive-btn" disabled>
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+          <path fill="#0066da" d="M6 36.5l3.5 6c.7 1.2 1.7 2.1 2.9 2.8L19.7 33H6c0 1.3.3 2.5 1 3.5z"/>
+          <path fill="#00ac47" d="M24 16L16.7 3.2c-1.2.7-2.2 1.6-2.9 2.8L2.7 25.5c-.7 1.2-1 2.5-1 3.8h13.7L24 16z"/>
+          <path fill="#ea4335" d="M41.4 45.3c1.2-.7 2.2-1.6 2.9-2.8l1.5-2.6 7-12.1c.7-1.2 1-2.5 1-3.8H39.2l-2.9 5.7L41.4 45.3z"/>
+          <path fill="#00832d" d="M24 16L31.3 3.2c-1.2-.7-2.5-1-3.9-1h-6.8c-1.4 0-2.7.4-3.9 1L24 16z"/>
+          <path fill="#2684fc" d="M39.2 33H19.7l-7.3 12.3c1.2.7 2.5 1 3.9 1h26c1.4 0 2.7-.4 3.9-1L39.2 33z"/>
+          <path fill="#ffba00" d="M41.3 16.8L35.6 6.9c-.7-1.2-1.7-2.1-2.9-2.8L24 16l7.2 12.5h13.7c0-1.3-.3-2.6-1-3.8l-2.6-7.9z"/>
+        </svg>
+        <span id="picker-button-label">Import from Google Drive</span>
+      </button>
+
+      <div class="divider">or</div>
+
+      <div id="drop-zone">
+        <div class="doc-icon">📄</div>
+        <div class="big">Drop a .docx file here</div>
+        <div class="small">Google Docs → File → Download → Microsoft Word(.docx)</div>
+      </div>
+      <input type="file" id="file-input" accept=".docx" hidden />
+
+      <label class="option">
+        <input type="checkbox" id="bracket-mode" checked />
+        <span>Also detect bracket <code>[\...]</code> equations (common in AI chatbot output)</span>
+      </label>
+    </div>
     <div id="status"></div>
   </section>
 
@@ -334,16 +488,16 @@
       <span class="doc" id="doc-name"></span>
       <span class="counts" id="counts"></span>
       <span class="spacer"></span>
-      <button class="btn-ghost"   id="btn-reset">처음으로</button>
-      <button class="btn-primary" id="btn-generate">PNG 변환 · 내보내기</button>
+      <button class="btn-ghost"   id="btn-reset">Start Over</button>
+      <button class="btn-primary" id="btn-generate">Render PNG · Export</button>
     </div>
 
     <div id="ambig-wrap" hidden>
-      <div class="section-label">⚠ 모호성 — 해석을 선택하거나 건너뛰세요</div>
+      <div class="section-label">⚠ Ambiguity — Choose an interpretation or skip</div>
       <div id="ambig-list"></div>
     </div>
 
-    <div class="section-label">탐지된 수식</div>
+    <div class="section-label">Detected Equations</div>
     <div id="eq-list"></div>
 
     <div id="gen-note" hidden></div>
@@ -394,6 +548,126 @@ fileInput.addEventListener('change', () => {
   if (fileInput.files[0]) loadFile(fileInput.files[0]);
 });
 
+/* ============================================================
+ * 1-bis. Google Drive Picker (Google Docs 호환 path A)
+ *   GIS (token) + gapi (Picker) 둘 다 비동기 로드 — polling 으로 ready 표시.
+ *   Picker 가 file 선택 → access_token 으로 fetch → blob → File 마사지 → loadFile()
+ *   진입 (기존 흐름 100% 재사용 — 최소 침입).
+ * ========================================================== */
+const pickerButton = document.getElementById('picker-button');
+const pickerButtonLabel = document.getElementById('picker-button-label');
+
+let _gisReady = false;
+let _pickerReady = false;
+let _tokenClient = null;
+
+function _gisInit() {
+  if (!window.google || !google.accounts || !google.accounts.oauth2) return false;
+  _tokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: GOOGLE_OAUTH_CLIENT_ID,
+    scope: GOOGLE_SCOPE,
+    callback: '',  // 동적 박음 (per-click)
+  });
+  _gisReady = true;
+  _maybeEnablePicker();
+  return true;
+}
+
+function _pickerInit() {
+  if (!window.gapi || !gapi.load) return false;
+  gapi.load('picker', () => {
+    _pickerReady = true;
+    _maybeEnablePicker();
+  });
+  return true;
+}
+
+function _maybeEnablePicker() {
+  if (_gisReady && _pickerReady) {
+    pickerButton.disabled = false;
+  }
+}
+
+/* CDN script 가 async/defer 라 본 script 실행 시점에 lib 가 아직 로드 안 됐을 수 있음 → polling. */
+(function _waitForGoogleLibs() {
+  const tick = () => {
+    if (!_gisReady) _gisInit();
+    if (!_pickerReady) _pickerInit();
+    if (!_gisReady || !_pickerReady) setTimeout(tick, 200);
+  };
+  tick();
+})();
+
+pickerButton.addEventListener('click', () => {
+  if (!_gisReady || !_pickerReady) {
+    setStatus('Waiting for Google libraries to load…', '');
+    return;
+  }
+  _tokenClient.callback = (resp) => {
+    if (resp.error) {
+      console.warn('OAuth error:', resp);
+      setStatus('Google sign-in failed: ' + (resp.error_description || resp.error), 'error');
+      return;
+    }
+    _showPicker(resp.access_token);
+  };
+  // 이미 동의 받은 토큰 있으면 prompt 생략, 첫 클릭이면 consent
+  const existingToken = (window.gapi && gapi.client && gapi.client.getToken) ? gapi.client.getToken() : null;
+  _tokenClient.requestAccessToken({ prompt: existingToken ? '' : 'consent' });
+});
+
+function _showPicker(accessToken) {
+  const docsView = new google.picker.DocsView(google.picker.ViewId.DOCS)
+    .setMode(google.picker.DocsViewMode.LIST)
+    .setMimeTypes([
+      'application/vnd.google-apps.document',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/vnd.oasis.opendocument.text',
+      'application/rtf',
+    ].join(','))
+    .setIncludeFolders(true);
+  const picker = new google.picker.PickerBuilder()
+    .addView(docsView)
+    .setOAuthToken(accessToken)
+    .setDeveloperKey(GOOGLE_API_KEY)
+    .setAppId(GOOGLE_OAUTH_CLIENT_ID.split('-')[0])
+    .setCallback((data) => _pickerCallback(data, accessToken))
+    .setTitle('LaTeXFlow — Choose a Google Doc or .docx file')
+    .build();
+  picker.setVisible(true);
+}
+
+async function _pickerCallback(data, accessToken) {
+  if (data.action !== google.picker.Action.PICKED) return;
+  const doc = data.docs && data.docs[0];
+  if (!doc) return;
+
+  pickerButton.disabled = true;
+  pickerButtonLabel.textContent = 'Downloading…';
+  setStatus(`Fetching "${doc.name}"…`, '');
+
+  try {
+    const isGoogleDoc = doc.mimeType === 'application/vnd.google-apps.document';
+    const url = isGoogleDoc
+      ? `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(doc.id)}/export?mimeType=${encodeURIComponent(DRIVE_EXPORT_DOCX_MIME)}`
+      : `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(doc.id)}?alt=media`;
+    const res = await fetch(url, { headers: { Authorization: `Bearer ${accessToken}` } });
+    if (!res.ok) {
+      throw new Error(`Drive ${isGoogleDoc ? 'export' : 'download'} failed: ${res.status} ${res.statusText}`);
+    }
+    const blob = await res.blob();
+    const fileName = doc.name.toLowerCase().endsWith('.docx') ? doc.name : doc.name + '.docx';
+    const file = new File([blob], fileName, { type: DRIVE_EXPORT_DOCX_MIME });
+    await loadFile(file);
+  } catch (err) {
+    console.error('Drive Picker import failed:', err);
+    setStatus('Import failed: ' + err.message, 'error');
+  } finally {
+    pickerButton.disabled = false;
+    pickerButtonLabel.textContent = 'Import from Google Drive';
+  }
+}
+
 function setStatus(msg, kind) {
   const el = document.getElementById('status');
   el.textContent = msg;
@@ -402,10 +676,10 @@ function setStatus(msg, kind) {
 
 async function loadFile(file) {
   if (!file.name.toLowerCase().endsWith('.docx')) {
-    setStatus('.docx 파일만 지원합니다.', 'error');
+    setStatus('Only .docx files are supported.', 'error');
     return;
   }
-  setStatus('문서 분석 중…', '');
+  setStatus('Analyzing document…', '');
   try {
     const buf    = await file.arrayBuffer();
     const blocks = await parseDocx(buf);
@@ -413,7 +687,7 @@ async function loadFile(file) {
     showReview(file.name, result.equations, result.ambiguous);
   } catch (err) {
     console.error(err);
-    setStatus('분석 실패: ' + err.message, 'error');
+    setStatus('Analysis failed: ' + err.message, 'error');
   }
 }
 
@@ -425,7 +699,7 @@ async function loadFile(file) {
 async function parseDocx(buf) {
   const zip   = await JSZip.loadAsync(buf);
   const entry = zip.file(DOCX_PATH);
-  if (!entry) throw new Error('word/document.xml 을 찾을 수 없습니다.');
+  if (!entry) throw new Error('word/document.xml not found.');
 
   // 내보내기 단계에서 재사용할 원본 보관
   docxZip     = zip;
@@ -435,7 +709,7 @@ async function parseDocx(buf) {
 
   const xml  = new DOMParser().parseFromString(origDocXml, 'application/xml');
   const body = xml.getElementsByTagName('w:body')[0];
-  if (!body) throw new Error('문서 본문(w:body)이 없습니다.');
+  if (!body) throw new Error('Document body (w:body) is missing.');
 
   const blocks = [];
   let idx = 0;
@@ -746,7 +1020,7 @@ function renderAll() {
 
   eqList.innerHTML = '';
   if (scanState.length === 0) {
-    eqList.innerHTML = '<div class="card"><p class="empty">탐지된 $…$ 수식이 없습니다.</p></div>';
+    eqList.innerHTML = '<div class="card"><p class="empty">No $…$ equations detected.</p></div>';
   } else {
     scanState.forEach((entry, i) => eqList.appendChild(buildEqCard(entry, i)));
   }
@@ -757,16 +1031,16 @@ function updateToolbar() {
   const kept    = scanState.filter(e => e.status !== 'skipped').length;
   const skipped = scanState.length - kept;
   document.getElementById('counts').textContent =
-    `선택 ${kept} · 건너뜀 ${skipped} · 미해결 모호성 ${ambigState.length}`;
+    `Selected ${kept} · Skipped ${skipped} · Unresolved ambiguity ${ambigState.length}`;
   document.getElementById('btn-generate').disabled = kept === 0;
 }
 
 function locLabel(eq) {
   if (eq.cellPath) {
     const cp = eq.cellPath;
-    return `표 ${cp.tableIndex + 1} · 행 ${cp.rowIndex + 1} · 열 ${cp.colIndex + 1}`;
+    return `Table ${cp.tableIndex + 1} · Row ${cp.rowIndex + 1} · Col ${cp.colIndex + 1}`;
   }
-  return `단락 ${eq.paraIndex + 1}`;
+  return `Paragraph ${eq.paraIndex + 1}`;
 }
 
 function previewInto(el, latex, isDisplay) {
@@ -774,7 +1048,7 @@ function previewInto(el, latex, isDisplay) {
     el.innerHTML = temml.renderToString(latex, { displayMode: isDisplay, throwOnError: true });
     el.classList.remove('err');
   } catch (e) {
-    el.textContent = '렌더 오류: ' + e.message;
+    el.textContent = 'Render error: ' + e.message;
     el.classList.add('err');
   }
 }
@@ -787,7 +1061,7 @@ function contextHtml(eq) {
   const before = (s - R > 0 ? '…' : '') + text.slice(Math.max(0, s - R), s);
   const mid    = text.slice(s, e);
   const after  = text.slice(e, e + R) + (e + R < text.length ? '…' : '');
-  return `문맥: ${escHtml(before)}<mark>${escHtml(mid)}</mark>${escHtml(after)}`;
+  return `Context: ${escHtml(before)}<mark>${escHtml(mid)}</mark>${escHtml(after)}`;
 }
 
 function buildEqCard(entry, index) {
@@ -801,7 +1075,7 @@ function buildEqCard(entry, index) {
       <span class="badge ${eq.type}">${isDisplay ? 'DISPLAY $$' : 'INLINE $'}</span>
       <span class="loc">${locLabel(eq)}</span>
       <span class="spacer"></span>
-      <button class="btn-ghost btn-skip">${entry.status === 'skipped' ? '되돌리기' : '건너뛰기'}</button>
+      <button class="btn-ghost btn-skip">${entry.status === 'skipped' ? 'Undo' : 'Skip'}</button>
     </div>
     <div class="card-body">
       <div class="preview"></div>
@@ -823,17 +1097,17 @@ function buildAmbigCard(amb) {
 
   const optionsHtml = amb.options.map((opt, oi) => `
     <div class="option">
-      <h4>해석 ${opt.label}</h4>
-      <div class="desc">${escHtml(opt.desc)} — 수식 ${opt.equations.length}개</div>
+      <h4>Interpretation ${opt.label}</h4>
+      <div class="desc">${escHtml(opt.desc)} — ${opt.equations.length} equation${opt.equations.length === 1 ? '' : 's'}</div>
       <div class="opt-previews" data-opt="${oi}"></div>
-      <button class="btn-primary btn-use" data-opt="${oi}">이 해석 사용</button>
+      <button class="btn-primary btn-use" data-opt="${oi}">Use this</button>
     </div>`).join('');
 
   card.innerHTML = `
     <div class="card-head">
-      <span class="ambig-warn">⚠ $ 개수가 홀수 — 수식 구간이 모호합니다</span>
+      <span class="ambig-warn">⚠ Odd number of $ — equation boundaries are ambiguous</span>
       <span class="spacer"></span>
-      <button class="btn-ghost btn-skip-amb">건너뛰기</button>
+      <button class="btn-ghost btn-skip-amb">Skip</button>
     </div>
     <div class="card-body">
       <div class="ambig-text">${escHtml(amb.text)}</div>
@@ -844,7 +1118,7 @@ function buildAmbigCard(amb) {
   amb.options.forEach((opt, oi) => {
     const box = card.querySelector(`.opt-previews[data-opt="${oi}"]`);
     if (opt.equations.length === 0) {
-      box.innerHTML = '<div class="mini-preview">(수식 없음)</div>';
+      box.innerHTML = '<div class="mini-preview">(no equations)</div>';
     }
     opt.equations.forEach(eq => {
       const mp = document.createElement('div');
@@ -908,13 +1182,13 @@ async function onGenerate() {
 
   const origLabel = btn.textContent;
   btn.disabled = true;
-  btn.textContent = '변환 중…';
+  btn.textContent = 'Rendering…';
   note.hidden = false;
-  note.innerHTML = 'MathJax 로딩 중…';
+  note.innerHTML = 'Loading MathJax…';
 
   try {
     if (typeof MathJax === 'undefined' || !MathJax.startup) {
-      throw new Error('MathJax 가 아직 로드되지 않았습니다. 잠시 후 다시 시도하세요.');
+      throw new Error('MathJax has not loaded yet. Please try again in a moment.');
     }
     await MathJax.startup.promise;
 
@@ -922,14 +1196,14 @@ async function onGenerate() {
 
     // ① 문서에서 실제 치환 대상 수집 (중복 latex+type 은 1개로)
     const targets = collectTargets(origDocXml, selectedSet);
-    if (targets.length === 0) throw new Error('문서에서 치환할 수식을 찾지 못했습니다.');
+    if (targets.length === 0) throw new Error('No equations to replace were found in the document.');
 
     // ② 각 수식 PNG 렌더 → 이미지/관계 캐시
     const cache  = new Map();   // 'latex|type' → {rId,imageName,cx,cy,b64}
     const failed = [];
     for (let i = 0; i < targets.length; i++) {
       const t = targets[i];
-      note.innerHTML = `수식 렌더링 중… ${i + 1} / ${targets.length}`;
+      note.innerHTML = `Rendering equation… ${i + 1} / ${targets.length}`;
       try {
         const png = await latexToPngBase64(t.latex, t.type === 'display');
         const n   = cache.size;                  // image1.png / rId1~6 은 원본이 사용중
@@ -949,10 +1223,10 @@ async function onGenerate() {
         failed.push(t.latex);
       }
     }
-    if (cache.size === 0) throw new Error('수식 렌더링에 모두 실패했습니다.');
+    if (cache.size === 0) throw new Error('All equation renderings failed.');
 
     // ③ document.xml / rels 변환
-    note.innerHTML = '.docx 재조립 중…';
+    note.innerHTML = 'Repackaging .docx…';
     let drawCount = 0;
     const newDocXml  = transformDocumentXml(origDocXml, selectedSet, cache,
                                             () => { drawCount++; });
@@ -979,19 +1253,19 @@ async function onGenerate() {
       mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     });
     const baseName = docxFileName.replace(/\.docx$/i, '');
-    triggerDownload(blob, baseName + ' (PNG 변환).docx');
+    triggerDownload(blob, baseName + ' (PNG rendered).docx');
 
     note.innerHTML =
-      `<strong>완료:</strong> 수식 ${drawCount}개를 PNG 이미지로 변환해 ` +
-      `<code>${escHtml(baseName)} (PNG 변환).docx</code> 로 내려받았습니다.<br>` +
-      `각 이미지 alt 텍스트에 원본 LaTeX(<code>${escHtml(FORMULA_TAG)}…</code>)를 저장해 ` +
-      `애드온과 호환되며 역변환이 가능합니다.` +
+      `<strong>Done:</strong> Rendered ${drawCount} equation${drawCount === 1 ? '' : 's'} as PNG images and downloaded ` +
+      `<code>${escHtml(baseName)} (PNG rendered).docx</code>.<br>` +
+      `The original LaTeX is preserved in each image's alt text (<code>${escHtml(FORMULA_TAG)}…</code>), ` +
+      `which keeps the file compatible with the add-on for round-trip conversion.` +
       (failed.length
-        ? `<br><span style="color:#d93025">⚠ 렌더 실패 ${failed.length}개는 원본 텍스트로 남겨두었습니다.</span>`
+        ? `<br><span style="color:#d93025">⚠ ${failed.length} equation${failed.length === 1 ? '' : 's'} failed to render and were left as original text.</span>`
         : '');
   } catch (err) {
     console.error(err);
-    note.innerHTML = '<strong style="color:#d93025">변환 실패:</strong> ' + escHtml(err.message);
+    note.innerHTML = '<strong style="color:#d93025">Render failed:</strong> ' + escHtml(err.message);
   } finally {
     btn.disabled = false;
     btn.textContent = origLabel;
@@ -1239,7 +1513,7 @@ function latexToPngBase64(latex, isDisplay) {
   return MathJax.startup.promise.then(() => {
     const wrapper = MathJax.tex2svg(latex, { display: isDisplay });
     const svgEl   = wrapper.querySelector('svg');
-    if (!svgEl) throw new Error('SVG 생성 실패');
+    if (!svgEl) throw new Error('SVG generation failed');
     if (hasRenderError(svgEl)) throw new Error('render-error: visual error in SVG output');
 
     function parseEx(attr) {
@@ -1274,7 +1548,7 @@ function latexToPngBase64(latex, isDisplay) {
           ctx.drawImage(img, 0, 0, w, h);
           if (url.startsWith('blob:')) URL.revokeObjectURL(url);
           canvas.toBlob(blob => {
-            if (!blob) { reject(new Error('PNG 변환 실패')); return; }
+            if (!blob) { reject(new Error('PNG conversion failed')); return; }
             const reader = new FileReader();
             reader.onload  = () => resolve({
               b64: reader.result.split(',')[1],
@@ -1286,7 +1560,7 @@ function latexToPngBase64(latex, isDisplay) {
         };
         img.onerror = () => {
           if (url.startsWith('blob:')) URL.revokeObjectURL(url);
-          reject(new Error('SVG 이미지 로드 실패'));
+          reject(new Error('SVG image load failed'));
         };
         img.src = url;
       });
