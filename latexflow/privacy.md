@@ -42,7 +42,7 @@ External rendering: MathJax is loaded from jsDelivr CDN. The `.docx` content its
 
 ---
 
-## 2c. Web App — Google Drive Import (Optional)
+## 2c. Web App — Google Drive Import (Optional) {#drive-import}
 
 The Web app provides an optional **"Import from Google Drive"** button alongside the standard drag-and-drop input. This path is for users (notably on iPad) whose Google Drive app only exports `.gdoc` as PDF. The button is dormant until you click it — if you only use drag-and-drop, **no Google Drive access ever occurs** and this section does not apply.
 
