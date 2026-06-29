@@ -1,7 +1,8 @@
 ---
-layout: page
-title: Privacy Policy — LaTeXFlow
+layout: latexflow-doc
+title: Privacy Policy
 permalink: /latexflow/privacy/
+description: How LaTeXFlow (Google Docs Add-on and Web app) handles your data.
 ---
 
 *Last updated: 2026-06-23*
