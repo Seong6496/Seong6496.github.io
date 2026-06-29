@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -38,6 +38,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<!-- Tabler Icons (webfont) — hero / dropzone / trust badges 자리 자료 자연 사용 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.4.0/dist/tabler-icons.min.css" />
 
 <style>
   /* ============================================================
@@ -116,15 +119,15 @@
   .brand-name {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: 14px;
+    font-size: 17px;
     color: var(--text);
   }
   .brand-sub {
-    font-size: 11px;
+    font-size: 14px;
     color: var(--text-muted);
   }
   .brand-link {
-    font-size: 11px;
+    font-size: 14px;
     color: var(--text-hint);
     text-decoration: none;
     transition: color .12s;
@@ -132,9 +135,9 @@
   .brand-link:hover { color: var(--text); }
   main { padding: 0 16px; }
 
-  /* 업로드 단계 — 중앙 480px container (review 단계는 별도 폭 유지) */
+  /* 업로드 단계 — desktop 800px container (832px 미만 viewport 는 viewport-32px 로 자동 축소, review 단계는 별도 폭 유지) */
   #upload-stage {
-    max-width: 480px;
+    max-width: 800px;
     margin: 56px auto 24px;
   }
 
@@ -144,7 +147,7 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 8px 10px;
-    font-size: 13px;
+    font-size: 16px;
     color: var(--text-muted);
     margin-bottom: 8px;
   }
@@ -153,14 +156,14 @@
     color: var(--accent);
     padding: 3px 10px;
     border-radius: 7px;
-    font-size: 12px;
+    font-size: 15px;
     font-weight: 500;
   }
-  .steps .arrow { color: var(--text-hint); font-size: 12px; }
+  .steps .arrow { color: var(--text-hint); font-size: 15px; }
 
   /* iPad 안내 link — fine print */
   .subnote {
-    font-size: 12px;
+    font-size: 15px;
     color: var(--text-hint);
     margin-bottom: 24px;
     line-height: 1.5;
@@ -188,7 +191,7 @@
     justify-content: center;
     gap: 8px;
     padding: 11px;
-    font: 500 14px var(--font-body);
+    font: 500 17px var(--font-body);
     color: var(--text);
     background: var(--bg-card);
     border: 0.5px solid var(--border-strong);
@@ -210,7 +213,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    font-size: 11px;
+    font-size: 14px;
     color: var(--text-hint);
     margin: 16px 0;
   }
@@ -240,16 +243,16 @@
     border-color: var(--accent);
     background: var(--accent-bg);
   }
-  #drop-zone .doc-icon { font-size: 28px; margin-bottom: 10px; opacity: 0.6; }
-  #drop-zone .big   { font-size: 14px; color: var(--text); margin-bottom: 4px; }
-  #drop-zone .small { font-size: 12px; color: var(--text-hint); line-height: 1.5; }
+  #drop-zone .doc-icon { font-size: 31px; margin-bottom: 10px; opacity: 0.6; }
+  #drop-zone .big   { font-size: 17px; color: var(--text); margin-bottom: 4px; }
+  #drop-zone .small { font-size: 15px; color: var(--text-hint); line-height: 1.5; }
 
   /* 대괄호 모드 체크박스 — 카드 안 dropzone 아래 */
   .option {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 13px;
+    font-size: 16px;
     color: var(--text-muted);
     margin-top: 18px;
     cursor: pointer;
@@ -262,13 +265,13 @@
   }
   .option code {
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: 15px;
     color: var(--text);
     background: var(--bg);
     padding: 1px 4px;
     border-radius: 3px;
   }
-  #status { margin-top: 14px; font-size: 13px; min-height: 18px; text-align: center; color: var(--text-muted); }
+  #status { margin-top: 14px; font-size: 16px; min-height: 18px; text-align: center; color: var(--text-muted); }
   #status.error { color: var(--badge-beta-text); }
 
   /* ── 리뷰 단계 ── */
@@ -280,8 +283,8 @@
     display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
     margin-bottom: 16px;
   }
-  .toolbar .doc { font-weight: 500; font-size: 13px; color: var(--text); }
-  .toolbar .counts { font-size: 12px; color: var(--text-muted); }
+  .toolbar .doc { font-weight: 500; font-size: 16px; color: var(--text); }
+  .toolbar .counts { font-size: 15px; color: var(--text-muted); }
   .toolbar .spacer { flex: 1; }
   button {
     font-family: inherit; font-size: 12.5px; border: none; border-radius: 6px;
@@ -295,7 +298,7 @@
   .btn-ghost:hover { background: var(--bg); color: var(--text); }
 
   .section-label {
-    font-size: 11px; font-weight: 500; color: var(--text-hint);
+    font-size: 14px; font-weight: 500; color: var(--text-hint);
     letter-spacing: 0.07em; margin: 18px 4px 8px;
   }
 
@@ -312,27 +315,27 @@
     padding: 10px 14px; border-bottom: 0.5px solid var(--border-soft);
   }
   .badge {
-    font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 5px;
+    font-size: 14px; font-weight: 500; padding: 3px 9px; border-radius: 5px;
   }
   .badge.display { background: rgba(31, 79, 163, 0.08); color: var(--accent); }
   .badge.inline  { background: var(--badge-live-bg); color: var(--badge-live-text); }
-  .loc { font-size: 11px; color: var(--text-hint); }
+  .loc { font-size: 14px; color: var(--text-hint); }
   .card-head .spacer { flex: 1; }
   .card-body { padding: 14px; }
   .preview {
     background: var(--bg);
     border: 0.5px solid var(--border-soft);
     border-radius: 6px;
-    padding: 14px; text-align: center; font-size: 18px; min-height: 48px;
+    padding: 14px; text-align: center; font-size: 21px; min-height: 48px;
     color: var(--text);
   }
   .preview.err {
     color: var(--badge-beta-text);
     background: var(--badge-beta-bg);
-    font-size: 12px; text-align: left; font-family: var(--font-mono);
+    font-size: 15px; text-align: left; font-family: var(--font-mono);
   }
   .latex-src {
-    margin-top: 10px; font-family: var(--font-mono); font-size: 12px;
+    margin-top: 10px; font-family: var(--font-mono); font-size: 15px;
     background: var(--bg);
     border: 0.5px solid var(--border-soft);
     border-radius: 4px; padding: 8px 10px;
@@ -340,7 +343,7 @@
     white-space: pre-wrap; word-break: break-all;
   }
   .context {
-    margin-top: 8px; font-size: 12px; color: var(--text-muted);
+    margin-top: 8px; font-size: 15px; color: var(--text-muted);
   }
   .context mark {
     background: rgba(216, 180, 90, 0.25);
@@ -360,9 +363,9 @@
     background: var(--badge-beta-bg);
     border-bottom-color: var(--border-soft);
   }
-  .ambig-warn { font-size: 12px; color: var(--badge-beta-text); font-weight: 500; }
+  .ambig-warn { font-size: 15px; color: var(--badge-beta-text); font-weight: 500; }
   .ambig-text {
-    font-size: 12px; font-family: var(--font-mono);
+    font-size: 15px; font-family: var(--font-mono);
     background: var(--bg);
     border: 0.5px solid var(--border-soft);
     border-radius: 4px;
@@ -375,10 +378,10 @@
     border: 0.5px solid var(--border-soft);
     border-radius: var(--radius); padding: 12px;
   }
-  .option h4 { font-size: 12px; font-weight: 500; margin-bottom: 4px; color: var(--text); }
-  .option .desc { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; }
+  .option h4 { font-size: 15px; font-weight: 500; margin-bottom: 4px; color: var(--text); }
+  .option .desc { font-size: 14px; color: var(--text-muted); margin-bottom: 8px; }
   .option .mini-preview {
-    font-size: 14px; text-align: center; padding: 8px;
+    font-size: 17px; text-align: center; padding: 8px;
     background: var(--bg-card);
     border: 0.5px solid var(--border-soft);
     border-radius: 4px; margin-bottom: 8px;
@@ -386,7 +389,7 @@
   }
   .option .mini-preview + .mini-preview { margin-top: 4px; }
 
-  .empty { color: var(--text-hint); font-size: 13px; padding: 24px; text-align: center; }
+  .empty { color: var(--text-hint); font-size: 16px; padding: 24px; text-align: center; }
 
   /* Generate 결과 안내 */
   #gen-note {
@@ -394,7 +397,7 @@
     border: 0.5px solid var(--border);
     border-left: 2px solid var(--accent);
     border-radius: var(--radius);
-    padding: 14px 16px; font-size: 12px; margin-top: 16px;
+    padding: 14px 16px; font-size: 15px; margin-top: 16px;
     color: var(--text);
   }
   #gen-note code {
@@ -416,16 +419,138 @@
     outline-width: 1px;
     outline-offset: 3px;
   }
+
+  /* ============================================================
+     Hero block — SB7 Problem + Plan + Success/Failure
+     marketing.md 정합: Stop fixing one by one / Drop file get every
+     ============================================================ */
+  .hero { margin-bottom: 24px; }
+  .hero-h1 {
+    font-family: var(--font-display);
+    font-size: 33px;
+    line-height: 1.25;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -0.5px;
+    margin: 0 0 12px;
+  }
+  .hero-sub {
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--text-muted);
+    margin: 0 0 8px;
+    font-weight: 400;
+  }
+  .hero-desc {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--text-hint);
+    margin: 0 0 24px;
+  }
+
+  /* Before/After 미리보기 — SB7 Success/Failure + empty state 해결 */
+  .before-after {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 12px;
+    align-items: stretch;
+    margin-bottom: 32px;
+  }
+  .before-after .panel {
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px;
+  }
+  .before-after .panel-label {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-hint);
+    margin-bottom: 8px;
+  }
+  .before-after .panel-raw {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-muted);
+    white-space: pre-wrap;
+  }
+  .before-after .panel-rendered {
+    font-size: 17px;
+    line-height: 2;
+    color: var(--text);
+  }
+  .before-after .panel-rendered em { font-style: italic; }
+  .before-after .panel-rendered .render-pill {
+    display: inline-block;
+    font-style: italic;
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    background: var(--accent-bg);
+    color: var(--accent);
+  }
+  .before-after .ba-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-hint);
+    font-size: 25px;
+  }
+  @media (max-width: 540px) {
+    .before-after {
+      grid-template-columns: 1fr;
+    }
+    .before-after .ba-arrow {
+      transform: rotate(90deg);
+    }
+  }
+
+  /* Trust badges — SB7 authority + 영역의 법칙 (한 번에 + bracket detect) */
+  .trust-badges {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .trust-badges .badge {
+    font-size: 15px;
+    color: var(--text-hint);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .trust-badges .badge i {
+    font-size: 17px;
+  }
+
+  /* brand-name 아이콘 + brand-link 외부 화살표 — Tabler 자리 자료 자연 */
+  .brand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: var(--accent-bg);
+    color: var(--accent);
+    font-size: 17px;
+    margin-right: 3px;
+  }
+  .brand-link i { font-size: 15px; margin-left: 2px; }
 </style>
 </head>
 <body>
 
 <header>
   <div class="brand">
+    <span class="brand-icon" aria-hidden="true"><i class="ti ti-math-function"></i></span>
     <span class="brand-name">LaTeXFlow</span>
     <span class="brand-sub">Scan</span>
   </div>
-  <a class="brand-link" href="https://mathsystem.dev/" target="_blank" rel="noopener">MathSystem ↗</a>
+  <a class="brand-link" href="https://mathsystem.dev/" target="_blank" rel="noopener">MathSystem <i class="ti ti-external-link" aria-hidden="true"></i></a>
 </header>
 
 <!--
@@ -445,6 +570,26 @@
 <main>
   <!-- 1단계: 업로드 -->
   <section id="upload-stage">
+
+    <!-- Hero (SB7 + 22 Immutable Laws — see docs/marketing_docs/latexflow-web-hero-marketing.md) -->
+    <div class="hero">
+      <h1 class="hero-h1">Stop fixing LaTeX one by one.</h1>
+      <p class="hero-sub">Drop your file, get every equation.</p>
+      <p class="hero-desc">Pasted a ChatGPT answer, built a worksheet, or wrote a paper in Word? Convert every piece of raw LaTeX in your document at once — no equation editor, nothing leaves your browser.</p>
+
+      <div class="before-after" aria-label="Before and after preview">
+        <div class="panel">
+          <div class="panel-label">Before</div>
+          <div class="panel-raw">The area is \frac{1}{2}bh and the root \sqrt{x^2+y^2} appears in \[E = mc^2\]</div>
+        </div>
+        <div class="ba-arrow" aria-hidden="true"><i class="ti ti-arrow-right"></i></div>
+        <div class="panel">
+          <div class="panel-label">After</div>
+          <div class="panel-rendered">The area is <em>½bh</em> and the root <em>√(x²+y²)</em> appears in <span class="render-pill">E = mc²</span></div>
+        </div>
+      </div>
+    </div>
+
     <div class="steps">
       <span class="pill">Upload</span>
       <span class="arrow">→</span>
@@ -469,7 +614,7 @@
       <div class="divider">or</div>
 
       <div id="drop-zone">
-        <div class="doc-icon">📄</div>
+        <div class="doc-icon" aria-hidden="true"><i class="ti ti-file-upload"></i></div>
         <div class="big">Drop a .docx file here</div>
         <div class="small">For Google Docs, use the <strong>Import from Google Drive</strong> button above</div>
       </div>
@@ -481,6 +626,13 @@
       </label>
     </div>
     <div id="status"></div>
+
+    <!-- Trust badges — SB7 authority / 영역의 법칙 (한 번에 + bracket detect) -->
+    <div class="trust-badges" aria-label="Trust signals">
+      <span class="badge"><i class="ti ti-lock" aria-hidden="true"></i> Nothing leaves your browser</span>
+      <span class="badge"><i class="ti ti-bolt" aria-hidden="true"></i> Every equation at once</span>
+      <span class="badge"><i class="ti ti-brackets" aria-hidden="true"></i> Detects bracket <code>[\...]</code> too</span>
+    </div>
   </section>
 
   <!-- 2단계: 리뷰 -->
