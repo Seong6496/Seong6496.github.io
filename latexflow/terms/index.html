@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terms of Service · LaTeXFlow</title>
+  <meta name="description" content="Terms of Service for the LaTeXFlow Google Docs Add-on and Web app." />
+
+  <!-- Math System favicons -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/apple-touch-icon-180.png">
+
+  <!-- Tabler Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.4.0/dist/tabler-icons.min.css" />
+
+  <!-- fonts — web-prototype 와 동일 톤 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --paper:      #FBFAF6;
+      --white:      #FFFFFF;
+      --ink-900:    #191919;
+      --ink-600:    #5C5A53;
+      --ink-500:    #75726A;
+      --ink-400:    #9B9890;
+      --accent-700: #1F4FA3;
+      --accent-800: #173E82;
+      --hairline:   rgba(0, 0, 0, 0.12);
+
+      --bg:           var(--paper);
+      --bg-card:      var(--white);
+      --text:         var(--ink-900);
+      --text-muted:   var(--ink-500);
+      --text-hint:    var(--ink-400);
+      --accent:       var(--accent-700);
+      --accent-hover: var(--accent-800);
+      --accent-bg:    rgba(31, 79, 163, 0.08);
+      --border:       var(--hairline);
+
+      --font-display: 'STIX Two Text', 'Noto Serif KR', 'Times New Roman', serif;
+      --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo', 'Pretendard', 'Noto Sans KR', sans-serif;
+      --font-mono:    'JetBrains Mono', 'D2Coding', ui-monospace, 'SF Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* header — web-prototype hero 와 동일 톤 */
+    .doc-header {
+      background: var(--bg-card);
+      padding: 14px 20px;
+      border-bottom: 0.5px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .doc-header .brand { display: flex; align-items: center; gap: 8px; }
+    .doc-header .brand-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      background: var(--accent-bg);
+      color: var(--accent);
+      font-size: 16px;
+    }
+    .doc-header .brand a {
+      text-decoration: none;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      color: inherit;
+    }
+    .doc-header .brand-name {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 17px;
+      color: var(--text);
+    }
+    .doc-header .brand-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .doc-header .brand-link {
+      font-size: 13px;
+      color: var(--text-hint);
+      text-decoration: none;
+    }
+    .doc-header .brand-link:hover { color: var(--text); }
+    .doc-header .brand-link i { font-size: 12px; margin-left: 2px; }
+
+    /* nav — back / privacy / terms / support */
+    .doc-nav {
+      max-width: 780px;
+      margin: 28px auto 0;
+      padding: 0 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .doc-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 2px;
+      transition: color .12s, border-color .12s;
+    }
+    .doc-nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .doc-nav a.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
+    .doc-nav .back i { font-size: 12px; margin-right: 3px; }
+
+    /* main content */
+    main.doc-main {
+      max-width: 780px;
+      margin: 32px auto 64px;
+      padding: 0 20px;
+    }
+    .doc-main h1 {
+      font-family: var(--font-display);
+      font-size: 34px;
+      font-weight: 500;
+      letter-spacing: -0.4px;
+      margin: 0 0 12px;
+    }
+    .doc-main h2 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 500;
+      margin: 44px 0 12px;
+      padding-top: 16px;
+      border-top: 0.5px solid var(--border);
+    }
+    .doc-main h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin: 24px 0 8px;
+    }
+    .doc-main p,
+    .doc-main li {
+      margin-bottom: 12px;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    .doc-main ul,
+    .doc-main ol {
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+    .doc-main code {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      background: var(--bg-card);
+      padding: 1px 5px;
+      border-radius: 3px;
+      border: 0.5px solid var(--border);
+    }
+    .doc-main pre {
+      background: var(--bg-card);
+      border: 0.5px solid var(--border);
+      border-radius: 6px;
+      padding: 14px;
+      overflow-x: auto;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+    .doc-main pre code { background: none; border: none; padding: 0; }
+    .doc-main a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+    .doc-main a:hover { color: var(--accent-hover); }
+    .doc-main strong { font-weight: 600; }
+    .doc-main em { font-style: italic; color: var(--text-muted); }
+    .doc-main blockquote {
+      border-left: 3px solid var(--accent-bg);
+      padding: 10px 16px;
+      margin: 18px 0;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      border-radius: 0 4px 4px 0;
+    }
+    .doc-main blockquote p:last-child { margin-bottom: 0; }
+    .doc-main hr {
+      border: none;
+      border-top: 0.5px solid var(--border);
+      margin: 32px 0;
+    }
+    .doc-main table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 15px;
+    }
+    .doc-main th,
+    .doc-main td {
+      border: 0.5px solid var(--border);
+      padding: 8px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .doc-main th {
+      background: var(--bg-card);
+      font-weight: 600;
+    }
+
+    /* footer */
+    .doc-footer {
+      border-top: 0.5px solid var(--border);
+      padding: 24px 20px 32px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-hint);
+    }
+    .doc-footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin: 0 6px;
+    }
+    .doc-footer a:hover { color: var(--accent); }
+    .doc-footer .copy {
+      margin-top: 10px;
+      font-size: 12px;
+    }
+    .doc-footer .copy a { color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+<header class="doc-header">
+  <div class="brand">
+    <span class="brand-icon" aria-hidden="true"><i class="ti ti-math-function"></i></span>
+    <a href="/latexflow/web/">
+      <span class="brand-name">LaTeXFlow</span>
+      <span class="brand-sub">Scan</span>
+    </a>
+  </div>
+  <a class="brand-link" href="https://mathsystem.dev/" target="_blank" rel="noopener">MathSystem <i class="ti ti-external-link" aria-hidden="true"></i></a>
+</header>
+
+<nav class="doc-nav" aria-label="LaTeXFlow documentation">
+  <a class="back" href="/latexflow/web/"><i class="ti ti-arrow-left"></i>Back to tool</a>
+  <a href="/latexflow/privacy/" >Privacy</a>
+  <a href="/latexflow/terms/" class="active">Terms</a>
+  <a href="/latexflow/support/" >Support</a>
+</nav>
+
+<main class="doc-main">
+  <h1>Terms of Service</h1>
+  <p><em>Last updated: 2026-06-29</em></p>
+
+<p>By installing or using <strong>LaTeXFlow</strong> — either the <strong>Google Docs™ Add-on</strong> (“the Add-on”) or the <strong>Web app</strong> at <code class="language-plaintext highlighter-rouge">mathsystem.dev/latexflow/web/</code> (“the Web app”) — you agree to these Terms of Service. Sections marked <strong>(Add-on)</strong> apply only to the Add-on; sections marked <strong>(Web app)</strong> apply only to the Web app; unmarked sections apply to both.</p>
+
+<hr />
+
+<h2 id="1-description-of-service-add-on">1. Description of Service (Add-on)</h2>
+
+<p>The Add-on is a Google Workspace Add-on that converts LaTeX mathematical expressions into image format and inserts them into Google Docs. It is provided free of charge.</p>
+
+<h2 id="1b-description-of-service-web-app">1b. Description of Service (Web app)</h2>
+
+<p>The Web app is a browser-based tool at <code class="language-plaintext highlighter-rouge">mathsystem.dev/latexflow/web/</code> that converts LaTeX expressions inside a <code class="language-plaintext highlighter-rouge">.docx</code> file — uploaded directly or imported from Google Drive — into rendered PNG images. All document processing runs in your browser; document text never leaves your device. It is provided free of charge.</p>
+
+<hr />
+
+<h2 id="2-acceptable-use">2. Acceptable Use</h2>
+
+<p>You agree to use LaTeXFlow only for lawful purposes. You must not:</p>
+
+<ul>
+  <li>Use LaTeXFlow to process sensitive personal data of third parties without appropriate authorization</li>
+  <li>Attempt to reverse-engineer, modify, or redistribute LaTeXFlow without permission</li>
+  <li><strong>(Add-on)</strong> Use the Add-on in ways that violate Google Workspace’s Terms of Service</li>
+  <li><strong>(Web app)</strong> Use the Web app to abuse Google Drive API quotas or any third-party service it integrates with</li>
+</ul>
+
+<hr />
+
+<h2 id="3-data-collection-consent">3. Data Collection Consent</h2>
+
+<p>LaTeXFlow may collect anonymized LaTeX source and rendered equation images for model training purposes, <strong>subject to your explicit consent</strong>.</p>
+
+<ul>
+  <li><strong>(Add-on)</strong> Consent is managed inside Google Docs via <em>Extensions → LaTeXFlow → Data Collection Settings</em>.</li>
+  <li><strong>(Web app)</strong> When you convert equations, the LaTeX source for each equation and its rendered PNG are sent to our collection endpoint. The non-equation contents of your document are never transmitted.</li>
+</ul>
+
+<p>See our <a href="/latexflow/privacy/">Privacy Policy</a> for full details on what is collected and how it is stored.</p>
+
+<p>You may opt out at any time. Opting out does not affect core functionality.</p>
+
+<hr />
+
+<h2 id="4-no-warranty">4. No Warranty</h2>
+
+<p>LaTeXFlow is provided <strong>“as is”</strong> without warranties of any kind, express or implied. We do not guarantee:</p>
+
+<ul>
+  <li>Uninterrupted or error-free operation</li>
+  <li>Compatibility with all Google Docs configurations or browsers</li>
+  <li>Accuracy of rendered equations in all cases</li>
+</ul>
+
+<hr />
+
+<h2 id="5-limitation-of-liability">5. Limitation of Liability</h2>
+
+<p>To the maximum extent permitted by law, the developer shall not be liable for any indirect, incidental, or consequential damages arising from the use or inability to use LaTeXFlow.</p>
+
+<hr />
+
+<h2 id="6-modifications">6. Modifications</h2>
+
+<p>We reserve the right to modify or discontinue LaTeXFlow at any time without notice. We may also update these Terms at any time; the “Last updated” date will reflect changes.</p>
+
+<hr />
+
+<h2 id="7-governing-law">7. Governing Law</h2>
+
+<p>These Terms are governed by the laws of the Republic of Korea, without regard to conflict of law principles.</p>
+
+<hr />
+
+<h2 id="8-contact">8. Contact</h2>
+
+<p>Questions about these Terms: sung2417@gmail.com</p>
+
+</main>
+
+<footer class="doc-footer">
+  <a href="/latexflow/web/">LaTeXFlow Scan</a> ·
+  <a href="/latexflow/privacy/">Privacy</a> ·
+  <a href="/latexflow/terms/">Terms</a> ·
+  <a href="/latexflow/support/">Support</a> ·
+  <a href="https://mathsystem.dev/">MathSystem</a>
+  <p class="copy">© 2026 LaTeXFlow · Contact: <a href="mailto:sung2417@gmail.com">sung2417@gmail.com</a></p>
+</footer>
+
+</body>
+</html>
