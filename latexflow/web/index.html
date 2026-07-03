@@ -5,13 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>LaTeXFlow Scan · Convert LaTeX in .docx to images</title>
 
-<!-- Math System favicons -->
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
-<link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16">
-<link rel="apple-touch-icon" href="/apple-touch-icon-180.png">
-
 <!-- Temml: 미리보기 렌더링 (애드온 Sidebar.html과 동일 라이브러리) -->
 <link rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/temml@0.10.32/dist/Temml-Latin-Modern.min.css" />
@@ -396,6 +389,103 @@
   }
   .option .mini-preview + .mini-preview { margin-top: 4px; }
 
+  /* ── 모호성 카드 — 편집 UI ── */
+  .edited-badge {
+    display: inline-block;
+    font-size: 12px;
+    color: var(--badge-beta-text);
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: 3px;
+    padding: 1px 6px;
+    margin-left: 6px;
+    font-weight: 400;
+  }
+  .ambig-edit .edit-warn {
+    font-size: 13px;
+    color: var(--text-muted);
+    background: var(--bg);
+    border: 0.5px solid var(--border-soft);
+    border-radius: 4px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+  }
+  .ambig-edit .edit-warn code {
+    font-family: var(--font-mono);
+    background: var(--bg-card);
+    padding: 0 3px;
+    border-radius: 2px;
+  }
+  .ambig-edit textarea.edit-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    padding: 8px 10px;
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg);
+    color: var(--text);
+    resize: vertical;
+    min-height: 60px;
+  }
+  .ambig-edit .edit-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .ambig-edit .edit-note {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .ambig-edit .edit-note.error { color: #d93025; }
+
+  /* ── 일반 수식 카드 — 편집 UI (Phase 5) ── */
+  .eq-card .orig-note {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  .eq-card .orig-note code {
+    font-family: var(--font-mono);
+    background: var(--bg);
+    padding: 0 3px;
+    border-radius: 2px;
+  }
+  .eq-edit textarea.edit-latex-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    padding: 8px 10px;
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg);
+    color: var(--text);
+    resize: vertical;
+    min-height: 42px;
+  }
+  .eq-edit .edit-preview {
+    font-size: 17px;
+    text-align: center;
+    padding: 10px;
+    margin-top: 8px;
+    background: var(--bg);
+    border: 0.5px solid var(--border-soft);
+    border-radius: 4px;
+    min-height: 32px;
+  }
+  .eq-edit .edit-preview.err { color: #d93025; font-size: 13px; text-align: left; }
+  .eq-edit .edit-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .eq-edit .edit-note { font-size: 13px; color: var(--text-muted); }
+  .eq-edit .edit-note.error { color: #d93025; }
+
   .empty { color: var(--text-hint); font-size: 16px; padding: 24px; text-align: center; }
 
   /* Generate 결과 안내 */
@@ -683,6 +773,18 @@ const CT_PATH   = '[Content_Types].xml';
 let blockText  = {};   // key -> 원본 단락 텍스트 (문맥 스니펫용)
 let scanState  = [];   // [{ eq, status: 'pending' | 'skipped' }]
 let ambigState = [];   // 미해결 모호성 항목
+let paraEdits  = new Map();   // paraKey (keyOf) -> editedText
+                              // 모호성 카드에서 사용자가 단락 텍스트를 편집한 자리.
+                              // Phase 2 UI 가 Save 시 채움. transform 단계에서 이 자리 있으면
+                              // 원본 텍스트를 편집본으로 대체 후 재스캔하는 경로 (§3.3).
+
+// scanState entry 자연 규격 (Phase 4): { eq, originalLatex, editedLatex, status }
+//  - originalLatex = 원본 docx 텍스트 매칭 키 (immutable)
+//  - editedLatex   = 렌더/alt 태그 자리 (사용자 편집 시 갱신)
+//  - default = 둘 다 eq.latex 같음 = 기존 동작 정합
+function makeScanEntry(eq) {
+  return { eq, originalLatex: eq.latex, editedLatex: eq.latex, status: 'pending' };
+}
 
 let docxZip      = null;  // 원본 .docx (JSZip) — 내보내기 때 재패키징
 let origDocXml   = '';    // 원본 word/document.xml 문자열 (불변, 변환 입력)
@@ -913,6 +1015,7 @@ function scanAll(blocks) {
   const equations = [];
   const ambiguous = [];
   blockText = {};
+  paraEdits = new Map();   // 새 스캔 = 편집 상태 초기화 (파일 재업로드 자리)
   // bracket mode 토글: ChatGPT-style `[\...]` 추가 인식 (격리 entry — 이 한
   // 줄의 if/호출 제거하면 $/$$ 만 처리하는 원래 동작으로 즉시 복귀).
   const bracketEl = document.getElementById('bracket-mode');
@@ -1160,7 +1263,7 @@ function _scanStdLatexEquations(text, paraIndex, cellPath, equations) {
  * ========================================================== */
 function showReview(fileName, equations, ambiguous) {
   docxFileName = fileName;
-  scanState  = equations.map(eq => ({ eq, status: 'pending' }));
+  scanState  = equations.map(eq => makeScanEntry(eq));
   ambigState = ambiguous.slice();
   document.getElementById('upload-stage').hidden = true;
   document.getElementById('review-stage').hidden = false;
@@ -1230,30 +1333,106 @@ function buildEqCard(entry, index) {
   card.className = 'card eq-card' + (entry.status === 'skipped' ? ' skipped' : '');
 
   const isDisplay = eq.type === 'display';
+  const isEdited  = entry.editedLatex !== entry.originalLatex;
+  const editedBadge = isEdited ? ' <span class="edited-badge">Edited</span>' : '';
+
+  // 같은 originalLatex 자연 자리 여러 entry = "N occurrences" 표기 (편집 전파 자연 자리).
+  const dupCount = scanState.filter(e => e.originalLatex === entry.originalLatex).length;
+  const dupNote  = dupCount > 1 ? ` · ${dupCount} occurrences — edits propagate` : '';
+
   card.innerHTML = `
     <div class="card-head">
       <span class="badge ${eq.type}">${isDisplay ? 'DISPLAY $$' : 'INLINE $'}</span>
-      <span class="loc">${locLabel(eq)}</span>
+      <span class="loc">${locLabel(eq)}${dupNote}${editedBadge}</span>
       <span class="spacer"></span>
+      <button class="btn-ghost btn-edit-latex">Edit LaTeX</button>
       <button class="btn-ghost btn-skip">${entry.status === 'skipped' ? 'Undo' : 'Skip'}</button>
     </div>
     <div class="card-body">
       <div class="preview"></div>
-      <div class="latex-src">${escHtml(eq.latex)}</div>
+      <div class="eq-view">
+        <div class="latex-src">${escHtml(entry.editedLatex)}</div>
+        ${isEdited ? `<div class="orig-note">Original: <code>${escHtml(entry.originalLatex)}</code></div>` : ''}
+      </div>
+      <div class="eq-edit" hidden>
+        <textarea class="edit-latex-textarea" rows="2" spellcheck="false"></textarea>
+        <div class="edit-preview"></div>
+        <div class="edit-actions">
+          <button class="btn-primary btn-save-latex">Save</button>
+          <button class="btn-ghost btn-cancel-latex">Cancel</button>
+          <span class="edit-note"></span>
+        </div>
+      </div>
       <div class="context">${contextHtml(eq)}</div>
     </div>`;
 
-  previewInto(card.querySelector('.preview'), eq.latex, isDisplay);
+  const previewEl = card.querySelector('.preview');
+  previewInto(previewEl, entry.editedLatex, isDisplay);
   card.querySelector('.btn-skip').addEventListener('click', () => {
     entry.status = entry.status === 'skipped' ? 'pending' : 'skipped';
     renderAll();
   });
+
+  // 편집 UI 자연 자리
+  const viewBox = card.querySelector('.eq-view');
+  const editBox = card.querySelector('.eq-edit');
+  const textarea = card.querySelector('.edit-latex-textarea');
+  const editPreview = card.querySelector('.edit-preview');
+  const editNote = card.querySelector('.edit-note');
+
+  card.querySelector('.btn-edit-latex').addEventListener('click', () => {
+    textarea.value = entry.editedLatex;
+    previewInto(editPreview, textarea.value, isDisplay);
+    editNote.textContent = '';
+    editNote.classList.remove('error');
+    viewBox.hidden = true;
+    editBox.hidden = false;
+    textarea.focus();
+  });
+  card.querySelector('.btn-cancel-latex').addEventListener('click', () => {
+    editBox.hidden = true;
+    viewBox.hidden = false;
+  });
+  // 실시간 preview 재렌더 (typing 자연 자리)
+  textarea.addEventListener('input', () => {
+    previewInto(editPreview, textarea.value, isDisplay);
+  });
+  card.querySelector('.btn-save-latex').addEventListener('click', () => {
+    saveLatexEdit(index, textarea.value, editNote);
+  });
+
   return card;
+}
+
+/**
+ * 일반 카드 LaTeX 편집 Save.
+ * 정책: 편집 = 같은 originalLatex 자연 entry 전체에 전파 (§4.4).
+ *  - 결과 = 원본과 동일 → editedLatex = originalLatex 복귀 (badge 사라짐).
+ *  - 결과 = 원본과 다름 → 전 entry 의 editedLatex 갱신.
+ */
+function saveLatexEdit(entryIndex, newLatex, editNote) {
+  const entry = scanState[entryIndex];
+  if (!entry) return;
+  const trimmed = newLatex;
+  if (trimmed === entry.editedLatex) {
+    editNote.classList.remove('error');
+    editNote.textContent = 'No changes.';
+    return;
+  }
+  // 전파 = 같은 originalLatex 를 가진 entry 전체
+  scanState.forEach(e => {
+    if (e.originalLatex === entry.originalLatex) {
+      e.editedLatex = trimmed;
+    }
+  });
+  renderAll();
 }
 
 function buildAmbigCard(amb) {
   const card = document.createElement('div');
   card.className = 'card ambig';
+  const editedBadge = amb.editedText != null ? ' <span class="edited-badge">Edited</span>' : '';
+  const initialText = amb.editedText != null ? amb.editedText : amb.text;
 
   const optionsHtml = amb.options.map((opt, oi) => `
     <div class="option">
@@ -1265,13 +1444,28 @@ function buildAmbigCard(amb) {
 
   card.innerHTML = `
     <div class="card-head">
-      <span class="ambig-warn">⚠ Odd number of $ — equation boundaries are ambiguous</span>
+      <span class="ambig-warn">⚠ Odd number of $ — equation boundaries are ambiguous${editedBadge}</span>
       <span class="spacer"></span>
+      <button class="btn-ghost btn-edit-amb">Edit text</button>
       <button class="btn-ghost btn-skip-amb">Skip</button>
     </div>
     <div class="card-body">
-      <div class="ambig-text">${escHtml(amb.text)}</div>
-      <div class="options">${optionsHtml}</div>
+      <div class="ambig-view">
+        <div class="ambig-text">${escHtml(initialText)}</div>
+        <div class="options">${optionsHtml}</div>
+      </div>
+      <div class="ambig-edit" hidden>
+        <div class="edit-warn">
+          ⚠ Editing will remove any formatting (bold, italic, colors) from this entire paragraph.
+          Fix the LaTeX or add the missing <code>$</code> delimiter, then Save.
+        </div>
+        <textarea class="edit-textarea" rows="3" spellcheck="false"></textarea>
+        <div class="edit-actions">
+          <button class="btn-primary btn-save-edit">Save</button>
+          <button class="btn-ghost btn-cancel-edit">Cancel</button>
+          <span class="edit-note"></span>
+        </div>
+      </div>
     </div>`;
 
   // 각 해석의 수식 미리보기 채우기
@@ -1293,8 +1487,34 @@ function buildAmbigCard(amb) {
   });
   card.querySelector('.btn-skip-amb').addEventListener('click', () => {
     ambigState = ambigState.filter(a => a.id !== amb.id);
+    // 편집 상태도 함께 정리 (Skip 하면 편집도 폐기)
+    if (amb.paraIndex != null || amb.cellPath) {
+      paraEdits.delete(keyOf(amb.paraIndex, amb.cellPath));
+    }
     renderAll();
   });
+
+  // 편집 자리 toggle + Save/Cancel 자연
+  const viewBox = card.querySelector('.ambig-view');
+  const editBox = card.querySelector('.ambig-edit');
+  const textarea = card.querySelector('.edit-textarea');
+  const editNote = card.querySelector('.edit-note');
+
+  card.querySelector('.btn-edit-amb').addEventListener('click', () => {
+    textarea.value = amb.editedText != null ? amb.editedText : amb.text;
+    editNote.textContent = '';
+    viewBox.hidden = true;
+    editBox.hidden = false;
+    textarea.focus();
+  });
+  card.querySelector('.btn-cancel-edit').addEventListener('click', () => {
+    editBox.hidden = true;
+    viewBox.hidden = false;
+  });
+  card.querySelector('.btn-save-edit').addEventListener('click', () => {
+    saveAmbigEdit(amb.id, textarea.value, editNote);
+  });
+
   return card;
 }
 
@@ -1303,8 +1523,64 @@ function resolveAmbiguity(ambId, optIdx) {
   const amb = ambigState.find(a => a.id === ambId);
   if (!amb) return;
   amb.options[optIdx].equations.forEach(eq => {
-    scanState.push({ eq, status: 'pending' });
+    scanState.push(makeScanEntry(eq));
   });
+  ambigState = ambigState.filter(a => a.id !== ambId);
+  renderAll();
+}
+
+/**
+ * 모호성 카드 편집 Save — 편집된 텍스트를 재스캔해 세 갈래 결과 처리.
+ *  (§3.2)
+ *  1) 여전히 홀수 $ = 새 옵션 재계산, 카드 유지 + 편집 자리 표시
+ *  2) 짝수 $, 수식 검출 = 해결. scanState 로 이동, ambigState 에서 제거.
+ *  3) 수식 0개 = 사용자가 수식 자리를 다 지운 자리. ambigState 에서 제거 후 안내.
+ *  세 갈래 다 paraEdits 는 유지 (transform 에서 편집본 반영).
+ */
+function saveAmbigEdit(ambId, editedText, editNote) {
+  const amb = ambigState.find(a => a.id === ambId);
+  if (!amb) return;
+  const trimmed = editedText;
+  if (trimmed === amb.text && amb.editedText == null) {
+    // 변화 없음 = 편집 UI 만 닫기 (Cancel 자연 자리와 동일)
+    editNote.classList.remove('error');
+    editNote.textContent = 'No changes.';
+    return;
+  }
+  // 재스캔 = scanAll 자리와 동일 자연 (개별 스캐너 호출)
+  const equations = [];
+  const ambiguous = [];
+  const paraIndex = amb.paraIndex;
+  const cellPath  = amb.cellPath;
+  _scanTextForEquations(trimmed, paraIndex, cellPath, equations, ambiguous);
+  _scanStdLatexEquations(trimmed, paraIndex, cellPath, equations);
+  const bracketEl = document.getElementById('bracket-mode');
+  if (!bracketEl || bracketEl.checked) {
+    _scanBracketEquations(trimmed, paraIndex, cellPath, equations);
+  }
+
+  const paraKey = keyOf(paraIndex, cellPath);
+  paraEdits.set(paraKey, trimmed);
+
+  if (ambiguous.length > 0) {
+    // 여전히 모호 — 새 옵션으로 카드 갱신
+    const newAmb = ambiguous[0];
+    amb.text = trimmed;
+    amb.editedText = trimmed;
+    amb.options = newAmb.options;
+    renderAll();
+    return;
+  }
+
+  if (equations.length > 0) {
+    // 해결 = 검출된 수식을 scanState 로 이동, ambigState 에서 제거
+    equations.forEach(eq => scanState.push(makeScanEntry(eq)));
+    ambigState = ambigState.filter(a => a.id !== ambId);
+    renderAll();
+    return;
+  }
+
+  // 수식 0개 = 편집이 수식을 다 없앰. 카드 제거. paraEdits 는 유지 (텍스트 대체 자리).
   ambigState = ambigState.filter(a => a.id !== ambId);
   renderAll();
 }
@@ -1337,7 +1613,7 @@ async function onGenerate() {
   const btn  = document.getElementById('btn-generate');
   const note = document.getElementById('gen-note');
 
-  const selected = scanState.filter(e => e.status !== 'skipped').map(e => e.eq);
+  const selected = scanState.filter(e => e.status !== 'skipped');
   if (selected.length === 0) return;
 
   const origLabel = btn.textContent;
@@ -1352,14 +1628,19 @@ async function onGenerate() {
     }
     await MathJax.startup.promise;
 
-    const selectedSet = new Set(selected.map(e => e.latex));
+    // selectedMap = originalLatex → editedLatex 자연 매핑 (Phase 4).
+    //  - .has(originalLatex) = 선택 여부
+    //  - .get(originalLatex) = 렌더할 editedLatex (편집 없으면 originalLatex 그대로)
+    //  - 같은 originalLatex 여러 entry = 마지막 편집이 이김 (v2 정책: 전 인스턴스 전파)
+    const selectedMap = new Map();
+    selected.forEach(entry => selectedMap.set(entry.originalLatex, entry.editedLatex));
 
     // ① 문서에서 실제 치환 대상 수집 (중복 latex+type 은 1개로)
-    const targets = collectTargets(origDocXml, selectedSet);
+    const targets = collectTargets(origDocXml, selectedMap);
     if (targets.length === 0) throw new Error('No equations to replace were found in the document.');
 
-    // ② 각 수식 PNG 렌더 → 이미지/관계 캐시
-    const cache  = new Map();   // 'latex|type' → {rId,imageName,cx,cy,b64}
+    // ② 각 수식 PNG 렌더 → 이미지/관계 캐시 (key = editedLatex|type)
+    const cache  = new Map();   // 'editedLatex|type' → {rId,imageName,cx,cy,b64}
     const failed = [];
     for (let i = 0; i < targets.length; i++) {
       const t = targets[i];
@@ -1388,7 +1669,7 @@ async function onGenerate() {
     // ③ document.xml / rels 변환
     note.innerHTML = 'Repackaging .docx…';
     let drawCount = 0;
-    const newDocXml  = transformDocumentXml(origDocXml, selectedSet, cache,
+    const newDocXml  = transformDocumentXml(origDocXml, selectedMap, cache,
                                             () => { drawCount++; });
     const newRelsXml = addImageRelationships(origRelsXml, cache);
 
@@ -1444,8 +1725,8 @@ function equationsInText(text) {
     _scanBracketEquations(text, 0, null, eqs);
   }
   // Ambiguity 분기로 빠진 매칭도 합산한다. transform 단계에서 호출될 때는
-  // 사용자가 이미 해석을 선택한 후라 selectedSet 에 옳은 latex 만 들어 있고,
-  // caller 의 selectedSet filter 가 다른 옵션 매칭을 자연스럽게 거른다.
+  // 사용자가 이미 해석을 선택한 후라 selectedMap 에 옳은 latex 만 들어 있고,
+  // caller 의 selectedMap filter 가 다른 옵션 매칭을 자연스럽게 거른다.
   // 이 줄이 없으면 홀수-$ 단락의 모든 매칭이 transform 에서 누락된다 (export 단계
   // 의 equationsInText 가 단락 텍스트만 보고 amb 를 무시했기 때문).
   amb.forEach(a => a.options.forEach(opt => opt.equations.forEach(eq => eqs.push(eq))));
@@ -1483,17 +1764,24 @@ function collectRunsInParagraph(paraXml) {
 
 /** document.xml 의 모든 단락을 훑어 선택된 수식의 (latex,type) 목록을 중복 없이 수집.
  *  단락 단위 텍스트 합산이므로 멀티-<w:t> 수식도 잡힌다. */
-function collectTargets(xml, selectedSet) {
+function collectTargets(xml, selectedMap) {
   const seen = new Set(), targets = [];
+  const addFrom = (text) => {
+    equationsInText(text).forEach(eq => {
+      if (!selectedMap.has(eq.latex)) return;
+      const editedLatex = selectedMap.get(eq.latex);
+      const key = editedLatex + '|' + eq.type;
+      if (!seen.has(key)) { seen.add(key); targets.push({ latex: editedLatex, type: eq.type }); }
+    });
+  };
   xml.replace(PARA_RE, function(paraXml) {
     const { paraText } = collectRunsInParagraph(paraXml);
-    equationsInText(paraText).forEach(eq => {
-      if (!selectedSet.has(eq.latex)) return;
-      const key = eq.latex + '|' + eq.type;
-      if (!seen.has(key)) { seen.add(key); targets.push({ latex: eq.latex, type: eq.type }); }
-    });
+    addFrom(paraText);
     return paraXml;
   });
+  // 편집된 단락 자리 = 원본 docx 텍스트에 안 나오는 새 수식이 있을 수 있으니
+  // paraEdits 도 훑어 render 대상에 포함 (§3.4). transform 단계도 이 자리 렌더 캐시를 참조.
+  paraEdits.forEach(text => addFrom(text));
   return targets;
 }
 
@@ -1511,18 +1799,59 @@ function collectTargets(xml, selectedSet) {
  *    재발행되어 보존된다. 매칭에 안 걸린 run 도 원본 XML 그대로 보존.
  *  - 매칭에 걸린 run 의 wrapper attrs/rPr 은 ‘시작 run’ 의 것을 사용한다.
  */
-function transformDocumentXml(xml, selectedSet, cache, onDraw) {
+function transformDocumentXml(xml, selectedMap, cache, onDraw) {
   let docPrId = 1000;   // 기존 도형 id(1) 과 충돌 회피
   let emitted = 0;
   const drew = () => { emitted++; onDraw(); };
+  // 편집 자리 lookup helper (Phase 4). selectedMap: originalLatex → editedLatex.
+  // 캐시 키 + alt 태그 모두 editedLatex 자리 (편집 없으면 originalLatex 같음 = 정합).
+  const editedOf = orig => selectedMap.get(orig);
+
   const replaced = xml.replace(PARA_RE, function(paraXml) {
     const { runs, paraText } = collectRunsInParagraph(paraXml);
     if (runs.length === 0) return paraXml;
 
-    const eqs = equationsInText(paraText).filter(e => selectedSet.has(e.latex));
+    // ── 편집 자리 (§3.3) ─────────────────────────────────────────
+    // paraEdits 에 이 paraText 와 일치하는 원본 자리가 있으면 편집본으로 대체.
+    // paraText 매칭 = 단순하지만 중복 단락 자리에는 첫 매칭이 그 자리 전체에
+    // 전파 (v1 정책: 편집은 같은 원본 전 인스턴스에 반영).
+    // 서식 유실 = 편집한 단락 전체가 plain rPr 로 재발행. UI 자리에서 명시 안내.
+    if (paraEdits.size > 0) {
+      let editedKey = null;
+      for (const [key] of paraEdits) {
+        if (blockText[key] === paraText) { editedKey = key; break; }
+      }
+      if (editedKey != null) {
+        const editedText = paraEdits.get(editedKey);
+        const editedEqs = equationsInText(editedText).filter(e => selectedMap.has(e.latex));
+        // 렌더 실패한 수식이 섞이면 원본 유지 (기존 정책과 정합)
+        if (editedEqs.some(e => !cache.has(editedOf(e.latex) + '|' + e.type))) return paraXml;
+
+        const openMatch = paraXml.match(/^<w:p((?:\s[^>]*)?)>/);
+        const openTag   = openMatch ? openMatch[0] : '<w:p>';
+        const pPrMatch  = paraXml.match(/<w:pPr(?:\s[^>]*)?\/>|<w:pPr(?:\s[^>]*)?>[\s\S]*?<\/w:pPr>/);
+        const pPr       = pPrMatch ? pPrMatch[0] : '';
+
+        const textRun = s => (s ? '<w:r><w:rPr/><w:t xml:space="preserve">' + escHtml(s) + '</w:t></w:r>' : '');
+        let content = pPr, pos = 0;
+        for (const eq of editedEqs) {
+          if (pos < eq.matchStart) content += textRun(editedText.slice(pos, eq.matchStart));
+          const editedLatex = editedOf(eq.latex);
+          const c = cache.get(editedLatex + '|' + eq.type);
+          content += '<w:r><w:rPr/>' + buildDrawingXml(c, editedLatex, ++docPrId) + '</w:r>';
+          drew();
+          pos = eq.matchEnd;
+        }
+        if (pos < editedText.length) content += textRun(editedText.slice(pos));
+        return openTag + content + '</w:p>';
+      }
+    }
+    // ────────────────────────────────────────────────────────────
+
+    const eqs = equationsInText(paraText).filter(e => selectedMap.has(e.latex));
     if (eqs.length === 0) return paraXml;
     // 렌더 실패로 캐시에 없는 수식이 섞여 있으면 단락 전체 원본 유지
-    if (eqs.some(e => !cache.has(e.latex + '|' + e.type))) return paraXml;
+    if (eqs.some(e => !cache.has(editedOf(e.latex) + '|' + e.type))) return paraXml;
 
     let out = '', cursor = 0;
     for (const r of runs) {
@@ -1544,8 +1873,9 @@ function transformDocumentXml(xml, selectedSet, cache, onDraw) {
         if (inside) {
           // 수식이 ‘이 run 안에서 시작’ 할 때만 드로잉 발행 (가운데/끝 run 에선 생략)
           if (pos === inside.matchStart) {
-            const c = cache.get(inside.latex + '|' + inside.type);
-            out += '<w:r' + r.attrs + '><w:rPr/>' + buildDrawingXml(c, inside.latex, ++docPrId) + '</w:r>';
+            const editedLatex = editedOf(inside.latex);
+            const c = cache.get(editedLatex + '|' + inside.type);
+            out += '<w:r' + r.attrs + '><w:rPr/>' + buildDrawingXml(c, editedLatex, ++docPrId) + '</w:r>';
             drew();
           }
           pos = Math.min(inside.matchEnd, r.textEnd);
@@ -1734,7 +2064,7 @@ function latexToPngBase64(latex, isDisplay) {
 }
 
 document.getElementById('btn-reset').addEventListener('click', () => {
-  scanState = []; ambigState = []; blockText = {};
+  scanState = []; ambigState = []; blockText = {}; paraEdits = new Map();
   docxZip = null; origDocXml = ''; origRelsXml = ''; docxFileName = '';
   fileInput.value = '';
   document.getElementById('review-stage').hidden = true;
