@@ -485,6 +485,17 @@
   }
   .eq-edit .edit-note { font-size: 13px; color: var(--text-muted); }
   .eq-edit .edit-note.error { color: #d93025; }
+  .eq-edit .edit-apply-all {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--text-muted);
+    cursor: pointer;
+    user-select: none;
+  }
+  .eq-edit .edit-apply-all input { margin: 0; }
 
   .empty { color: var(--text-hint); font-size: 16px; padding: 24px; text-align: center; }
 
@@ -1350,7 +1361,7 @@ function buildEqCard(entry, index) {
 
   // 같은 originalLatex 자연 자리 여러 entry = "N occurrences" 표기 (편집 전파 자연 자리).
   const dupCount = scanState.filter(e => e.originalLatex === entry.originalLatex).length;
-  const dupNote  = dupCount > 1 ? ` · ${dupCount} occurrences — edits propagate` : '';
+  const dupNote  = dupCount > 1 ? ` · ${dupCount} occurrences` : '';
 
   card.innerHTML = `
     <div class="card-head">
@@ -1369,6 +1380,10 @@ function buildEqCard(entry, index) {
       <div class="eq-edit" hidden>
         <textarea class="edit-latex-textarea" rows="2" spellcheck="false"></textarea>
         <div class="edit-preview"></div>
+        ${dupCount > 1 ? `
+        <label class="edit-apply-all">
+          <input type="checkbox" class="edit-apply-all-cb"> Apply to all ${dupCount} occurrences
+        </label>` : ''}
         <div class="edit-actions">
           <button class="btn-primary btn-save-latex">Save</button>
           <button class="btn-ghost btn-cancel-latex">Cancel</button>
@@ -1410,7 +1425,8 @@ function buildEqCard(entry, index) {
     previewInto(editPreview, textarea.value, isDisplay);
   });
   card.querySelector('.btn-save-latex').addEventListener('click', () => {
-    saveLatexEdit(index, textarea.value, editNote);
+    const applyToAll = card.querySelector('.edit-apply-all-cb')?.checked ?? false;
+    saveLatexEdit(index, textarea.value, editNote, applyToAll);
   });
 
   return card;
@@ -1418,11 +1434,12 @@ function buildEqCard(entry, index) {
 
 /**
  * 일반 카드 LaTeX 편집 Save.
- * 정책: 편집 = 같은 originalLatex 자연 entry 전체에 전파 (§4.4).
+ * 정책 (R24): default = 이 entry 만 갱신 (opt-in propagate).
+ *  - applyToAll = true → 같은 originalLatex 를 가진 전 entry 갱신 (기존 R22 Phase 5 동작).
+ *  - applyToAll = false (default) → entry 하나만 갱신.
  *  - 결과 = 원본과 동일 → editedLatex = originalLatex 복귀 (badge 사라짐).
- *  - 결과 = 원본과 다름 → 전 entry 의 editedLatex 갱신.
  */
-function saveLatexEdit(entryIndex, newLatex, editNote) {
+function saveLatexEdit(entryIndex, newLatex, editNote, applyToAll) {
   const entry = scanState[entryIndex];
   if (!entry) return;
   const trimmed = newLatex;
@@ -1431,12 +1448,15 @@ function saveLatexEdit(entryIndex, newLatex, editNote) {
     editNote.textContent = 'No changes.';
     return;
   }
-  // 전파 = 같은 originalLatex 를 가진 entry 전체
-  scanState.forEach(e => {
-    if (e.originalLatex === entry.originalLatex) {
-      e.editedLatex = trimmed;
-    }
-  });
+  if (applyToAll) {
+    scanState.forEach(e => {
+      if (e.originalLatex === entry.originalLatex) {
+        e.editedLatex = trimmed;
+      }
+    });
+  } else {
+    entry.editedLatex = trimmed;
+  }
   renderAll();
 }
 
