@@ -371,23 +371,36 @@
     border-radius: 4px;
     padding: 8px 10px; margin-bottom: 12px; word-break: break-all;
   }
-  .options { display: flex; gap: 12px; flex-wrap: wrap; }
-  .option {
-    flex: 1; min-width: 240px;
-    background: var(--bg-card);
-    border: 0.5px solid var(--border-soft);
-    border-radius: var(--radius); padding: 12px;
+  .ambig-view .ambig-guide {
+    margin-top: 12px;
+    padding: 12px 14px;
+    background: #fff8e1;
+    border-left: 4px solid #f6b73c;
+    border-radius: 4px;
   }
-  .option h4 { font-size: 15px; font-weight: 500; margin-bottom: 4px; color: var(--text); }
-  .option .desc { font-size: 14px; color: var(--text-muted); margin-bottom: 8px; }
-  .option .mini-preview {
-    font-size: 17px; text-align: center; padding: 8px;
-    background: var(--bg-card);
-    border: 0.5px solid var(--border-soft);
-    border-radius: 4px; margin-bottom: 8px;
-    color: var(--text);
+  .ambig-guide-title {
+    font-weight: 600;
+    color: #7a5a00;
+    margin-bottom: 6px;
+    font-size: 14px;
   }
-  .option .mini-preview + .mini-preview { margin-top: 4px; }
+  .ambig-guide-title code,
+  .ambig-guide-body code {
+    background: rgba(0,0,0,0.06);
+    padding: 1px 5px;
+    border-radius: 2px;
+    font-family: var(--font-mono);
+  }
+  .ambig-guide-body {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+  .ambig-guide .btn-open-edit {
+    padding: 6px 14px;
+    font-size: 13px;
+  }
 
   /* ── 모호성 카드 — 편집 UI ── */
   .edited-badge {
@@ -440,6 +453,52 @@
     color: var(--text-muted);
   }
   .ambig-edit .edit-note.error { color: #d93025; }
+  .ambig-edit .edit-live {
+    margin-top: 8px;
+    border: 0.5px solid var(--border-soft);
+    border-radius: 4px;
+    padding: 8px 10px;
+    background: var(--bg);
+    font-size: 13px;
+  }
+  .ambig-edit .edit-live .live-count {
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .ambig-edit .edit-live .live-empty {
+    color: var(--text-hint);
+    font-style: italic;
+  }
+  .ambig-edit .edit-live .live-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 0;
+    border-top: 1px dashed var(--border-soft);
+  }
+  .ambig-edit .edit-live .live-item:first-of-type { border-top: none; padding-top: 0; }
+  .ambig-edit .edit-live .live-latex {
+    flex: 0 0 auto;
+    min-width: 160px;
+    max-width: 45%;
+    background: var(--bg-card);
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  .ambig-edit .edit-live .live-preview-render {
+    flex: 1 1 auto;
+    min-height: 22px;
+    color: var(--text);
+  }
+  .ambig-edit .edit-live .live-preview-render.err {
+    font-size: 12px;
+    color: #d93025;
+  }
 
   /* ── 일반 수식 카드 — 편집 UI (Phase 5) ── */
   .eq-card .orig-note {
@@ -1442,25 +1501,24 @@ function buildAmbigCard(amb) {
   const editedBadge = amb.editedText != null ? ' <span class="edited-badge">Edited</span>' : '';
   const initialText = amb.editedText != null ? amb.editedText : amb.text;
 
-  const optionsHtml = amb.options.map((opt, oi) => `
-    <div class="option">
-      <h4>Interpretation ${opt.label}</h4>
-      <div class="desc">${escHtml(opt.desc)} — ${opt.equations.length} equation${opt.equations.length === 1 ? '' : 's'}</div>
-      <div class="opt-previews" data-opt="${oi}"></div>
-      <button class="btn-primary btn-use" data-opt="${oi}">Use this</button>
-    </div>`).join('');
-
   card.innerHTML = `
     <div class="card-head">
       <span class="ambig-warn">⚠ Odd number of $ — equation boundaries are ambiguous${editedBadge}</span>
       <span class="spacer"></span>
-      <button class="btn-ghost btn-edit-amb">Edit text</button>
+      <button class="btn-primary btn-edit-amb">Edit text</button>
       <button class="btn-ghost btn-skip-amb">Skip</button>
     </div>
     <div class="card-body">
       <div class="ambig-view">
         <div class="ambig-text">${escHtml(initialText)}</div>
-        <div class="options">${optionsHtml}</div>
+        <div class="ambig-guide">
+          <div class="ambig-guide-title">⚠ Likely a missed closing <code>$</code></div>
+          <div class="ambig-guide-body">
+            This paragraph has an odd number of <code>$</code> — the app can't tell where each equation begins and ends.
+            Fix it by editing the text (add or remove a <code>$</code>), and use the live preview to confirm what's detected.
+          </div>
+          <button class="btn-primary btn-open-edit">Edit text →</button>
+        </div>
       </div>
       <div class="ambig-edit" hidden>
         <div class="edit-warn">
@@ -1468,6 +1526,7 @@ function buildAmbigCard(amb) {
           Fix the LaTeX or add the missing <code>$</code> delimiter, then Save.
         </div>
         <textarea class="edit-textarea" rows="3" spellcheck="false"></textarea>
+        <div class="edit-live" aria-live="polite"></div>
         <div class="edit-actions">
           <button class="btn-primary btn-save-edit">Save</button>
           <button class="btn-ghost btn-cancel-edit">Cancel</button>
@@ -1476,23 +1535,6 @@ function buildAmbigCard(amb) {
       </div>
     </div>`;
 
-  // 각 해석의 수식 미리보기 채우기
-  amb.options.forEach((opt, oi) => {
-    const box = card.querySelector(`.opt-previews[data-opt="${oi}"]`);
-    if (opt.equations.length === 0) {
-      box.innerHTML = '<div class="mini-preview">(no equations)</div>';
-    }
-    opt.equations.forEach(eq => {
-      const mp = document.createElement('div');
-      mp.className = 'mini-preview';
-      previewInto(mp, eq.latex, eq.type === 'display');
-      box.appendChild(mp);
-    });
-  });
-
-  card.querySelectorAll('.btn-use').forEach(btn => {
-    btn.addEventListener('click', () => resolveAmbiguity(amb.id, +btn.dataset.opt));
-  });
   card.querySelector('.btn-skip-amb').addEventListener('click', () => {
     ambigState = ambigState.filter(a => a.id !== amb.id);
     // 편집 상태도 함께 정리 (Skip 하면 편집도 폐기)
@@ -1507,14 +1549,55 @@ function buildAmbigCard(amb) {
   const editBox = card.querySelector('.ambig-edit');
   const textarea = card.querySelector('.edit-textarea');
   const editNote = card.querySelector('.edit-note');
+  const liveEl   = card.querySelector('.edit-live');
 
-  card.querySelector('.btn-edit-amb').addEventListener('click', () => {
+  // Edit-text 안 라이브 스캔 프리뷰 — 타자마다 200ms 디바운스로
+  // _scanTextForEquations + _scanStdLatexEquations 를 다시 돌려 렌더한다.
+  let liveTimer = null;
+  const runLiveScan = () => {
+    const text = textarea.value;
+    const eqs = [], amb2 = [];
+    _scanTextForEquations(text, amb.paraIndex, amb.cellPath, eqs, amb2);
+    _scanStdLatexEquations(text, amb.paraIndex, amb.cellPath, eqs);
+    eqs.sort((a, b) => a.matchStart - b.matchStart);
+    const stillAmbig = amb2.length > 0;
+
+    const parts = [];
+    if (eqs.length === 0 && !stillAmbig) {
+      parts.push('<div class="live-empty">No equations detected in this text.</div>');
+    } else {
+      const label = `Detected: ${eqs.length} equation${eqs.length === 1 ? '' : 's'}` +
+                    (stillAmbig ? ' · still ambiguous' : '');
+      parts.push(`<div class="live-count">${label}</div>`);
+      for (const eq of eqs) {
+        parts.push(
+          '<div class="live-item">' +
+            `<code class="live-latex">${escHtml(eq.latex)}</code>` +
+            `<div class="live-preview-render" data-latex="${escHtml(eq.latex)}" data-display="${eq.type === 'display' ? '1' : '0'}"></div>` +
+          '</div>'
+        );
+      }
+    }
+    liveEl.innerHTML = parts.join('');
+    liveEl.querySelectorAll('.live-preview-render').forEach(el => {
+      previewInto(el, el.dataset.latex, el.dataset.display === '1');
+    });
+  };
+  textarea.addEventListener('input', () => {
+    clearTimeout(liveTimer);
+    liveTimer = setTimeout(runLiveScan, 200);
+  });
+
+  const openEdit = () => {
     textarea.value = amb.editedText != null ? amb.editedText : amb.text;
     editNote.textContent = '';
     viewBox.hidden = true;
     editBox.hidden = false;
+    runLiveScan();
     textarea.focus();
-  });
+  };
+  card.querySelector('.btn-edit-amb').addEventListener('click', openEdit);
+  card.querySelector('.btn-open-edit').addEventListener('click', openEdit);
   card.querySelector('.btn-cancel-edit').addEventListener('click', () => {
     editBox.hidden = true;
     viewBox.hidden = false;
@@ -1526,7 +1609,9 @@ function buildAmbigCard(amb) {
   return card;
 }
 
-/** 모호성 해결: 선택한 해석의 수식을 일반 목록에 추가하고 카드 제거 */
+/** 모호성 해결: 선택한 해석의 수식을 일반 목록에 추가하고 카드 제거.
+ *  R25 task 3: 더 이상 UI 에서 호출되지 않는다 (Interpretation 카드 제거).
+ *  데이터-모델 API 로 남겨둠 — 미래에 컨텍스트-기반 옵션 pick 이 돌아올 때 재사용. */
 function resolveAmbiguity(ambId, optIdx) {
   const amb = ambigState.find(a => a.id === ambId);
   if (!amb) return;
