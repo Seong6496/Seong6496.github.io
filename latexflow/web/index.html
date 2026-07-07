@@ -485,17 +485,6 @@
   }
   .eq-edit .edit-note { font-size: 13px; color: var(--text-muted); }
   .eq-edit .edit-note.error { color: #d93025; }
-  .eq-edit .edit-apply-all {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 8px;
-    font-size: 13px;
-    color: var(--text-muted);
-    cursor: pointer;
-    user-select: none;
-  }
-  .eq-edit .edit-apply-all input { margin: 0; }
 
   .empty { color: var(--text-hint); font-size: 16px; padding: 24px; text-align: center; }
 
@@ -1380,10 +1369,6 @@ function buildEqCard(entry, index) {
       <div class="eq-edit" hidden>
         <textarea class="edit-latex-textarea" rows="2" spellcheck="false"></textarea>
         <div class="edit-preview"></div>
-        ${dupCount > 1 ? `
-        <label class="edit-apply-all">
-          <input type="checkbox" class="edit-apply-all-cb"> Apply to all ${dupCount} occurrences
-        </label>` : ''}
         <div class="edit-actions">
           <button class="btn-primary btn-save-latex">Save</button>
           <button class="btn-ghost btn-cancel-latex">Cancel</button>
@@ -1425,8 +1410,7 @@ function buildEqCard(entry, index) {
     previewInto(editPreview, textarea.value, isDisplay);
   });
   card.querySelector('.btn-save-latex').addEventListener('click', () => {
-    const applyToAll = card.querySelector('.edit-apply-all-cb')?.checked ?? false;
-    saveLatexEdit(index, textarea.value, editNote, applyToAll);
+    saveLatexEdit(index, textarea.value, editNote);
   });
 
   return card;
@@ -1434,12 +1418,12 @@ function buildEqCard(entry, index) {
 
 /**
  * 일반 카드 LaTeX 편집 Save.
- * 정책 (R24): default = 이 entry 만 갱신 (opt-in propagate).
- *  - applyToAll = true → 같은 originalLatex 를 가진 전 entry 갱신 (기존 R22 Phase 5 동작).
- *  - applyToAll = false (default) → entry 하나만 갱신.
+ * 정책 (R25): 항상 이 entry 하나만 갱신 (per-entry independent).
+ *  - 같은 originalLatex 를 가진 다른 entry 는 건드리지 않는다 —
+ *    각 occurrence 는 문맥이 다르므로 독립적으로 편집한다.
  *  - 결과 = 원본과 동일 → editedLatex = originalLatex 복귀 (badge 사라짐).
  */
-function saveLatexEdit(entryIndex, newLatex, editNote, applyToAll) {
+function saveLatexEdit(entryIndex, newLatex, editNote) {
   const entry = scanState[entryIndex];
   if (!entry) return;
   const trimmed = newLatex;
@@ -1448,15 +1432,7 @@ function saveLatexEdit(entryIndex, newLatex, editNote, applyToAll) {
     editNote.textContent = 'No changes.';
     return;
   }
-  if (applyToAll) {
-    scanState.forEach(e => {
-      if (e.originalLatex === entry.originalLatex) {
-        e.editedLatex = trimmed;
-      }
-    });
-  } else {
-    entry.editedLatex = trimmed;
-  }
+  entry.editedLatex = trimmed;
   renderAll();
 }
 
@@ -1645,8 +1621,8 @@ async function onGenerate() {
   const btn  = document.getElementById('btn-generate');
   const note = document.getElementById('gen-note');
 
-  const selected = scanState.filter(e => e.status !== 'skipped');
-  if (selected.length === 0) return;
+  const anySelected = scanState.some(e => e.status !== 'skipped');
+  if (!anySelected) return;
 
   const origLabel = btn.textContent;
   btn.disabled = true;
@@ -1660,12 +1636,15 @@ async function onGenerate() {
     }
     await MathJax.startup.promise;
 
-    // selectedMap = originalLatex → editedLatex 자연 매핑 (Phase 4).
-    //  - .has(originalLatex) = 선택 여부
-    //  - .get(originalLatex) = 렌더할 editedLatex (편집 없으면 originalLatex 그대로)
-    //  - 같은 originalLatex 여러 entry = 마지막 편집이 이김 (v2 정책: 전 인스턴스 전파)
+    // selectedMap = originalLatex → editedLatex[] (scanState 순서, skipped 는 null 슬롯).
+    // Transform 단계에서 originalLatex 별 cursor 로 소비 → 같은 originalLatex 를 갖는
+    // 여러 occurrence 가 각자 자기 자리의 편집본으로 렌더된다 (R25 fix).
     const selectedMap = new Map();
-    selected.forEach(entry => selectedMap.set(entry.originalLatex, entry.editedLatex));
+    scanState.forEach(entry => {
+      if (!selectedMap.has(entry.originalLatex)) selectedMap.set(entry.originalLatex, []);
+      const slot = entry.status === 'skipped' ? null : entry.editedLatex;
+      selectedMap.get(entry.originalLatex).push(slot);
+    });
 
     // ① 문서에서 실제 치환 대상 수집 (중복 latex+type 은 1개로)
     const targets = collectTargets(origDocXml, selectedMap);
@@ -1795,15 +1774,23 @@ function collectRunsInParagraph(paraXml) {
 }
 
 /** document.xml 의 모든 단락을 훑어 선택된 수식의 (latex,type) 목록을 중복 없이 수집.
- *  단락 단위 텍스트 합산이므로 멀티-<w:t> 수식도 잡힌다. */
+ *  단락 단위 텍스트 합산이므로 멀티-<w:t> 수식도 잡힌다.
+ *  selectedMap 은 originalLatex → editedLatex[] (R25). 원본 XML 로 type 을 구하되
+ *  실제 렌더 대상은 배열 안 모든 non-null 슬롯 = 서로 다른 편집본까지 포함. */
 function collectTargets(xml, selectedMap) {
   const seen = new Set(), targets = [];
+  const push = (latex, type) => {
+    const key = latex + '|' + type;
+    if (!seen.has(key)) { seen.add(key); targets.push({ latex, type }); }
+  };
   const addFrom = (text) => {
     equationsInText(text).forEach(eq => {
-      if (!selectedMap.has(eq.latex)) return;
-      const editedLatex = selectedMap.get(eq.latex);
-      const key = editedLatex + '|' + eq.type;
-      if (!seen.has(key)) { seen.add(key); targets.push({ latex: editedLatex, type: eq.type }); }
+      const arr = selectedMap.get(eq.latex);
+      if (!arr) return;
+      // 배열 안 모든 편집 슬롯을 후보로. seen Set 이 중복 (latex|type) 을 걸러준다.
+      arr.forEach(edited => {
+        if (edited != null) push(edited, eq.type);
+      });
     });
   };
   xml.replace(PARA_RE, function(paraXml) {
@@ -1835,9 +1822,18 @@ function transformDocumentXml(xml, selectedMap, cache, onDraw) {
   let docPrId = 1000;   // 기존 도형 id(1) 과 충돌 회피
   let emitted = 0;
   const drew = () => { emitted++; onDraw(); };
-  // 편집 자리 lookup helper (Phase 4). selectedMap: originalLatex → editedLatex.
-  // 캐시 키 + alt 태그 모두 editedLatex 자리 (편집 없으면 originalLatex 같음 = 정합).
-  const editedOf = orig => selectedMap.get(orig);
+  // R25: selectedMap 은 originalLatex → editedLatex[] (scanState 순서, skipped = null).
+  // 각 originalLatex 별 cursor 를 유지하며 doc 순회 순서로 다음 slot 을 소비한다.
+  //  - 반환: 문자열 = 렌더 대상, null = 스킵된 occurrence, undefined = 미선택 / cursor overflow.
+  //  - 소비는 idempotent 아님 — 같은 orig 를 두 번 호출하면 슬롯이 두 개 진행된다.
+  const cursors = new Map();
+  const editedOf = orig => {
+    const arr = selectedMap.get(orig);
+    if (!arr) return undefined;
+    const i = cursors.get(orig) || 0;
+    cursors.set(orig, i + 1);
+    return arr[i];
+  };
 
   const replaced = xml.replace(PARA_RE, function(paraXml) {
     const { runs, paraText } = collectRunsInParagraph(paraXml);
@@ -1855,9 +1851,21 @@ function transformDocumentXml(xml, selectedMap, cache, onDraw) {
       }
       if (editedKey != null) {
         const editedText = paraEdits.get(editedKey);
-        const editedEqs = equationsInText(editedText).filter(e => selectedMap.has(e.latex));
+        // TODO(R25): paraEdits + 중복 originalLatex + skip 조합은 cursor 정렬 이 scan
+        // 순서(ambig-resolved 는 scanState 뒤쪽에 append)와 어긋날 수 있어 미검증 자리.
+        // (index.html 위 §Site C paraEdits 자리 참조 — R25 브리프.)
+        const rawEditedEqs = equationsInText(editedText);
+        const editsForRawEdited = rawEditedEqs.map(eq => editedOf(eq.latex));
+        const editedEqs = [];
+        const editsForEditedEqs = [];
+        rawEditedEqs.forEach((eq, i) => {
+          if (typeof editsForRawEdited[i] === 'string') {
+            editedEqs.push(eq);
+            editsForEditedEqs.push(editsForRawEdited[i]);
+          }
+        });
         // 렌더 실패한 수식이 섞이면 원본 유지 (기존 정책과 정합)
-        if (editedEqs.some(e => !cache.has(editedOf(e.latex) + '|' + e.type))) return paraXml;
+        if (editedEqs.some((e, i) => !cache.has(editsForEditedEqs[i] + '|' + e.type))) return paraXml;
 
         const openMatch = paraXml.match(/^<w:p((?:\s[^>]*)?)>/);
         const openTag   = openMatch ? openMatch[0] : '<w:p>';
@@ -1866,24 +1874,35 @@ function transformDocumentXml(xml, selectedMap, cache, onDraw) {
 
         const textRun = s => (s ? '<w:r><w:rPr/><w:t xml:space="preserve">' + escHtml(s) + '</w:t></w:r>' : '');
         let content = pPr, pos = 0;
-        for (const eq of editedEqs) {
+        editedEqs.forEach((eq, i) => {
           if (pos < eq.matchStart) content += textRun(editedText.slice(pos, eq.matchStart));
-          const editedLatex = editedOf(eq.latex);
+          const editedLatex = editsForEditedEqs[i];
           const c = cache.get(editedLatex + '|' + eq.type);
           content += '<w:r><w:rPr/>' + buildDrawingXml(c, editedLatex, ++docPrId) + '</w:r>';
           drew();
           pos = eq.matchEnd;
-        }
+        });
         if (pos < editedText.length) content += textRun(editedText.slice(pos));
         return openTag + content + '</w:p>';
       }
     }
     // ────────────────────────────────────────────────────────────
 
-    const eqs = equationsInText(paraText).filter(e => selectedMap.has(e.latex));
+    // R25: rawEqs 순서대로 slot 소비. skipped 슬롯(null) 은 렌더 대상에서 제외 —
+    // 텍스트로 남지만 cursor 는 진행되어 다음 occurrence 가 자기 자리 슬롯을 얻는다.
+    const rawEqs = equationsInText(paraText);
+    const editsForRaw = rawEqs.map(eq => editedOf(eq.latex));
+    const eqs = [];
+    const editsForEqs = [];
+    rawEqs.forEach((eq, i) => {
+      if (typeof editsForRaw[i] === 'string') {
+        eqs.push(eq);
+        editsForEqs.push(editsForRaw[i]);
+      }
+    });
     if (eqs.length === 0) return paraXml;
     // 렌더 실패로 캐시에 없는 수식이 섞여 있으면 단락 전체 원본 유지
-    if (eqs.some(e => !cache.has(editedOf(e.latex) + '|' + e.type))) return paraXml;
+    if (eqs.some((e, i) => !cache.has(editsForEqs[i] + '|' + e.type))) return paraXml;
 
     let out = '', cursor = 0;
     for (const r of runs) {
@@ -1905,7 +1924,8 @@ function transformDocumentXml(xml, selectedMap, cache, onDraw) {
         if (inside) {
           // 수식이 ‘이 run 안에서 시작’ 할 때만 드로잉 발행 (가운데/끝 run 에선 생략)
           if (pos === inside.matchStart) {
-            const editedLatex = editedOf(inside.latex);
+            // cursor 는 위에서 이미 소비했으므로 editedOf 재호출 금지 — index 로 조회.
+            const editedLatex = editsForEqs[eqs.indexOf(inside)];
             const c = cache.get(editedLatex + '|' + inside.type);
             out += '<w:r' + r.attrs + '><w:rPr/>' + buildDrawingXml(c, editedLatex, ++docPrId) + '</w:r>';
             drew();
