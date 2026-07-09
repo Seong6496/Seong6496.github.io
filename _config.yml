@@ -118,7 +118,7 @@ assets:
     # only works if `assets.self_host.enabled` is 'true'
     env:          # [development|production]
 
-paginate: 10
+paginate: 100
 paginate_path: '/blog/page:num/'
 
 # Scheduled publishing — keep `future: false` so posts with a future `date:` are
