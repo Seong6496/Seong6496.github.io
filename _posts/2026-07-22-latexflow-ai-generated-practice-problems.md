@@ -90,6 +90,17 @@ Word 의 *수식 삽입* 편집기로 수식 하나 옮기는 시간을 30초로
 
 이 한 줄이 자습 workflow 마찰의 대부분을 없앱니다. 챗봇에 따라 markdown 렌더링 관성으로 `\[...\]` 나 `[...]` 로 뱉는 경우도 있는데, 그 케이스는 [bracket-mode 시연 글](/blog/posts/latexflow-ai-chatbot-bracket-mode/) 참고.
 
+#### docx 를 직접 요청할 때의 함정
+
+챗봇에게 *"docx 파일로 만들어줘"* 만 부탁하면 챗봇이 "예쁘게" 만든다고 판단해서 **Word 수식 편집기 객체로 수식을 박아 버립니다**. 이 경우 docx 안 수식은 raw text 가 아니라 OOXML `<m:oMath>` XML 객체 → **LaTeXFlow 가 수식으로 인식하지 못합니다** (변환 대상 = raw `$...$` / `\(...\)` / `\[...\]` 텍스트).
+
+해결은 프롬프트에 **LaTeX 문법 명시**를 함께 넣는 것입니다.
+
+- ❌ "연습 문제 20개 만들어서 docx 로 줘" → OOXML 수식 (변환 불가)
+- ✅ "수식을 LaTeX 문법 (`$...$` 또는 `\(...\)`) 으로 써서 docx 로 만들어줘" → raw text (변환 가능)
+
+같은 이유로, 챗봇 답변을 채팅창에서 복사→docx 붙여넣기 하는 경우엔 이미 raw LaTeX 로 옵니다 (위 소개 참조) — docx 직접 다운로드 요청만 이 함정에 걸립니다.
+
 ---
 
 *LaTeX 수식 syntax 자체가 헷갈리면 — [무한급수 관련 정리](/blog/posts/latex-align-equations/) / [수학 기호 cheatsheet](/blog/posts/latex-command-cheatsheet/) / [그리스 문자 정리](/blog/posts/latex-greek-letters-complete/) 글이 참고가 됩니다.*
