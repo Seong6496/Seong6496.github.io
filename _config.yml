@@ -28,6 +28,10 @@ tagline: LaTeX·수식·도구 이야기            # it will display as the sub
 description: >-                        # used by seo meta and the atom feed
   Math System 블로그 — LaTeX, 수식, Google Docs·Word 에서 수학 글쓰기를 다루는 곳. LaTeXFlow 가 운영합니다.
 
+# Default social preview image (og:image, twitter:image) for pages
+# without their own front-matter `image:`. 1200x630 brand banner.
+image: /assets/img/og/mathsystem-og.png
+
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
 url: 'https://mathsystem.dev'
 
@@ -78,12 +82,15 @@ cloudflare_analytics:
 #
 theme_mode:   # [light|dark]
 
-# The CDN endpoint for images.
-# Notice that once it is assigned, the CDN url
-# will be added to all image (site avatar & posts' images) paths starting with '/'
+# The CDN endpoint for images. Disabled: with a value set, Chirpy's
+# _includes/head.html rewrites og:image/twitter:image URLs to point at
+# this CDN — for us that means our brand OG image at
+# /assets/img/og/mathsystem-og.png gets redirected to the Chirpy demo
+# repo and 404s. Post-body images use local `/assets/img/posts/...`
+# which are unaffected by this setting.
 #
 # e.g. 'https://cdn.com'
-img_cdn: 'https://raw.githubusercontent.com/cotes2020/chirpy-images/main'
+img_cdn:
 
 # the avatar on sidebar, support local or CORS resources
 avatar: '/commons/avatar.jpg'
