@@ -5,7 +5,7 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-Math System 은 LaTeX·수식과 수학 글쓰기를 다루는 곳입니다.
+[**Math System**](https://mathsystem.dev/) 은 LaTeX·수식과 수학 글쓰기를 다루는 곳입니다.
 
 ## 무엇을 만드나
 
