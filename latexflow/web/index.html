@@ -1735,22 +1735,23 @@ async function onGenerate() {
     const targets = collectTargets(origDocXml, selectedMap);
     if (targets.length === 0) throw new Error('No equations to replace were found in the document.');
 
-    // ② 각 수식 PNG 렌더 → 이미지/관계 캐시 (key = editedLatex|type)
-    const cache  = new Map();   // 'editedLatex|type' → {rId,imageName,cx,cy,b64}
+    // ② 각 수식 PNG 렌더 → PNG buffer 캐시 (key = editedLatex|type).
+    //   R27-2c: rId·imageName 은 캐시하지 않는다 — emit 자리마다 새로 발급해
+    //   shared-blip 을 없앤다. PNG buffer 만 재사용해 CPU 절약.
+    const pngCache = new Map();   // 'editedLatex|type' → {b64, cx, cy}
     const failed = [];
     for (let i = 0; i < targets.length; i++) {
       const t = targets[i];
       note.innerHTML = `Rendering equation… ${i + 1} / ${targets.length}`;
+      const key = t.latex + '|' + t.type;
+      if (pngCache.has(key)) continue;
       try {
         const png = await latexToPngBase64(t.latex, t.type === 'display');
-        const n   = cache.size;                  // image1.png / rId1~6 은 원본이 사용중
         // 표시 크기 = 1x 논리크기(canvasW/2) × SIZE_SCALE.  PNG 자체는 2x 해상도라 선명함 유지.
-        cache.set(t.latex + '|' + t.type, {
-          rId:       'rId' + (n + 7),
-          imageName: 'image' + (n + 2) + '.png',
-          cx:        Math.round((png.canvasW / 2) * SIZE_SCALE * EMU_PER_PX),
-          cy:        Math.round((png.canvasH / 2) * SIZE_SCALE * EMU_PER_PX),
-          b64:       png.b64,
+        pngCache.set(key, {
+          cx:  Math.round((png.canvasW / 2) * SIZE_SCALE * EMU_PER_PX),
+          cy:  Math.round((png.canvasH / 2) * SIZE_SCALE * EMU_PER_PX),
+          b64: png.b64,
         });
         // PRD §4.6 데이터 수집 — fire-and-forget, opt-out 시 no-op.
         // 법적 근거·범위: docs/technical_guide/web_data_collection_privacy.md
@@ -1760,14 +1761,29 @@ async function onGenerate() {
         failed.push(t.latex);
       }
     }
-    if (cache.size === 0) throw new Error('All equation renderings failed.');
+    if (pngCache.size === 0) throw new Error('All equation renderings failed.');
 
-    // ③ document.xml / rels 변환
+    // ③ slot factory. drawing 자리마다 새 rId·imageName 을 발급하고 slots 배열에 기록.
+    //   base = origRels 안 가장 큰 rId·image 번호 + 1 — 원본 structural rels
+    //   (fontTable, theme, ...) 이 몇 개든 충돌하지 않게.
+    const scanMax = (re, xml) => { let m, x = 0; while ((m = re.exec(xml)) !== null) x = Math.max(x, +m[1]); return x; };
+    let rIdCounter = scanMax(/Id="rId(\d+)"/g,               origRelsXml);
+    let imgCounter = scanMax(/Target="media\/image(\d+)\.[a-z]+"/gi, origRelsXml) || 1;
+    const slots = [];
+    const mint = (key) => {
+      const p = pngCache.get(key);
+      const s = { rId: 'rId' + (++rIdCounter), imageName: 'image' + (++imgCounter) + '.png',
+                  cx: p.cx, cy: p.cy, b64: p.b64 };
+      slots.push(s);
+      return s;
+    };
+
+    // ④ document.xml / rels 변환
     note.innerHTML = 'Repackaging .docx…';
     let drawCount = 0;
-    const newDocXml  = transformDocumentXml(origDocXml, selectedMap, cache,
+    const newDocXml  = transformDocumentXml(origDocXml, selectedMap, pngCache, mint,
                                             () => { drawCount++; });
-    const newRelsXml = addImageRelationships(origRelsXml, cache);
+    const newRelsXml = addImageRelationships(origRelsXml, slots);
 
     // ③-2. [Content_Types].xml 에 image/png MIME 보장.
     // 텍스트-only docx (Minimal-class) 는 원본에 image/png 선언이 없어,
@@ -1783,7 +1799,7 @@ async function onGenerate() {
     // ④ zip 에 반영 후 재패키징
     docxZip.file(DOCX_PATH, newDocXml);
     docxZip.file(RELS_PATH, newRelsXml);
-    cache.forEach(c => docxZip.file('word/media/' + c.imageName, c.b64, { base64: true }));
+    slots.forEach(s => docxZip.file('word/media/' + s.imageName, s.b64, { base64: true }));
 
     const blob = await docxZip.generateAsync({
       type:     'blob',
@@ -1903,7 +1919,7 @@ function collectTargets(xml, selectedMap) {
  *    재발행되어 보존된다. 매칭에 안 걸린 run 도 원본 XML 그대로 보존.
  *  - 매칭에 걸린 run 의 wrapper attrs/rPr 은 ‘시작 run’ 의 것을 사용한다.
  */
-function transformDocumentXml(xml, selectedMap, cache, onDraw) {
+function transformDocumentXml(xml, selectedMap, pngCache, mint, onDraw) {
   let docPrId = 1000;   // 기존 도형 id(1) 과 충돌 회피
   let emitted = 0;
   const drew = () => { emitted++; onDraw(); };
@@ -1950,7 +1966,7 @@ function transformDocumentXml(xml, selectedMap, cache, onDraw) {
           }
         });
         // 렌더 실패한 수식이 섞이면 원본 유지 (기존 정책과 정합)
-        if (editedEqs.some((e, i) => !cache.has(editsForEditedEqs[i] + '|' + e.type))) return paraXml;
+        if (editedEqs.some((e, i) => !pngCache.has(editsForEditedEqs[i] + '|' + e.type))) return paraXml;
 
         const openMatch = paraXml.match(/^<w:p((?:\s[^>]*)?)>/);
         const openTag   = openMatch ? openMatch[0] : '<w:p>';
@@ -1962,7 +1978,7 @@ function transformDocumentXml(xml, selectedMap, cache, onDraw) {
         editedEqs.forEach((eq, i) => {
           if (pos < eq.matchStart) content += textRun(editedText.slice(pos, eq.matchStart));
           const editedLatex = editsForEditedEqs[i];
-          const c = cache.get(editedLatex + '|' + eq.type);
+          const c = mint(editedLatex + '|' + eq.type);
           content += '<w:r><w:rPr/>' + buildDrawingXml(c, editedLatex, ++docPrId) + '</w:r>';
           drew();
           pos = eq.matchEnd;
@@ -1987,7 +2003,7 @@ function transformDocumentXml(xml, selectedMap, cache, onDraw) {
     });
     if (eqs.length === 0) return paraXml;
     // 렌더 실패로 캐시에 없는 수식이 섞여 있으면 단락 전체 원본 유지
-    if (eqs.some((e, i) => !cache.has(editsForEqs[i] + '|' + e.type))) return paraXml;
+    if (eqs.some((e, i) => !pngCache.has(editsForEqs[i] + '|' + e.type))) return paraXml;
 
     let out = '', cursor = 0;
     for (const r of runs) {
@@ -2011,7 +2027,7 @@ function transformDocumentXml(xml, selectedMap, cache, onDraw) {
           if (pos === inside.matchStart) {
             // cursor 는 위에서 이미 소비했으므로 editedOf 재호출 금지 — index 로 조회.
             const editedLatex = editsForEqs[eqs.indexOf(inside)];
-            const c = cache.get(editedLatex + '|' + inside.type);
+            const c = mint(editedLatex + '|' + inside.type);
             out += '<w:r' + r.attrs + '><w:rPr/>' + buildDrawingXml(c, editedLatex, ++docPrId) + '</w:r>';
             drew();
           }
@@ -2087,12 +2103,12 @@ function ensurePngContentType(ctXml) {
 /** document.xml.rels 에 이미지 관계를 추가한다 (image/png MIME 은 ensurePngContentType 가 보장).
  *  원본 rels 가 비어 있는 minimal docx (D13 처럼 `word/_rels/document.xml.rels` 자체가 없는
  *  경우 loadDocx 가 '' 로 fallback) 는 skeleton 을 먼저 만든 뒤 추가한다. */
-function addImageRelationships(relsXml, cache) {
+function addImageRelationships(relsXml, slots) {
   let add = '';
-  cache.forEach(c => {
-    add += '<Relationship Id="' + c.rId + '" ' +
+  slots.forEach(s => {
+    add += '<Relationship Id="' + s.rId + '" ' +
            'Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" ' +
-           'Target="media/' + c.imageName + '"/>';
+           'Target="media/' + s.imageName + '"/>';
   });
   if (!relsXml || !relsXml.includes('</Relationships>')) {
     relsXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
