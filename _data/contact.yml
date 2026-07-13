@@ -1,5 +1,15 @@
 #  The contact options.
 
+# "back to mathsystem.dev root" — the blog lives under /blog/, so this is
+# the only cross-site nav from Chirpy back to the Math System landing page.
+# Uses the `else` branch in _includes/sidebar.html URL resolution (types
+# other than github/twitter/email/rss fall through to entry.url).
+# `noblank: true` keeps navigation in the same tab (same origin).
+-
+  type: mathsystem
+  icon: 'fas fa-arrow-left'
+  url: '/'
+  noblank: true
 -
   type: github
   icon: 'fab fa-github'
