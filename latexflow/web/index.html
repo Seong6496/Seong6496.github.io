@@ -141,7 +141,8 @@
     margin: 56px auto 24px;
   }
 
-  /* 단계 흐름 표시 — pill 첫 단계 강조 + arrow chain */
+  /* 단계 흐름 표시 — 전부 비대화형 라벨 + arrow chain.
+     첫 단계 pill 강조는 제거 — 버튼으로 오인해 클릭하는 사용자 관측 (Clarity 세션). */
   .steps {
     display: flex;
     align-items: center;
@@ -150,14 +151,6 @@
     font-size: 16px;
     color: var(--text-muted);
     margin-bottom: 8px;
-  }
-  .steps .pill {
-    background: var(--accent-bg);
-    color: var(--accent);
-    padding: 3px 10px;
-    border-radius: 7px;
-    font-size: 15px;
-    font-weight: 500;
   }
   .steps .arrow { color: var(--text-hint); font-size: 15px; }
 
@@ -663,6 +656,33 @@
     }
   }
 
+  /* 업로드 前 경고 — 구분자 없는 docx 는 아무것도 렌더되지 않음 (Clarity 세션 근거) */
+  .upload-warn {
+    background: var(--bg-card);
+    border: 0.5px solid var(--border);
+    border-left: 2px solid #d93025;
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .upload-warn .warn-head {
+    margin: 0;
+    color: #d93025;
+  }
+  .upload-warn .warn-ask {
+    margin: 8px 0 0;
+    color: var(--text-muted);
+  }
+  .upload-warn code {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    background: var(--bg);
+    padding: 0 3px;
+    border-radius: 2px;
+  }
+
   /* Trust badges — SB7 authority + 영역의 법칙 (한 번에 + bracket detect) */
   .trust-badges {
     display: flex;
@@ -761,12 +781,12 @@
     <div class="hero">
       <h1 class="hero-h1">Stop fixing LaTeX one by one.</h1>
       <p class="hero-sub">Drop your file, get every equation.</p>
-      <p class="hero-desc">Pasted a ChatGPT answer, built a worksheet, or wrote a paper in Word? Convert every piece of raw LaTeX in your document at once — no equation editor, nothing leaves your browser.</p>
+      <p class="hero-desc">Pasted a ChatGPT answer, built a worksheet, or wrote a paper in Word? Convert every piece of LaTeX in your document at once — no equation editor, nothing leaves your browser.</p>
 
       <div class="before-after" aria-label="Before and after preview">
         <div class="panel">
           <div class="panel-label">Before</div>
-          <div class="panel-raw">The area is \frac{1}{2}bh and the root \sqrt{x^2+y^2} appears in \[E = mc^2\]</div>
+          <div class="panel-raw">The area is $\frac{1}{2}bh$ and the root $\sqrt{x^2+y^2}$ appears in \[E = mc^2\]</div>
         </div>
         <div class="ba-arrow" aria-hidden="true"><i class="ti ti-arrow-right"></i></div>
         <div class="panel">
@@ -776,8 +796,14 @@
       </div>
     </div>
 
+    <!-- 업로드 前 경고 — LaTeX 구분자가 없으면 아무것도 렌더되지 않음 -->
+    <div class="upload-warn">
+      <p class="warn-head">⚠ Your document must already have math in LaTeX delimiters — <code>$…$</code>, <code>$$…$$</code>, <code>\(…\)</code>, <code>\[…\]</code>, or <code>[ … ]</code>. Bare LaTeX like <code>\frac{1}{2}</code> is left as plain text.</p>
+      <p class="warn-ask">Not in that format? Ask ChatGPT: <code>Convert the formulas to LaTeX and give me the result as a .docx file.</code></p>
+    </div>
+
     <div class="steps">
-      <span class="pill">Upload</span>
+      <span>Use Google Drive or drop below ↓</span>
       <span class="arrow">→</span>
       <span>Detect equations</span>
       <span class="arrow">→</span>
@@ -1372,7 +1398,7 @@ function renderAll() {
 
   eqList.innerHTML = '';
   if (scanState.length === 0) {
-    eqList.innerHTML = '<div class="card"><p class="empty">No $…$ equations detected.</p></div>';
+    eqList.innerHTML = '<div class="card"><p class="empty">No equations detected. Math must be wrapped in $…$, $$…$$, \\(…\\), \\[…\\], or [ … ].</p></div>';
   } else {
     scanState.forEach((entry, i) => eqList.appendChild(buildEqCard(entry, i)));
   }
