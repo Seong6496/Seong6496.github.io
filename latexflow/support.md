@@ -52,8 +52,8 @@ A. Go to **Extensions → LaTeXFlow → Data Collection Settings** in Google Doc
 
 ### Web app (mathsystem.dev/latexflow/web/)
 
-**Q. Why does the Drive import show an "unverified app" warning?**
-A. Google's OAuth verification is pending. The Web app uses the limited `drive.file` scope (it can only see files you explicitly pick in the Drive Picker), and nothing leaves your browser. See the [Privacy Policy](/latexflow/privacy/#drive-import) for details.
+**Q. What Google Drive access does the Web app get?**
+A. Only the limited `drive.file` scope — it can see only the files you explicitly pick in the Drive Picker, and it cannot list, search, or read anything else in your Drive. Nothing leaves your browser. See the [Privacy Policy](/latexflow/privacy/#drive-import) for details.
 
 **Q. My `.docx` upload fails or some equations are missed.**
 A. The scanner detects `$...$`, `$$...$$`, and optionally bracket `[\...]` equations. Equations split across multiple paragraphs are not currently detected — keep each `$$...$$` on a single paragraph if possible.

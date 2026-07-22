@@ -5,7 +5,7 @@ permalink: /latexflow/privacy/
 description: How LaTeXFlow (Google Docs Add-on and Web app) handles your data.
 ---
 
-*Last updated: 2026-06-23*
+*Last updated: 2026-07-22*
 
 > 📋 **Site-wide privacy** (cookies, advertising, third-party services on the blog and tool pages): [mathsystem.dev/blog/privacy/](/blog/privacy/). This page covers **only the LaTeXFlow tool itself** (Add-on permissions, Web app data processing).
 
@@ -48,7 +48,7 @@ External rendering: MathJax is loaded from jsDelivr CDN. The `.docx` content its
 The Web app provides an optional **"Import from Google Drive"** button alongside the standard drag-and-drop input. This path is for users (notably on iPad) whose Google Drive app only exports `.gdoc` as PDF. The button is dormant until you click it — if you only use drag-and-drop, **no Google Drive access ever occurs** and this section does not apply.
 
 - **OAuth scope** — `https://www.googleapis.com/auth/drive.file` only. This is a **narrowly-scoped** permission: the app can read **only the file you explicitly pick** through Google's Drive Picker dialog. It cannot list, search, or read any other file in your Drive.
-- **Sign-in flow** — Google handles the sign-in and consent screen. You may see an "App isn't verified" warning while the app is in unverified status; you can proceed via *Advanced → Continue* or cancel at any point.
+- **Sign-in flow** — Google handles the sign-in and consent screen. You can cancel at any point.
 - **File handling** — Once you select a Google Doc (or `.docx` / `.odt` / `.rtf`), Google exports it as `.docx` and sends it directly to your browser. The file then enters the same client-side pipeline described in §2b. **File content never transits our servers.**
 - **Access token** — The OAuth access token returned by Google is held in browser memory only, scoped to the current page. Closing the tab or refreshing discards it. We do not store, log, or transmit the token.
 - **Credentials embedded in the page** — The Web app embeds an OAuth Client ID and a Google API Key. Both are **spec-public identifiers**: the OAuth Client ID is public by design under the OAuth 2.0 specification, and the API Key is restricted by HTTP referrer to `mathsystem.dev` (and `localhost` for development). No `client_secret` is used (the Web app uses PKCE / implicit flows).

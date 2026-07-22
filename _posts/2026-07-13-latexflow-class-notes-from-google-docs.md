@@ -30,7 +30,7 @@ description: "Google Docs 에 수업 노트 정리하다 보면 LaTeX 가 plain 
 
 ### 2-2. Drive 연동 + 파일 선택
 
-**Import from Google Drive** 누르면 Google 계정 로그인 + scope 동의 (`drive.file` — 선택한 파일만 접근, 다른 Drive 파일에는 접근 안 함) 가 진행됩니다. *처음 사용 시* "App isn't verified" 경고가 나올 수 있는데, *Advanced → Continue* 누르면 됩니다.
+**Import from Google Drive** 누르면 Google 계정 로그인 + scope 동의 (`drive.file` — 선택한 파일만 접근, 다른 Drive 파일에는 접근 안 함) 가 진행됩니다.
 
 ![Drive Picker — 파일 선택](/assets/img/posts/2026-07-13/03-drive-picker.png){: width="720" }
 
