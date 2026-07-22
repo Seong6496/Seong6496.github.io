@@ -716,6 +716,30 @@
     margin-right: 3px;
   }
   .brand-link i { font-size: 15px; margin-left: 2px; }
+
+  /* 정책 링크 footer — OAuth "Application home page" 등록 요건 (privacy / terms / support).
+     의도적으로 조용한 자리: 배경·radius·bold 없음. 이 페이지에서 버튼처럼 보여야 하는
+     요소는 실제 "Import from Google Drive" 하나뿐 (fake-button 오인 클릭 사고 근거). */
+  .site-footer {
+    max-width: 800px;
+    margin: 48px auto 0;
+    padding: 18px 16px 28px;
+    border-top: 0.5px solid var(--border);
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .site-footer a {
+    color: var(--text-hint);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    color: var(--text-muted);
+    text-decoration: underline;
+  }
 </style>
 <script>
   if (location.hostname === 'mathsystem.dev') {
@@ -821,7 +845,7 @@
         </svg>
         <span id="picker-button-label">Import from Google Drive</span>
       </button>
-      <p class="subnote">You may see an "unverified app" warning — pending Google verification. Nothing leaves your browser. <a href="https://mathsystem.dev/latexflow/privacy/#drive-import">Why →</a></p>
+      <p class="subnote">Nothing leaves your browser. <a href="https://mathsystem.dev/latexflow/privacy/#drive-import">Why →</a></p>
 
       <div class="divider">or</div>
 
@@ -875,6 +899,12 @@
   승인 후 박을 코드는 top banner 와 동일 패턴, data-ad-slot 만 다름.
 -->
 </main>
+
+<footer class="site-footer">
+  <a href="https://mathsystem.dev/latexflow/privacy/">Privacy Policy</a>
+  <a href="https://mathsystem.dev/latexflow/terms/">Terms of Service</a>
+  <a href="https://mathsystem.dev/latexflow/support/">Support</a>
+</footer>
 
 <script>
 'use strict';
