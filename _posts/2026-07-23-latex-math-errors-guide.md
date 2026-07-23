@@ -1,6 +1,6 @@
 ---
 title: "LaTeX 수식 오류·실수 완전 해결 가이드 — 멈추는 오류 메시지부터 조용히 어긋나는 실수까지"
-date: 2026-07-24 09:00:00 +0900
+date: 2026-07-23 08:00:00 +0900
 categories: [LaTeX, 수식]
 tags: [latex, 수식, 오류, 실수, 컴파일에러, 디버깅, amsmath, 중괄호, 첨자, sin, left, right, text, overleaf]
 math: true

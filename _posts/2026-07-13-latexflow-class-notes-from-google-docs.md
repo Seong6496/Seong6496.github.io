@@ -5,10 +5,12 @@ categories: [LaTeXFlow, 사용법]
 tags: [latexflow, google-docs, class-notes, 수업, 강의, 학생, 수식, 라플라시안, 편미분]
 math: true
 pin: false
-description: "Google Docs 에 수업 노트 정리하다 보면 LaTeX 가 plain text 로 남아 발표 자료 만들 때 깨지는 경험 — LaTeXFlow Scan 의 Import from Google Drive 한 번으로 깔끔한 PNG 수식이 들어간 docx 로 변환하는 과정을 학생 강의 노트 시나리오로 시연합니다."
+description: "Google Docs 에 수업 노트 정리하다 보면 LaTeX 가 plain text 로 남아 발표 자료 만들 때 깨지는 경험 — LaTeXFlow Scan 의 Import from Google Drive 한 번으로 브라우저 안에서 깔끔한 PNG 수식이 들어간 docx 로 변환하는 과정을, 벡터 미적분 강의 노트 시나리오와 한계·FAQ 까지 학생 눈높이로 정리했습니다."
 ---
 
 수업 듣다가 노트 정리한 후, 발표 자료 만들 때 수식이 깨진 경험 있나요. Google Docs 에 *"$\nabla \cdot \vec{F}$"* 라고 적어두면 plain text 로 남아 화면에서 시각이 깨끗하지 않고, 동기들에게 공유할 때도 *"이게 뭐야?"* 소리를 듣습니다.
+
+강의를 들으면서 실시간으로 정리하다 보면 수식을 예쁘게 조판할 여유가 없습니다. 교수님이 판서한 발산 정리를 놓치지 않으려면 손에 익은 방식, 즉 `$\nabla \cdot \vec{F}$` 처럼 LaTeX 문법을 그냥 텍스트로 쳐두는 게 가장 빠릅니다. Google Docs 는 이 문자열을 수식으로 해석하지 않고 입력한 그대로 저장하니까요. 문제는 그 텍스트가 *나중까지* 텍스트로 남는다는 점입니다. 노트를 정리할 때는 아무 문제가 없다가, 발표 하루 전 슬라이드로 옮기는 순간 백슬래시와 중괄호가 잔뜩 튀어나옵니다.
 
 [LaTeXFlow Scan](/latexflow/web/) 의 **Import from Google Drive** 버튼이 그 마찰을 끝내는 경로입니다. Drive 연동 → 파일 선택 → 4 step → PNG 수식이 들어간 docx. 이 글에서는 실제 *벡터 미적분* 수업 노트 docx 로 시연합니다.
 
@@ -20,19 +22,29 @@ description: "Google Docs 에 수업 노트 정리하다 보면 LaTeX 가 plain 
 
 발표 슬라이드 만들 때 이 docx 그대로 가져오면 수식 자리에 *백슬래시 + 중괄호* 가 남아있어 보기 안 좋습니다. 발표 직전에 일일이 수식 다듬을 시간 없는데, 수식이 10개 넘으면 그것도 시간이 걸립니다.
 
+### 1-1. 왜 이미지로 바꾸나
+
+수식을 굳이 이미지(PNG)로 바꾸는 이유는 단순합니다. 슬라이드, 공유용 PDF, 학과 게시판처럼 *LaTeX 를 렌더링해 주지 않는 자리* 가 대부분이기 때문입니다. Google Docs 나 Word 는 `$...$` 안의 내용을 수식으로 그려주지 않으니, 결국 사람 눈에 보이는 결과물로 넘어가는 순간 텍스트냐 그림이냐 둘 중 하나입니다. 발표장 스크린에 백슬래시가 그대로 뜨는 것보다, 조판된 수식 그림 한 장이 훨씬 신뢰를 줍니다.
+
+### 1-2. 왜 수동 편집이 답이 아닌가
+
+물론 수식마다 손으로 다시 예쁘게 만들 수도 있습니다. 하지만 그건 두 가지를 동시에 잃는 선택입니다. 첫째, 시간입니다. 라플라시안 하나, 편미분 기호 하나 손보다 보면 발표 준비 시간이 순식간에 사라집니다. 둘째, 원본입니다. 수식을 캡처 이미지로 붙여 넣거나 수식 편집기로 다시 그리면, 정작 *처음 쳐둔 LaTeX 문자열* 은 어디에도 남지 않습니다. 나중에 그 수식을 다시 손봐야 할 때 처음부터 다시 타이핑해야 하죠. 도구를 쓰는 이유는 "한 번에" 도 있지만, 뒤에서 보듯 *원본 LaTeX 를 그림 속에 함께 보존* 하기 때문이기도 합니다.
+
 ## 2. 해결 — LaTeXFlow Scan 4 step
 
 ### 2-1. 도구 열기
 
-[LaTeXFlow Scan](/latexflow/web/) 을 엽니다. 첫 화면에 **Import from Google Drive** 버튼이 있습니다.
+[LaTeXFlow Scan](/latexflow/web/) 을 엽니다. 첫 화면에 **Import from Google Drive** 버튼이 있습니다. 참고로 변환은 서버가 아니라 *브라우저 안에서* 이루어집니다. 파일이 외부로 업로드돼 처리되는 구조가 아니라, 여러분 브라우저 안에서 탐지·렌더링·내보내기가 끝납니다.
 
 ![LaTeXFlow Scan 첫 화면](/assets/img/posts/2026-07-13/02-latexflow-home.png){: width="720" }
 
 ### 2-2. Drive 연동 + 파일 선택
 
-**Import from Google Drive** 누르면 Google 계정 로그인 + scope 동의 (`drive.file` — 선택한 파일만 접근, 다른 Drive 파일에는 접근 안 함) 가 진행됩니다.
+**Import from Google Drive** 누르면 Google 계정 로그인 + scope 동의 (`drive.file` — 선택한 파일만 접근, 다른 Drive 파일에는 접근 안 함) 가 진행됩니다. 여기서 요청하는 권한은 *여러분이 Picker 에서 직접 고른 그 파일 한 개* 뿐입니다. Drive 전체를 훑거나 목록을 읽는 권한이 아니라서, 다른 문서나 폴더는 도구가 볼 수 없습니다.
 
 ![Drive Picker — 파일 선택](/assets/img/posts/2026-07-13/03-drive-picker.png){: width="720" }
+
+내부적으로는 Google Docs 문서를 `.docx` 형태로 읽어 들입니다. Drive Picker 와 `drive.file` scope 가 이 과정을 처리하고, 변환을 위해 서버로 문서가 올라가지는 않습니다.
 
 ### 2-3. 수식 탐지 + Review
 
@@ -40,7 +52,9 @@ description: "Google Docs 에 수업 노트 정리하다 보면 LaTeX 가 plain 
 
 ![수식 탐지 + Review](/assets/img/posts/2026-07-13/04-review.png){: width="720" }
 
-수업 노트 정리 시점에 적어둔 LaTeX 가 전부 자동 탐지되고, 본문에 우연히 들어간 `$ 100` 같은 자리는 사용자가 직접 Skip 할 수 있습니다.
+탐지 대상 구분자는 `$...$`, `$$...$$`, `\(...\)`, `\[...\]` 입니다. 그리고 AI 챗봇이 답을 뱉을 때 마크다운 구분자가 벗겨져 `[...]` 형태로만 남는 경우를 위해, 대괄호 모드(bracket-mode)가 기본 켜져 있습니다.
+
+Review 단계에서 특히 두 가지를 확인하게 됩니다. 하나는 **Skip** 입니다. 본문에 우연히 들어간 `$100` 같은 자리는 수식이 아니므로 사용자가 직접 건너뛰면 됩니다. 다른 하나는 **Ambiguity 카드** 입니다. `$` 를 하나만 쳐두고 닫는 `$` 를 빠뜨린 곳처럼 애매한 구간이 있으면, 도구가 카드로 띄워 "여기까지가 수식인지" 를 직접 정하게 합니다. 수업 노트처럼 급하게 친 문서일수록 이 확인 단계가 유용합니다.
 
 ### 2-4. PNG 변환 + 내보내기
 
@@ -54,14 +68,44 @@ description: "Google Docs 에 수업 노트 정리하다 보면 LaTeX 가 plain 
 
 ![다운로드된 docx — PNG 수식](/assets/img/posts/2026-07-13/06-result.png){: width="720" }
 
-발표 자료 만들 때 그대로 쓸 수 있고, PDF 변환할 때도 시각이 깨끗합니다. 각 PNG 의 alt 텍스트에는 원본 LaTeX 가 보존되어 있어서 *역변환* 가능한 자료라, 추후 LaTeXFlow [Google Docs Add-on](https://workspace.google.com/marketplace) 으로 다시 LaTeX 로 되돌릴 수 있는 경로가 보존됩니다.
+발표 자료 만들 때 그대로 쓸 수 있고, PDF 변환할 때도 시각이 깨끗합니다. 각 PNG 의 alt 텍스트에는 원본 LaTeX 가 `AIMATH_FORMULA::v1::<latex>` 형식으로 보존되어 있어서 *역변환* 가능한 자료라, 추후 LaTeXFlow [Google Docs Add-on](https://workspace.google.com/marketplace) 으로 다시 LaTeX 로 되돌릴 수 있는 경로가 보존됩니다. 즉 그림으로 바꿔도 원본 문자열을 잃지 않습니다 — 앞에서 "수동 편집이 답이 아닌 이유" 로 짚은 문제를 도구가 구조적으로 피해 가는 부분입니다.
 
-## 4. 본인 docx 라면
+## 4. 한계와 주의점
 
-본인 *수업 정리 docx / 강의 노트 / 학과 발표 자료* 로도 같은 결과를 얻을 수 있습니다. [LaTeXFlow Scan](/latexflow/web/) 은 PC / iPad 어디서나 동작합니다 — 단, iPad 의 *Google Drive 앱* 에서 .gdoc 을 다운로드하는 경로는 PDF 로 빠지는 함정이 있으니 *Import from Google Drive* 버튼 (도구 안) 을 거치는 게 안전합니다.
+도구가 만능은 아닙니다. 미리 알아두면 헛수고를 줄일 수 있는 지점을 정리합니다.
 
-수업 노트 정리하는 시간은 그대로 두고, 발표 자료 만들 때 수식 자리만 도구 한 번 돌리면 깔끔. 학생 / 대학원생 분께 닿기를 바랍니다.
+- **구분자가 없으면 탐지되지 않습니다.** `\frac{1}{2}` 처럼 `$` 나 `\(` 같은 구분자 없이 LaTeX 명령만 덩그러니 적어둔 건 도구가 수식으로 인식하지 않고 그냥 텍스트로 둡니다. 노트를 칠 때 수식은 꼭 `$...$` 로 감싸는 습관을 들이면 탐지율이 확 올라갑니다.
+- **여러 문단에 걸친 `$$...$$` 는 잡히지 않습니다.** 디스플레이 수식을 쓸 때 여는 `$$` 와 닫는 `$$` 사이에서 엔터를 쳐 문단이 나뉘면 탐지가 안 됩니다. 한 수식은 *한 문단 안에* 두세요.
+- **Word/Docs 의 네이티브 수식 오브젝트는 읽지 않습니다.** 수식 편집기(OOXML `<m:oMath>`)로 그려 넣은 수식은 대상이 아닙니다. 이 도구가 다루는 건 어디까지나 *텍스트로 쳐둔 raw LaTeX* 입니다. 손으로 편집기를 열어 만든 수식은 여기 해당하지 않습니다.
+- **iPad 함정.** iPad 의 *Google Drive 앱* 에서 `.gdoc` 을 직접 다운로드하면 PDF 로 빠지는 경우가 있습니다. iPad 에서는 파일을 먼저 내려받지 말고, 도구 안의 *Import from Google Drive* 버튼을 거치는 게 안전합니다.
+
+## 5. 자주 묻는 것 (FAQ)
+
+**Q. 그림으로 바꾸면 나중에 다시 LaTeX 로 못 고치나요?**
+아닙니다. 내보낸 각 PNG 의 alt 텍스트에 원본 LaTeX 가 `AIMATH_FORMULA::v1::` 형식으로 함께 저장됩니다. 그래서 나중에 수식을 수정해야 할 때, LaTeXFlow Google Docs Add-on 등으로 그림에서 다시 LaTeX 를 되살리는 왕복(round-trip)이 가능합니다.
+
+**Q. Drive 연동이 좀 걱정됩니다. 제 다른 문서까지 다 열리는 건 아닌가요?**
+아닙니다. 요청하는 권한은 `drive.file` scope 로, *여러분이 Picker 에서 직접 고른 그 파일 하나* 만 도구가 접근합니다. Drive 를 목록으로 훑거나 다른 파일을 검색·열람하는 권한이 아닙니다. 게다가 변환 자체는 브라우저 안에서 끝나므로, 문서 내용이 변환을 위해 서버로 올라가지도 않습니다.
+
+**Q. 분명히 수식을 쳤는데 탐지가 안 돼요.**
+십중팔구 구분자 문제입니다. `\vec{F}` 만 적고 `$` 로 감싸지 않았거나, `$$` 디스플레이 수식이 두 문단으로 나뉜 경우가 흔합니다. 각 수식을 `$...$` 로 감싸고, 디스플레이 수식은 한 문단 안에 두었는지 확인해 보세요. 수식 편집기로 그려 넣은 오브젝트라면 텍스트가 아니라서 탐지 대상이 아닙니다.
+
+**Q. `$100 짜리 교재` 처럼 돈 표시가 수식으로 잘못 잡히면요?**
+Review 단계에서 그 항목을 **Skip** 하면 됩니다. 미리보기로 하나씩 확인할 수 있으니, 수식이 아닌 `$` 는 넘기고 진짜 수식만 렌더링하도록 고를 수 있습니다.
+
+**Q. PC 랑 iPad 결과가 같나요?**
+결과 docx 는 동일합니다. 다만 iPad 에서는 위에서 말한 `.gdoc` 다운로드 함정이 있으니, 파일을 따로 내려받지 말고 도구 안의 *Import from Google Drive* 버튼으로 바로 불러오는 흐름을 권합니다.
+
+## 6. 직접 해보기
+
+1. 정리해 둔 수업 노트 Google Docs 를 준비합니다. 수식이 `$...$` 로 감싸여 있는지, 디스플레이 수식이 한 문단 안에 있는지 가볍게 훑어봅니다.
+2. [LaTeXFlow Scan](/latexflow/web/) 을 열고 **Import from Google Drive** 를 누릅니다.
+3. `drive.file` 동의 후 Picker 에서 그 문서 하나를 고릅니다.
+4. Review 에서 잘못 잡힌 `$` 는 **Skip**, 애매한 Ambiguity 카드는 정리합니다.
+5. **Render PNG · Export** 로 PNG 수식이 들어간 docx 를 받습니다.
+
+본인 *수업 정리 docx / 강의 노트 / 학과 발표 자료* 로도 같은 결과를 얻을 수 있습니다. 수업 노트 정리하는 시간은 그대로 두고, 발표 자료 만들 때 수식 자리만 도구 한 번 돌리면 깔끔합니다. 학생 / 대학원생 분께 닿기를 바랍니다.
 
 ---
 
-*수식 정확히 다루는 경로 — [LaTeX 시리즈 #1~#12](/blog/categories/latex/) 가 있습니다. align 환경 / Greek letters / 수학 기호 cheatsheet 등 정리되어 있습니다.*
+*수식 정확히 다루는 경로 — [LaTeX 시리즈 #1~#12](/blog/categories/latex/) 가 있습니다. align 환경 / [Greek letters](/blog/posts/latex-greek-letters-complete/) / 수학 기호 cheatsheet 등 정리되어 있습니다.*
