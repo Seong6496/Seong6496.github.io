@@ -139,7 +139,7 @@ LaTeX 가 그 가정을 다르게 잡아 둔 것 — 내용과 형식의 분리,
 
 ---
 
-이전 글: <a href="/blog/posts/latex-math-symbols-complete/" data-proofer-ignore>#10 LaTeX 수학 기호 전체 목록 — 관계·집합·논리·연산·화살표</a>
+이전 글: <a href="/blog/posts/latex-greek-letters-complete/" data-proofer-ignore>#9 LaTeX 그리스 문자·수학 기호 완전 레퍼런스</a>
 다음 글: <a href="/blog/posts/latex-overleaf-10min/" data-proofer-ignore>#12 Overleaf 10분 만에 시작하기 — 설치 없이 LaTeX</a>
 
 > **Docs 에서 수식 작업이 잦으시면** — `.docx` 한 번 업로드로 LaTeX 품질 수식 시각화. [LaTeXFlow Web 바로 가기](https://mathsystem.dev/latexflow/web/) (sign-in 없이 즉시)
