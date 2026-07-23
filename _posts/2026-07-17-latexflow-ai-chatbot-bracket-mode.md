@@ -2,73 +2,77 @@
 title: "AI 챗봇이 뱉은 [수식] 박힌 답변, docx 에 깔끔하게 살리기 — bracket-mode 시연"
 date: 2026-07-17 09:00:00 +0900
 categories: [LaTeXFlow, 사용법]
-tags: [latexflow, ai-chatbot, chatgpt, gemini, perplexity, bracket-mode, markdown, 수식]
+tags: [latexflow, ai-chatbot, chatgpt, bracket-mode, markdown, 수식]
 math: true
 pin: false
-description: "Gemini/Perplexity/ChatGPT 답변의 LaTeX 수식이 markdown 렌더링 때문에 [ ... ] 박힌 plain text 로 복붙되는 함정 — LaTeXFlow Scan 의 bracket-mode 한 번에 PNG 박힌 docx 박는 path 시연. 챗봇 사용자 일반 대응."
+description: "ChatGPT 답변을 docx 에 복붙하면 수식이 markdown 렌더링 때문에 백슬래시가 빠진 `[ ... ]` plain text 로 들어옵니다. 표준 `$...$` 패턴으로는 잡히지 않는 그 자리를 LaTeXFlow Scan 의 bracket-mode 가 기본값 ON 으로 자동 탐지해, PNG 수식이 들어간 docx 로 만드는 흐름을 시연합니다."
 ---
 
-AI 챗봇한테 *"이 통계 결과 정리해줘"* 박으면 답변에 LaTeX 수식 박혀 나오는데, 그 답변을 docx 에 복붙 박으면 수식이 *"`[E(X) = \sum x_i p_i]`"* 처럼 박혀 옵니다. *"이거 왜 plain text 박혀있지?"* 박은 적 있나요.
+ChatGPT 에게 *"AP Calculus BC 연습 문제 20개 만들어줘"* 를 시키고, 답변을 그대로 복사해 docx 에 붙였습니다. 화면에서는 깔끔하게 렌더링되던 수식이 문서에서는 이렇게 들어와 있습니다.
 
-원인은 **markdown 렌더링** 입니다. Gemini/Perplexity/ChatGPT 같은 챗봇이 답변 박을 때 LaTeX 박은 자리 `\[ ... \]` 박는데, 화면상 markdown 렌더링 박을 때 백슬래시 박은 자리 사라져서 `[ ... ]` 박힙니다. 복붙 박으면 그 *"백슬래시 박은 자리 사라진 plain text"* 그대로 docx 에 박힙니다.
+```
+[\lim_{x \to 2} \frac{x^2-4}{x-2}]
+```
 
-[LaTeXFlow Scan](/latexflow/web/) 의 **bracket-mode** 가 그 함정 박는 path 입니다. 도구 첫 화면의 체크박스 하나 박으면 `[\frac{...}{...}]` 류 박힌 자리도 LaTeX 박은 자료로 박혀있다고 판단해서 PNG 박은 자료 박혀있는 docx 박힙니다. 이 글에서는 Gemini 답변 시나리오로 시연합니다.
+`$` 로 감싸인 것도 아니고 `\[ ... \]` 도 아닌, **대괄호 안에 LaTeX 가 그대로 남은** 형태입니다. 수식 변환 도구는 대개 `$...$` `$$...$$` `\(...\)` `\[...\]` 네 가지를 찾기 때문에, 이 자리는 그냥 지나칩니다.
 
-## 1. 문제 — markdown 렌더링 함정
+[LaTeXFlow Scan](/latexflow/web/) 의 **bracket-mode** 가 이 자리를 잡아 줍니다. 기본값이 ON 이라 따로 켤 것도 없습니다. 이 글에서는 ChatGPT 답변을 붙인 docx 하나로 그 흐름을 시연합니다.
 
-### 1-1. 챗봇 답변에 LaTeX 박힌 자리 — 화면상 시각
+## 1. 문제 — 백슬래시 한 쌍이 빠진 대괄호
 
-Gemini 한테 *"확률 분포의 평균/분산 정리해줘"* 박은 후 박은 답변 화면:
+### 1-1. 무엇이 어긋나는가
 
-> _스크린샷 자리: Gemini 답변 박은 원본 화면 — LaTeX 수식 markdown 렌더링 박힌 시각_
-> `![Gemini 답변 — markdown 렌더링](/assets/img/posts/2026-07-17/01-gemini-response.png){: width="720" }`
+ChatGPT 가 실제로 내보낸 원문은 정상적인 display 수식입니다. 어긋나는 자리는 답변 화면이 markdown 으로 렌더링되는 과정입니다. 바깥쪽 구분자의 백슬래시가 렌더링에 흡수되어 사라지고, 안쪽 명령어의 백슬래시는 그대로 살아남습니다. 그 상태를 복사해서 붙이면 아래처럼 됩니다.
 
-화면상 시각: 수식 박힌 자리 깔끔한 LaTeX 렌더링.
+```
+ChatGPT 원본:   \[\lim_{x \to 2} \frac{x^2-4}{x-2}\]
+docx 도착 결과: [\lim_{x \to 2} \frac{x^2-4}{x-2}]
+```
 
-### 1-2. 복붙 박으면 — bracket 박힌 plain text
+`\lim` 과 `\frac` 은 멀쩡한데 바깥 `\[` `\]` 만 `[` `]` 가 된, 어중간한 상태입니다. 사람 눈에는 여전히 수식으로 보이지만 파서 입장에서는 수식 구분자가 없는 평범한 문장입니다.
 
-근데 그 답변 복사 박은 후 docx 에 복붙 박으면:
+### 1-2. 왜 표준 패턴으로는 안 잡히나
 
-> _스크린샷 자리: docx 에 복붙 박은 시각 — `[E(X) = \sum x_i p_i]` `[Var(X) = E(X^2) - E(X)^2]` 류 박힘_
-> `![docx 복붙 결과 — bracket 박힌 plain text](/assets/img/posts/2026-07-17/02-pasted-docx.png){: width="720" }`
+수식 탐지는 결국 구분자 매칭입니다. `$...$` 는 달러 한 쌍, `\[...\]` 는 백슬래시가 붙은 대괄호 한 쌍을 찾습니다. 백슬래시가 빠진 `[ ... ]` 는 이 중 어디에도 해당하지 않습니다.
 
-원래 챗봇이 박은 자료는 `\[E(X) = \sum x_i p_i\]` 인데 markdown 렌더링 박을 때 백슬래시 박은 자리 사라져서 `[E(X) = \sum x_i p_i]` 박혀있습니다. 표준 LaTeX 의 `$...$` `$$...$$` `\(...\)` `\[...\]` 박은 patterns 박은 도구 박은 자리 이 *백슬래시 빠진 bracket* 매칭 박히지 않습니다.
-
-이게 ChatGPT 외 다양한 챗봇 (Gemini / Perplexity / Claude) 박힌 공통 함정 입니다 — markdown 렌더링 박은 자리 동일한 path 박혀있어 동일 결과 박힙니다.
+그렇다고 대괄호 전부를 수식으로 볼 수도 없습니다. 본문에는 `[참고]` `[1]` `[표 1]` 처럼 수식과 무관한 대괄호가 훨씬 많습니다. 문항 20개짜리 답변 하나만 붙여도 이런 대괄호가 수십 개씩 섞입니다. *대괄호를 열되, 산문은 건드리지 않는* 기준이 필요합니다.
 
 ## 2. 해결 — bracket-mode
 
-### 2-1. 도구 첫 화면 — bracket option 체크박스
+### 2-1. 도구 첫 화면 — bracket-mode 체크박스
 
-[LaTeXFlow Scan](/latexflow/web/) 의 첫 화면 박은 자리에 박힌 체크박스:
+[LaTeXFlow Scan](/latexflow/web/) 을 열면 dropzone 아래에 체크박스가 하나 있습니다.
 
-> _스크린샷 자리: 도구 첫 화면 — bracket-mode 체크박스 강조 박은 시각_
-> `![LaTeXFlow Scan — bracket-mode 체크박스](/assets/img/posts/2026-07-17/03-bracket-mode-option.png){: width="720" }`
+![도구 첫 화면 — bracket-mode 체크박스](/assets/img/posts/2026-07-17/01-bracket-mode-option.png){: width="720" }
 
-기본값으로 ON 박혀있습니다 (*"Also detect bracket [\\...] equations (common in AI chatbot output)"*). 즉 챗봇 답변 docx 박는 사용자는 따로 박을 자리 없이 자동 동작.
+*"Also detect bracket `[\...]` equations (common in AI chatbot output)"* — **기본값 ON** 입니다. 챗봇 답변을 정리하다 이 글에 온 경우라면 손댈 것 없이 그대로 docx 를 끌어다 놓으면 됩니다.
 
-### 2-2. 복붙 docx 끌어다 놓음 + 탐지
+### 2-2. 탐지 — 대괄호 안 LaTeX 시그니처
 
-bracket 박힌 docx 끌어다 놓으면:
+docx 를 올리면 표준 구분자 수식과 함께 대괄호 수식도 *Detected Equations* 리스트에 올라옵니다.
 
-> _스크린샷 자리: 수식 탐지 결과 — bracket 박힌 수식 박힌 리스트_
-> `![수식 탐지 — bracket 박힌 수식](/assets/img/posts/2026-07-17/04-detection.png){: width="720" }`
+![bracket 수식 탐지 결과](/assets/img/posts/2026-07-17/02-bracket-detection.png){: width="720" }
 
-`[E(X) = \sum x_i p_i]` 박은 자리 *bracket-mode heuristic* 박혀 자동 탐지. 박은 heuristic = *"bracket 안에 LaTeX 시그니처 (`\` `^` `_` `=` 박힌 자리) 박힌 자리만 수식 박은 자료"*. 본문의 일반 산문 `[참고]` `[1]` `[표 1]` 박힌 자리는 시그니처 0 박혀있어 매칭 안 박힘. 즉 *수식 아닌 박은 산문 bracket* 박은 자리 매칭 박힘 0.
+기준은 단순합니다. **대괄호 안에 LaTeX 시그니처 (`\` `^` `_` `=`) 가 있는 경우에만** 수식으로 봅니다. `[\lim_{x \to 2} \frac{x^2-4}{x-2}]` 는 백슬래시와 밑줄이 있어 걸리고, `[참고]` `[1]` `[표 1]` 은 시그니처가 하나도 없어 걸리지 않습니다. 앞 절의 *산문은 건드리지 않는다* 는 조건이 이 한 줄로 해결됩니다.
 
-### 2-3. PNG 변환
+리스트에 올라온 카드는 표준 수식과 똑같이 다룰 수 있습니다. 미리보기로 확인하고, **Edit LaTeX** 로 고치고, 수식이 아닌 게 섞였으면 **Skip** 으로 뺍니다.
 
-> _스크린샷 자리: 변환된 docx 의 PNG 수식 박힌 시각_
-> `![변환 결과 — PNG 수식](/assets/img/posts/2026-07-17/05-result.png){: width="720" }`
+### 2-3. Render PNG · Export
 
-bracket 박힌 자리가 PNG 박힌 자료로 박힘. 본문 그대로 보존.
+검토가 끝나면 상단의 **Render PNG · Export** 를 누릅니다.
 
-## 3. 챗봇 일반 대응
+![PNG 렌더 · Export 준비](/assets/img/posts/2026-07-17/03-render-export.png){: width="720" }
 
-bracket-mode 박힌 시점 — Gemini / Perplexity / ChatGPT / Claude 박은 어느 챗봇 답변도 동일 path 박혀있어 동일 결과 박힙니다. 즉 도구의 *bracket-mode = markdown 렌더링 챗봇 답변 일반 대응 path*.
+선택된 수식이 전부 PNG 로 렌더링되어 원래 자리에 그대로 들어간 새 docx 가 다운로드됩니다. 본문 서식은 그대로 두고 수식 자리만 교체되기 때문에, 챗봇이 나눠 준 문항 번호나 단원 구분은 손상되지 않습니다.
 
-본인이 *"AI 챗봇한테 정리 박은 후 docx 박을 path 박는다"* 면 [LaTeXFlow Scan](/latexflow/web/) 박힌 시점 자동 대응 박힙니다 — bracket-mode 기본값 ON 박혀있고, 챗봇 답변 docx 박은 사용자는 다른 박을 자리 없이 그대로 끌어다 놓으면 됩니다.
+## 3. 어떤 답변에 bracket-mode 가 필요한가
+
+챗봇 답변이 `$...$` `$$...$$` 로 오는 경우가 더 흔하고, 그 경우는 bracket-mode 와 무관하게 표준 탐지 경로에서 이미 처리됩니다. 별도로 신경 쓸 자리가 없습니다.
+
+bracket-mode 가 필요한 건 위에서 본 케이스, 즉 markdown 렌더링을 거치면서 바깥 백슬래시가 빠진 채로 복사되는 경우입니다. 답변을 붙인 docx 에 `[\frac{...}{...}]` 같은 모양이 보인다면 이쪽입니다.
+
+두 경우를 미리 구분할 필요는 없습니다. bracket-mode 가 기본값 ON 이고 두 경로가 동시에 도는 만큼, 답변이 어느 형태로 왔든 docx 를 그대로 끌어다 놓으면 됩니다.
 
 ---
 
-*수식 정확히 박는 path 박은 자료 — [LaTeX 시리즈 #1~#12](/blog/categories/latex/) 박혀있습니다. align 환경 / 그리스 문자 / 행렬 / cases 정리 박힘.*
+*수식 문법 자체가 헷갈릴 때는 — [LaTeX 시리즈 #1~#12](/blog/categories/latex/) 에 align 환경 / 그리스 문자 / 행렬 / cases 정리가 있습니다.*
