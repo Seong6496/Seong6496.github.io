@@ -823,7 +823,22 @@
     <!-- 업로드 前 경고 — LaTeX 구분자가 없으면 아무것도 렌더되지 않음 -->
     <div class="upload-warn">
       <p class="warn-head">⚠ Your document must already have math in LaTeX delimiters — <code>$…$</code>, <code>$$…$$</code>, <code>\(…\)</code>, <code>\[…\]</code>, or <code>[ … ]</code>. Bare LaTeX like <code>\frac{1}{2}</code> is left as plain text.</p>
-      <p class="warn-ask">Not in that format? Ask ChatGPT: <code>Convert the formulas to LaTeX and give me the result as a .docx file.</code></p>
+      <!-- warn-ask 프롬프트 설계 근거 (2026-07-23) — 이 문구는 되돌리기 쉬우니 이유를 남긴다.
+           1) `$...$` 를 인라인으로 지정하는 이유 = 복붙 경로에서 살아남는 유일한 인라인 구분자.
+              챗봇 답변을 채팅창에서 복사해 docx 에 붙이면 markdown 렌더링이 백슬래시를 떼어낸다:
+                `$...$`   → `$...$` 그대로   → 스캐너 매칭
+                `\[...\]` → `[...]`          → bracket-mode 가 복구
+                `\(...\)` → `( ... )`        → 복구 불가, 영구 소실
+              `_scanBracketEquations` 는 `if (text[i] !== '[') continue;` 로 대괄호만 본다.
+              맨 괄호를 수식으로 잡으면 오탐이 폭발하므로 의도된 설계다 — 따라서 프롬프트에서
+              `\(...\)` 를 권해선 안 된다. warn-head 의 목록은 "우리가 읽을 수 있는 구분자",
+              warn-ask 는 "챗봇에게 요청할 구분자" 로 범위가 다르다 (warn-head 는 정확하니 유지).
+           2) plain text 금지를 명시한 이유 = 구분자 없는 맨 LaTeX 은 감지 대상이 아니다.
+           3) `.docx 파일로 줘` 요청을 뺀 이유 = 그렇게 요청하면 챗봇이 수식을 Word 수식 개체
+              (`<m:oMath>`) 로 내보내고, 이 도구는 그걸 읽지 못한다. 변환 대상은 raw LaTeX 텍스트다.
+              근거: `_posts/2026-07-22-latexflow-ai-generated-practice-problems.md` 의
+              "docx 를 직접 요청할 때의 함정" 절. -->
+      <p class="warn-ask">Not in that format? Ask ChatGPT: <code>Write every formula in LaTeX — $...$ for inline, $$...$$ for display. Never write math as plain text.</code></p>
     </div>
 
     <div class="steps">
