@@ -1,5 +1,5 @@
 ---
-title: "AI 챗봇이 뱉은 [수식] 박힌 답변, docx 에 깔끔하게 살리기 — bracket-mode 시연"
+title: "AI 챗봇 답변의 [수식], docx 에 그대로 살리기 — bracket-mode 시연"
 date: 2026-07-17 09:00:00 +0900
 categories: [LaTeXFlow, 사용법]
 tags: [latexflow, ai-chatbot, chatgpt, bracket-mode, markdown, 수식]
