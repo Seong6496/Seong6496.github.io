@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Support · LaTeXFlow</title>
+  <meta name="description" content="Support and contact for the LaTeXFlow Google Docs Add-on and Web app." />
+
+  <!-- Math System favicons — shared with Chirpy blog at /assets/img/favicons/ -->
+  <link rel="icon" href="/assets/img/favicons/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/img/favicons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/img/favicons/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/assets/img/favicons/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/assets/img/favicons/apple-touch-icon-180.png">
+
+  <!-- Tabler Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.4.0/dist/tabler-icons.min.css" />
+
+  <!-- fonts — web-prototype 와 동일 톤 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --paper:      #FBFAF6;
+      --white:      #FFFFFF;
+      --ink-900:    #191919;
+      --ink-600:    #5C5A53;
+      --ink-500:    #75726A;
+      --ink-400:    #9B9890;
+      --accent-700: #1F4FA3;
+      --accent-800: #173E82;
+      --hairline:   rgba(0, 0, 0, 0.12);
+
+      --bg:           var(--paper);
+      --bg-card:      var(--white);
+      --text:         var(--ink-900);
+      --text-muted:   var(--ink-500);
+      --text-hint:    var(--ink-400);
+      --accent:       var(--accent-700);
+      --accent-hover: var(--accent-800);
+      --accent-bg:    rgba(31, 79, 163, 0.08);
+      --border:       var(--hairline);
+
+      --font-display: 'STIX Two Text', 'Noto Serif KR', 'Times New Roman', serif;
+      --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo', 'Pretendard', 'Noto Sans KR', sans-serif;
+      --font-mono:    'JetBrains Mono', 'D2Coding', ui-monospace, 'SF Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* header — web-prototype hero 와 동일 톤 */
+    .doc-header {
+      background: var(--bg-card);
+      padding: 14px 20px;
+      border-bottom: 0.5px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .doc-header .brand { display: flex; align-items: center; gap: 8px; }
+    .doc-header .brand-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      background: var(--accent-bg);
+      color: var(--accent);
+      font-size: 16px;
+    }
+    .doc-header .brand a {
+      text-decoration: none;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      color: inherit;
+    }
+    .doc-header .brand-name {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 17px;
+      color: var(--text);
+    }
+    .doc-header .brand-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .doc-header .brand-link {
+      font-size: 13px;
+      color: var(--text-hint);
+      text-decoration: none;
+    }
+    .doc-header .brand-link:hover { color: var(--text); }
+    .doc-header .brand-link i { font-size: 12px; margin-left: 2px; }
+
+    /* nav — back / privacy / terms / support */
+    .doc-nav {
+      max-width: 780px;
+      margin: 28px auto 0;
+      padding: 0 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .doc-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 2px;
+      transition: color .12s, border-color .12s;
+    }
+    .doc-nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .doc-nav a.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
+    .doc-nav .back i { font-size: 12px; margin-right: 3px; }
+
+    /* main content */
+    main.doc-main {
+      max-width: 780px;
+      margin: 32px auto 64px;
+      padding: 0 20px;
+    }
+    .doc-main h1 {
+      font-family: var(--font-display);
+      font-size: 34px;
+      font-weight: 500;
+      letter-spacing: -0.4px;
+      margin: 0 0 12px;
+    }
+    .doc-main h2 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 500;
+      margin: 44px 0 12px;
+      padding-top: 16px;
+      border-top: 0.5px solid var(--border);
+    }
+    .doc-main h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin: 24px 0 8px;
+    }
+    .doc-main p,
+    .doc-main li {
+      margin-bottom: 12px;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    .doc-main ul,
+    .doc-main ol {
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+    .doc-main code {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      background: var(--bg-card);
+      padding: 1px 5px;
+      border-radius: 3px;
+      border: 0.5px solid var(--border);
+    }
+    .doc-main pre {
+      background: var(--bg-card);
+      border: 0.5px solid var(--border);
+      border-radius: 6px;
+      padding: 14px;
+      overflow-x: auto;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+    .doc-main pre code { background: none; border: none; padding: 0; }
+    .doc-main a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+    .doc-main a:hover { color: var(--accent-hover); }
+    .doc-main strong { font-weight: 600; }
+    .doc-main em { font-style: italic; color: var(--text-muted); }
+    .doc-main blockquote {
+      border-left: 3px solid var(--accent-bg);
+      padding: 10px 16px;
+      margin: 18px 0;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      border-radius: 0 4px 4px 0;
+    }
+    .doc-main blockquote p:last-child { margin-bottom: 0; }
+    .doc-main hr {
+      border: none;
+      border-top: 0.5px solid var(--border);
+      margin: 32px 0;
+    }
+    .doc-main table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 15px;
+    }
+    .doc-main th,
+    .doc-main td {
+      border: 0.5px solid var(--border);
+      padding: 8px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .doc-main th {
+      background: var(--bg-card);
+      font-weight: 600;
+    }
+
+    /* footer */
+    .doc-footer {
+      border-top: 0.5px solid var(--border);
+      padding: 24px 20px 32px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-hint);
+    }
+    .doc-footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin: 0 6px;
+    }
+    .doc-footer a:hover { color: var(--accent); }
+    .doc-footer .copy {
+      margin-top: 10px;
+      font-size: 12px;
+    }
+    .doc-footer .copy a { color: var(--text-muted); }
+  </style>
+  <!--
+  The GA snippet
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script defer src="https://www.googletagmanager.com/gtag/js?id=G-CF55QKHZBZ"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    gtag('js', new Date());
+    gtag('config', 'G-CF55QKHZBZ');
+  });
+</script>
+
+  <!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xm5dfbwul6");
+</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4209614973726055"
+     crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+<header class="doc-header">
+  <div class="brand">
+    <span class="brand-icon" aria-hidden="true"><i class="ti ti-math-function"></i></span>
+    <a href="/latexflow/web/">
+      <span class="brand-name">LaTeXFlow</span>
+      <span class="brand-sub">Scan</span>
+    </a>
+  </div>
+  <a class="brand-link" href="https://mathsystem.dev/" target="_blank" rel="noopener">MathSystem <i class="ti ti-external-link" aria-hidden="true"></i></a>
+</header>
+
+<nav class="doc-nav" aria-label="LaTeXFlow documentation">
+  <a class="back" href="/latexflow/web/"><i class="ti ti-arrow-left"></i>Back to tool</a>
+  <a href="/latexflow/privacy/" >Privacy</a>
+  <a href="/latexflow/terms/" >Terms</a>
+  <a href="/latexflow/support/" class="active">Support</a>
+</nav>
+
+<main class="doc-main">
+  <h1>Support</h1>
+  <p>Need help with <strong>LaTeXFlow</strong> — either the <strong>Google Docs™ Add-on</strong> or the <strong>Web app</strong> at <code class="language-plaintext highlighter-rouge">mathsystem.dev/latexflow/web/</code>? Here’s how to get support.</p>
+
+<hr />
+
+<h2 id="report-a-bug-or-request-a-feature">Report a Bug or Request a Feature</h2>
+
+<p>The fastest way to get help is to open an issue on GitHub:</p>
+
+<p><strong><a href="https://github.com/Seong6496/google-docs-latex-addon/issues">Open an Issue on GitHub</a></strong></p>
+
+<p>Please include:</p>
+
+<ul>
+  <li>Which product (Add-on or Web app)</li>
+  <li>What you were trying to do</li>
+  <li>What happened instead</li>
+  <li>The LaTeX formula that caused the problem (if applicable)</li>
+  <li><strong>(Add-on)</strong> Your browser and Google Workspace account type</li>
+  <li><strong>(Web app)</strong> Your browser and OS, and whether you used drag-drop or Google Drive import</li>
+</ul>
+
+<hr />
+
+<h2 id="contact-by-email">Contact by Email</h2>
+
+<p>For privacy-related requests or issues you’d prefer not to post publicly:</p>
+
+<p><strong>sung2417@gmail.com</strong></p>
+
+<hr />
+
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+
+<h3 id="add-on-inside-google-docs">Add-on (inside Google Docs)</h3>
+
+<p><strong>Q. The equation image looks blurry in my document.</strong>
+A. The Add-on inserts a PNG image sized to match standard inline/display text height. If you need a larger image, try scaling it after insertion using Google Docs’ image resize handle.</p>
+
+<p><strong>Q. My LaTeX formula shows an error in the preview.</strong>
+A. The preview uses Temml to render your formula. Check your LaTeX syntax — common issues include missing closing braces <code class="language-plaintext highlighter-rouge">}</code> or unsupported commands.</p>
+
+<p><strong>Q. The Scan tab didn’t find my formulas.</strong>
+A. The scanner detects <code class="language-plaintext highlighter-rouge">$...$</code> (inline) and <code class="language-plaintext highlighter-rouge">$$...$$</code> (display) delimiters. Make sure your formulas use these delimiters and are not inside special objects like drawings or images.</p>
+
+<p><strong>Q. How do I turn off data collection in the Add-on?</strong>
+A. Go to <strong>Extensions → LaTeXFlow → Data Collection Settings</strong> in Google Docs. You can withdraw consent at any time. See our <a href="/latexflow/privacy/">Privacy Policy</a> for details.</p>
+
+<h3 id="web-app-mathsystemdevlatexflowweb">Web app (mathsystem.dev/latexflow/web/)</h3>
+
+<p><strong>Q. What Google Drive access does the Web app get?</strong>
+A. Only the limited <code class="language-plaintext highlighter-rouge">drive.file</code> scope — it can see only the files you explicitly pick in the Drive Picker, and it cannot list, search, or read anything else in your Drive. Nothing leaves your browser. See the <a href="/latexflow/privacy/#drive-import">Privacy Policy</a> for details.</p>
+
+<p><strong>Q. My <code class="language-plaintext highlighter-rouge">.docx</code> upload fails or some equations are missed.</strong>
+A. The scanner detects <code class="language-plaintext highlighter-rouge">$...$</code>, <code class="language-plaintext highlighter-rouge">$$...$$</code>, and optionally bracket <code class="language-plaintext highlighter-rouge">[\...]</code> equations. Equations split across multiple paragraphs are not currently detected — keep each <code class="language-plaintext highlighter-rouge">$$...$$</code> on a single paragraph if possible.</p>
+
+<p><strong>Q. How do I recover the original LaTeX from a rendered image?</strong>
+A. Each PNG includes the original LaTeX in its alt-text (<code class="language-plaintext highlighter-rouge">AIMATH_FORMULA::v1::</code> tag). You can recover the source for any equation from the image’s alt-text field in Word or Google Docs.</p>
+
+<p><strong>Q. How do I turn off data collection in the Web app?</strong>
+A. The Web app sends only the equation source and rendered PNG (no other document content) to our collection endpoint. An in-app toggle is on the roadmap; in the meantime, email sung2417@gmail.com and we will arrange an opt-out for your account.</p>
+
+<hr />
+
+<h2 id="legal">Legal</h2>
+
+<ul>
+  <li><a href="/latexflow/privacy/">Privacy Policy</a></li>
+  <li><a href="/latexflow/terms/">Terms of Service</a></li>
+</ul>
+
+</main>
+
+<footer class="doc-footer">
+  <a href="/latexflow/web/">LaTeXFlow Scan</a> ·
+  <a href="/latexflow/privacy/">Privacy</a> ·
+  <a href="/latexflow/terms/">Terms</a> ·
+  <a href="/latexflow/support/">Support</a> ·
+  <a href="https://mathsystem.dev/">MathSystem</a>
+  <p class="copy">© 2026 LaTeXFlow · Contact: <a href="mailto:sung2417@gmail.com">sung2417@gmail.com</a></p>
+</footer>
+
+</body>
+</html>
