@@ -740,6 +740,89 @@
     color: var(--text-muted);
     text-decoration: underline;
   }
+
+  /* ── Info / crawlable content — landing prose below the tool.
+     upload-stage 안에 있어 변환(Review) 진입 시 자연히 숨겨짐 → 도구 흐름 침범 0.
+     검색 크롤러와 첫 방문자에게 도구가 무엇을·어떻게·왜 하는지 설명하는 자리. ── */
+  .info {
+    margin-top: 64px;
+    padding-top: 8px;
+    border-top: 0.5px solid var(--border);
+    color: var(--text);
+  }
+  .info h2 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 500;
+    margin: 40px 0 12px;
+    letter-spacing: -0.01em;
+  }
+  .info h2:first-of-type { margin-top: 28px; }
+  .info h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 20px 0 6px;
+    color: var(--text);
+  }
+  .info p { margin: 0 0 12px; line-height: 1.65; color: var(--ink-600); }
+  .info ul, .info ol { margin: 0 0 12px; padding-left: 22px; line-height: 1.65; color: var(--ink-600); }
+  .info li { margin-bottom: 4px; }
+  .info code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    background: var(--accent-bg);
+    color: var(--accent-hover);
+    padding: 1px 5px;
+    border-radius: 4px;
+  }
+  .info a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--border); }
+  .info a:hover { border-bottom-color: var(--accent); }
+  .info-steps {
+    counter-reset: infostep;
+    list-style: none;
+    padding-left: 0;
+  }
+  .info-steps > li {
+    counter-increment: infostep;
+    position: relative;
+    padding-left: 34px;
+    margin-bottom: 10px;
+  }
+  .info-steps > li::before {
+    content: counter(infostep);
+    position: absolute;
+    left: 0; top: 1px;
+    width: 22px; height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font: 500 13px var(--font-mono);
+    color: var(--accent);
+    background: var(--accent-bg);
+    border-radius: 6px;
+  }
+  .info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 16px;
+    font-size: 15px;
+  }
+  .info-table th, .info-table td {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 0.5px solid var(--border-soft);
+    vertical-align: top;
+    color: var(--ink-600);
+  }
+  .info-table th {
+    color: var(--text);
+    font-weight: 600;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .info-table td code { white-space: nowrap; }
+  .faq-item { margin-bottom: 16px; }
+  .faq-q { font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .faq-a { color: var(--ink-600); line-height: 1.65; }
 </style>
 <script>
   if (location.hostname === 'mathsystem.dev') {
@@ -884,6 +967,75 @@
       <span class="badge"><i class="ti ti-bolt" aria-hidden="true"></i> Every equation at once</span>
       <span class="badge"><i class="ti ti-brackets" aria-hidden="true"></i> Detects bracket <code>[\...]</code> too</span>
     </div>
+
+    <!-- ============================================================
+         Crawlable landing content (how it works · delimiters · use
+         cases · FAQ · privacy). Lives inside #upload-stage so it is
+         hidden once the user enters the Review flow — no tool-flow
+         intrusion. Purpose: give search crawlers and first-time
+         visitors substantial first-party content about the tool.
+         ============================================================ -->
+    <section class="info" aria-label="About LaTeXFlow Scan">
+
+      <h2>What LaTeXFlow Scan does</h2>
+      <p>When you write math as LaTeX inside a Word or Google Docs file — for example <code>$\nabla \cdot \vec{F}$</code> or <code>$$E = mc^2$$</code> — it stays as plain text. It looks fine while you type, but the moment you build slides, hand the file to a co-author, or export a PDF, every formula shows up as raw backslashes and braces.</p>
+      <p>LaTeXFlow Scan reads a <code>.docx</code> file, finds every piece of LaTeX in it, and gives you back the same document with each formula replaced by a rendered image. No equation editor, no retyping, and no formula ever leaves your browser — the whole conversion runs on your own machine.</p>
+
+      <h2>How it works</h2>
+      <ol class="info-steps">
+        <li><strong>Bring your file in.</strong> Drop a <code>.docx</code> onto the page, or use <strong>Import from Google Drive</strong> to pull a Google Doc in directly. The Drive import uses the limited <code>drive.file</code> scope, so the tool can only see the single file you pick — never the rest of your Drive.</li>
+        <li><strong>Detection.</strong> The scanner walks the document and collects every span wrapped in a LaTeX delimiter (see the table below).</li>
+        <li><strong>Review.</strong> Each detected formula gets a live preview. Skip anything that was caught by mistake (a stray <code>$100</code>, say), and resolve <em>ambiguity cards</em> where a paragraph has an unclosed <code>$</code> — the tool asks you to pick the boundary instead of guessing.</li>
+        <li><strong>Render &amp; export.</strong> Press <strong>Render PNG · Export</strong> and download a <code>.docx</code> in which every formula is now a crisp PNG. The original LaTeX is preserved in each image's alt text, so the document can be converted back later.</li>
+      </ol>
+
+      <h2>Supported LaTeX delimiters</h2>
+      <p>A formula is only detected if it already sits inside one of these delimiters. Bare LaTeX with no delimiter — <code>\frac{1}{2}</code> on its own — is treated as ordinary text and left untouched.</p>
+      <table class="info-table">
+        <thead><tr><th>Delimiter</th><th>Example</th><th>Detected</th></tr></thead>
+        <tbody>
+          <tr><td><code>$ … $</code></td><td><code>$x^2 + y^2$</code></td><td>Inline math</td></tr>
+          <tr><td><code>$$ … $$</code></td><td><code>$$E = mc^2$$</code></td><td>Display math</td></tr>
+          <tr><td><code>\( … \)</code></td><td><code>\(a_i\)</code></td><td>Inline math</td></tr>
+          <tr><td><code>\[ … \]</code></td><td><code>\[\int_a^b f\,dx\]</code></td><td>Display math</td></tr>
+          <tr><td><code>[ … ]</code></td><td><code>[\lim_{x\to0}\frac{\sin x}{x}]</code></td><td>Bracket mode — for AI-chatbot output whose backslashes were stripped by markdown. On by default; toggle it off if it over-detects.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>When people use it</h2>
+      <h3>Google Docs class notes → clean slides</h3>
+      <p>Students jot equations as LaTeX while taking notes, then need presentable formulas for a presentation. Import from Drive, convert, done — no re-typing before the deadline.</p>
+      <h3>A Word paper full of equations</h3>
+      <p>A draft written in Word with dozens of inline formulas would take an afternoon to fix by hand. One pass converts them all. (If you need true equation numbering and cross-references, write the paper in LaTeX instead — this tool is for turning existing documents into clean, shareable output.)</p>
+      <h3>AI chatbot answers pasted into a doc</h3>
+      <p>Paste a ChatGPT or Claude answer into a <code>.docx</code> and the display math often arrives as <code>[ … ]</code> — the outer backslashes were eaten by the chat window's markdown. Bracket mode catches exactly that case. Tip: ask the chatbot for <code>$…$</code> and <code>$$…$$</code>, and paste it as text — don't ask it to “make a .docx”, or it exports Word math objects this tool can't read.</p>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq-item">
+        <div class="faq-q">Does my document get uploaded to a server?</div>
+        <div class="faq-a">No. Detection and rendering happen entirely in your browser. Nothing about the document is sent anywhere to perform the conversion.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I get the original LaTeX back from an image?</div>
+        <div class="faq-a">Yes. Each exported PNG stores its source LaTeX in the image alt text (an <code>AIMATH_FORMULA::v1::</code> tag), so a formula can be recovered — for instance with the LaTeXFlow Google Docs Add-on.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Some of my equations weren't detected.</div>
+        <div class="faq-a">Check that each one is wrapped in a supported delimiter, and that a display formula (<code>$$…$$</code>) sits within a single paragraph — a formula split across paragraphs isn't detected. Native Word/Docs equation <em>objects</em> aren't read either; the tool works on LaTeX written as text.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">A price like <code>$100</code> got picked up as math.</div>
+        <div class="faq-a">That's expected — a lone <code>$</code> looks like an opening delimiter. Just Skip it in the Review step, or resolve it from the ambiguity card.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do I need to sign in?</div>
+        <div class="faq-a">Only if you use Import from Google Drive, which needs Google sign-in for the file picker. Drag-and-drop of a <code>.docx</code> needs no account at all.</div>
+      </div>
+
+      <h2>Privacy</h2>
+      <p>The document you convert never leaves your browser. Google Drive import is scoped to <code>drive.file</code> — the single file you choose in the picker, nothing more. Full details are in the <a href="https://mathsystem.dev/latexflow/privacy/">Privacy Policy</a>.</p>
+
+    </section>
   </section>
 
   <!-- 2단계: 리뷰 -->
