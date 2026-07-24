@@ -324,5 +324,7 @@ LaTeX 의 명령어는 끝이 없어 보이지만, **논문 한 편을 끝내는
 이전 글: <a href="/blog/posts/latex-equation-labels-eqref/" data-proofer-ignore>#6 LaTeX 수식 번호와 참조 — `\label`과 `\eqref`</a>
 다음 글: <a href="/blog/posts/latex-greek-letters-complete/" data-proofer-ignore>#9 LaTeX 그리스 문자·수학 기호 완전 레퍼런스</a>
 
-> **Google Docs / Word 의 수식을 한 번에 깔끔하게** — [LaTeXFlow Web 바로 가기](https://mathsystem.dev/latexflow/web/) (sign-in 없이 즉시)
+> **LaTeX 로 써 둔 수식이 문서에서 글자로만 보인다면, 다시 만들지 않아도 됩니다.**
+> Docs·Word 파일을 올리면 `$...$` 로 감싼 자리만 골라 수식 이미지로 바꿔 돌려줍니다.
+> [LaTeXFlow Web 열기](https://mathsystem.dev/latexflow/web/) — 로그인 없이, 드래그 한 번
 {: .prompt-info }
