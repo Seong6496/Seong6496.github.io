@@ -943,7 +943,7 @@
         </svg>
         <span id="picker-button-label">Import from Google Drive</span>
       </button>
-      <p class="subnote">Nothing leaves your browser. <a href="https://mathsystem.dev/latexflow/privacy/#drive-import">Why →</a></p>
+      <p class="subnote">Your file is read in the browser, never uploaded to us. <a href="https://mathsystem.dev/latexflow/privacy/#drive-import">Why →</a></p>
 
       <div class="divider">or</div>
 
@@ -963,7 +963,7 @@
 
     <!-- Trust badges — SB7 authority / 영역의 법칙 (한 번에 + bracket detect) -->
     <div class="trust-badges" aria-label="Trust signals">
-      <span class="badge"><i class="ti ti-lock" aria-hidden="true"></i> Nothing leaves your browser</span>
+      <span class="badge"><i class="ti ti-lock" aria-hidden="true"></i> Your document stays in your browser</span>
       <span class="badge"><i class="ti ti-bolt" aria-hidden="true"></i> Every equation at once</span>
       <span class="badge"><i class="ti ti-brackets" aria-hidden="true"></i> Detects bracket <code>[\...]</code> too</span>
     </div>
@@ -1033,7 +1033,14 @@
       </div>
 
       <h2>Privacy</h2>
-      <p>The document you convert never leaves your browser. Google Drive import is scoped to <code>drive.file</code> — the single file you choose in the picker, nothing more. Full details are in the <a href="https://mathsystem.dev/latexflow/privacy/">Privacy Policy</a>.</p>
+      <!-- Privacy 문구 범위 근거 (2026-07-24) — "아무것도 나가지 않는다" 로 되돌리지 말 것.
+           문서 본문은 실제로 브라우저를 벗어나지 않지만, 수식 단위(LaTeX 원문 + 렌더 PNG)는
+           설계상 수집된다: 렌더 루프(:1999)가 `submitWebPair`(:2524)를 기본값으로 호출하며,
+           중단 수단은 localStorage 플래그 `latexflow_collect_optout` 하나뿐이다. 따라서
+           절대형 주장은 사실과 다르다 — 범위를 좁힌 현재 표현을 유지한다.
+           권위 있는 상세(수집 필드·법적 근거·opt-out 절차)는 Privacy Policy §3a / §5b 이고,
+           이 문단·Drive subnote·trust badge 는 그 문서와 어긋나지 않게 함께 고쳐야 한다. -->
+      <p>The document you convert never leaves your browser. To train future equation-recognition models, the LaTeX source and rendered image of each equation are collected anonymously — never your document text, file name, or email. Google Drive import is scoped to <code>drive.file</code> — the single file you choose in the picker, nothing more. Full details, and how to opt out, are in the <a href="https://mathsystem.dev/latexflow/privacy/">Privacy Policy</a>.</p>
 
     </section>
   </section>
