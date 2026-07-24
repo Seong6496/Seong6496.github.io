@@ -245,7 +245,7 @@ $$\begin{align*} a &= b & c &= d \\ e &= f & g &= h \end{align*}$$
 이전 글: [#4 LaTeX 행렬과 연립방정식 — pmatrix·bmatrix·cases](/blog/posts/latex-matrix-cases/)
 다음 글: <a href="/blog/posts/latex-equation-labels-eqref/" data-proofer-ignore>#6 LaTeX 수식 번호와 참조 — `\label`과 `\eqref`</a>
 
-> **LaTeX 로 써 둔 수식이 문서에서 글자로만 보인다면, 다시 만들지 않아도 됩니다.**
+> **LaTeX 가 Word 에서 수식 처리 되지 않아, 하나씩 다시 쓰고 계신가요?**
 > Docs·Word 파일을 올리면 `$...$` 로 감싼 자리만 골라 수식 이미지로 바꿔 돌려줍니다.
 > [LaTeXFlow Web 열기](https://mathsystem.dev/latexflow/web/) — 로그인 없이, 드래그 한 번
 {: .prompt-info }
