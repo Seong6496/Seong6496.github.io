@@ -251,6 +251,6 @@ $f(x) = x^2 \quad \text{for } x \geq 0$
 첫 번째 오류(`! Missing $ inserted`)는 수식 기호의 짝만 맞아 있어도 상당수가 아예 나지 않습니다. 그리고 그 짝은 컴파일하기 전, 원고 단계에서도 확인할 수 있습니다 — <a href="/blog/posts/latexflow-unclosed-dollar-sign/" data-proofer-ignore>짝이 어긋난 수식 기호를 컴파일 전에 잡는 방법</a> 에서 docx 안의 홀수 문단을 먼저 걸러 내는 흐름을 다뤘습니다.
 
 > **LaTeX 가 Word 에서 수식 처리 되지 않아, 하나씩 다시 쓰고 계신가요?**
-> Docs·Word 파일을 올리면 `$...$` 로 감싼 자리만 골라 수식 이미지로 바꿔 돌려줍니다.
+> Docs·Word 파일을 올리면 `$...$` · `$$...$$` · `\(...\)` · `\[...\]` · `[...]` 로 감싼 수식을 골라 이미지로 바꿔 돌려줍니다.
 > [LaTeXFlow Web 열기](https://mathsystem.dev/latexflow/web/) — 로그인 없이, 드래그 한 번
 {: .prompt-info }

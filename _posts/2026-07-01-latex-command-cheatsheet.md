@@ -325,6 +325,6 @@ LaTeX 의 명령어는 끝이 없어 보이지만, **논문 한 편을 끝내는
 다음 글: <a href="/blog/posts/latex-greek-letters-complete/" data-proofer-ignore>#9 LaTeX 그리스 문자·수학 기호 완전 레퍼런스</a>
 
 > **LaTeX 가 Word 에서 수식 처리 되지 않아, 하나씩 다시 쓰고 계신가요?**
-> Docs·Word 파일을 올리면 `$...$` 로 감싼 자리만 골라 수식 이미지로 바꿔 돌려줍니다.
+> Docs·Word 파일을 올리면 `$...$` · `$$...$$` · `\(...\)` · `\[...\]` · `[...]` 로 감싼 수식을 골라 이미지로 바꿔 돌려줍니다.
 > [LaTeXFlow Web 열기](https://mathsystem.dev/latexflow/web/) — 로그인 없이, 드래그 한 번
 {: .prompt-info }
