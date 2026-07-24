@@ -362,8 +362,3 @@ LaTeX Warning: Float too large for page by 22.4pt on input line 60.
 수식 안에서 나는 오류는 갈래가 달라 이 글에서 다루지 않았습니다. `! Missing $ inserted` · `! Missing \endgroup inserted` · `! Extra }, or forgotten $` · `! Undefined control sequence` 와, 컴파일은 되는데 출력이 어긋나는 수식 실수는 [LaTeX 수식 오류·실수 완전 해결 가이드](/blog/posts/latex-math-errors-guide/) 에 정리해 두었습니다.
 
 *명령어 이름 자체가 헷갈릴 때는 — [LaTeX 명령어 치트시트](/blog/posts/latex-command-cheatsheet/) / [그리스 문자·수학 기호 레퍼런스](/blog/posts/latex-greek-letters-complete/) 가 참고가 됩니다.*
-
-> **LaTeX 가 Word 에서 수식 처리 되지 않아, 하나씩 다시 쓰고 계신가요?**
-> Docs·Word 파일을 올리면 `$...$` · `$$...$$` · `\(...\)` · `\[...\]` · `[...]` 로 감싼 수식을 골라 이미지로 바꿔 돌려줍니다.
-> LaTeX 한 번에 검증하고 한 번에 변환하기! 설치 No! 로그인 No! [내 문서로 확인해 보기](https://mathsystem.dev/latexflow/web/)
-{: .prompt-info }
