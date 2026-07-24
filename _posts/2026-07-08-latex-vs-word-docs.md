@@ -142,5 +142,7 @@ LaTeX 가 그 가정을 다르게 잡아 둔 것 — 내용과 형식의 분리,
 이전 글: <a href="/blog/posts/latex-greek-letters-complete/" data-proofer-ignore>#9 LaTeX 그리스 문자·수학 기호 완전 레퍼런스</a>
 다음 글: <a href="/blog/posts/latex-overleaf-10min/" data-proofer-ignore>#12 Overleaf 10분 만에 시작하기 — 설치 없이 LaTeX</a>
 
-> **Docs 에서 수식 작업이 잦으시면** — `.docx` 한 번 업로드로 LaTeX 품질 수식 시각화. [LaTeXFlow Web 바로 가기](https://mathsystem.dev/latexflow/web/) (sign-in 없이 즉시)
+> **LaTeX 가 Word 에서 수식 처리 되지 않아, 하나씩 다시 쓰고 계신가요?**
+> Docs·Word 파일을 올리면 `$...$` · `$$...$$` · `\(...\)` · `\[...\]` · `[...]` 로 감싼 수식을 골라 이미지로 바꿔 돌려줍니다.
+> LaTeX 한 번에 검증하고 한 번에 변환하기! 설치 No! 로그인 No! [내 문서로 확인해 보기](https://mathsystem.dev/latexflow/web/)
 {: .prompt-info }

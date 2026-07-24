@@ -245,8 +245,3 @@ $$f(x) = \begin{cases} x^2 & \text{if } x \geq 0 \\ -x & \text{if } x < 0 \end{c
 
 이전 글: [#3 LaTeX 그리스 문자와 수학 기호 완전 정복](/blog/posts/latex-greek-symbols/)
 다음 글: <a href="/blog/posts/latex-align-equations/" data-proofer-ignore>#5 LaTeX `align` 환경으로 수식 정렬하기</a>
-
-> **LaTeX 가 Word 에서 수식 처리 되지 않아, 하나씩 다시 쓰고 계신가요?**
-> Docs·Word 파일을 올리면 `$...$` · `$$...$$` · `\(...\)` · `\[...\]` · `[...]` 로 감싼 수식을 골라 이미지로 바꿔 돌려줍니다.
-> LaTeX 한 번에 검증하고 한 번에 변환하기! 설치 No! 로그인 No! [내 문서로 확인해 보기](https://mathsystem.dev/latexflow/web/)
-{: .prompt-info }

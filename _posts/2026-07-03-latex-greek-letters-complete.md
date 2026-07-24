@@ -342,8 +342,3 @@ $f: x \mapsto x^2$                   % 입력 → 출력 규칙 (값)
 
 이전 글: <a href="/blog/posts/latex-command-cheatsheet/" data-proofer-ignore>#8 LaTeX 명령어 치트시트 — 논문 한 편에 실제로 쓰는 것만</a>
 다음 글: <a href="/blog/posts/latex-vs-word-docs/" data-proofer-ignore>#11 Word·Google Docs 로 논문 쓰다 막힌 분께 — LaTeX 가 다른 이유</a>
-
-> **LaTeX 가 Word 에서 수식 처리 되지 않아, 하나씩 다시 쓰고 계신가요?**
-> Docs·Word 파일을 올리면 `$...$` · `$$...$$` · `\(...\)` · `\[...\]` · `[...]` 로 감싼 수식을 골라 이미지로 바꿔 돌려줍니다.
-> LaTeX 한 번에 검증하고 한 번에 변환하기! 설치 No! 로그인 No! [내 문서로 확인해 보기](https://mathsystem.dev/latexflow/web/)
-{: .prompt-info }
