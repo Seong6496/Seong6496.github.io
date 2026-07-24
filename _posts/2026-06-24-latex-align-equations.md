@@ -247,5 +247,5 @@ $$\begin{align*} a &= b & c &= d \\ e &= f & g &= h \end{align*}$$
 
 > **LaTeX 가 Word 에서 수식 처리 되지 않아, 하나씩 다시 쓰고 계신가요?**
 > Docs·Word 파일을 올리면 `$...$` · `$$...$$` · `\(...\)` · `\[...\]` · `[...]` 로 감싼 수식을 골라 이미지로 바꿔 돌려줍니다.
-> [LaTeXFlow Web 열기](https://mathsystem.dev/latexflow/web/) — 로그인 없이, 드래그 한 번
+> [내 문서로 확인해 보기](https://mathsystem.dev/latexflow/web/) — 로그인 없이. 수식이 몇 개 잡히는지 먼저 보여준 다음, 바꿀 것만 고르면 됩니다.
 {: .prompt-info }
