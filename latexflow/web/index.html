@@ -888,7 +888,7 @@
     <div class="hero">
       <h1 class="hero-h1">Stop fixing LaTeX one by one.</h1>
       <p class="hero-sub">Drop your file, get every equation.</p>
-      <p class="hero-desc">Pasted a ChatGPT answer, built a worksheet, or wrote a paper in Word? Convert every piece of LaTeX in your document at once — no equation editor, nothing leaves your browser.</p>
+      <p class="hero-desc">Pasted a ChatGPT answer, built a worksheet, or wrote a paper in Word? Convert every piece of LaTeX in your document at once — no equation editor, no retyping.</p>
 
       <div class="before-after" aria-label="Before and after preview">
         <div class="panel">
@@ -979,7 +979,7 @@
 
       <h2>What LaTeXFlow Scan does</h2>
       <p>When you write math as LaTeX inside a Word or Google Docs file — for example <code>$\nabla \cdot \vec{F}$</code> or <code>$$E = mc^2$$</code> — it stays as plain text. It looks fine while you type, but the moment you build slides, hand the file to a co-author, or export a PDF, every formula shows up as raw backslashes and braces.</p>
-      <p>LaTeXFlow Scan reads a <code>.docx</code> file, finds every piece of LaTeX in it, and gives you back the same document with each formula replaced by a rendered image. No equation editor, no retyping, and no formula ever leaves your browser — the whole conversion runs on your own machine.</p>
+      <p>LaTeXFlow Scan reads a <code>.docx</code> file, finds every piece of LaTeX in it, and gives you back the same document with each formula replaced by a rendered image. No equation editor and no retyping — the conversion runs in your browser.</p>
 
       <h2>How it works</h2>
       <ol class="info-steps">
@@ -1039,8 +1039,10 @@
            중단 수단은 localStorage 플래그 `latexflow_collect_optout` 하나뿐이다. 따라서
            절대형 주장은 사실과 다르다 — 범위를 좁힌 현재 표현을 유지한다.
            권위 있는 상세(수집 필드·법적 근거·opt-out 절차)는 Privacy Policy §3a / §5b 이고,
-           이 문단·Drive subnote·trust badge 는 그 문서와 어긋나지 않게 함께 고쳐야 한다. -->
-      <p>The document you convert never leaves your browser. To train future equation-recognition models, the LaTeX source and rendered image of each equation are collected anonymously — never your document text, file name, or email. Google Drive import is scoped to <code>drive.file</code> — the single file you choose in the picker, nothing more. Full details, and how to opt out, are in the <a href="https://mathsystem.dev/latexflow/privacy/">Privacy Policy</a>.</p>
+           이 문단·Drive subnote·trust badge 는 그 문서와 어긋나지 않게 함께 고쳐야 한다.
+           2026-08-05 (R36): 절대형 주장을 전 표면에서 삭제 — hero · 소개절 · 랜딩 hero ·
+           trust badge · support · terms · about · 발행글 4편. 어느 표면에도 복구 금지. -->
+      <p>To train future equation-recognition models, the LaTeX source and rendered image of each equation are collected anonymously — never your document text, file name, or email. Google Drive import is scoped to <code>drive.file</code> — the single file you choose in the picker, nothing more. Full details, and how to opt out, are in the <a href="https://mathsystem.dev/latexflow/privacy/">Privacy Policy</a>.</p>
 
     </section>
   </section>
