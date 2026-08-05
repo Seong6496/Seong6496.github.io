@@ -49,7 +49,7 @@ line 137 은 *에러가 감지된 자리* 이지 *에러가 시작된 자리* �
 
 ![LaTeXFlow 첫 화면 — dropzone + bracket-mode 체크박스](/assets/img/posts/2026-07-19/01-latexflow-scan-landing.png){: width="720" }
 
-*Nothing leaves your browser* — docx 는 브라우저 안에서만 파싱되며, 서버로 업로드되지 않습니다.
+docx 는 브라우저 안에서 파싱되며, 서버로 업로드되지 않습니다.
 
 ### 2-2. docx 올리면 Ambiguity 카드 자동 감지
 
@@ -132,7 +132,7 @@ Ambiguity 카드가 사라지고 Detected Equations 리스트만 남습니다. �
 - **학위 논문 최종 원고** — 챕터별로 넣은 수식 수백 개 중 어긋난 짝이 어느 문단인지 특정
 - **협업 문서** — 여러 사람이 나눠 쓴 docx 를 합쳤을 때 짝이 어긋난 자리 정리
 
-[LaTeXFlow](/latexflow/web/) 은 브라우저 안에서만 동작하며, docx 는 서버로 올라가지 않습니다. PC / Mac / iPad 어디서나 열립니다. Ambiguity 카드가 뜨지 않는다면 이미 짝이 맞는 상태이니, 그대로 Render PNG · Export 로 넘어가면 됩니다.
+[LaTeXFlow](/latexflow/web/) 은 브라우저 안에서 동작하며, docx 는 서버로 올라가지 않습니다. PC / Mac / iPad 어디서나 열립니다. Ambiguity 카드가 뜨지 않는다면 이미 짝이 맞는 상태이니, 그대로 Render PNG · Export 로 넘어가면 됩니다.
 
 컴파일 에러 메시지를 되짚는 시간을 줄이고, docx 안에서 눈으로 확인 → 편집 → PNG 로 완결하는 path 를 제안합니다.
 

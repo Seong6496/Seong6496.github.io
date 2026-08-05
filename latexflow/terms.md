@@ -17,7 +17,7 @@ The Add-on is a Google Workspace Add-on that converts LaTeX mathematical express
 
 ## 1b. Description of Service (Web app)
 
-The Web app is a browser-based tool at `mathsystem.dev/latexflow/web/` that converts LaTeX expressions inside a `.docx` file — uploaded directly or imported from Google Drive — into rendered PNG images. All document processing runs in your browser; document text never leaves your device. It is provided free of charge.
+The Web app is a browser-based tool at `mathsystem.dev/latexflow/web/` that converts LaTeX expressions inside a `.docx` file — uploaded directly or imported from Google Drive — into rendered PNG images. Document conversion runs in your browser. What is collected, and how to opt out, is described in the [Privacy Policy](/latexflow/privacy/). It is provided free of charge.
 
 ---
 

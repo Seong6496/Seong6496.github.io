@@ -60,7 +60,7 @@ $$d_B(D, D') = \inf_{\gamma} \sup_{p \in D} \| p - \gamma(p) \|_\infty. \tag{4}$
 
 ![LaTeXFlow Scan dropzone — docx 끌어다 놓기](/assets/img/posts/2026-07-15/01-drag-drop.png){: width="720" }
 
-브라우저 안에서만 처리되며 (`Nothing leaves your browser`), 파일이 서버로 업로드되지 않습니다. 초안이 심사 전 원고라 외부로 나가는 게 꺼려지는 상황에서 이 점이 중요합니다. Google Drive 에 초안을 두고 작업하는 분은 drag-drop 대신 *Import from Google Drive* 로 불러올 수도 있습니다(`drive.file` 범위 — 여러분이 고른 파일에만 접근).
+브라우저 안에서 처리되며, 파일이 서버로 업로드되지 않습니다. 초안이 심사 전 원고라 외부로 나가는 게 꺼려지는 상황에서 이 점이 중요합니다. Google Drive 에 초안을 두고 작업하는 분은 drag-drop 대신 *Import from Google Drive* 로 불러올 수도 있습니다(`drive.file` 범위 — 여러분이 고른 파일에만 접근).
 
 ### 2-3. 수식 탐지 — 58개 자동 추출
 
@@ -155,7 +155,7 @@ A. *Review* 화면을 위에서 아래로 한 번 스크롤하며 예외만 처�
 A. 됩니다. 이 도구는 본문 서식·스타일은 건드리지 않고 수식 자리의 LaTeX 텍스트만 PNG 로 교체합니다. 다만 최종 산출물은 수식이 이미지로 들어간 **docx/PDF** 이므로, 저널이 수식이 포함된 `.tex` 소스 제출을 요구하는 트랙이라면 이 방법은 맞지 않습니다. 그런 경우는 처음부터 LaTeX 로 쓰는 게 낫습니다.
 
 **Q. 초안이 심사 전 원고인데, 파일이 외부로 나가지 않나요?**
-A. 변환은 **브라우저 안에서만** 이뤄지고 파일이 서버로 올라가지 않습니다(`Nothing leaves your browser`). Google Drive 에서 불러오는 경우에도 `drive.file` 범위라 여러분이 직접 고른 파일에만 접근합니다.
+A. 변환은 **브라우저 안에서** 이뤄지고 파일이 서버로 올라가지 않습니다. Google Drive 에서 불러오는 경우에도 `drive.file` 범위라 여러분이 직접 고른 파일에만 접근합니다.
 
 ---
 

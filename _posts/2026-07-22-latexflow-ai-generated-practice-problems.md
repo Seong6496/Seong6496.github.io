@@ -61,7 +61,7 @@ LaTeXFlow 가 자동으로 잡아내는 구간은 `$...$` (인라인), `$$...$$`
 
 ![LaTeXFlow Scan 첫 화면 — dropzone](/assets/img/posts/2026-07-22/03-latexflow-dropzone.png){: width="720" }
 
-*"Drop a .docx file here"* 자리에 챗봇 답변을 담아 둔 docx 를 그대로 끌어다 놓습니다. 브라우저 안에서만 처리되며 (`Nothing leaves your browser`), 챗봇 답변에 개인 학습 진도나 오답 히스토리가 함께 있어도 파일이 서버로 올라가지 않습니다.
+*"Drop a .docx file here"* 자리에 챗봇 답변을 담아 둔 docx 를 그대로 끌어다 놓습니다. 브라우저 안에서 처리되며, 챗봇 답변에 개인 학습 진도나 오답 히스토리가 함께 있어도 파일이 서버로 올라가지 않습니다.
 
 ### 3-2. 수식 자동 탐지
 
