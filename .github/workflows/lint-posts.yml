@@ -6,10 +6,18 @@ on:
     paths:
       - '_posts/**.md'
       - '_drafts/**.md'
+      - '_tabs/**'
+      - 'latexflow/**'
+      - 'index.html'
+      - '.github/workflows/lint-posts.yml'
   pull_request:
     paths:
       - '_posts/**.md'
       - '_drafts/**.md'
+      - '_tabs/**'
+      - 'latexflow/**'
+      - 'index.html'
+      - '.github/workflows/lint-posts.yml'
 
 jobs:
   heading-inline-code:
@@ -30,3 +38,73 @@ jobs:
             exit 1
           fi
           echo "no heading inline-code violations — OK"
+
+  forbidden-privacy-claims:
+    name: No absolute privacy claims (R36 regression guard)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # 규칙 원문 (source of truth):
+      #   google-docs-latex-addon/docs/technical_guide/web_data_collection_privacy.md 7.3
+      # 수식 LaTeX 원문과 렌더 PNG 는 익명 수집되므로, "문서가 브라우저를 벗어나지 않는다"
+      # 류의 절대형 주장은 사실과 다르다. R36 (2026-08-05) 에 18군데를 삭제했고, 좁은 grep
+      # 으로 세 번 놓쳤다 — 그래서 패턴을 문장 전체가 아니라 의미를 담은 부분 문자열로 잡는다.
+      #
+      # 여기는 backstop 이다. latexflow/web/index.html 은 google-docs-latex-addon 의
+      # web-prototype/index.html 에서 sync 되므로 원본 쪽 lint-copy.yml 이 1차 방어선이다.
+      #
+      # !! 정규식으로 검사할 수 없어 사람이 봐야 하는 규칙 !!
+      #   도구 FAQ 의 "업로드되나요?" 질문에 단순 `No.` 로 답하지 않는다.
+      #   답이 맞는지는 regex 가 판단할 수 없다. 가짜 패턴을 만들지 말 것 — 사람 리뷰로 남긴다.
+      #
+      # 예외 처리: 금지 표현을 "쓰지 말라" 고 인용하는 줄은 같은 줄에
+      #   lint-allow-forbidden
+      # 마커를 달면 건너뛴다. 카피 자체에는 절대 쓰지 말 것.
+      - name: Detect forbidden absolute privacy claims
+        run: |
+          set +e
+          export LC_ALL=C.UTF-8
+          SCAN="_posts/ _drafts/ _tabs/ latexflow/ index.html"
+
+          PATTERNS=(
+            "EN 'leaves your browser/device' 계열:::leaves your (browser|device|computer|machine|laptop)"
+            "EN 'stays in your browser' 계열:::stays (in|on|inside) your (browser|device|computer|machine)"
+            "EN 'never touches a server' 계열:::never touches[^.]{0,30}server"
+            "EN 'nothing uploaded' 계열:::nothing[^.]{0,20}upload"
+            "EN 'without uploading it anywhere' 계열:::without uploading"
+            "EN 'sent anywhere' 계열:::sent anywhere"
+            "KO '브라우저를 벗어나지 / 밖으로 나가지 않습니다' 계열:::(브라우저|기기|디바이스|단말|로컬)[^.]{0,12}(벗어나지|나가지)[[:space:]]*않(습니다|아요|어요|는다|음)"
+            "KO '외부로 전송되지 않습니다' 계열:::외부로[[:space:]]*(전송|유출|반출)되지[[:space:]]*않(습니다|아요|어요|는다|음)"
+            "KO '...안에서만' 절대형:::(브라우저|기기|디바이스|단말|로컬)[[:space:]]*(안|내)?[[:space:]]*에서만"
+            "KO '아무것도 업로드/전송되지 않는다' 계열:::아무것도[^.]{0,30}(업로드|전송)되지[[:space:]]*않"
+            "KO '개인정보·미발표 논문에 안전' 안전 보증:::(개인정보|미발표[[:space:]]*논문)[^.]{0,40}(안전|안심)"
+          )
+
+          fail=0
+          for entry in "${PATTERNS[@]}"; do
+            desc="${entry%%:::*}"
+            pat="${entry#*:::}"
+            hits=$(grep -rEni --binary-files=without-match -- "$pat" $SCAN 2>/dev/null | grep -v 'lint-allow-forbidden')
+            if [ -n "$hits" ]; then
+              echo "::error::금지 표현 (절대형 프라이버시 주장) 발견 — ${desc}. 수식 LaTeX 원문과 렌더 PNG 는 익명 수집되므로 이 주장은 사실과 다릅니다. 말해도 되는 것: 무료 · 설치/가입 불필요 · 변환(감지·렌더)은 브라우저에서 실행 · .docx 파일 자체는 서버로 업로드되지 않음 · 수식 LaTeX 와 렌더 PNG 는 익명 수집됨. 규칙 원문은 google-docs-latex-addon/docs/technical_guide/web_data_collection_privacy.md 7.3."
+              echo ""
+              echo "Violations:"
+              echo "$hits"
+              echo ""
+              fail=1
+            fi
+          done
+
+          # 「만」 트랩 회귀 확인 — '브라우저 안에서' (만 없음) 는 허용이므로 잡히면 안 된다.
+          if printf '%s\n' '변환은 브라우저 안에서 실행됩니다.' \
+             | grep -qE '(브라우저|기기|디바이스|단말|로컬)[[:space:]]*(안|내)?[[:space:]]*에서만'; then
+            echo "::error::패턴 결함 — 「만」 없는 '브라우저 안에서' 가 잡혔습니다. 허용 표현이므로 패턴을 고치십시오."
+            fail=1
+          fi
+
+          if [ "$fail" = "1" ]; then
+            exit 1
+          fi
+          echo "no forbidden-phrase violations — OK"
+          echo "(사람이 봐야 하는 규칙 1건: FAQ '업로드되나요?' 에 단순 No. 로 답하지 않기 — regex 검사 불가)"
