@@ -23,6 +23,13 @@
 
   {% endif %}
 
+  <!-- 색인 제외 대상. `page.noindex` 는 front matter 또는
+       _plugins/noindex-archives.rb 가 심는다. crawl 은 계속 허용해야
+       Googlebot 이 이 태그를 읽고 내부 링크(follow)를 타고 본문 글로 간다. -->
+  {% if page.noindex %}
+    <meta name="robots" content="noindex, follow">
+  {% endif %}
+
   {% capture seo_tags %}
     {% seo title=false %}
   {% endcapture %}
