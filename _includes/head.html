@@ -122,4 +122,13 @@
   {% endunless %}
 
   {% include cloudflare-analytics.html %}
+
+  <!-- Microsoft Clarity. 이 head 는 default.html 만 쓰므로 블로그·탭 전용이다.
+       랜딩(index.html)·latexflow/index.html·latexflow-doc 레이아웃은 각자
+       독립 <head> 에서 clarity.html 을 직접 include 하므로 중복 발화하지 않는다.
+       가드는 js-selector.html 의 GA 와 동일한 조건 — tools/deploy.sh 가
+       JEKYLL_ENV=production 으로 빌드하므로 배포본에는 정상적으로 들어간다. -->
+  {% if jekyll.environment == 'production' %}
+    {% include clarity.html %}
+  {% endif %}
 </head>
