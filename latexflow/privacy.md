@@ -9,17 +9,38 @@ description: How LaTeXFlow (Google Docs Add-on and Web app) handles your data.
 
 > 📋 **Site-wide privacy** (cookies, advertising, third-party services on the blog and tool pages): [mathsystem.dev/blog/privacy/](/blog/privacy/). This page covers **only the LaTeXFlow tool itself** (Add-on permissions, Web app data processing).
 
-This Privacy Policy describes how **LaTeXFlow** — both the **Google Docs™ Add-on** ("the Add-on") and the **Web app at mathsystem.dev** ("the Web app") — collects, uses, and protects your information. Where a section differs between the two products, the distinction is called out explicitly.
+This Privacy Policy describes how **LaTeXFlow** — both the **Google Docs™ Add-on** ("the Add-on") and the **Web app at mathsystem.dev** ("the Web app") — collects, uses, and protects your information.
+
+**Every section and every claim below is labelled `[Add-on]`, `[Web app]`, or `[Both]`.** The two products are documented on one page because they share one collection endpoint, one storage bucket, one region, and one service account; the labels tell you which product any given statement applies to.
 
 ---
 
-## 1. Who We Are
+## The Add-on at a Glance `[Add-on]` {#addon-glance}
+
+Everything a Google Docs™ Add-on user — or a reviewer — needs, in one table. Each row links to the section that expands it.
+
+| | |
+|---|---|
+| **OAuth scopes** — four, and no others | `.../auth/documents.currentonly` — read and edit **only the document the Add-on is currently open in**; no access to your Drive or to any other file.<br>`.../auth/script.container.ui` — display the sidebar and the consent dialog inside Google Docs™.<br>`.../auth/script.external_request` — load the rendering libraries, and send opted-in training data to our collection endpoint.<br>`.../auth/userinfo.email` — derive the pseudonymous identifier below. The raw email is never transmitted. |
+| **What is collected** | Only if you opt in, and only per equation you convert: that **one equation's LaTeX source**, its **rendered PNG**, the **delimiter type**, a **16-hex pseudonym**, a **server timestamp**, and the **`source` label `"addon"`**. Nothing else. See §3a. |
+| **What is never collected** | Your Google account email address · the document identifier · your document's body, its other text, tables, images, file name, or metadata. See §4a. |
+| **Consent model** | **Explicit opt-in.** Nothing is collected unless you agree in the consent dialog. Collection is gated on a stored preference that **defaults to unset — taking no action means nothing is collected.** You may withdraw at any time (§5a). |
+| **Does declining cost you anything?** | **No. Every feature works fully without consenting.** Conversion, insertion, and reverting an image back to editable LaTeX all work identically — reverting reads the LaTeX from the image's own alt text inside your document, never from collected data. |
+| **Where it is stored** | Google Cloud Storage in the developer's own project, **`asia-northeast3` (Seoul, Republic of Korea)** only. No cross-border transfer. See §4. |
+| **Who receives it** | **No third party.** Not sold, not shared, not transferred, not disclosed — for any purpose, including advertising. Google Cloud is the only infrastructure processor. See §4a. |
+| **How it is protected** | HTTPS/TLS in transit · Google-managed encryption at rest · write-only service account · public access prevention · pseudonymization · the collection endpoint never logs your LaTeX. See §4b. |
+| **One thing to know about failures** | If a conversion fails, the Add-on writes a diagnostic line to its own Apps Script execution log, and that line **can include the LaTeX that failed**. Nothing is transmitted or stored by us. See §3b. |
+| **Deleting your data** | Email `sung2417@gmail.com` from the Google account you used with the Add-on. See §6. |
+
+---
+
+## 1. Who We Are `[Both]`
 
 LaTeXFlow is developed and maintained by an individual developer (contact: sung2417@gmail.com). The Add-on is published on the Google Workspace Marketplace; the Web app is hosted at `mathsystem.dev/latexflow/web/`. The same developer is the data controller for both products.
 
 ---
 
-## 2. Google Workspace Data Access (Add-on)
+## 2. Google Workspace Data Access `[Add-on]`
 
 The Add-on accesses your Google Docs™ document solely to provide its core functionality:
 
@@ -29,20 +50,13 @@ The Add-on accesses your Google Docs™ document solely to provide its core func
 - **External rendering libraries**: The Add-on loads Temml and MathJax from jsDelivr CDN to render LaTeX expressions as images within the sidebar. No document content is included in these requests.
 - **User identification**: The Add-on reads your Google account email address only to derive a pseudonymous identifier for optional training data. The email is hashed **inside the Add-on** — `SHA-256(email + salt)`, truncated to 16 hexadecimal characters — and **your raw email address never leaves the script**. It is not transmitted, not stored, and not shared. See §4b.
 
-**OAuth scopes requested by the Add-on** — four, and no others:
-
-| Scope | Why |
-|---|---|
-| `.../auth/documents.currentonly` | Read and edit **only the document the Add-on is currently open in**. It gives no access to your Drive or to any other file. |
-| `.../auth/script.container.ui` | Display the sidebar and the consent dialog inside Google Docs™. |
-| `.../auth/script.external_request` | Load the rendering libraries, and send opted-in training data to our collection endpoint (§4). |
-| `.../auth/userinfo.email` | Derive the pseudonymous identifier described above. |
+**OAuth scopes requested by the Add-on** — four, and no others. Each is listed with its justification in [The Add-on at a Glance](#addon-glance) above; that table is the authoritative list.
 
 Your document is opened and edited within Google's infrastructure (Apps Script). **The body of your document is never transmitted to any external server**, and the Add-on never stores or shares your document text. The single exception is the opted-in training data described in §3a: for each equation you convert, the LaTeX source **of that one equation** and its rendered image are transmitted to our collection endpoint (§4), and only if you have given consent (§5a). The surrounding document text, the document identifier, and your account email are never included.
 
 ---
 
-## 2b. Web App Data Access
+## 2b. Web App Data Access `[Web app]`
 
 The Web app runs **entirely in your browser**. The `.docx` file you upload is parsed and converted client-side using JSZip and MathJax loaded from jsDelivr CDN; the **document body text is never transmitted to our servers**.
 
@@ -52,7 +66,7 @@ External rendering: MathJax is loaded from jsDelivr CDN. The `.docx` content its
 
 ---
 
-## 2c. Web App — Google Drive Import (Optional) {#drive-import}
+## 2c. Web App — Google Drive Import (Optional) `[Web app]` {#drive-import}
 
 The Web app provides an optional **"Import from Google Drive"** button alongside the standard drag-and-drop input. This path is for users (notably on iPad) whose Google Drive app only exports `.gdoc` as PDF. The button is dormant until you click it — if you only use drag-and-drop, **no Google Drive access ever occurs** and this section does not apply.
 
@@ -67,9 +81,9 @@ For the underlying Google services and their policies, see [Google API Services 
 
 ---
 
-## 3. Information We Collect
+## 3. Information We Collect `[Both]`
 
-### 3a. Training Data
+### 3a. Training Data `[Both]`
 
 The collection mechanism differs between the two products:
 
@@ -89,33 +103,35 @@ Fields collected:
 | Display type / delimiter | inline / display | `$`, `$$`, `\(`, `\[`, `[]` |
 | Timestamp (server) | ✅ | ✅ |
 | Pseudonymous ID | 16-hex `SHA-256(email + salt)`, computed inside the Add-on | 16-hex random UUID stored in browser localStorage |
-| `source` label | ✅ explicit in sidecar JSON | `"web"` (explicit in sidecar JSON) |
+| `source` label | `"addon"` (explicit in sidecar JSON) | `"web"` (explicit in sidecar JSON) |
 | Email address | ❌ — **no longer collected** | ❌ — never collected |
 | Document identifier | ❌ — never collected | ❌ — never collected |
 | Document body / non-equation content | ❌ — never collected | ❌ — never collected |
 
-<!-- NEEDS CONFIRMATION: the exact literal value of the Add-on's `source` label (the Web app uses "web"). The text above deliberately makes no claim about the literal string. -->
-
 **This data is used solely for training future OCR/recognition models** that improve LaTeXFlow's ability to automatically detect and convert equations.
 
-**Personally identifiable information (name, IP address, document content) is never collected by the Web app. The Add-on no longer collects your Google account email** — it transmits only the pseudonymous identifier described above (§4b).
+**`[Both]` Our collection endpoint does not collect your name, your IP address, or your document content** — the fields listed in the table above are the whole of what is collected, from either product. **`[Add-on]` The Add-on no longer collects your Google account email**; it transmits only the pseudonymous identifier described above (§4b).
 
-### 3b. Error Logs
+### 3b. Failure Diagnostics `[Add-on]`
 
-> ⚠️ **NEEDS CONFIRMATION — this section is pending revision and must be resolved before this document is published.**
-> Earlier versions of this policy stated that Add-on conversion errors are recorded to a private Google Sheet. **That path no longer exists**: the Add-on no longer writes to Google Sheets, and it now makes exactly one outbound request — to the collection endpoint described in §4. Whether error logging is retained at all, and if so what it records and where it is stored, is to be confirmed and written here before publication. Nothing is asserted in the meantime.
+**We do not collect error logs.** When a conversion fails, the Add-on writes a single diagnostic line to the **Apps Script execution log** for that run. Nothing is transmitted to us, stored by us, or written to any database, spreadsheet, or file.
 
-The Web app does not transmit error logs.
+Two things you should know about that line:
+
+- **It can include the LaTeX string that failed**, along with the error message and the name of the function that raised it. It contains no other document content.
+- It is written to Google's own Apps Script execution logging inside the developer's Google Cloud project, and is **retained under Google's default logging behaviour. We do not set a retention period for it**, and we make no retention commitment about it.
+
+Earlier versions of this policy said these diagnostics were stored in a private Google Sheet and retained for up to 12 months. **Neither was accurate, and neither is our policy.** No such sheet exists.
+
+**`[Web app]`** The Web app does not transmit error logs.
 
 ---
 
-## 4. How We Store Data
+## 4. How We Store Data `[Both]`
 
 Training data (§3a) from both products is stored in **Google Cloud Storage**, in a single bucket — `latex-web-training-data` — owned by the developer's own Google Cloud project (`docsaddon-489707`), in the **`asia-northeast3` (Seoul, Republic of Korea)** region.
 
-Neither product writes to that bucket directly, and **the Add-on holds no service-account key**. Each product makes a single outbound request to a Cloud Function in the same project and the same region, and the function performs the write. For the Web app that endpoint is `collect-web-pair`.
-
-<!-- NEEDS CONFIRMATION: whether the Add-on posts to the same `collect-web-pair` function or to a separate Cloud Function in the same project. The text above deliberately does not name the Add-on's endpoint. -->
+Neither product writes to that bucket directly, and **the Add-on holds no service-account key**. Each product makes a single outbound request to our collection endpoint — the Cloud Function `collect-web-pair`, in the same project and the same region — and the function performs the write. **Both products use that same one function**; there is no second endpoint.
 
 The collection endpoint enforces per-field size caps, writes objects with `Cache-Control: private, no-store`, and never logs the LaTeX or the full pseudonymous identifier. See §4b for the full list of protections.
 
@@ -130,7 +146,7 @@ The Add-on's earlier storage path — a Google Sheet row containing the account 
 
 ---
 
-## 4a. Sharing, Transfer, and Disclosure of Google User Data
+## 4a. Sharing, Transfer, and Disclosure of Google User Data `[Both]`
 
 **We do not sell your data, and we do not share, transfer, or disclose Google user data to any third party — for any purpose, including advertising.**
 
@@ -142,40 +158,40 @@ The Add-on's earlier storage path — a Google Sheet row containing the account 
 
 **What is transmitted at all:**
 
-- **Add-on** — only if you have opted in through the consent dialog (§5a), and only per equation you convert: the **LaTeX source of that single equation**, its **rendered PNG**, the **delimiter type**, a **pseudonymous identifier**, a **server timestamp**, and a **`source` label**. Your **Google account email address is not transmitted**; the **document identifier is not transmitted**; and the **rest of your document is never transmitted** — not its text, tables, images, or metadata.
-- **Web app** — the LaTeX source of each equation and its rendered PNG, plus the delimiter, a browser-local random UUID, a server timestamp, and the `source` label `"web"`. The `.docx` body, file name, and author metadata are never transmitted (§2b).
+- **`[Add-on]`** — only if you have opted in through the consent dialog (§5a), and only per equation you convert: the **LaTeX source of that single equation**, its **rendered PNG**, the **delimiter type**, a **pseudonymous identifier**, a **server timestamp**, and the **`source` label `"addon"`**. Your **Google account email address is not transmitted**; the **document identifier is not transmitted**; and the **rest of your document is never transmitted** — not its text, tables, images, or metadata.
+- **`[Web app]`** — the LaTeX source of each equation and its rendered PNG, plus the delimiter, a browser-local random UUID, a server timestamp, and the `source` label `"web"`. The `.docx` body, file name, and author metadata are never transmitted (§2b).
 
-## 4b. Data Protection Mechanisms
+## 4b. Data Protection Mechanisms `[Both]`
 
-These protections apply to all data described in §3a, including data derived from Google user data.
+These protections apply to all data described in §3a, including data derived from Google user data. Rows that differ between the products are labelled.
 
 | Mechanism | What is in place |
 |---|---|
-| **In transit** | All transmissions use **HTTPS/TLS**. |
-| **At rest** | Objects are encrypted at rest with **Google-managed encryption**. |
-| **Access control** | **Uniform bucket-level access** is enabled. **Public access prevention** is enabled. `allUsers` and `allAuthenticatedUsers` are explicitly restricted — the bucket is **not publicly readable**. The writing service account holds **`roles/storage.objectCreator` only**: write-only, with no ability to read objects back. |
-| **Pseudonymization** | The Add-on identifier is `SHA-256(email + salt)`, truncated to 16 hexadecimal characters. Hashing happens **inside the Add-on** — the **raw email address never leaves the script**. The salt is held in server-side configuration and is **not stored alongside the data**. |
-| **Minimization** | **No document identifier** and **no document body** is collected. The collection endpoint enforces size caps of **4 KiB for the LaTeX** and **256 KiB for the decoded PNG** per record. |
-| **Logging** | The collection endpoint **never logs the LaTeX** and **never logs the full pseudonymous identifier** — at most a 4-character prefix of it. |
-| **Caching** | Stored objects are written with `Cache-Control: private, no-store`. |
-| **Region** | All storage is in **`asia-northeast3` (Seoul, Republic of Korea)** — see §4a. |
-| **Retention** | Training data is retained while it remains useful for model training; records unused for more than 12 months are reviewed quarterly and deleted if no longer needed. See §6. |
-| **Deletion on request** | Email `sung2417@gmail.com`. **Web app:** include your `latexflow_anon_hash` value (§5b). **Add-on:** ⚠️ **NEEDS CONFIRMATION** — the request route for Add-on records is under revision now that the account email is no longer stored, and must be written here before publication. |
+| **In transit** | `[Both]` All transmissions use **HTTPS/TLS**. |
+| **At rest** | `[Both]` Objects are encrypted at rest with **Google-managed encryption**. |
+| **Access control** | `[Both]` **Uniform bucket-level access** is enabled. **Public access prevention** is enabled. `allUsers` and `allAuthenticatedUsers` are explicitly restricted — the bucket is **not publicly readable**. The writing service account holds **`roles/storage.objectCreator` only**: write-only, with no ability to read objects back. |
+| **Pseudonymization** | `[Add-on]` The identifier is `SHA-256(email + salt)`, truncated to 16 hexadecimal characters. Hashing happens **inside the Add-on** — the **raw email address never leaves the script**. The salt is held in server-side configuration and is **not stored alongside the data**.<br>`[Web app]` The identifier is a random 16-hex UUID generated in your browser and not derived from anything identifying (§5b). |
+| **Minimization** | `[Both]` **No document identifier** and **no document body** is collected. The collection endpoint enforces size caps of **4 KiB for the LaTeX** and **256 KiB for the decoded PNG** per record. |
+| **Logging** | `[Both]` The collection endpoint **never logs the LaTeX** and **never logs the full pseudonymous identifier** — at most a 4-character prefix of it.<br>`[Add-on]` Separately, failed conversions write a diagnostic line to the Apps Script execution log that **can include the LaTeX that failed** — see §3b. |
+| **Caching** | `[Both]` Stored objects are written with `Cache-Control: private, no-store`. |
+| **Region** | `[Both]` All storage is in **`asia-northeast3` (Seoul, Republic of Korea)** — see §4a. |
+| **Retention** | `[Both]` Training data is retained while it remains useful for model training; records unused for more than 12 months are reviewed quarterly and deleted if no longer needed. See §6. |
+| **Deletion on request** | `[Add-on]` Email `sung2417@gmail.com` **from the Google account you used with the Add-on** — we recompute your identifier from that address and delete the matching records. Nothing else is needed.<br>`[Web app]` Email the same address including your `latexflow_anon_hash` value (§5b). |
 
 ---
 
-## 5. Your Consent and Control
+## 5. Your Consent and Control `[Both]`
 
-### 5a. Add-on — Consent Dialog
+### 5a. Add-on — Consent Dialog `[Add-on]`
 
 - On first launch, the Add-on displays a **consent dialog** asking whether you agree to share anonymized training data.
-- You may **decline** at any time — the Add-on's core functionality (equation insertion) works fully without consent.
+- You may **decline** at any time. **Declining costs you nothing** — every feature of the Add-on works fully without consent, including conversion, insertion, and reverting an image back to editable LaTeX. Reverting reads the LaTeX from the image's own alt text inside your document, so it never depends on collected data.
 - You may **withdraw or change** your consent at any time via:
   **Extensions → LaTeX Converter → Data Collection Settings**
 
-We do not collect Add-on training data unless you have explicitly agreed.
+We do not collect Add-on training data unless you have explicitly agreed. The preference that gates collection **defaults to unset** — if you never open the dialog and never agree, nothing is collected.
 
-### 5b. Web App — How to Opt Out
+### 5b. Web App — How to Opt Out `[Web app]`
 
 The Web app does **not** display a consent dialog because the data is **fully pseudonymized** — no email, name, IP address, or document content is collected. The only client-side identifier is a **16-hex random UUID** stored in your browser's localStorage under the key `latexflow_anon_hash`. This UUID is generated locally with `crypto.getRandomValues` and is **not derived from any identifying information**; it is used only to group submissions from the same browser for statistical analysis (e.g., to detect duplicate equations from the same session). It is **not linked to your identity** and is cleared whenever you clear site data.
 
@@ -193,44 +209,48 @@ To request deletion of previously submitted Web app records, email `sung2417@gma
 
 ---
 
-## 6. Data Retention
+## 6. Data Retention and Deletion `[Both]`
 
-Training data — from both the Add-on and the Web app — is retained while it remains useful for model training. Records that have been unused for more than 12 months are reviewed quarterly and deleted if they are no longer needed.
+**`[Both]`** Training data is retained while it remains useful for model training. Records that have been unused for more than 12 months are reviewed quarterly and deleted if they are no longer needed.
 
-Error log retention: ⚠️ **NEEDS CONFIRMATION** — see §3b.
+**`[Add-on]`** We do not collect error logs, so there is no error-log retention period to state. The Apps Script execution-log diagnostics described in §3b are retained under Google's default logging behaviour; **we do not set a retention period for them.**
 
-You may request deletion of your pseudonymized training data by contacting us at sung2417@gmail.com. For the Web app, please include the `latexflow_anon_hash` value as described in §5b. For the Add-on, the request route is ⚠️ **NEEDS CONFIRMATION** — see §4b.
+**How to request deletion:**
+
+- **`[Add-on]`** Email `sung2417@gmail.com` **from the Google account you used with the Add-on**. Your identifier is derived from your email address, so we can recompute it from the address you write from and delete the matching records. You do not need to supply anything else.
+- **`[Web app]`** Email the same address and include your `latexflow_anon_hash` value, as described in §5b. Without it we cannot locate your submissions, because nothing identifying is stored alongside them.
 
 ---
 
-## 7. Third-Party Services
+## 7. Third-Party Services `[Both]`
 
 **§4a is the authoritative answer to who receives your data: no third party does.** The services listed here are the infrastructure this project runs on and the CDN your browser loads rendering libraries from. They are not recipients of Google user data for their own purposes.
 
 | Service | Role | Receives Google user data? |
 |---|---|---|
-| Google Cloud Storage (`asia-northeast3`) | Storage of training data, in our own project (§4) | Only as our infrastructure processor (§4a) |
-| Google Cloud Functions (`asia-northeast3`) | Collection endpoint, in our own project — `collect-web-pair` for the Web app | Only as our infrastructure processor (§4a) |
-| Google Sheets | **No longer used** for training metadata. Error-log storage is ⚠️ **NEEDS CONFIRMATION** — see §3b | — |
-| jsDelivr CDN | Serves the Temml and MathJax rendering libraries to your browser and to the Add-on sidebar | **No.** Only library files are requested; no document content or user data is included |
+| Google Cloud Storage (`asia-northeast3`) | `[Both]` Storage of training data, in our own project (§4) | Only as our infrastructure processor (§4a) |
+| Google Cloud Functions (`asia-northeast3`) | `[Both]` Collection endpoint `collect-web-pair`, in our own project — one function serves both products | Only as our infrastructure processor (§4a) |
+| jsDelivr CDN | `[Both]` Serves the Temml and MathJax rendering libraries to your browser and to the Add-on sidebar | **No.** Only library files are requested; no document content or user data is included |
+
+**Google Sheets is not used by either product.** Earlier versions of this policy listed it for error logs and Add-on training metadata; **neither path exists** — see §3b and §4.
 
 These services are governed by their own privacy policies.
 
 ---
 
-## 8. Children's Privacy
+## 8. Children's Privacy `[Both]`
 
 LaTeXFlow is not directed at children under 13. We do not knowingly collect data from children under 13.
 
 ---
 
-## 9. Changes to This Policy
+## 9. Changes to This Policy `[Both]`
 
 We may update this policy from time to time. The "Last updated" date at the top of this page will reflect any changes. Continued use of the Add-on or the Web app after changes constitutes acceptance.
 
 ---
 
-## 10. Contact
+## 10. Contact `[Both]`
 
 For privacy-related questions or data deletion requests:
 
