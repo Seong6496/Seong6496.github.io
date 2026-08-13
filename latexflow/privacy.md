@@ -142,7 +142,7 @@ Object layout — **both products** now write the same pair:
 | Add-on | `latex-pairs/{uuid}.png` | `latex-pairs/{uuid}.json` — sidecar next to the PNG |
 | Web app | `latex-pairs/{uuid}.png` | `latex-pairs/{uuid}.json` — sidecar next to the PNG; includes a server-generated timestamp, the source delimiter, and the anonymous UUID |
 
-The Add-on's earlier storage path — a Google Sheet row containing the account email, and PNG objects in a US multi-region bucket — **no longer exists**. The 224 images collected by earlier versions of the Add-on have been migrated into the Seoul bucket and de-identified, and the previous US bucket has been deleted. No LaTeXFlow data is stored outside `asia-northeast3`.
+The Add-on's earlier storage path — a Google Sheet row containing the account email, and PNG objects in a US multi-region bucket — **is no longer used**. The 214 images that carried usable metadata have been migrated into the Seoul bucket and de-identified, and the US bucket has been emptied: it holds no objects. **No LaTeXFlow data is stored outside `asia-northeast3`.**
 
 ---
 
