@@ -121,8 +121,6 @@ Two things you should know about that line:
 - **It can include the LaTeX string that failed**, along with the error message and the name of the function that raised it. It contains no other document content.
 - It is written to Google's own Apps Script execution logging inside the developer's Google Cloud project, and is **retained under Google's default logging behaviour. We do not set a retention period for it**, and we make no retention commitment about it.
 
-Earlier versions of this policy said these diagnostics were stored in a private Google Sheet and retained for up to 12 months. **Neither was accurate, and neither is our policy.** No such sheet exists.
-
 **`[Web app]`** The Web app does not transmit error logs.
 
 ---
@@ -142,7 +140,7 @@ Object layout — **both products** now write the same pair:
 | Add-on | `latex-pairs/{uuid}.png` | `latex-pairs/{uuid}.json` — sidecar next to the PNG |
 | Web app | `latex-pairs/{uuid}.png` | `latex-pairs/{uuid}.json` — sidecar next to the PNG; includes a server-generated timestamp, the source delimiter, and the anonymous UUID |
 
-The Add-on's earlier storage path — a Google Sheet row containing the account email, and PNG objects in a US multi-region bucket — **is no longer used**. The 214 images that carried usable metadata have been migrated into the Seoul bucket and de-identified, and the US bucket has been emptied: it holds no objects. **No LaTeXFlow data is stored outside `asia-northeast3`.**
+**No LaTeXFlow data is stored outside `asia-northeast3`.**
 
 ---
 
@@ -232,7 +230,7 @@ To request deletion of previously submitted Web app records, email `sung2417@gma
 | Google Cloud Functions (`asia-northeast3`) | `[Both]` Collection endpoint `collect-web-pair`, in our own project — one function serves both products | Only as our infrastructure processor (§4a) |
 | jsDelivr CDN | `[Both]` Serves the Temml and MathJax rendering libraries to your browser and to the Add-on sidebar | **No.** Only library files are requested; no document content or user data is included |
 
-**Google Sheets is not used by either product.** Earlier versions of this policy listed it for error logs and Add-on training metadata; **neither path exists** — see §3b and §4.
+**Google Sheets is not used by either product.**
 
 These services are governed by their own privacy policies.
 
