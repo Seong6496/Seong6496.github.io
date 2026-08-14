@@ -189,7 +189,7 @@ These protections apply to all data described in §3a, including data derived fr
 
 We do not collect Add-on training data unless you have explicitly agreed. The preference that gates collection **defaults to unset** — if you never open the dialog and never agree, nothing is collected.
 
-### 5b. Web App — How to Opt Out `[Web app]`
+### 5b. Web App — How to Opt Out `[Web app]` {#5b-web-app--how-to-opt-out}
 
 The Web app does **not** display a consent dialog because the data is **fully pseudonymized** — no email, name, IP address, or document content is collected. The only client-side identifier is a **16-hex random UUID** stored in your browser's localStorage under the key `latexflow_anon_hash`. This UUID is generated locally with `crypto.getRandomValues` and is **not derived from any identifying information**; it is used only to group submissions from the same browser for statistical analysis (e.g., to detect duplicate equations from the same session). It is **not linked to your identity** and is cleared whenever you clear site data.
 
