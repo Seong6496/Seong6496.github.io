@@ -57,7 +57,7 @@ EU 거주자는 GDPR 에 따른 권리를 가집니다 — 데이터 접근 / �
 
 ## 6. 한국 사용자 (PIPA)
 
-한국 거주자는 PIPA 에 따른 권리 — 개인정보 열람 / 정정 / 삭제 / 처리 정지 — 를 가집니다. 도구 사용 시 데이터 처리는 [LaTeXFlow Privacy §5b](/latexflow/privacy/#5b-web-app--how-to-opt-out) 의 opt-out 절차를 따릅니다.
+한국 거주자는 PIPA 에 따른 권리 — 개인정보 열람 / 정정 / 삭제 / 처리 정지 — 를 가집니다. 도구 사용 시 데이터 처리는 [LaTeXFlow Privacy §5b](/latexflow/privacy/#optout-web) 의 opt-out 절차를 따릅니다.
 
 ## 7. 어린이 (13세 미만)
 

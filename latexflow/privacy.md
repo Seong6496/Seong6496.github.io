@@ -144,7 +144,7 @@ Object layout — **both products** now write the same pair:
 
 ---
 
-## 4a. Sharing, Transfer, and Disclosure of Google User Data `[Both]`
+## 4a. Sharing, Transfer, and Disclosure of Google User Data `[Both]` {#sharing-disclosure}
 
 **We do not sell your data, and we do not share, transfer, or disclose Google user data to any third party — for any purpose, including advertising.**
 
@@ -159,7 +159,7 @@ Object layout — **both products** now write the same pair:
 - **`[Add-on]`** — only if you have opted in through the consent dialog (§5a), and only per equation you convert: the **LaTeX source of that single equation**, its **rendered PNG**, the **delimiter type**, a **pseudonymous identifier**, a **server timestamp**, and the **`source` label `"addon"`**. Your **Google account email address is not transmitted**; the **document identifier is not transmitted**; and the **rest of your document is never transmitted** — not its text, tables, images, or metadata.
 - **`[Web app]`** — the LaTeX source of each equation and its rendered PNG, plus the delimiter, a browser-local random UUID, a server timestamp, and the `source` label `"web"`. The `.docx` body, file name, and author metadata are never transmitted (§2b).
 
-## 4b. Data Protection Mechanisms `[Both]`
+## 4b. Data Protection Mechanisms `[Both]` {#data-protection}
 
 These protections apply to all data described in §3a, including data derived from Google user data. Rows that differ between the products are labelled.
 
@@ -189,7 +189,7 @@ These protections apply to all data described in §3a, including data derived fr
 
 We do not collect Add-on training data unless you have explicitly agreed. The preference that gates collection **defaults to unset** — if you never open the dialog and never agree, nothing is collected.
 
-### 5b. Web App — How to Opt Out `[Web app]` {#5b-web-app--how-to-opt-out}
+### 5b. Web App — How to Opt Out `[Web app]` {#optout-web}
 
 The Web app does **not** display a consent dialog because the data is **fully pseudonymized** — no email, name, IP address, or document content is collected. The only client-side identifier is a **16-hex random UUID** stored in your browser's localStorage under the key `latexflow_anon_hash`. This UUID is generated locally with `crypto.getRandomValues` and is **not derived from any identifying information**; it is used only to group submissions from the same browser for statistical analysis (e.g., to detect duplicate equations from the same session). It is **not linked to your identity** and is cleared whenever you clear site data.
 
