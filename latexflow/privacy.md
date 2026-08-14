@@ -2,10 +2,10 @@
 layout: latexflow-doc
 title: Privacy Policy
 permalink: /latexflow/privacy/
-description: How LaTeXFlow (Google Docs Add-on and Web app) handles your data.
+description: How LaTeXFlow (Google Docs™ Add-on and Web app) handles your data.
 ---
 
-*Last updated: 2026-08-13*
+*Last updated: 2026-08-14*
 
 > 📋 **Site-wide privacy** (cookies, advertising, third-party services on the blog and tool pages): [mathsystem.dev/blog/privacy/](/blog/privacy/). This page covers **only the LaTeXFlow tool itself** (Add-on permissions, Web app data processing).
 
@@ -72,7 +72,7 @@ The Web app provides an optional **"Import from Google Drive"** button alongside
 
 - **OAuth scope** — `https://www.googleapis.com/auth/drive.file` only. This is a **narrowly-scoped** permission: the app can read **only the file you explicitly pick** through Google's Drive Picker dialog. It cannot list, search, or read any other file in your Drive.
 - **Sign-in flow** — Google handles the sign-in and consent screen. You can cancel at any point.
-- **File handling** — Once you select a Google Doc (or `.docx` / `.odt` / `.rtf`), Google exports it as `.docx` and sends it directly to your browser. The file then enters the same client-side pipeline described in §2b. **File content never transits our servers.**
+- **File handling** — Once you select a Google Docs™ document (or `.docx` / `.odt` / `.rtf`), Google exports it as `.docx` and sends it directly to your browser. The file then enters the same client-side pipeline described in §2b. **File content never transits our servers.**
 - **Access token** — The OAuth access token returned by Google is held in browser memory only, scoped to the current page. Closing the tab or refreshing discards it. We do not store, log, or transmit the token.
 - **Credentials embedded in the page** — The Web app embeds an OAuth Client ID and a Google API Key. Both are **spec-public identifiers**: the OAuth Client ID is public by design under the OAuth 2.0 specification, and the API Key is restricted by HTTP referrer to `mathsystem.dev` (and `localhost` for development). No `client_secret` is used (the Web app uses PKCE / implicit flows).
 - **Revoking access** — You can revoke the Web app's Drive access at any time at [myaccount.google.com/permissions](https://myaccount.google.com/permissions).
