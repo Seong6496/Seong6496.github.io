@@ -1942,8 +1942,46 @@ function saveAmbigEdit(ambId, editedText, editNote) {
  * ========================================================== */
 const EMU_PER_PX  = 9525;                      // 1px = 9525 EMU (96dpi)
 const FORMULA_TAG = 'AIMATH_FORMULA::v1::';    // 애드온과 동일한 alt 텍스트 규약
-const SIZE_SCALE  = 2;   // 표시 배율 — 2 = 애드온이 삽입하는 2x PNG 자연 크기와 동일
-                         //            (1 = 1x 논리 크기, 인라인 14px / display 22px)
+const SIZE_SCALE  = 1;   // 표시 배율 — 1 이 정답이다. 되돌리지 말 것.
+                         //   latexToPngBase64 는 논리 크기 w×h (수식 고유 크기 × EX_PX)
+                         //   를 구한 뒤 canvas 를 w*2 × h*2 로 그린다.
+                         //   2배는 오직 선명도(레티나)용이고 표시 치수가 아니다. 그래서
+                         //   :2039 의 canvasW/2 가 이미 정확한 1배 논리 크기이며, 여기에
+                         //   다시 곱할 배율은 1 이다. 2 로 두면 본문 글씨의 2배로 보인다.
+                         //
+                         //   과거 주석은 "2 = 애드온이 삽입하는 2x PNG 자연 크기와 동일"
+                         //   이었는데, 그 애드온 동작 자체가 버그다 — src/Code.gs 의
+                         //   insertInlineImage(blob) 가 크기를 지정하지 않아 Docs 가 2배
+                         //   픽셀을 그대로 표시 크기로 잡는다. 버그에 맞춘 값이었지
+                         //   기준이 아니었다.
+                         //
+                         //   현재 애드온은 아직 2배라 웹(1배)과 일시적으로 어긋나 있다.
+                         //   의도된 상태이며, 애드온은 다음 v6 push 에서 함께 고친다
+                         //   (OAuth 심사와 무관해 이번 라운드에서 분리했다).
+const EX_PX       = 7;   // 1ex 를 몇 px 로 볼 것인가. 수식 크기의 유일한 기준값이다.
+                         //   근거: 본문을 14px(=10.5pt @96dpi, 실측 샘플 D02 의 w:sz=21)로
+                         //   가정하고, x-height 비율을 약 0.5 로 잡아 14 × 0.5 = 7.
+                         //
+                         //   MathJax 는 SVG 의 width/height 를 ex 단위로 준다. ex 는 원래
+                         //   "주변 글꼴의 x-height" 를 뜻하는 상대 단위이고, 그렇게 주는
+                         //   이유가 본문에 비례해 배치하라는 것이다. 그래서 여기서는
+                         //   그 값을 그대로 곱하기만 한다 — 수식마다 다른 고유 높이가
+                         //   보존되어야 분수는 크고 민둥한 글자는 작게 나온다.
+                         //
+                         //   되돌리지 말 것: 예전 코드는 targetH(인라인 14px / display 22px)
+                         //   를 hEx 로 나눠 모든 인라인 수식을 같은 높이로 뭉갰다. 그래서
+                         //   `C` 는 본문보다 커 보이고 2단 분수는 작아 보였다. 고유 높이를
+                         //   버리는 그 정규화가 원인이었지 배율 문제가 아니었다.
+                         //
+                         //   7 은 단계 A 의 가정값이다. 단계 B 에서 docx 의 실제 본문 폰트
+                         //   크기(w:rPr/w:sz → 문단 스타일 → styles.xml)를 읽어 수식이 놓인
+                         //   자리의 값으로 대체한다. 그때 이 상수는 fallback 이 된다.
+const MIN_PNG_PX  = 2;   // 논리 크기 바닥값(px). 실질적으로 걸리지 않는 수준으로 둔다 —
+                         //   2px 는 0.29ex 라 실제 수식에서는 도달하지 않는다.
+                         //   예전 값 10 은 ex 비례에서는 위험하다: 좁은 수식(`x` 등)이
+                         //   10px 아래로 내려가는데, w·h 를 각각 독립으로 클램프하면
+                         //   한쪽만 올라가 종횡비가 찌그러진다. 아래 클램프는 그래서
+                         //   양쪽에 같은 배수를 곱해 비율을 지킨다.
 const RUN_RE      = /<w:r(?:\s[^>]*)?>[\s\S]*?<\/w:r>/g;
 const WT_RE       = /<w:t(?:\s[^>]*)?>([\s\S]*?)<\/w:t>/;
 const WT_RE_G     = /<w:t(?:\s[^>]*)?>([\s\S]*?)<\/w:t>/g;
@@ -2415,10 +2453,17 @@ function latexToPngBase64(latex, isDisplay) {
     const wEx = parseEx(svgEl.getAttribute('width'));
     const hEx = parseEx(svgEl.getAttribute('height'));
 
-    const targetH = isDisplay ? 22 : 14;
-    const scale   = hEx > 0 ? targetH / hEx : 20;
-    const w = Math.max(Math.round(wEx * scale), 10);
-    const h = Math.max(Math.round(hEx * scale), 10);
+    // ex 비례 — 수식 고유 크기를 그대로 px 로 환산한다. isDisplay 로 높이를 나누는
+    // 분기는 없다: display 수식은 hEx 자체가 크게 나오므로 자연히 커진다.
+    // (tex2svg 의 display 인자는 displaystyle 레이아웃 결정에 여전히 필요하다.)
+    // wEx/hEx 가 0 인 것은 속성 파싱 실패뿐이므로 1ex 로 방어한다.
+    const wPx = (wEx > 0 ? wEx : 1) * EX_PX;
+    const hPx = (hEx > 0 ? hEx : 1) * EX_PX;
+
+    // 바닥값은 양쪽에 같은 배수를 곱해서 적용 — 한쪽만 올리면 종횡비가 깨진다.
+    const lift = Math.max(1, MIN_PNG_PX / wPx, MIN_PNG_PX / hPx);
+    const w = Math.max(Math.round(wPx * lift), 1);
+    const h = Math.max(Math.round(hPx * lift), 1);
 
     svgEl.setAttribute('width',  w + 'px');
     svgEl.setAttribute('height', h + 'px');
