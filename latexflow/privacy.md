@@ -185,7 +185,7 @@ These protections apply to all data described in §3a, including data derived fr
 - On first launch, the Add-on displays a **consent dialog** asking whether you agree to share anonymized training data.
 - You may **decline** at any time. **Declining costs you nothing** — every feature of the Add-on works fully without consent, including conversion, insertion, and reverting an image back to editable LaTeX. Reverting reads the LaTeX from the image's own alt text inside your document, so it never depends on collected data.
 - You may **withdraw or change** your consent at any time via:
-  **Extensions → LaTeX Converter → Data Collection Settings**
+  **Extensions → LatexFlow → Data Collection Settings**
 
 We do not collect Add-on training data unless you have explicitly agreed. The preference that gates collection **defaults to unset** — if you never open the dialog and never agree, nothing is collected.
 
