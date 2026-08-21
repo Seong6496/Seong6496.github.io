@@ -289,6 +289,10 @@
   .btn-primary:disabled { background: var(--accent); opacity: 0.4; cursor: not-allowed; }
   .btn-ghost    { background: transparent; color: var(--text-muted); border: 0.5px solid var(--border); }
   .btn-ghost:hover { background: var(--bg); color: var(--text); }
+  /* btn-primary:disabled 와 같은 패턴(opacity 0.4 + not-allowed). :hover 를 되돌리는
+     이유는 disabled 요소에도 :hover 가 먹어서 눌릴 것처럼 보이기 때문이다. */
+  .btn-ghost:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-ghost:disabled:hover { background: transparent; color: var(--text-muted); }
 
   .section-label {
     font-size: 14px; font-weight: 500; color: var(--text-hint);
@@ -539,6 +543,177 @@
   .eq-edit .edit-note.error { color: #d93025; }
 
   .empty { color: var(--text-hint); font-size: 16px; padding: 24px; text-align: center; }
+
+  /* ── 구분자 없는 수식 후보 그룹 (Part B) ──────────────────────
+     경고가 아니라 제안이다. 모호성 카드의 mustard stripe 대신 accent 톤을
+     써서 "틀렸다" 가 아니라 "여기 손댈 수 있다" 로 읽히게 한다.
+     ────────────────────────────────────────────────────────── */
+  /* 이 카드는 "복구 경로가 있다" 를 알리는 유일한 신호다. 15px/500 로는 24px
+     .zg-title 밑에서 본문에 묻혔고, 항상 뜨는 일반 공지처럼 읽힐 위험도 있었다.
+     그래서 (a) 줄 자체를 키우고 (b) **숫자**를 accent 로 더 키운다 — 숫자가
+     "방금 올린 그 문서" 의 결과라는 증거라서, 그게 도드라져야 boilerplate 가
+     아니라 발견으로 읽힌다. 색은 전부 기존 토큰(--accent / --accent-bg). */
+  .undelim-lead {
+    background: var(--accent-bg);
+    border: 0.5px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .undelim-lead .undelim-count {
+    font-size: 18px; font-weight: 600; color: var(--text);
+    line-height: 1.4; margin-bottom: 6px;
+  }
+  .undelim-lead .undelim-n {
+    font-size: 22px; font-weight: 600; color: var(--accent);
+  }
+  .undelim-lead .undelim-hint {
+    font-size: 14px; line-height: 1.6; color: var(--text-muted);
+  }
+  .undelim-lead code {
+    font-family: var(--font-mono); font-size: 13px;
+    background: var(--bg); padding: 0 3px; border-radius: 2px;
+  }
+  .undelim-more {
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 2px 0 10px;
+  }
+  .undelim-more .undelim-warn {
+    font-size: 13px; line-height: 1.5; color: #d93025;
+  }
+  .card.ambig.undelim { border-left: 2px solid var(--accent); }
+  .card.ambig.undelim .card-head { background: var(--accent-bg); }
+  .card.ambig.undelim .ambig-warn { color: var(--accent); }
+  .card.ambig.undelim .ambig-view .ambig-guide {
+    background: var(--accent-bg);
+    border-left: 4px solid var(--accent);
+  }
+  .card.ambig.undelim .ambig-guide-title { color: var(--accent); }
+  .zero-guide .zg-pointer {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--accent-bg);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    margin-bottom: 14px;
+  }
+
+  /* ── 0-검출 복구 안내 (Part A) ────────────────────────────────
+     근거: Clarity 세션 2026-08-19 08:04 KST, iPad MobileSafari 1194x643.
+     Drive picker 임포트 성공 → 리뷰 화면에 "No equations detected." 한 문장만
+     남았고, 사용자는 그 문장을 두 번 탭(dead click)한 뒤 이탈했다. 버튼이
+     아닌데 화면에서 유일하게 뭔가 할 것처럼 보였기 때문이다.
+     그 사용자에게 이 자리는 목록의 한 항목이 아니라 **화면 전체**다. 따라서
+     카드가 아니라 중앙 정렬 안내 블록으로 둔다.
+
+     Safari on-device 자동 번역 대비 (세션 사용자가 켜둔 상태였음):
+       - 의미를 영어 단어 하나에만 싣지 않는다. 구분자는 문장이 아니라 예시로 보여준다.
+       - 구분자 리터럴은 전부 <code> 안에 둔다 — 번역기가 code 안은 건드리지 않는다.
+     1194x643 (iPad 가로) 기준으로 세로가 빠듯하므로 여백을 조인다.
+     ────────────────────────────────────────────────────────── */
+  .zero-guide {
+    max-width: 660px;
+    margin: 12px auto 40px;
+    text-align: center;
+  }
+
+  /* 스캔 증거 한 줄 — 제목 위. 조용해야 한다(영수증이지 헤드라인이 아니다)
+     지만, 이 화면이 "문서를 실제로 읽고 나온 결과" 라는 유일한 물증이다. */
+  .zero-guide .zg-scan {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-hint);
+    margin-bottom: 10px;
+  }
+  .zero-guide .zg-title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.3;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .zero-guide .zg-lead {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .zero-guide .zg-ba {
+    margin-bottom: 14px;
+    text-align: left;
+  }
+  .zero-guide .zg-ba .panel-raw {
+    font-size: 14px;
+    line-height: 1.6;
+    word-break: break-word;
+  }
+  .zero-guide .zg-ba .panel-raw .zg-add {
+    background: var(--accent-bg);
+    color: var(--accent);
+    border-radius: 3px;
+    padding: 0 2px;
+    font-weight: 500;
+  }
+  .zero-guide .zg-ba .zg-cap {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-hint);
+    margin-top: 8px;
+  }
+  .zero-guide .zg-delims-label {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .zero-guide .zg-delims {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 8px;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+  .zero-guide .zg-delims code {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    background: var(--bg-card);
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 8px;
+    white-space: nowrap;
+  }
+  .zero-guide .zg-note {
+    text-align: left;
+    background: var(--bg-card);
+    border: 0.5px solid var(--border);
+    border-left: 2px solid var(--warn-stripe);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .zero-guide .zg-note strong { color: var(--text); font-weight: 500; }
+  .zero-guide .zg-note em { font-style: italic; }
+  .zero-guide .zg-note code,
+  .zero-guide .zg-lead code {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    background: var(--bg);
+    padding: 0 3px;
+    border-radius: 2px;
+  }
+  .zero-guide .zg-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  @media (max-width: 640px) {
+    .zero-guide .zg-title { font-size: 21px; }
+  }
 
   /* Generate 결과 안내 */
   #gen-note {
@@ -1057,11 +1232,11 @@
     </div>
 
     <div id="ambig-wrap" hidden>
-      <div class="section-label">⚠ Ambiguity — Choose an interpretation or skip</div>
+      <div class="section-label" id="ambig-label">⚠ Ambiguity — Choose an interpretation or skip</div>
       <div id="ambig-list"></div>
     </div>
 
-    <div class="section-label">Detected Equations</div>
+    <div class="section-label" id="eq-label">Detected Equations</div>
     <div id="eq-list"></div>
 
     <div id="gen-note" hidden></div>
@@ -1093,6 +1268,19 @@ const CT_PATH   = '[Content_Types].xml';
 let blockText  = {};   // key -> 원본 단락 텍스트 (문맥 스니펫용)
 let scanState  = [];   // [{ eq, status: 'pending' | 'skipped' }]
 let ambigState = [];   // 미해결 모호성 항목
+// 볼륨 제어 (Part B) — D15_bare_no_delimiter.docx 실측: 31 단락짜리 문서에서
+// 20 개가 후보로 잡힌다. 전부 맞는 후보지만 로드하자마자 카드 20 장을 쏟으면
+// "뭘 해야 할지 모르겠다" 를 모양만 바꿔 재현하는 것이다. 그래서 **처음에만**
+// 3 장으로 시작하고, 그 다음은 사용자가 한 번 눌러 전부 연다 (단계별 5장씩은
+// 폐기 — 사용자가 여러 번 눌러야 하는 게 더 답답하다는 피드백).
+// 상한은 두지 않았다: test-corpus 전수(21 문서) 최대 후보 수가 20 이고 그다음이
+// 2 라, 수백 장이 한 번에 열리는 문서는 실제로 존재하지 않는다.
+const UNDELIM_INITIAL = 3;   // 0 검출 화면에서 처음 펼치는 카드 수
+let undelimShown = 0;        // 현재 펼친 카드 수 (showReview 가 초기화)
+let scannedBlocks = 0; // 이번 문서에서 스캐너에 넘긴 단락/셀 블록 수 — loadFile 이 채운다.
+                       // 0 검출 화면에서 "정말 읽긴 했다" 는 증거로 쓴다.
+let ommlCount  = 0;    // 문서 안 Word 수식 개체(<m:oMath>) 수 — parseDocx 가 채운다.
+                       // 0 검출 안내에서 "구분자로는 못 고치는 경우" 를 단정하는 근거.
 let paraEdits  = new Map();   // paraKey (keyOf) -> editedText
                               // 모호성 카드에서 사용자가 단락 텍스트를 편집한 자리.
                               // Phase 2 UI 가 Save 시 채움. transform 단계에서 이 자리 있으면
@@ -1118,16 +1306,65 @@ const fileInput = document.getElementById('file-input');
 const dropZone  = document.getElementById('drop-zone');
 
 dropZone.addEventListener('click', () => fileInput.click());
+// 드롭존 위 하이라이트 — 65dd1a4 이전과 같은 두 줄. 파일을 실제로 받는 일은
+// 아래 window 핸들러 하나가 하고, 여기 남은 건 시각 피드백뿐이다.
 dropZone.addEventListener('dragover', e => {
   e.preventDefault(); dropZone.classList.add('over');
 });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('over'));
-dropZone.addEventListener('drop', e => {
-  e.preventDefault(); dropZone.classList.remove('over');
-  if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
-});
 fileInput.addEventListener('change', () => {
   if (fileInput.files[0]) loadFile(fileInput.files[0]);
+});
+
+/* ── 페이지 전체 드롭 대상 (R44 후속 3) ─────────────────────────────────
+ * 버그: 드래그 핸들러가 #drop-zone 에만 걸려 있었다. 그 사각형은 747x200 이고
+ * 페이지 오프셋 y=782 에 있어서, 그 밖에 파일을 떨구면 브라우저 기본 동작이
+ * 돈다 — 크롬은 **그 파일로 이동해 앱을 통째로 날린다**. 사용자에게는
+ * "드롭이 안 된다" 로 보인다. 2026-08-19 Clarity 세션의 dropzone dead click
+ * 2회(00:35 / 00:43)도 같은 막다른 길의 다른 얼굴일 가능성이 높다.
+ *
+ * preventDefault 범위에 대한 판단: 브리프는 "무조건" 이라고 했지만, dragover 를
+ * 전부 막으면 **후보/모호성 카드의 textarea 에 텍스트를 끌어다 넣는 동작까지**
+ * 막힌다 (그 편집창이 이 라운드의 핵심 기능이다). 그래서 페이지를 실제로
+ * 날려버릴 수 있는 종류에만 건다:
+ *   - 'Files'         : 외부 파일 → 그 파일을 열며 앱이 사라진다
+ *   - 'text/uri-list' : 다른 탭·북마크의 링크 → 그 URL 로 이동한다
+ * 페이지 안에서 고른 텍스트(text/plain 만)는 기본 동작이 정상이라 건드리지
+ * 않는다. 결과적으로 "파일 드롭으로 페이지가 날아가는 경로"는 전부 막힌다.
+ *
+ * 전체 화면 드래그 오버레이(#drag-overlay)는 사용자 요청으로 되돌렸다 —
+ * 요청한 적 없는 새 UI 였다. 시각 피드백은 예전처럼 드롭존 위 .over
+ * 하이라이트뿐이고, 그 밖에 떨궈도 조용히 받아서 로드한다. 다시 넣지 말 것.
+ * ──────────────────────────────────────────────────────────────────── */
+function dragTypes(e) {
+  const t = e.dataTransfer && e.dataTransfer.types;
+  return t ? Array.prototype.slice.call(t) : [];
+}
+function dragWouldNavigate(e) {
+  const t = dragTypes(e);
+  return t.indexOf('Files') !== -1 || t.indexOf('text/uri-list') !== -1;
+}
+
+/** 드롭 하나를 처리한다 — 드롭존 안이든 밖이든 이 경로 하나만 쓴다.
+ *  .docx 가드와 'Only .docx files are supported.' 문구는 loadFile 안에 이미
+ *  있으므로 여기서 다시 쓰지 않는다 (그래서 존 밖 오배송도 존 안과 동일하게
+ *  동작한다). */
+function handleDroppedFiles(dataTransfer) {
+  const file = dataTransfer && dataTransfer.files && dataTransfer.files[0];
+  if (file) loadFile(file);
+}
+
+window.addEventListener('dragover', e => {
+  // drop 이벤트를 받으려면 dragover 마다 preventDefault 를 해야 한다.
+  if (!dragWouldNavigate(e)) return;
+  e.preventDefault();
+  if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy';
+});
+window.addEventListener('drop', e => {
+  if (!dragWouldNavigate(e)) return;
+  e.preventDefault();          // 이걸 빼면 크롬이 그 파일/URL 로 이동한다
+  dropZone.classList.remove('over');
+  handleDroppedFiles(e.dataTransfer);
 });
 
 /* ============================================================
@@ -1265,8 +1502,11 @@ async function loadFile(file) {
   try {
     const buf    = await file.arrayBuffer();
     const blocks = await parseDocx(buf);
+    // 스캔 증거용 실측치. scanAll 안이 아니라 여기서 재는 이유는 감지기 쪽
+    // 코드를 건드리지 않기 위해서다 — 값은 스캐너에 넘어가는 그 배열 그대로다.
+    scannedBlocks = blocks.length;
     const result = scanAll(blocks);
-    showReview(file.name, result.equations, result.ambiguous);
+    showReview(file.name, result.equations, result.ambiguous, result.undelimited);
   } catch (err) {
     console.error(err);
     setStatus('Analysis failed: ' + err.message, 'error');
@@ -1288,6 +1528,12 @@ async function parseDocx(buf) {
   origDocXml  = await entry.async('string');
   const relsEntry = zip.file(RELS_PATH);
   origRelsXml = relsEntry ? await relsEntry.async('string') : '';
+
+  // Word/HWP 수식 개체(OOXML math, `<m:oMath>`) 카운트 — 텍스트가 아니라서
+  // 어떤 구분자로도 닿지 않는다. origDocXml 이 이미 문자열로 메모리에 올라와
+  // 있으니 정규식 한 줄이면 끝나는 값이고, 그래서 0 검출 안내에서 추측이 아니라
+  // 사실로 단정할 수 있다. `<m:oMathPara>` 는 컨테이너라 뒤 문자 클래스로 제외.
+  ommlCount = (origDocXml.match(/<(?:[A-Za-z0-9]+:)?oMath[\s>\/]/g) || []).length;
 
   const xml  = new DOMParser().parseFromString(origDocXml, 'application/xml');
   const body = xml.getElementsByTagName('w:body')[0];
@@ -1349,7 +1595,10 @@ function scanAll(blocks) {
       _scanBracketEquations(b.text, b.paraIndex, b.cellPath, equations);
     }
   });
-  return { equations, ambiguous };
+  // R44 Part B 격리 — 구분자 없는 수식 후보(감지기 아님, 편집 제안 전용).
+  // 이 두 줄을 지우고 return 을 되돌리면 즉시 원래 동작으로 복귀.
+  const undelimited = _findUndelimitedCandidates(blocks, equations, ambiguous);
+  return { equations, ambiguous, undelimited };
 }
 
 function keyOf(paraIndex, cellPath) {
@@ -1578,13 +1827,73 @@ function _scanStdLatexEquations(text, paraIndex, cellPath, equations) {
   }
 }
 
+/**
+ * 구분자 없는 "수식처럼 보이는" 단락 후보 수집 — 격리 entry (R44 Part B).
+ *
+ * **이건 감지기가 아니다.** equations 에 아무것도 넣지 않고, 자동 변환도 하지
+ * 않는다. 산출물은 "이 단락을 편집하시겠습니까?" 라는 제안 하나뿐이고, 구분자는
+ * 여전히 사용자가 직접 넣는다. 맨 LaTeX 을 감지 범위로 넓히는 안은 이전 라운드에서
+ * 기각됐고, 그 결정은 그대로다.
+ *
+ * 고치는 비대칭: `_scanTextForEquations` 는 단락에 `$` 가 **홀수** 개일 때만
+ * ambiguous 에 넣는다 (`singlePos.length === 0` 이면 :1387 에서 즉시 return).
+ * 그래서 오늘은 `$` 를 하나 찍은 사용자는 편집 UI + 라이브 프리뷰를 받고,
+ * 하나도 안 찍은 사용자는 문장 한 줄과 막다른 길을 받는다. 도움이 사용자가
+ * 이미 알고 있던 LaTeX 양에 비례한다 — 그게 버그다.
+ *
+ * 시그니처: `BRACKET_LATEX_SIG` (/[\^_=]/) 를 **단락 전체**에 적용한다.
+ * 같은 정규식이 bracket 짝 안쪽에 쓰이던 걸 그대로 재사용한다.
+ *
+ * 실측 (samples/ 15 종 + TDA + SAT, 총 1,791 단락):
+ *   구분자 없는 단락 218 → 시그니처 적중 4 (1.8%) → 그 4 개 전부 진짜 수식 (오탐 0).
+ *   오탐은 LaTeX 을 **소재로 다루는** 문서와 코드/JSON 이 든 문서에서만 나오고
+ *   (573 단락 중 7, 1.2%), 둘 다 수학 문서가 아니다.
+ *
+ * 알려진 사각지대 (수용): 연산자 없는 맨 숫자·좌표쌍(`(3:5)`, `(2,3)`) 은
+ * `= ^ _ \` 을 하나도 안 갖고 있어 안 잡힌다 (실제 수식 단락의 약 5%).
+ * 못 잡으면 제안을 안 할 뿐이라 사용자는 오늘보다 나빠지지 않는다.
+ * **이걸 고치려고 시그니처를 넓히지 말 것 — 그건 감지기 변경이다.**
+ *
+ * 되돌리기: scanAll 의 호출 2줄을 지우면 즉시 원래 동작으로 복귀.
+ */
+function _findUndelimitedCandidates(blocks, equations, ambiguous) {
+  // 세 스캐너가 뭐라도 찾았거나 이미 모호성으로 잡힌 단락은 제외 — 후보는
+  // "아무것도 안 걸린 단락" 만이다.
+  const touched = new Set();
+  equations.forEach(eq => touched.add(keyOf(eq.paraIndex, eq.cellPath)));
+  ambiguous.forEach(a  => touched.add(keyOf(a.paraIndex, a.cellPath)));
+
+  const out = [];
+  blocks.forEach(b => {
+    if (touched.has(keyOf(b.paraIndex, b.cellPath))) return;
+    const text = b.text;
+    if (!text || text.trim().length === 0) return;
+    if (!BRACKET_LATEX_SIG.test(text)) return;
+    out.push({
+      id:        'und-' + (out.length + 1),
+      kind:      'undelimited',   // buildAmbigCard / saveAmbigEdit 의 분기 키
+      paraIndex: b.paraIndex,
+      cellPath:  b.cellPath || null,
+      text:      text,
+      options:   [],              // 모호성 항목과 달리 제시할 해석이 없다
+    });
+  });
+  return out;
+}
+
 /* ============================================================
  * 3. 리뷰 UI
  * ========================================================== */
-function showReview(fileName, equations, ambiguous) {
+function showReview(fileName, equations, ambiguous, undelimited) {
   docxFileName = fileName;
   scanState  = equations.map(eq => makeScanEntry(eq));
-  ambigState = ambiguous.slice();
+  // 모호성 항목과 구분자 없는 후보를 한 리스트로 합친다 — 둘 다 "단락 텍스트를
+  // 고쳐서 다시 스캔한다" 는 같은 흐름을 타므로 buildAmbigCard/saveAmbigEdit 를
+  // 그대로 재사용한다. 구별은 항목의 kind 필드가 한다.
+  ambigState = ambiguous.slice().concat(undelimited || []);
+  // 볼륨 제어: 0 검출 = 이 목록이 사용자의 유일한 출구라 몇 장 펼친 채로 시작하고,
+  // 수식이 이미 검출된 문서 = 오늘 화면을 침범하지 않게 요약 한 줄만 두고 접어 둔다.
+  undelimShown = equations.length === 0 ? UNDELIM_INITIAL : 0;
   document.getElementById('upload-stage').hidden = true;
   document.getElementById('review-stage').hidden = false;
   document.getElementById('doc-name').textContent = fileName;
@@ -1597,24 +1906,271 @@ function renderAll() {
   const ambigList = document.getElementById('ambig-list');
   const eqList    = document.getElementById('eq-list');
 
-  ambigWrap.hidden = ambigState.length === 0;
-  ambigList.innerHTML = '';
-  ambigState.forEach(amb => ambigList.appendChild(buildAmbigCard(amb)));
+  // 모호성(홀수 $)과 구분자 없는 후보는 성격이 달라 따로 그린다. 후보는 볼륨
+  // 제어를 거치는 그룹으로 묶고, 모호성 카드는 오늘과 동일하게 전부 그린다.
+  const ambigItems   = ambigState.filter(a => a.kind !== 'undelimited');
+  const undelimItems = ambigState.filter(a => a.kind === 'undelimited');
 
+  ambigWrap.hidden = ambigState.length === 0;
+  document.getElementById('ambig-label').textContent =
+    ambigSectionLabel(ambigItems.length, undelimItems.length);
+  ambigList.innerHTML = '';
+  ambigItems.forEach(amb => ambigList.appendChild(buildAmbigCard(amb)));
+  if (undelimItems.length > 0) ambigList.appendChild(buildUndelimGroup(undelimItems));
+
+  // 0 검출 화면에서는 "Detected Equations" 라벨이 안내 블록과 중복이라 숨긴다.
+  document.getElementById('eq-label').hidden = scanState.length === 0;
   eqList.innerHTML = '';
   if (scanState.length === 0) {
-    eqList.innerHTML = '<div class="card"><p class="empty">No equations detected. Math must be wrapped in $…$, $$…$$, \\(…\\), \\[…\\], or [ … ].</p></div>';
+    eqList.innerHTML = buildZeroDetectGuide();
+    const zgRestart = eqList.querySelector('.zg-restart');
+    // "Try another file" = 드롭존을 누른 것과 같아야 한다 — 초기화만 하고
+    // 끝나면 사용자는 페이지 y=782 의 드롭존을 다시 찾아야 하고, 그 자리는
+    // 첫 화면 밖일 수 있다.
+    // 순서가 중요하다: btn-reset 핸들러가 fileInput.value 를 비운다. 그걸
+    // 먼저 돌려야 **같은 파일**을 다시 골랐을 때도 change 가 발생한다
+    // (안 비우면 값이 같아 이벤트가 안 나고 아무 일도 안 일어난다).
+    // 그리고 같은 동기 핸들러 안에서 이어 호출해야 user activation 이 살아
+    // 있어 파일 대화상자가 실제로 열린다.
+    if (zgRestart) zgRestart.addEventListener('click', () => {
+      document.getElementById('btn-reset').click();
+      fileInput.click();
+    });
   } else {
     scanState.forEach((entry, i) => eqList.appendChild(buildEqCard(entry, i)));
   }
   updateToolbar();
 }
 
+/** ambig-wrap 섹션 라벨 — 안에 뭐가 들었는지에 맞춘다. 모호성 항목이 하나도
+ *  없는데 "Ambiguity" 라고 적으면 거짓말이 된다. */
+function ambigSectionLabel(ambigCount, undelimCount) {
+  if (undelimCount === 0) return '⚠ Ambiguity — Choose an interpretation or skip';
+  if (ambigCount === 0)   return 'Paragraphs that look like math — no delimiter found';
+  return '⚠ Ambiguity · paragraphs that look like math — edit the text or skip';
+}
+
+/**
+ * 구분자 없는 후보 그룹 — 총계 한 줄 + 카드 몇 장 + "Show N more" (R44 Part B).
+ *
+ * 볼륨이 이 기능의 진짜 설계 문제다. 문서가 통째로 맨 텍스트면(= 우리가 고치려는
+ * 실패 케이스) 후보는 수식 단락 대부분에서 터진다 — SAT 문서 실측으로 31 단락 중
+ * 20 개. 20 개 다 맞는 후보지만, 카드 20 장을 1194x643 아이패드에 쏟으면 막다른
+ * 길을 모양만 바꿔 재현하는 것이다. 그래서:
+ *   ① 총계를 한 줄로 먼저 말하고  ② 처음엔 몇 장만 펼치고
+ *   ③ 한 장 고쳐 보면 패턴을 배우니, Word 에서 나머지를 고쳐 다시 올리는 편이
+ *      빠를 수 있다고 명시한다 (여기서 20 번 편집하게 두지 않는다).
+ */
+function buildUndelimGroup(items) {
+  const wrap  = document.createElement('div');
+  const n     = items.length;
+  const shown = Math.min(undelimShown, n);
+  const rest  = n - shown;
+
+  // 접힌 상태 = 이미 수식이 검출된 문서다. 그 화면은 오늘 잘 돌아가고 있으므로
+  // 총계 한 줄만 얹고 설명은 사용자가 펼쳤을 때 준다 (침범 최소화).
+  const lead = document.createElement('div');
+  lead.className = 'undelim-lead';
+  lead.innerHTML =
+    `<div class="undelim-count"><span class="undelim-n">${n}</span> ` +
+    `paragraph${n === 1 ? '' : 's'} look like math but have no delimiter.</div>` +
+    (shown === 0 ? '' :
+      `<div class="undelim-hint">Nothing in them was detected. Open one, wrap the math in ` +
+      `<code>$…$</code> or <code>$$…$$</code>, then Save — the live preview shows what gets ` +
+      `detected as you type. Once you have seen the pattern, fixing the rest in your word ` +
+      `processor and uploading the file again is often faster than editing each one here.</div>`);
+  wrap.appendChild(lead);
+
+  // 안내 블록은 첫 장에만 붙인다. 같은 문구를 카드마다 반복하면 1194x643 에서
+  // 한 장에 한 카드밖에 안 들어가고, 읽을 게 늘어난 만큼 벽이 두꺼워질 뿐이다.
+  const cards = document.createElement('div');
+  items.slice(0, shown).forEach((item, i) =>
+    cards.appendChild(buildAmbigCard(item, { compact: i > 0 })));
+  wrap.appendChild(cards);
+
+  const ctl = document.createElement('div');
+  ctl.className = 'undelim-more';
+  const warn = document.createElement('span');
+  warn.className = 'undelim-warn';
+  const buttons = [];
+
+  // 펼치기 = 한 번에 전부. 5장씩 끊어 여는 단계는 없앴다 (여러 번 누르게 만드는
+  // 쪽이 더 답답하다는 사용자 피드백). 라벨은 실제 남은 수를 말한다 — 눌렀을 때
+  // 몇 장이 열릴지 버튼이 미리 알려주지 않으면 누르기가 망설여진다.
+  if (rest > 0) {
+    const more = document.createElement('button');
+    more.className = 'btn-ghost';
+    more.type = 'button';
+    more.textContent = shown === 0
+      ? (n === 1 ? 'Show it' : `Show all ${n}`)
+      : (rest === 1 ? 'Show the last one' : `Show the other ${rest}`);
+    more.addEventListener('click', () => { undelimShown = n; renderAll(); });
+    buttons.push(more);
+  }
+  // 뭐라도 펼쳐져 있으면 항상 닫을 수 있어야 한다. 처음 3장만 보고 있는
+  // 사용자도 닫을 수 있어야 하므로 조건은 shown > 0 하나면 충분하다.
+  if (shown > 0) {
+    const less = document.createElement('button');
+    less.className = 'btn-ghost';
+    less.type = 'button';
+    less.textContent = 'Close all';   // 3장으로 되돌리는 게 아니라 전부 닫는다
+    less.addEventListener('click', () => { undelimShown = 0; renderAll(); });
+    buttons.push(less);
+  }
+  buttons.forEach(b => ctl.appendChild(b));
+  if (buttons.length > 0) { ctl.appendChild(warn); wrap.appendChild(ctl); }
+
+  /**
+   * 미저장 타이핑 상태를 컨트롤에 반영한다.
+   *
+   * 두 버튼 다 renderAll() 로 카드를 통째로 다시 그리는데, 타이핑 중인 텍스트는
+   * saveAmbigEdit 안에서만 amb.editedText 로 넘어간다. 즉 다시 그리는 순간 저장
+   * 안 된 입력이 소리 없이 사라진다.
+   *
+   * c08043b 은 이걸 "클릭을 삼키는" 방식으로 막았는데, 그건 사용자에게 고장으로
+   * 읽혔다 (버튼은 멀쩡해 보이는데 눌러도 아무 일이 없다는 보고). 그래서 이제는
+   * 진짜 disabled 로 만들고, 이유를 **클릭 전에** 옆에 띄운다. 눌러 봐야 알 수
+   * 있는 상태를 만들지 않는다.
+   *
+   * confirm() 을 안 쓰는 이유는 그대로다: 모달은 모바일 사파리 흐름을 끊고,
+   * 여기서 필요한 건 "무엇을 먼저 하면 되는지" 한 줄뿐이다.
+   */
+  const syncGuard = () => {
+    const blocked = !!findUnsavedUndelimEdit(wrap);
+    buttons.forEach(b => { b.disabled = blocked; });
+    warn.textContent = blocked
+      ? 'A card has unsaved text — Save or Cancel it first so your typing is not lost.'
+      : '';
+  };
+  syncGuard();
+
+  // 타이핑은 input 이벤트가 버블링되므로 그룹 루트에서 위임으로 받는다
+  // (buildAmbigCard 를 건드리지 않고 첫 글자에 바로 반응한다).
+  // 클릭(Save / Cancel / Edit text)은 카드 쪽 핸들러가 끝난 뒤에야 상태가
+  // 바뀌므로 버블 단계에서 한 틱 미뤄 다시 계산한다. Save 가 renderAll 을
+  // 부른 경우엔 이 wrap 이 이미 떨어져 나간 뒤라 계산이 무해하게 흘러간다.
+  wrap.addEventListener('input', syncGuard);
+  wrap.addEventListener('click', () => setTimeout(syncGuard, 0));
+
+  return wrap;
+}
+
+/**
+ * 열려 있는 후보 편집창 중 저장 안 된 타이핑이 있는 첫 textarea 를 돌려준다.
+ * 없으면 null. root 를 주면 그 안만 본다 (다시 그려져 떨어져 나간 그룹이 살아
+ * 있는 DOM 을 잘못 읽지 않게).
+ *
+ * 기준선은 카드의 `.ambig-text` — openEdit 이 textarea 에 넣는 값과 같은 값이고
+ * (`amb.editedText ?? amb.text`), 저장이 카드를 유지하는 갈래에서도 함께 갱신된다.
+ * 따라서 textarea 값이 기준선과 다르면 아직 저장 안 된 입력이 있다는 뜻이다.
+ */
+function findUnsavedUndelimEdit(root) {
+  const boxes = (root || document).querySelectorAll('.card.ambig.undelim .ambig-edit');
+  for (const box of boxes) {
+    if (box.hidden) continue;
+    const ta = box.querySelector('.edit-textarea');
+    if (!ta) continue;
+    const card = box.closest ? box.closest('.card') : null;
+    const view = card ? card.querySelector('.ambig-text') : null;
+    if (ta.value !== (view ? view.textContent : '')) return ta;
+  }
+  return null;
+}
+
+/**
+ * 0 검출 화면 — 한 문장 대신 중앙 정렬 복구 안내 (R44 Part A).
+ *
+ * 왜 이 함수가 있나: 검출 0 은 "결과가 없다" 가 아니라 "사용자가 막혔다" 다.
+ * Clarity 2026-08-19 08:04 KST 세션에서 iPad(1194x643) 사용자가 Drive 임포트에
+ * 성공하고도 이 화면에서 안내 문장을 두 번 탭(dead click)한 뒤 이탈했다. 버튼이
+ * 아닌데 화면에서 유일하게 뭔가 할 것처럼 보였고, 살아 있는 컨트롤은 "Start Over"
+ * 하나뿐이었기 때문이다. 그래서 이 블록은 네 가지를 준다:
+ *   ① 고칠 수 있는 문제라는 선언    ② 구분자 없음/있음의 before-after 예시
+ *   ③ 우리가 읽는 구분자 5종 예시   ④ 구분자로는 못 고치는 경우(수식 개체) 안내
+ *
+ * 되돌리기: 이 함수와 renderAll 의 호출 3줄을 지우면 원래 한 문장으로 복귀.
+ *
+ * ④ 문구는 FAQ("Some of my equations weren't detected.") 의 표현을 그대로
+ * 재사용한다 — 같은 사실을 두 자리에서 다르게 말하지 않기 위해서다.
+ *
+ * Safari on-device 자동 번역 대비(세션 사용자가 켜둔 상태였다): 의미를 영어 단어
+ * 하나에 싣지 않고 예시로 보여주며, 구분자 리터럴은 전부 <code> 안에 둔다.
+ */
+function buildZeroDetectGuide() {
+  // Word 수식 개체가 실제로 들어 있으면 추측이 아니라 사실로 말한다.
+  const ommlNote = ommlCount > 0
+    ? `<strong>This document contains ${ommlCount} Word equation object${ommlCount === 1 ? '' : 's'}.</strong>
+       Those are not text, so no delimiter can reach them. To convert them, the math has to be
+       retyped — or pasted back in — as LaTeX text.`
+    : `<strong>If the math was inserted with an equation editor, delimiters will not help.</strong>
+       Native Word/Docs equation <em>objects</em> aren't read; the tool works on LaTeX written as text.
+       That math has to be retyped — or pasted back in — as LaTeX text.`;
+
+  // Part B 가 후보를 찾았으면 그 목록으로 보낸다 — 안내만 읽고 끝내지 않도록.
+  const undelimCount = ambigState.filter(a => a.kind === 'undelimited').length;
+  const pointer = undelimCount > 0
+    ? `<p class="zg-pointer">${undelimCount} paragraph${undelimCount === 1 ? '' : 's'} in this file
+       look like math with no delimiter. They are listed just above — open one, wrap the math,
+       and the preview will show it detected.</p>`
+    : '';
+
+  // 스캔 증거 (사용자 결정: 인위적 지연 없이 "읽었다" 를 결과로 보여준다).
+  // 작은 .docx 는 파싱이 즉시 끝나 'Analyzing document…' 가 깜빡이고 사라지므로,
+  // 화면에 남는 건 "no equations" 뿐이라 앱이 문서를 안 읽은 것처럼 읽혔다.
+  // 그래서 실제로 훑은 단락 수와 그 결과를 남는 자리에 적는다. setTimeout 류의
+  // 지연은 넣지 않는다 — 빠른 건 문제가 아니었고, 증거가 없는 게 문제였다.
+  const scanLine = `Scanned ${scannedBlocks} paragraph${scannedBlocks === 1 ? '' : 's'} · ` +
+                   `${scanState.length} equation${scanState.length === 1 ? '' : 's'} found`;
+
+  return `
+    <div class="zero-guide">
+      <p class="zg-scan">${scanLine}</p>
+      <h2 class="zg-title">No equations detected — this is usually fixable</h2>
+      <p class="zg-lead">The file opened correctly. Nothing inside it was wrapped in a math
+        delimiter, so there was nothing to convert. Wrapping the math fixes it.</p>
+      ${pointer}
+
+      <div class="before-after zg-ba" aria-label="The same line without and with delimiters">
+        <div class="panel">
+          <div class="panel-label">Before</div>
+          <div class="panel-raw">The area is \\frac{1}{2}bh, so x^2 + y^2 = r^2.</div>
+          <div class="zg-cap">No delimiters — kept as ordinary text, nothing detected.</div>
+        </div>
+        <div class="ba-arrow" aria-hidden="true"><i class="ti ti-arrow-right"></i></div>
+        <div class="panel">
+          <div class="panel-label">After</div>
+          <div class="panel-raw">The area is <span class="zg-add">$</span>\\frac{1}{2}bh<span class="zg-add">$</span>, so <span class="zg-add">$$</span>x^2 + y^2 = r^2<span class="zg-add">$$</span>.</div>
+          <div class="zg-cap">Wrapped in <code>$…$</code> and <code>$$…$$</code> — both detected.</div>
+        </div>
+      </div>
+
+      <div class="zg-delims-label">Any one of these delimiters works:</div>
+      <div class="zg-delims">
+        <code>$x^2$</code>
+        <code>$$E = mc^2$$</code>
+        <code>\\(a_i\\)</code>
+        <code>\\[\\int_a^b f\\,dx\\]</code>
+        <code>[\\frac{1}{2}]</code>
+      </div>
+
+      <div class="zg-note">${ommlNote}</div>
+
+      <div class="zg-actions">
+        <button class="btn-primary zg-restart" type="button">Try another file</button>
+      </div>
+    </div>`;
+}
+
 function updateToolbar() {
   const kept    = scanState.filter(e => e.status !== 'skipped').length;
   const skipped = scanState.length - kept;
-  document.getElementById('counts').textContent =
-    `Selected ${kept} · Skipped ${skipped} · Unresolved ambiguity ${ambigState.length}`;
+  // "Unresolved ambiguity" 는 홀수 $ 항목만 센다. 구분자 없는 후보는 모호성이
+  // 아니라 제안이라 별도 항목으로 적는다 — 한 숫자에 뭉치면 카운트가 거짓말한다.
+  const ambigCount   = ambigState.filter(a => a.kind !== 'undelimited').length;
+  const undelimCount = ambigState.length - ambigCount;
+  let line = `Selected ${kept} · Skipped ${skipped} · Unresolved ambiguity ${ambigCount}`;
+  if (undelimCount > 0) line += ` · Undelimited candidates ${undelimCount}`;
+  document.getElementById('counts').textContent = line;
   document.getElementById('btn-generate').disabled = kept === 0;
 }
 
@@ -1744,35 +2300,61 @@ function saveLatexEdit(entryIndex, newLatex, editNote) {
   renderAll();
 }
 
-function buildAmbigCard(amb) {
+/** 모호성 카드 / 구분자 없는 후보 카드의 문구 표 (R44 Part B).
+ *  같은 편집 UI 를 쓰지만 사용자가 처한 상황이 달라 문장이 달라야 한다.
+ *  "Odd number of $" 는 `$` 가 0 개인 단락에는 명백히 틀린 말이다. */
+const AMBIG_COPY = {
+  ambig: {
+    skip:  'Skip',
+    warn:  '⚠ Odd number of $ — equation boundaries are ambiguous',
+    title: '⚠ Likely a missed closing <code>$</code>',
+    body:  "This paragraph has an odd number of <code>$</code> — the app can't tell where each equation begins and ends. " +
+           "Fix it by editing the text (add or remove a <code>$</code>), and use the live preview to confirm what's detected.",
+    editWarn: 'Fix the LaTeX or add the missing <code>$</code> delimiter, then Save.',
+  },
+  undelimited: {
+    skip:  'Not math',
+    warn:  'Looks like math — no delimiter found',
+    title: 'Math with no delimiter stays plain text',
+    body:  'This paragraph carries math signs (<code>=</code>, <code>^</code>, <code>_</code>, <code>\\</code>) ' +
+           'but no delimiter, so nothing in it was detected. Wrap the math in <code>$…$</code> for inline or ' +
+           '<code>$$…$$</code> for display — the live preview shows what gets detected as you type.',
+    editWarn: 'Wrap the math in <code>$…$</code> or <code>$$…$$</code>, then Save.',
+  },
+};
+
+function buildAmbigCard(amb, opts) {
   const card = document.createElement('div');
-  card.className = 'card ambig';
+  const isUndelim = amb.kind === 'undelimited';
+  // compact = 안내 블록(.ambig-guide) 생략. 후보 목록 2장째부터 쓴다.
+  const compact = !!(opts && opts.compact);
+  const copy = isUndelim ? AMBIG_COPY.undelimited : AMBIG_COPY.ambig;
+  card.className = 'card ambig' + (isUndelim ? ' undelim' : '');
   const editedBadge = amb.editedText != null ? ' <span class="edited-badge">Edited</span>' : '';
   const initialText = amb.editedText != null ? amb.editedText : amb.text;
 
   card.innerHTML = `
     <div class="card-head">
-      <span class="ambig-warn">⚠ Odd number of $ — equation boundaries are ambiguous${editedBadge}</span>
+      <span class="ambig-warn">${copy.warn}${editedBadge}</span>
       <span class="spacer"></span>
       <button class="btn-primary btn-edit-amb">Edit text</button>
-      <button class="btn-ghost btn-skip-amb">Skip</button>
+      <button class="btn-ghost btn-skip-amb">${copy.skip}</button>
     </div>
     <div class="card-body">
       <div class="ambig-view">
         <div class="ambig-text">${escHtml(initialText)}</div>
-        <div class="ambig-guide">
-          <div class="ambig-guide-title">⚠ Likely a missed closing <code>$</code></div>
+        ${compact ? '' : `<div class="ambig-guide">
+          <div class="ambig-guide-title">${copy.title}</div>
           <div class="ambig-guide-body">
-            This paragraph has an odd number of <code>$</code> — the app can't tell where each equation begins and ends.
-            Fix it by editing the text (add or remove a <code>$</code>), and use the live preview to confirm what's detected.
+            ${copy.body}
           </div>
           <button class="btn-primary btn-open-edit">Edit text →</button>
-        </div>
+        </div>`}
       </div>
       <div class="ambig-edit" hidden>
         <div class="edit-warn">
           ⚠ Editing will remove any formatting (bold, italic, colors) from this entire paragraph.
-          Fix the LaTeX or add the missing <code>$</code> delimiter, then Save.
+          ${copy.editWarn}
         </div>
         <textarea class="edit-textarea" rows="3" spellcheck="false"></textarea>
         <div class="edit-live" aria-live="polite"></div>
@@ -1846,7 +2428,8 @@ function buildAmbigCard(amb) {
     textarea.focus();
   };
   card.querySelector('.btn-edit-amb').addEventListener('click', openEdit);
-  card.querySelector('.btn-open-edit').addEventListener('click', openEdit);
+  const openEditBtn = card.querySelector('.btn-open-edit');   // compact 카드엔 없다
+  if (openEditBtn) openEditBtn.addEventListener('click', openEdit);
   card.querySelector('.btn-cancel-edit').addEventListener('click', () => {
     editBox.hidden = true;
     viewBox.hidden = false;
@@ -1905,8 +2488,11 @@ function saveAmbigEdit(ambId, editedText, editNote) {
   paraEdits.set(paraKey, trimmed);
 
   if (ambiguous.length > 0) {
-    // 여전히 모호 — 새 옵션으로 카드 갱신
+    // 여전히 모호 — 새 옵션으로 카드 갱신.
+    // undelimited 후보였더라도 이제는 진짜 홀수 $ 이므로 kind 를 승격한다.
+    // 안 그러면 "no delimiter found" 라는 틀린 문구가 계속 붙는다.
     const newAmb = ambiguous[0];
+    amb.kind = 'ambig';
     amb.text = trimmed;
     amb.editedText = trimmed;
     amb.options = newAmb.options;
@@ -1922,7 +2508,21 @@ function saveAmbigEdit(ambId, editedText, editNote) {
     return;
   }
 
-  // 수식 0개 = 편집이 수식을 다 없앰. 카드 제거. paraEdits 는 유지 (텍스트 대체 자리).
+  // 수식 0개.
+  if (amb.kind === 'undelimited') {
+    // 구분자 없는 후보는 여기서 카드를 없애면 다시 막다른 길이 된다 — 애초에
+    // 수식이 0 개인 게 출발점이므로 "0 개니까 해결됨" 이 성립하지 않는다.
+    // 카드와 편집창을 유지하고 무엇이 부족한지 알린다. paraEdits 는 이미 저장됐다.
+    amb.text = trimmed;
+    amb.editedText = trimmed;
+    const cardEl = editNote.closest ? editNote.closest('.card') : null;
+    const viewEl = cardEl ? cardEl.querySelector('.ambig-text') : null;
+    if (viewEl) viewEl.textContent = trimmed;
+    editNote.classList.remove('error');
+    editNote.textContent = 'Saved — still no equations here. Wrap the math in $…$ or $$…$$.';
+    return;
+  }
+  // 모호성 카드 = 편집이 수식을 다 없앰. 카드 제거. paraEdits 는 유지 (텍스트 대체 자리).
   ambigState = ambigState.filter(a => a.id !== ambId);
   renderAll();
 }
@@ -2512,6 +3112,7 @@ function latexToPngBase64(latex, isDisplay) {
 
 document.getElementById('btn-reset').addEventListener('click', () => {
   scanState = []; ambigState = []; blockText = {}; paraEdits = new Map();
+  ommlCount = 0; undelimShown = 0; scannedBlocks = 0;
   docxZip = null; origDocXml = ''; origRelsXml = ''; docxFileName = '';
   fileInput.value = '';
   document.getElementById('review-stage').hidden = true;
