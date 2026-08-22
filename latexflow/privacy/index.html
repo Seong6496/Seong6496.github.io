@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Policy · LaTeXFlow</title>
+  <meta name="description" content="How LaTeXFlow (Google Docs™ Add-on and Web app) handles your data." />
+
+  <!-- Math System favicons — shared with Chirpy blog at /assets/img/favicons/ -->
+  <link rel="icon" href="/assets/img/favicons/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/img/favicons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/img/favicons/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/assets/img/favicons/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/assets/img/favicons/apple-touch-icon-180.png">
+
+  <!-- Tabler Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.4.0/dist/tabler-icons.min.css" />
+
+  <!-- fonts — web-prototype 와 동일 톤 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --paper:      #FBFAF6;
+      --white:      #FFFFFF;
+      --ink-900:    #191919;
+      --ink-600:    #5C5A53;
+      --ink-500:    #75726A;
+      --ink-400:    #9B9890;
+      --accent-700: #1F4FA3;
+      --accent-800: #173E82;
+      --hairline:   rgba(0, 0, 0, 0.12);
+
+      --bg:           var(--paper);
+      --bg-card:      var(--white);
+      --text:         var(--ink-900);
+      --text-muted:   var(--ink-500);
+      --text-hint:    var(--ink-400);
+      --accent:       var(--accent-700);
+      --accent-hover: var(--accent-800);
+      --accent-bg:    rgba(31, 79, 163, 0.08);
+      --border:       var(--hairline);
+
+      --font-display: 'STIX Two Text', 'Noto Serif KR', 'Times New Roman', serif;
+      --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo', 'Pretendard', 'Noto Sans KR', sans-serif;
+      --font-mono:    'JetBrains Mono', 'D2Coding', ui-monospace, 'SF Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* header — web-prototype hero 와 동일 톤 */
+    .doc-header {
+      background: var(--bg-card);
+      padding: 14px 20px;
+      border-bottom: 0.5px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .doc-header .brand { display: flex; align-items: center; gap: 8px; }
+    .doc-header .brand-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      background: var(--accent-bg);
+      color: var(--accent);
+      font-size: 16px;
+    }
+    .doc-header .brand a {
+      text-decoration: none;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      color: inherit;
+    }
+    .doc-header .brand-name {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 17px;
+      color: var(--text);
+    }
+    .doc-header .brand-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .doc-header .brand-link {
+      font-size: 13px;
+      color: var(--text-hint);
+      text-decoration: none;
+    }
+    .doc-header .brand-link:hover { color: var(--text); }
+    .doc-header .brand-link i { font-size: 12px; margin-left: 2px; }
+
+    /* nav — back / privacy / terms / support */
+    .doc-nav {
+      max-width: 780px;
+      margin: 28px auto 0;
+      padding: 0 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .doc-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 2px;
+      transition: color .12s, border-color .12s;
+    }
+    .doc-nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .doc-nav a.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
+    .doc-nav .back i { font-size: 12px; margin-right: 3px; }
+
+    /* main content */
+    main.doc-main {
+      max-width: 780px;
+      margin: 32px auto 64px;
+      padding: 0 20px;
+    }
+    .doc-main h1 {
+      font-family: var(--font-display);
+      font-size: 34px;
+      font-weight: 500;
+      letter-spacing: -0.4px;
+      margin: 0 0 12px;
+    }
+    .doc-main h2 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 500;
+      margin: 44px 0 12px;
+      padding-top: 16px;
+      border-top: 0.5px solid var(--border);
+    }
+    .doc-main h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin: 24px 0 8px;
+    }
+    .doc-main p,
+    .doc-main li {
+      margin-bottom: 12px;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    .doc-main ul,
+    .doc-main ol {
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+    .doc-main code {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      background: var(--bg-card);
+      padding: 1px 5px;
+      border-radius: 3px;
+      border: 0.5px solid var(--border);
+    }
+    .doc-main pre {
+      background: var(--bg-card);
+      border: 0.5px solid var(--border);
+      border-radius: 6px;
+      padding: 14px;
+      overflow-x: auto;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+    .doc-main pre code { background: none; border: none; padding: 0; }
+    .doc-main a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+    .doc-main a:hover { color: var(--accent-hover); }
+    .doc-main strong { font-weight: 600; }
+    .doc-main em { font-style: italic; color: var(--text-muted); }
+    .doc-main blockquote {
+      border-left: 3px solid var(--accent-bg);
+      padding: 10px 16px;
+      margin: 18px 0;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      border-radius: 0 4px 4px 0;
+    }
+    .doc-main blockquote p:last-child { margin-bottom: 0; }
+    .doc-main hr {
+      border: none;
+      border-top: 0.5px solid var(--border);
+      margin: 32px 0;
+    }
+    .doc-main table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 15px;
+    }
+    .doc-main th,
+    .doc-main td {
+      border: 0.5px solid var(--border);
+      padding: 8px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .doc-main th {
+      background: var(--bg-card);
+      font-weight: 600;
+    }
+
+    /* footer */
+    .doc-footer {
+      border-top: 0.5px solid var(--border);
+      padding: 24px 20px 32px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-hint);
+    }
+    .doc-footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin: 0 6px;
+    }
+    .doc-footer a:hover { color: var(--accent); }
+    .doc-footer .copy {
+      margin-top: 10px;
+      font-size: 12px;
+    }
+    .doc-footer .copy a { color: var(--text-muted); }
+  </style>
+  <!--
+  The GA snippet
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script defer src="https://www.googletagmanager.com/gtag/js?id=G-CF55QKHZBZ"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    gtag('js', new Date());
+    gtag('config', 'G-CF55QKHZBZ');
+  });
+</script>
+
+  <!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xm5dfbwul6");
+</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4209614973726055"
+     crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+<header class="doc-header">
+  <div class="brand">
+    <span class="brand-icon" aria-hidden="true"><i class="ti ti-math-function"></i></span>
+    <a href="/latexflow/web/">
+      <span class="brand-name">LaTeXFlow</span>
+      <span class="brand-sub">Scan</span>
+    </a>
+  </div>
+  <a class="brand-link" href="https://mathsystem.dev/" target="_blank" rel="noopener">MathSystem <i class="ti ti-external-link" aria-hidden="true"></i></a>
+</header>
+
+<nav class="doc-nav" aria-label="LaTeXFlow documentation">
+  <a class="back" href="/latexflow/web/"><i class="ti ti-arrow-left"></i>Back to tool</a>
+  <a href="/latexflow/privacy/" class="active">Privacy</a>
+  <a href="/latexflow/terms/" >Terms</a>
+  <a href="/latexflow/support/" >Support</a>
+</nav>
+
+<main class="doc-main">
+  <h1>Privacy Policy</h1>
+  <p><em>Last updated: 2026-08-14</em></p>
+
+<blockquote>
+  <p>📋 <strong>Site-wide privacy</strong> (cookies, advertising, third-party services on the blog and tool pages): <a href="/blog/privacy/">mathsystem.dev/blog/privacy/</a>. This page covers <strong>only the LaTeXFlow tool itself</strong> (Add-on permissions, Web app data processing).</p>
+</blockquote>
+
+<p>This Privacy Policy describes how <strong>LaTeXFlow</strong> — both the <strong>Google Docs™ Add-on</strong> (“the Add-on”) and the <strong>Web app at mathsystem.dev</strong> (“the Web app”) — collects, uses, and protects your information.</p>
+
+<p><strong>Every section and every claim below is labelled <code class="language-plaintext highlighter-rouge">[Add-on]</code>, <code class="language-plaintext highlighter-rouge">[Web app]</code>, or <code class="language-plaintext highlighter-rouge">[Both]</code>.</strong> The two products are documented on one page because they share one collection endpoint, one storage bucket, one region, and one service account; the labels tell you which product any given statement applies to.</p>
+
+<hr />
+
+<h2 id="addon-glance">The Add-on at a Glance <code class="language-plaintext highlighter-rouge">[Add-on]</code></h2>
+
+<p>Everything a Google Docs™ Add-on user — or a reviewer — needs, in one table. Each row links to the section that expands it.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>OAuth scopes</strong> — four, and no others</td>
+      <td><code class="language-plaintext highlighter-rouge">.../auth/documents.currentonly</code> — read and edit <strong>only the document the Add-on is currently open in</strong>; no access to your Drive or to any other file.<br /><code class="language-plaintext highlighter-rouge">.../auth/script.container.ui</code> — display the sidebar and the consent dialog inside Google Docs™.<br /><code class="language-plaintext highlighter-rouge">.../auth/script.external_request</code> — load the rendering libraries, and send opted-in training data to our collection endpoint.<br /><code class="language-plaintext highlighter-rouge">.../auth/userinfo.email</code> — derive the pseudonymous identifier below. The raw email is never transmitted.</td>
+    </tr>
+    <tr>
+      <td><strong>What is collected</strong></td>
+      <td>Only if you opt in, and only per equation you convert: that <strong>one equation’s LaTeX source</strong>, its <strong>rendered PNG</strong>, the <strong>delimiter type</strong>, a <strong>16-hex pseudonym</strong>, a <strong>server timestamp</strong>, and the <strong><code class="language-plaintext highlighter-rouge">source</code> label <code class="language-plaintext highlighter-rouge">"addon"</code></strong>. Nothing else. See §3a.</td>
+    </tr>
+    <tr>
+      <td><strong>What is never collected</strong></td>
+      <td>Your Google account email address · the document identifier · your document’s body, its other text, tables, images, file name, or metadata. See §4a.</td>
+    </tr>
+    <tr>
+      <td><strong>Consent model</strong></td>
+      <td><strong>Explicit opt-in.</strong> Nothing is collected unless you agree in the consent dialog. Collection is gated on a stored preference that <strong>defaults to unset — taking no action means nothing is collected.</strong> You may withdraw at any time (§5a).</td>
+    </tr>
+    <tr>
+      <td><strong>Does declining cost you anything?</strong></td>
+      <td><strong>No. Every feature works fully without consenting.</strong> Conversion, insertion, and reverting an image back to editable LaTeX all work identically — reverting reads the LaTeX from the image’s own alt text inside your document, never from collected data.</td>
+    </tr>
+    <tr>
+      <td><strong>Where it is stored</strong></td>
+      <td>Google Cloud Storage in the developer’s own project, <strong><code class="language-plaintext highlighter-rouge">asia-northeast3</code> (Seoul, Republic of Korea)</strong> only. No cross-border transfer. See §4.</td>
+    </tr>
+    <tr>
+      <td><strong>Who receives it</strong></td>
+      <td><strong>No third party.</strong> Not sold, not shared, not transferred, not disclosed — for any purpose, including advertising. Google Cloud is the only infrastructure processor. See §4a.</td>
+    </tr>
+    <tr>
+      <td><strong>How it is protected</strong></td>
+      <td>HTTPS/TLS in transit · Google-managed encryption at rest · write-only service account · public access prevention · pseudonymization · the collection endpoint never logs your LaTeX. See §4b.</td>
+    </tr>
+    <tr>
+      <td><strong>One thing to know about failures</strong></td>
+      <td>If a conversion fails, the Add-on writes a diagnostic line to its own Apps Script execution log, and that line <strong>can include the LaTeX that failed</strong>. Nothing is transmitted or stored by us. See §3b.</td>
+    </tr>
+    <tr>
+      <td><strong>Deleting your data</strong></td>
+      <td>Email <code class="language-plaintext highlighter-rouge">sung2417@gmail.com</code> from the Google account you used with the Add-on. See §6.</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="1-who-we-are-both">1. Who We Are <code class="language-plaintext highlighter-rouge">[Both]</code></h2>
+
+<p>LaTeXFlow is developed and maintained by an individual developer (contact: sung2417@gmail.com). The Add-on is published on the Google Workspace Marketplace; the Web app is hosted at <code class="language-plaintext highlighter-rouge">mathsystem.dev/latexflow/web/</code>. The same developer is the data controller for both products.</p>
+
+<hr />
+
+<h2 id="2-google-workspace-data-access-add-on">2. Google Workspace Data Access <code class="language-plaintext highlighter-rouge">[Add-on]</code></h2>
+
+<p>The Add-on accesses your Google Docs™ document solely to provide its core functionality:</p>
+
+<ul>
+  <li><strong>Document reading</strong>: The Add-on scans your document body to detect LaTeX expressions enclosed in <code class="language-plaintext highlighter-rouge">$...$</code> and <code class="language-plaintext highlighter-rouge">$$...$$</code> delimiters.</li>
+  <li><strong>Document writing</strong>: Detected expressions are replaced in-place with rendered equation images. The Add-on also reads inline image metadata to support reverting images back to editable LaTeX text.</li>
+  <li><strong>Sidebar and dialogs</strong>: The Add-on displays a sidebar panel for LaTeX input and live preview, and a modal dialog for managing data collection consent, within Google Docs™.</li>
+  <li><strong>External rendering libraries</strong>: The Add-on loads Temml and MathJax from jsDelivr CDN to render LaTeX expressions as images within the sidebar. No document content is included in these requests.</li>
+  <li><strong>User identification</strong>: The Add-on reads your Google account email address only to derive a pseudonymous identifier for optional training data. The email is hashed <strong>inside the Add-on</strong> — <code class="language-plaintext highlighter-rouge">SHA-256(email + salt)</code>, truncated to 16 hexadecimal characters — and <strong>your raw email address never leaves the script</strong>. It is not transmitted, not stored, and not shared. See §4b.</li>
+</ul>
+
+<p><strong>OAuth scopes requested by the Add-on</strong> — four, and no others. Each is listed with its justification in <a href="#addon-glance">The Add-on at a Glance</a> above; that table is the authoritative list.</p>
+
+<p>Your document is opened and edited within Google’s infrastructure (Apps Script). <strong>The body of your document is never transmitted to any external server</strong>, and the Add-on never stores or shares your document text. The single exception is the opted-in training data described in §3a: for each equation you convert, the LaTeX source <strong>of that one equation</strong> and its rendered image are transmitted to our collection endpoint (§4), and only if you have given consent (§5a). The surrounding document text, the document identifier, and your account email are never included.</p>
+
+<hr />
+
+<h2 id="2b-web-app-data-access-web-app">2b. Web App Data Access <code class="language-plaintext highlighter-rouge">[Web app]</code></h2>
+
+<p>The Web app runs <strong>entirely in your browser</strong>. The <code class="language-plaintext highlighter-rouge">.docx</code> file you upload is parsed and converted client-side using JSZip and MathJax loaded from jsDelivr CDN; the <strong>document body text is never transmitted to our servers</strong>.</p>
+
+<p>When you convert equations, the LaTeX source for each equation and its rendered PNG image are sent to our collection endpoint (a Google Cloud Function named <code class="language-plaintext highlighter-rouge">collect-web-pair</code>, running in our own Google Cloud project in the <code class="language-plaintext highlighter-rouge">asia-northeast3</code> / Seoul region) for inclusion in a training dataset. The non-equation contents of your document — paragraphs, tables, images, file name, author metadata — are never transmitted. See §3a for the exact fields collected.</p>
+
+<p>External rendering: MathJax is loaded from jsDelivr CDN. The <code class="language-plaintext highlighter-rouge">.docx</code> content itself is processed locally in your browser.</p>
+
+<hr />
+
+<h2 id="drive-import">2c. Web App — Google Drive Import (Optional) <code class="language-plaintext highlighter-rouge">[Web app]</code></h2>
+
+<p>The Web app provides an optional <strong>“Import from Google Drive”</strong> button alongside the standard drag-and-drop input. This path is for users (notably on iPad) whose Google Drive app only exports <code class="language-plaintext highlighter-rouge">.gdoc</code> as PDF. The button is dormant until you click it — if you only use drag-and-drop, <strong>no Google Drive access ever occurs</strong> and this section does not apply.</p>
+
+<ul>
+  <li><strong>OAuth scope</strong> — <code class="language-plaintext highlighter-rouge">https://www.googleapis.com/auth/drive.file</code> only. This is a <strong>narrowly-scoped</strong> permission: the app can read <strong>only the file you explicitly pick</strong> through Google’s Drive Picker dialog. It cannot list, search, or read any other file in your Drive.</li>
+  <li><strong>Sign-in flow</strong> — Google handles the sign-in and consent screen. You can cancel at any point.</li>
+  <li><strong>File handling</strong> — Once you select a Google Docs™ document (or <code class="language-plaintext highlighter-rouge">.docx</code> / <code class="language-plaintext highlighter-rouge">.odt</code> / <code class="language-plaintext highlighter-rouge">.rtf</code>), Google exports it as <code class="language-plaintext highlighter-rouge">.docx</code> and sends it directly to your browser. The file then enters the same client-side pipeline described in §2b. <strong>File content never transits our servers.</strong></li>
+  <li><strong>Access token</strong> — The OAuth access token returned by Google is held in browser memory only, scoped to the current page. Closing the tab or refreshing discards it. We do not store, log, or transmit the token.</li>
+  <li><strong>Credentials embedded in the page</strong> — The Web app embeds an OAuth Client ID and a Google API Key. Both are <strong>spec-public identifiers</strong>: the OAuth Client ID is public by design under the OAuth 2.0 specification, and the API Key is restricted by HTTP referrer to <code class="language-plaintext highlighter-rouge">mathsystem.dev</code> (and <code class="language-plaintext highlighter-rouge">localhost</code> for development). No <code class="language-plaintext highlighter-rouge">client_secret</code> is used (the Web app uses PKCE / implicit flows).</li>
+  <li><strong>Revoking access</strong> — You can revoke the Web app’s Drive access at any time at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</li>
+</ul>
+
+<p>For the underlying Google services and their policies, see <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a> and <a href="https://policies.google.com/privacy">Google’s Privacy Policy</a>.</p>
+
+<hr />
+
+<h2 id="3-information-we-collect-both">3. Information We Collect <code class="language-plaintext highlighter-rouge">[Both]</code></h2>
+
+<h3 id="3a-training-data-both">3a. Training Data <code class="language-plaintext highlighter-rouge">[Both]</code></h3>
+
+<p>The collection mechanism differs between the two products:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Mechanism</th>
+      <th>Legal basis</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Add-on</strong></td>
+      <td>Explicit opt-in via consent dialog (Google Workspace Marketplace policy)</td>
+      <td>Your consent (PIPA Art.15 / GDPR Art.6(1)(a))</td>
+    </tr>
+    <tr>
+      <td><strong>Web app</strong></td>
+      <td>Automatic anonymized collection — no consent dialog</td>
+      <td><strong>GDPR Art.6(1)(f) legitimate interests</strong> and <strong>PIPA Art.28-2 pseudonymized-data exception for scientific research</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For the legal basis of the Web app’s automatic collection, see §5b for the rationale and your opt-out options.</p>
+
+<p>Fields collected:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Add-on</th>
+      <th>Web app</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>LaTeX source code (one equation per record)</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Rendered PNG image</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Display type / delimiter</td>
+      <td>inline / display</td>
+      <td><code class="language-plaintext highlighter-rouge">$</code>, <code class="language-plaintext highlighter-rouge">$$</code>, <code class="language-plaintext highlighter-rouge">\(</code>, <code class="language-plaintext highlighter-rouge">\[</code>, <code class="language-plaintext highlighter-rouge">[]</code></td>
+    </tr>
+    <tr>
+      <td>Timestamp (server)</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Pseudonymous ID</td>
+      <td>16-hex <code class="language-plaintext highlighter-rouge">SHA-256(email + salt)</code>, computed inside the Add-on</td>
+      <td>16-hex random UUID stored in browser localStorage</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">source</code> label</td>
+      <td><code class="language-plaintext highlighter-rouge">"addon"</code> (explicit in sidecar JSON)</td>
+      <td><code class="language-plaintext highlighter-rouge">"web"</code> (explicit in sidecar JSON)</td>
+    </tr>
+    <tr>
+      <td>Email address</td>
+      <td>❌ — <strong>no longer collected</strong></td>
+      <td>❌ — never collected</td>
+    </tr>
+    <tr>
+      <td>Document identifier</td>
+      <td>❌ — never collected</td>
+      <td>❌ — never collected</td>
+    </tr>
+    <tr>
+      <td>Document body / non-equation content</td>
+      <td>❌ — never collected</td>
+      <td>❌ — never collected</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>This data is used solely for training future OCR/recognition models</strong> that improve LaTeXFlow’s ability to automatically detect and convert equations.</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">[Both]</code> Our collection endpoint does not collect your name, your IP address, or your document content</strong> — the fields listed in the table above are the whole of what is collected, from either product. <strong><code class="language-plaintext highlighter-rouge">[Add-on]</code> The Add-on no longer collects your Google account email</strong>; it transmits only the pseudonymous identifier described above (§4b).</p>
+
+<h3 id="3b-failure-diagnostics-add-on">3b. Failure Diagnostics <code class="language-plaintext highlighter-rouge">[Add-on]</code></h3>
+
+<p><strong>We do not collect error logs.</strong> When a conversion fails, the Add-on writes a single diagnostic line to the <strong>Apps Script execution log</strong> for that run. Nothing is transmitted to us, stored by us, or written to any database, spreadsheet, or file.</p>
+
+<p>Two things you should know about that line:</p>
+
+<ul>
+  <li><strong>It can include the LaTeX string that failed</strong>, along with the error message and the name of the function that raised it. It contains no other document content.</li>
+  <li>It is written to Google’s own Apps Script execution logging inside the developer’s Google Cloud project, and is <strong>retained under Google’s default logging behaviour. We do not set a retention period for it</strong>, and we make no retention commitment about it.</li>
+</ul>
+
+<p><strong><code class="language-plaintext highlighter-rouge">[Web app]</code></strong> The Web app does not transmit error logs.</p>
+
+<hr />
+
+<h2 id="4-how-we-store-data-both">4. How We Store Data <code class="language-plaintext highlighter-rouge">[Both]</code></h2>
+
+<p>Training data (§3a) from both products is stored in <strong>Google Cloud Storage</strong>, in a single bucket — <code class="language-plaintext highlighter-rouge">latex-web-training-data</code> — owned by the developer’s own Google Cloud project (<code class="language-plaintext highlighter-rouge">docsaddon-489707</code>), in the <strong><code class="language-plaintext highlighter-rouge">asia-northeast3</code> (Seoul, Republic of Korea)</strong> region.</p>
+
+<p>Neither product writes to that bucket directly, and <strong>the Add-on holds no service-account key</strong>. Each product makes a single outbound request to our collection endpoint — the Cloud Function <code class="language-plaintext highlighter-rouge">collect-web-pair</code>, in the same project and the same region — and the function performs the write. <strong>Both products use that same one function</strong>; there is no second endpoint.</p>
+
+<p>The collection endpoint enforces per-field size caps, writes objects with <code class="language-plaintext highlighter-rouge">Cache-Control: private, no-store</code>, and never logs the LaTeX or the full pseudonymous identifier. See §4b for the full list of protections.</p>
+
+<p>Object layout — <strong>both products</strong> now write the same pair:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Object key</th>
+      <th>Metadata location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Add-on</td>
+      <td><code class="language-plaintext highlighter-rouge">latex-pairs/{uuid}.png</code></td>
+      <td><code class="language-plaintext highlighter-rouge">latex-pairs/{uuid}.json</code> — sidecar next to the PNG</td>
+    </tr>
+    <tr>
+      <td>Web app</td>
+      <td><code class="language-plaintext highlighter-rouge">latex-pairs/{uuid}.png</code></td>
+      <td><code class="language-plaintext highlighter-rouge">latex-pairs/{uuid}.json</code> — sidecar next to the PNG; includes a server-generated timestamp, the source delimiter, and the anonymous UUID</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>No LaTeXFlow data is stored outside <code class="language-plaintext highlighter-rouge">asia-northeast3</code>.</strong></p>
+
+<hr />
+
+<h2 id="sharing-disclosure">4a. Sharing, Transfer, and Disclosure of Google User Data <code class="language-plaintext highlighter-rouge">[Both]</code></h2>
+
+<p><strong>We do not sell your data, and we do not share, transfer, or disclose Google user data to any third party — for any purpose, including advertising.</strong></p>
+
+<ul>
+  <li><strong>No third-party recipients.</strong> No Google user data obtained through the Add-on or the Web app is shared with, transferred to, or disclosed to any third party, under any arrangement.</li>
+  <li><strong>Processed only inside our own Google Cloud project.</strong> All processing and storage take place within the developer’s own Google Cloud project, <code class="language-plaintext highlighter-rouge">docsaddon-489707</code> — specifically <strong>Google Cloud Functions</strong> (the collection endpoint) and <strong>Google Cloud Storage</strong> (the bucket described in §4).</li>
+  <li><strong>Google Cloud is the only infrastructure processor.</strong> Google Cloud provides the compute and storage this project runs on, and acts in that capacity only. There are no other processors, vendors, or sub-processors.</li>
+  <li><strong>No cross-border transfer.</strong> All storage is in the <strong><code class="language-plaintext highlighter-rouge">asia-northeast3</code> (Seoul, Republic of Korea)</strong> region. Data is not transferred to or stored in any other region or country.</li>
+  <li><strong>Who can access it.</strong> The developer identified in §1, and the project’s service account. That service account is <strong>write-only</strong> — it holds <code class="language-plaintext highlighter-rouge">roles/storage.objectCreator</code>, so it can create objects but cannot read stored objects back.</li>
+</ul>
+
+<p><strong>What is transmitted at all:</strong></p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">[Add-on]</code></strong> — only if you have opted in through the consent dialog (§5a), and only per equation you convert: the <strong>LaTeX source of that single equation</strong>, its <strong>rendered PNG</strong>, the <strong>delimiter type</strong>, a <strong>pseudonymous identifier</strong>, a <strong>server timestamp</strong>, and the <strong><code class="language-plaintext highlighter-rouge">source</code> label <code class="language-plaintext highlighter-rouge">"addon"</code></strong>. Your <strong>Google account email address is not transmitted</strong>; the <strong>document identifier is not transmitted</strong>; and the <strong>rest of your document is never transmitted</strong> — not its text, tables, images, or metadata.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">[Web app]</code></strong> — the LaTeX source of each equation and its rendered PNG, plus the delimiter, a browser-local random UUID, a server timestamp, and the <code class="language-plaintext highlighter-rouge">source</code> label <code class="language-plaintext highlighter-rouge">"web"</code>. The <code class="language-plaintext highlighter-rouge">.docx</code> body, file name, and author metadata are never transmitted (§2b).</li>
+</ul>
+
+<h2 id="data-protection">4b. Data Protection Mechanisms <code class="language-plaintext highlighter-rouge">[Both]</code></h2>
+
+<p>These protections apply to all data described in §3a, including data derived from Google user data. Rows that differ between the products are labelled.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mechanism</th>
+      <th>What is in place</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>In transit</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">[Both]</code> All transmissions use <strong>HTTPS/TLS</strong>.</td>
+    </tr>
+    <tr>
+      <td><strong>At rest</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">[Both]</code> Objects are encrypted at rest with <strong>Google-managed encryption</strong>.</td>
+    </tr>
+    <tr>
+      <td><strong>Access control</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">[Both]</code> <strong>Uniform bucket-level access</strong> is enabled. <strong>Public access prevention</strong> is enabled. <code class="language-plaintext highlighter-rouge">allUsers</code> and <code class="language-plaintext highlighter-rouge">allAuthenticatedUsers</code> are explicitly restricted — the bucket is <strong>not publicly readable</strong>. The writing service account holds <strong><code class="language-plaintext highlighter-rouge">roles/storage.objectCreator</code> only</strong>: write-only, with no ability to read objects back.</td>
+    </tr>
+    <tr>
+      <td><strong>Pseudonymization</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">[Add-on]</code> The identifier is <code class="language-plaintext highlighter-rouge">SHA-256(email + salt)</code>, truncated to 16 hexadecimal characters. Hashing happens <strong>inside the Add-on</strong> — the <strong>raw email address never leaves the script</strong>. The salt is held in server-side configuration and is <strong>not stored alongside the data</strong>.<br /><code class="language-plaintext highlighter-rouge">[Web app]</code> The identifier is a random 16-hex UUID generated in your browser and not derived from anything identifying (§5b).</td>
+    </tr>
+    <tr>
+      <td><strong>Minimization</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">[Both]</code> <strong>No document identifier</strong> and <strong>no document body</strong> is collected. The collection endpoint enforces size caps of <strong>4 KiB for the LaTeX</strong> and <strong>256 KiB for the decoded PNG</strong> per record.</td>
+    </tr>
+    <tr>
+      <td><strong>Logging</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">[Both]</code> The collection endpoint <strong>never logs the LaTeX</strong> and <strong>never logs the full pseudonymous identifier</strong> — at most a 4-character prefix of it.<br /><code class="language-plaintext highlighter-rouge">[Add-on]</code> Separately, failed conversions write a diagnostic line to the Apps Script execution log that <strong>can include the LaTeX that failed</strong> — see §3b.</td>
+    </tr>
+    <tr>
+      <td><strong>Caching</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">[Both]</code> Stored objects are written with <code class="language-plaintext highlighter-rouge">Cache-Control: private, no-store</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>Region</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">[Both]</code> All storage is in <strong><code class="language-plaintext highlighter-rouge">asia-northeast3</code> (Seoul, Republic of Korea)</strong> — see §4a.</td>
+    </tr>
+    <tr>
+      <td><strong>Retention</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">[Both]</code> Training data is retained while it remains useful for model training; records unused for more than 12 months are reviewed quarterly and deleted if no longer needed. See §6.</td>
+    </tr>
+    <tr>
+      <td><strong>Deletion on request</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">[Add-on]</code> Email <code class="language-plaintext highlighter-rouge">sung2417@gmail.com</code> <strong>from the Google account you used with the Add-on</strong> — we recompute your identifier from that address and delete the matching records. Nothing else is needed.<br /><code class="language-plaintext highlighter-rouge">[Web app]</code> Email the same address including your <code class="language-plaintext highlighter-rouge">latexflow_anon_hash</code> value (§5b).</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="5-your-consent-and-control-both">5. Your Consent and Control <code class="language-plaintext highlighter-rouge">[Both]</code></h2>
+
+<h3 id="5a-add-on--consent-dialog-add-on">5a. Add-on — Consent Dialog <code class="language-plaintext highlighter-rouge">[Add-on]</code></h3>
+
+<ul>
+  <li>On first launch, the Add-on displays a <strong>consent dialog</strong> asking whether you agree to share anonymized training data.</li>
+  <li>You may <strong>decline</strong> at any time. <strong>Declining costs you nothing</strong> — every feature of the Add-on works fully without consent, including conversion, insertion, and reverting an image back to editable LaTeX. Reverting reads the LaTeX from the image’s own alt text inside your document, so it never depends on collected data.</li>
+  <li>You may <strong>withdraw or change</strong> your consent at any time via:
+<strong>Extensions → LatexFlow → Data Collection Settings</strong></li>
+</ul>
+
+<p>We do not collect Add-on training data unless you have explicitly agreed. The preference that gates collection <strong>defaults to unset</strong> — if you never open the dialog and never agree, nothing is collected.</p>
+
+<h3 id="optout-web">5b. Web App — How to Opt Out <code class="language-plaintext highlighter-rouge">[Web app]</code></h3>
+
+<p>The Web app does <strong>not</strong> display a consent dialog because the data is <strong>fully pseudonymized</strong> — no email, name, IP address, or document content is collected. The only client-side identifier is a <strong>16-hex random UUID</strong> stored in your browser’s localStorage under the key <code class="language-plaintext highlighter-rouge">latexflow_anon_hash</code>. This UUID is generated locally with <code class="language-plaintext highlighter-rouge">crypto.getRandomValues</code> and is <strong>not derived from any identifying information</strong>; it is used only to group submissions from the same browser for statistical analysis (e.g., to detect duplicate equations from the same session). It is <strong>not linked to your identity</strong> and is cleared whenever you clear site data.</p>
+
+<p>This automatic processing relies on the lawful bases summarized in §3a. Under GDPR Art.21 you have the <strong>right to object</strong> at any time; under PIPA Art.37 you have an equivalent right to <strong>stop processing</strong>. Both can be exercised without contacting us, as follows.</p>
+
+<p><strong>To opt out at any time</strong>, open your browser DevTools (press F12), go to the <strong>Console</strong> tab, and run:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nx">localStorage</span><span class="p">.</span><span class="nf">setItem</span><span class="p">(</span><span class="dl">'</span><span class="s1">latexflow_collect_optout</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">1</span><span class="dl">'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The opt-out is enforced immediately by the Web app and persists until you clear site data. While the opt-out is set, no further submissions are sent. You may also simply avoid using the Web app if you prefer not to contribute.</p>
+
+<p>To request deletion of previously submitted Web app records, email <code class="language-plaintext highlighter-rouge">sung2417@gmail.com</code> together with the value of <code class="language-plaintext highlighter-rouge">latexflow_anon_hash</code> from your browser (read it from the Console using <code class="language-plaintext highlighter-rouge">localStorage.getItem('latexflow_anon_hash')</code>). Without that identifier we cannot locate your submissions, because no email, name, or IP address is stored alongside them.</p>
+
+<hr />
+
+<h2 id="6-data-retention-and-deletion-both">6. Data Retention and Deletion <code class="language-plaintext highlighter-rouge">[Both]</code></h2>
+
+<p><strong><code class="language-plaintext highlighter-rouge">[Both]</code></strong> Training data is retained while it remains useful for model training. Records that have been unused for more than 12 months are reviewed quarterly and deleted if they are no longer needed.</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">[Add-on]</code></strong> We do not collect error logs, so there is no error-log retention period to state. The Apps Script execution-log diagnostics described in §3b are retained under Google’s default logging behaviour; <strong>we do not set a retention period for them.</strong></p>
+
+<p><strong>How to request deletion:</strong></p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">[Add-on]</code></strong> Email <code class="language-plaintext highlighter-rouge">sung2417@gmail.com</code> <strong>from the Google account you used with the Add-on</strong>. Your identifier is derived from your email address, so we can recompute it from the address you write from and delete the matching records. You do not need to supply anything else.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">[Web app]</code></strong> Email the same address and include your <code class="language-plaintext highlighter-rouge">latexflow_anon_hash</code> value, as described in §5b. Without it we cannot locate your submissions, because nothing identifying is stored alongside them.</li>
+</ul>
+
+<hr />
+
+<h2 id="7-third-party-services-both">7. Third-Party Services <code class="language-plaintext highlighter-rouge">[Both]</code></h2>
+
+<p><strong>§4a is the authoritative answer to who receives your data: no third party does.</strong> The services listed here are the infrastructure this project runs on and the CDN your browser loads rendering libraries from. They are not recipients of Google user data for their own purposes.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Service</th>
+      <th>Role</th>
+      <th>Receives Google user data?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Google Cloud Storage (<code class="language-plaintext highlighter-rouge">asia-northeast3</code>)</td>
+      <td><code class="language-plaintext highlighter-rouge">[Both]</code> Storage of training data, in our own project (§4)</td>
+      <td>Only as our infrastructure processor (§4a)</td>
+    </tr>
+    <tr>
+      <td>Google Cloud Functions (<code class="language-plaintext highlighter-rouge">asia-northeast3</code>)</td>
+      <td><code class="language-plaintext highlighter-rouge">[Both]</code> Collection endpoint <code class="language-plaintext highlighter-rouge">collect-web-pair</code>, in our own project — one function serves both products</td>
+      <td>Only as our infrastructure processor (§4a)</td>
+    </tr>
+    <tr>
+      <td>jsDelivr CDN</td>
+      <td><code class="language-plaintext highlighter-rouge">[Both]</code> Serves the Temml and MathJax rendering libraries to your browser and to the Add-on sidebar</td>
+      <td><strong>No.</strong> Only library files are requested; no document content or user data is included</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Google Sheets is not used by either product.</strong></p>
+
+<p>These services are governed by their own privacy policies.</p>
+
+<hr />
+
+<h2 id="8-childrens-privacy-both">8. Children’s Privacy <code class="language-plaintext highlighter-rouge">[Both]</code></h2>
+
+<p>LaTeXFlow is not directed at children under 13. We do not knowingly collect data from children under 13.</p>
+
+<hr />
+
+<h2 id="9-changes-to-this-policy-both">9. Changes to This Policy <code class="language-plaintext highlighter-rouge">[Both]</code></h2>
+
+<p>We may update this policy from time to time. The “Last updated” date at the top of this page will reflect any changes. Continued use of the Add-on or the Web app after changes constitutes acceptance.</p>
+
+<hr />
+
+<h2 id="10-contact-both">10. Contact <code class="language-plaintext highlighter-rouge">[Both]</code></h2>
+
+<p>For privacy-related questions or data deletion requests:</p>
+
+<p><strong>Email:</strong> sung2417@gmail.com
+<strong>GitHub Issues:</strong> <a href="https://github.com/Seong6496/google-docs-latex-addon/issues">github.com/Seong6496/google-docs-latex-addon/issues</a></p>
+
+</main>
+
+<footer class="doc-footer">
+  <a href="/latexflow/web/">LaTeXFlow Scan</a> ·
+  <a href="/latexflow/privacy/">Privacy</a> ·
+  <a href="/latexflow/terms/">Terms</a> ·
+  <a href="/latexflow/support/">Support</a> ·
+  <a href="https://mathsystem.dev/">MathSystem</a>
+  <p class="copy">© 2026 LaTeXFlow · Contact: <a href="mailto:sung2417@gmail.com">sung2417@gmail.com</a></p>
+</footer>
+
+</body>
+</html>
