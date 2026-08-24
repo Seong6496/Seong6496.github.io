@@ -222,17 +222,6 @@
       transition: background 0.15s, transform 0.1s;
     }
     .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); color: #fff; }
-    .btn-secondary {
-      background: var(--bg-card);
-      color: var(--text);
-      padding: 13px 28px;
-      border-radius: var(--radius);
-      font-weight: 500;
-      font-size: 0.9375rem;
-      border: 0.5px solid var(--border);
-      transition: border-color 0.15s, transform 0.1s;
-    }
-    .btn-secondary:hover { border-color: var(--text-muted); transform: translateY(-1px); }
 
     /* Trust badges — authority + 영역의 법칙 */
     .trust-badges {
@@ -524,7 +513,7 @@
 
     <div class="hero-actions">
       <a class="btn-primary" href="./web/">Try the Web app →</a>
-      <a class="btn-secondary" href="https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2" target="_blank">Install for Google Docs</a>
+      <a class="btn-primary" href="https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2" target="_blank" rel="noopener">Install for Google Docs <i class="ti ti-arrow-up-right" aria-hidden="true"></i></a>
     </div>
 
     <div class="trust-badges" aria-label="Trust signals">
@@ -655,13 +644,13 @@
   </div>
 </section>
 
-<!-- Final CTA — paper 톤 + 두 버튼 (Path D 정합) -->
+<!-- Final CTA — paper 톤 + 두 버튼 (동일 accent, hero 와 같은 쌍) -->
 <div class="cta">
   <h2>Ready to write math, not fight it?</h2>
   <p>Free. No account needed for the Web app.</p>
   <div class="hero-actions">
     <a class="btn-primary" href="./web/">Try the Web app →</a>
-    <a class="btn-secondary" href="https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2" target="_blank">Install for Google Docs</a>
+    <a class="btn-primary" href="https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2" target="_blank" rel="noopener">Install for Google Docs <i class="ti ti-arrow-up-right" aria-hidden="true"></i></a>
   </div>
 </div>
 
