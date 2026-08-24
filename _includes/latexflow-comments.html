@@ -1,0 +1,52 @@
+<!--
+  Message board for the LaTeXFlow doc pages (layout: latexflow-doc).
+
+  Opt-in per page: renders only when the page sets `comments: true` in its front
+  matter — same gate as _includes/comments.html. privacy.md and terms.md share
+  this layout and deliberately do NOT set the key: they are the legal pages the
+  OAuth review and the Marketplace listing point at.
+
+  Reuses the giscus app already configured in _config.yml for the blog (same
+  repo; category is overridable per page, see below). It does not reuse _includes/comments/giscus.html, which
+  is Chirpy-specific — that one needs jQuery, the #tail-wrapper element and the
+  ModeToggle global, none of which exist in this standalone layout.
+
+  data-theme is fixed to light: the LaTeXFlow doc pages are light-only.
+  data-lang is "en": these pages are English, while the blog (site config) is Korean.
+
+  Category: falls back to the site config (Announcements, used by the blog) unless
+  the page overrides it with `comments_category` / `comments_category_id`. support.md
+  overrides it to Q&A, because GitHub restricts *creating* discussions in an
+  Announcements category to maintainers -- a visitor's first post there would fail --
+  and Q&A additionally lets an answer be marked.
+-->
+{% if page.comments and site.comments.active == 'giscus' %}
+<h2 id="message-board">Message Board</h2>
+
+<p>Ask a question, report a bug, or request a feature here. Posts are public, and
+this is the fastest way to reach us.</p>
+
+<p class="doc-comments-note">Reading the board needs nothing. <strong>Posting requires
+signing in with a GitHub account</strong> — the board is backed by GitHub Discussions.
+If you would rather not sign in, email us instead.</p>
+
+<div class="doc-comments">
+  <script src="https://giscus.app/client.js"
+          data-repo="{{ site.comments.giscus.repo }}"
+          data-repo-id="{{ site.comments.giscus.repo_id }}"
+          data-category="{{ page.comments_category | default: site.comments.giscus.category }}"
+          data-category-id="{{ page.comments_category_id | default: site.comments.giscus.category_id }}"
+          data-mapping="{{ site.comments.giscus.mapping | default: 'pathname' }}"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="{{ site.comments.giscus.input_position | default: 'bottom' }}"
+          data-theme="light"
+          data-lang="en"
+          crossorigin="anonymous"
+          async>
+  </script>
+  <noscript>The message board needs JavaScript. Email
+    <a href="mailto:sung2417@gmail.com">sung2417@gmail.com</a> instead.</noscript>
+</div>
+{% endif %}

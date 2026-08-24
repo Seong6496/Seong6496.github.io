@@ -238,6 +238,14 @@ layout: null
       font-size: 12px;
     }
     .doc-footer .copy a { color: var(--text-muted); }
+
+    /* message board (opt-in per page via `comments: true`) */
+    .doc-comments-note {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    .doc-comments { margin-top: 20px; }
+    .doc-comments .giscus-frame { border: none; }
   </style>
   {% include google-analytics.html %}
   {% include clarity.html %}
@@ -266,6 +274,7 @@ layout: null
 <main class="doc-main">
   <h1>{{ page.title }}</h1>
   {{ content }}
+  {% include latexflow-comments.html %}
 </main>
 
 <footer class="doc-footer">

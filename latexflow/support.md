@@ -3,6 +3,9 @@ layout: latexflow-doc
 title: Support
 permalink: /latexflow/support/
 description: Support and contact for the LaTeXFlow Google Docs Add-on and Web app.
+comments: true
+comments_category: "Q&A"
+comments_category_id: DIC_kwDOHGf2gM4DAHL6
 ---
 
 Need help with **LaTeXFlow** — either the **Google Docs™ Add-on** or the **Web app** at `mathsystem.dev/latexflow/web/`? Here's how to get support.
@@ -11,9 +14,10 @@ Need help with **LaTeXFlow** — either the **Google Docs™ Add-on** or the **W
 
 ## Report a Bug or Request a Feature
 
-The fastest way to get help is to open an issue on GitHub:
-
-**[Open an Issue on GitHub](https://github.com/Seong6496/google-docs-latex-addon/issues)**
+Post it on the **[message board](#message-board)** at the bottom of this page. It is
+the fastest way to reach us, and the answer stays visible for the next person with
+the same question. Reading the board needs nothing; posting requires signing in with
+a GitHub account.
 
 Please include:
 
@@ -24,13 +28,8 @@ Please include:
 - **(Add-on)** Your browser and Google Workspace account type
 - **(Web app)** Your browser and OS, and whether you used drag-drop or Google Drive import
 
----
-
-## Contact by Email
-
-For privacy-related requests or issues you'd prefer not to post publicly:
-
-**sung2417@gmail.com**
+For privacy requests, or anything you would rather not post publicly, email
+**sung2417@gmail.com**.
 
 ---
 

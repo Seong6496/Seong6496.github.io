@@ -253,4 +253,4 @@ We may update this policy from time to time. The "Last updated" date at the top 
 For privacy-related questions or data deletion requests:
 
 **Email:** sung2417@gmail.com
-**GitHub Issues:** [github.com/Seong6496/google-docs-latex-addon/issues](https://github.com/Seong6496/google-docs-latex-addon/issues)
+**Support page:** [mathsystem.dev/latexflow/support/](/latexflow/support/) — FAQ and a public message board
