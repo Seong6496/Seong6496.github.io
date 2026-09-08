@@ -192,7 +192,9 @@ pandoc paper.docx -o paper.tex
 AIMATH_FORMULA::v1::\frac{1}{2}bh
 ```
 
-이 태그가 붙어 있으면 나중에 LaTeX 을 되찾을 수 있습니다. Google Docs 애드온(*Extensions → LatexFlow → Open Equation Panel*)에서 같은 규칙을 읽어 이미지를 다시 LaTeX 으로 되돌릴 수 있습니다.
+이 태그가 붙어 있으면 나중에 원본 LaTeX 을 되찾을 수 있습니다. 워드에서 그림의 대체 텍스트를 열면 태그 뒤에 원문이 그대로 들어 있습니다.
+
+Google Docs 애드온에도 되돌리기가 있지만 (Scan 탭의 `↩ Revert to LaTeX`), 그건 **애드온 자신이 문서에 넣은 이미지** 를 대상으로 합니다. 웹에서 내보낸 `.docx` 를 Docs 로 가져가 그 버튼으로 되살리는 경로는 지원되는 흐름이 아닙니다 — 두 제품의 태그 형식이 다릅니다.
 
 수식 개체와 결정적으로 다른 점이 여기입니다. 개체는 원본 LaTeX 이라는 게 애초에 없어서(수식 트리로 저장되니까) 되돌릴 원문 자체가 없지만, 이쪽은 원문을 들고 다닙니다.
 
