@@ -1159,7 +1159,7 @@
       <ol class="info-steps">
         <li><strong>Bring your file in.</strong> Drop a <code>.docx</code> onto the page, or use <strong>Import from Google Drive</strong> to pull a Google Doc in directly. The Drive import uses the limited <code>drive.file</code> scope, so the tool can only see the single file you pick — never the rest of your Drive.</li>
         <li><strong>Detection.</strong> The scanner walks the document and collects every span wrapped in a LaTeX delimiter (see the table below).</li>
-        <li><strong>Review.</strong> Each detected formula gets a live preview. Skip anything that was caught by mistake (a stray <code>$100</code>, say), and resolve <em>ambiguity cards</em> where a paragraph has an unclosed <code>$</code> — the tool asks you to pick the boundary instead of guessing.</li>
+        <li><strong>Review.</strong> Each detected formula gets a live preview. Skip anything that was caught by mistake (a stray <code>$100</code>, say), and resolve <em>ambiguity cards</em> where a paragraph has an unclosed <code>$</code> — the tool asks you to fix the text instead of guessing.</li>
         <li><strong>Render &amp; export.</strong> Press <strong>Render PNG · Export</strong> and download a <code>.docx</code> in which every formula is now a crisp PNG. The original LaTeX is preserved in each image's alt text, so the document can be converted back later.</li>
       </ol>
 
@@ -1232,7 +1232,7 @@
     </div>
 
     <div id="ambig-wrap" hidden>
-      <div class="section-label" id="ambig-label">⚠ Ambiguity — Choose an interpretation or skip</div>
+      <div class="section-label" id="ambig-label">⚠ Ambiguity — edit the text or skip</div>
       <div id="ambig-list"></div>
     </div>
 
@@ -1945,7 +1945,7 @@ function renderAll() {
 /** ambig-wrap 섹션 라벨 — 안에 뭐가 들었는지에 맞춘다. 모호성 항목이 하나도
  *  없는데 "Ambiguity" 라고 적으면 거짓말이 된다. */
 function ambigSectionLabel(ambigCount, undelimCount) {
-  if (undelimCount === 0) return '⚠ Ambiguity — Choose an interpretation or skip';
+  if (undelimCount === 0) return '⚠ Ambiguity — edit the text or skip';
   if (ambigCount === 0)   return 'Paragraphs that look like math — no delimiter found';
   return '⚠ Ambiguity · paragraphs that look like math — edit the text or skip';
 }
@@ -2439,19 +2439,6 @@ function buildAmbigCard(amb, opts) {
   });
 
   return card;
-}
-
-/** 모호성 해결: 선택한 해석의 수식을 일반 목록에 추가하고 카드 제거.
- *  R25 task 3: 더 이상 UI 에서 호출되지 않는다 (Interpretation 카드 제거).
- *  데이터-모델 API 로 남겨둠 — 미래에 컨텍스트-기반 옵션 pick 이 돌아올 때 재사용. */
-function resolveAmbiguity(ambId, optIdx) {
-  const amb = ambigState.find(a => a.id === ambId);
-  if (!amb) return;
-  amb.options[optIdx].equations.forEach(eq => {
-    scanState.push(makeScanEntry(eq));
-  });
-  ambigState = ambigState.filter(a => a.id !== ambId);
-  renderAll();
 }
 
 /**
