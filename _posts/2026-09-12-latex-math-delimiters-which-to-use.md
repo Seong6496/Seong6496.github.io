@@ -130,7 +130,7 @@ LaTeXFlow reads all four — in both of its forms, the [web app](/latexflow/web/
 **A single dollar with an odd count is where the two diverge.** If a paragraph contains an odd number of `$`, there is genuinely no way to know which one opens.
 
 - In the **web app**, that paragraph is pulled out into an **ambiguity card** — `⚠ Odd number of $ — equation boundaries are ambiguous` — and nothing from it is converted until you deal with it. The card gives you two buttons, *Edit text* and *Skip*.
-- In the **add-on**, there is no such card and no odd/even logic at all. The regular expressions simply pair left to right. Given the sentence *"when the price rises by \$5, demand is \$x\$"*, the pairing starts at the currency symbol and the match runs from `5` through to the `$` before `x` — so a stretch of prose is captured as an equation, and the equation you meant is missed. The card preview shows you the prose, so you can skip it.
+- In the **add-on**, there is no such card and no odd/even logic at all. The regular expressions simply pair left to right. Take a sentence like `when the price rises by $5, demand is $x$` — the pairing starts at the currency symbol, so what gets captured as an equation is `5, demand is `, a stretch of prose, and the `$x$` you actually meant is missed. The card preview shows you the prose, so you can skip it.
 
 Escaping currency as `\$5` avoids this in both.
 

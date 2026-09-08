@@ -61,7 +61,7 @@ The [web app](/latexflow/web/) does exactly that. Drop the file in, and while it
 ⚠ Odd number of $ — equation boundaries are ambiguous
 ```
 
-with a guide underneath headed *"Likely a missed closing $"*.
+with a guide underneath headed *"Likely a missed closing `$`"*.
 
 The header then shows a count like *Selected 5 · Skipped 0 · Unresolved ambiguity 2* — five equations detected cleanly, two paragraphs where the pairing cannot be settled.
 
@@ -86,7 +86,7 @@ Detected: 0 equations · still ambiguous
 
 Add the missing `$` and the preview updates immediately, so you can see *where the pair closes* before saving. No compile, no log to read — you confirm the delimiter is balanced in the same screen where you are writing.
 
-A warning sits above the edit box: *"Editing will remove any formatting (bold, italic, colors) from this entire paragraph."* followed by *"Fix the LaTeX or add the missing $ delimiter, then Save."* The paragraph is replaced as plain text, so any bold, italics or colour on it is lost.
+A warning sits above the edit box: *"Editing will remove any formatting (bold, italic, colors) from this entire paragraph."* followed by *"Fix the LaTeX or add the missing `$` delimiter, then Save."* The paragraph is replaced as plain text, so any bold, italics or colour on it is lost.
 
 Change `3) Let $\alpha + 1 be positive.` to `3) Let $\alpha + 1$ be positive.`, press Save, and the header counts move: *Selected 5 → 6*, *Unresolved 2 → 1*. The newly closed `$\alpha + 1$` joins the detected equations, and only paragraph 6 remains.
 
