@@ -1,0 +1,73 @@
+---
+layout: page
+title: English Posts
+permalink: /blog/en/
+---
+
+<!-- English-language entry point. The rest of the site is Korean; the copy on
+     THIS page is English on purpose. Listing layer only — the posts themselves
+     already carry lang: en and their own /blog/en/posts/<slug>/ permalinks. -->
+
+{% assign en_posts = site.posts | where: "lang", "en" | sort: "date" | reverse %}
+
+<p class="text-muted">
+  Posts written in English, newest first. Everything else on this site is in Korean —
+  the full archive lives at <a href="/blog/">블로그</a>.
+</p>
+
+{% if en_posts.size == 0 %}
+
+  <p>No English posts yet.</p>
+
+{% else %}
+
+<div id="post-list">
+
+  {% for post in en_posts %}
+
+  <div class="post-preview">
+    <h1>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    </h1>
+
+    <div class="post-content">
+      <p>
+        {% if post.description %}
+          {{ post.description | strip_html | truncate: 200 | escape }}
+        {% else %}
+          {% include no-linenos.html content=post.content %}
+          {{ post.content | markdownify | strip_html | truncate: 200 | escape }}
+        {% endif %}
+      </p>
+    </div>
+
+    <div class="post-meta text-muted d-flex">
+      <div class="mr-auto">
+        <!-- posted date -->
+        <i class="far fa-calendar fa-fw"></i>
+        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %e, %Y" }}</time>
+
+        <!-- time to read -->
+        <i class="far fa-clock fa-fw"></i>
+        {% include read-time.html content=post.content %}
+
+        <!-- categories -->
+        {% if post.categories.size > 0 %}
+          <i class="far fa-folder-open fa-fw"></i>
+          <span>
+          {% for category in post.categories %}
+            {{ category }}
+            {%- unless forloop.last -%},{%- endunless -%}
+          {% endfor %}
+          </span>
+        {% endif %}
+      </div>
+    </div> <!-- .post-meta -->
+
+  </div> <!-- .post-preview -->
+
+  {% endfor %}
+
+</div> <!-- #post-list -->
+
+{% endif %}

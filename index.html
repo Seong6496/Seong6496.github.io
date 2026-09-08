@@ -327,7 +327,11 @@
   <section class="writing">
     <p class="eyebrow">Writing</p>
     <ul class="writing-list">
-      {% for post in site.posts limit:3 %}
+      <!-- Korean landing page: Korean posts only. English posts (lang: en) have
+           their own listing at /blog/en/. Korean posts carry no `lang` key, and
+           in Liquid nil != 'en', so every one of them passes this filter. -->
+      {% assign writing_posts = site.posts | where_exp: "item", "item.lang != 'en'" %}
+      {% for post in writing_posts limit:3 %}
       <li class="writing-item">
         <a class="writing-link" href="{{ post.url | relative_url }}">
           <span class="writing-title">{{ post.title }}</span>

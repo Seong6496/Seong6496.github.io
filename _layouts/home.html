@@ -5,8 +5,16 @@ layout: page
 
 {% include lang.html %}
 
-{% assign pinned = site.posts | where: "pin", "true" %}
-{% assign default = site.posts | where_exp: "item", "item.pin != true and item.hidden != true" %}
+<!-- The /blog/ index lists Korean posts only. English posts (lang: en) have
+     their own listing at /blog/en/. Korean posts carry no `lang` key, and in
+     Liquid nil != 'en', so every one of them passes this filter.
+     If you ever point these back at site.posts, fix default_num below too:
+     it must be derived from the filtered array, not from paginator.posts,
+     or the loop walks past the end and emits empty post-preview blocks. -->
+{% assign site_posts_ko = site.posts | where_exp: "item", "item.lang != 'en'" %}
+
+{% assign pinned = site_posts_ko | where: "pin", "true" %}
+{% assign default = site_posts_ko | where_exp: "item", "item.pin != true and item.hidden != true" %}
 
 {% assign posts = "" | split: "" %}
 
@@ -32,13 +40,31 @@ layout: page
   {% assign default_beg = 0 %}
 {% endif %}
 
-{% assign default_num = paginator.posts | size | minus: pinned_num  %}
+<!-- How many default posts belong on this page: whatever is left in the
+     filtered array after default_beg, capped by the room left on the page.
+     paginator.posts counts BOTH languages, so it cannot be used here. -->
+{% assign default_num = default.size | minus: default_beg %}
+{% assign page_room = paginator.per_page | minus: pinned_num %}
+
+{% if default_num > page_room %}
+  {% assign default_num = page_room %}
+{% endif %}
+
 {% assign default_end = default_beg | plus: default_num | minus: 1 %}
 
 {% if default_num > 0 %}
   {% for i in (default_beg..default_end) %}
     {% assign posts = posts | push: default[i] %}
   {% endfor %}
+{% endif %}
+
+<!-- Quiet pointer to the English listing. Kept to one line on purpose. -->
+{% assign en_posts = site.posts | where: "lang", "en" %}
+{% if en_posts.size > 0 %}
+  <p class="text-muted mb-4" style="font-size: 0.9rem;">
+    <i class="fas fa-language fa-fw"></i>
+    <a href="/blog/en/">English posts →</a>
+  </p>
 {% endif %}
 
 <div id="post-list">
