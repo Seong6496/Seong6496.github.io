@@ -134,4 +134,4 @@ Google Docs 애드온을 설치하면 체크박스 몇 개짜리 동의 화면�
 - 콘솔에 플랫폼 기본값 하나가 더 보이는 건 정상입니다.
 - 권한은 Google 계정 보안 설정에서 언제든 거둘 수 있습니다.
 
-이 권한들이 무엇에 쓰이는지 먼저 보고 결정하고 싶으시다면 [설치부터 첫 변환까지](/blog/posts/latexflow-addon-install-first-conversion/) 가 그 경로 전체를 다룹니다.
+이 권한들이 무엇에 쓰이는지 먼저 보고 결정하고 싶으시다면 [설치부터 첫 변환까지](/blog/posts/latexflow-addon-install-first-conversion/) 가 그 경로 전체를 다룹니다. 확인이 끝나셨다면 애드온은 [Google Workspace Marketplace](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2) 에 있습니다.

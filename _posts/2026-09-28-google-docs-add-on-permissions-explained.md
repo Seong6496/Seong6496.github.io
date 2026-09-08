@@ -137,4 +137,4 @@ No, it is a different product. The web app needs no account for drag-and-drop; u
 - The console shows one extra platform-default entry. That is expected.
 - Revoke at any time from your Google Account security settings.
 
-If you want to see what all of this is in service of before granting any of it, [the install-to-first-conversion walkthrough](/blog/en/posts/convert-latex-in-google-docs/) covers the whole path.
+If you want to see what all of this is in service of before granting any of it, [the install-to-first-conversion walkthrough](/blog/en/posts/convert-latex-in-google-docs/) covers the whole path. If you have read enough, the add-on is on the [Google Workspace Marketplace](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2).

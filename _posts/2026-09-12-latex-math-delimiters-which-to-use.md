@@ -204,7 +204,7 @@ Nothing pairs with anything here. Open and close each equation with the same not
 - Asking a chatbot → dollar signs only
 - Got an answer back with nothing but bare brackets → turn bracket mode on
 
-If the document you want to convert is a Google Doc, the delimiters above are exactly what the add-on looks for: [how to convert LaTeX in Google Docs](/blog/en/posts/convert-latex-in-google-docs/).
+If the document you want to convert is a Google Doc, the delimiters above are exactly what [the add-on](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2) looks for: [how to convert LaTeX in Google Docs](/blog/en/posts/convert-latex-in-google-docs/).
 
 ## 10. FAQ
 
