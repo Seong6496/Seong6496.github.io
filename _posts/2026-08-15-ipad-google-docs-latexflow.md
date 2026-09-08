@@ -5,10 +5,10 @@ categories: [LaTeXFlow, 사용법]
 tags: [latexflow, google-docs, ipad, docx, 수식, 도구]
 math: false
 pin: false
-description: "iPad Google Drive 앱은 .gdoc 을 PDF 로만 다운로드해 LaTeXFlow 가 읽지 못합니다. 도구 안 Google Drive 가져오기 버튼 (OAuth) 또는 Docs 앱의 Word(.docx) 내보내기 — 두 가지 우회 path 를 스크린샷과 함께 정리합니다."
+description: "iPad Google Drive 앱은 .gdoc 을 PDF 로만 다운로드해 LaTeXFlow 가 읽지 못합니다. 도구 안 Google Drive 가져오기 버튼 (OAuth) 또는 Docs 앱의 Word(.docx) 내보내기 — 두 가지 우회 path 를 단계별로 정리합니다."
 ---
 
-[LaTeXFlow Scan](/latexflow/web/) 은 `.docx` 안의 수식을 LaTeX 코드로 뽑아 주는 도구입니다. 데스크탑에서는 Google Docs 를 *파일 → 다운로드 → Microsoft Word(.docx)* 로 받아 그대로 끌어다 놓으면 끝입니다.
+[LaTeXFlow Scan](/latexflow/web/) 은 `.docx` 안에 **글자로 적힌 LaTeX 수식** 을 찾아 이미지로 렌더한 다음, 그 자리가 이미지로 바뀐 **새 `.docx` 를 내려주는** 도구입니다. 방향이 반대가 아닙니다 — 문서에서 LaTeX 코드를 뽑아 주는 게 아니라, 이미 적혀 있는 LaTeX 을 보기 좋게 바꿔 줍니다. 데스크탑에서는 Google Docs 를 *파일 → 다운로드 → Microsoft Word(.docx)* 로 받아 그대로 끌어다 놓으면 끝입니다.
 
 문제는 **iPad** 입니다. iPad 의 *Google Drive 앱* 에서 `.gdoc` 파일을 "다운로드" 하면 **PDF 로만 내려옵니다**. LaTeXFlow 는 `.docx` 만 읽기 때문에, PDF 를 끌어다 놓으면 인식되지 않습니다.
 
@@ -33,26 +33,19 @@ OAuth 동의가 거슬리지 않는다면 **path A** 가 가장 짧습니다. OA
 
 iPad 의 Safari (또는 Chrome) 에서 [LaTeXFlow Scan](/latexflow/web/) 을 엽니다.
 
-> _스크린샷 자리: 도구 첫 화면 — 업로드 카드 안에 **Import from Google Drive** 버튼이 보이는 모습_
-> `![도구 첫 화면](/assets/img/posts/2026-06-25/01-latexflow-home.png){: width="720" }`
+첫 화면 가운데에 업로드 카드가 있고, 그 안 맨 위에 **Import from Google Drive** 버튼이 있습니다. 그 아래가 파일을 끌어다 놓는 점선 영역입니다. 페이지를 막 열었을 때는 버튼이 잠깐 회색일 수 있습니다 — 구글 쪽 스크립트 두 개가 다 준비돼야 활성화되기 때문이니, 몇 초 기다렸다가 누르면 됩니다.
 
 ### 2-2. Import from Google Drive → 로그인
 
 **Import from Google Drive** 버튼을 누르면 Google 로그인 창이 뜹니다. 평소 쓰는 Google 계정으로 로그인합니다.
 
-> _스크린샷 자리: Google 계정 선택 화면_
-> `![Google 계정 선택](/assets/img/posts/2026-06-25/02-google-signin.png){: width="720" }`
-
 이 도구는 *선택한 파일만* 임시로 읽을 수 있는 권한 `drive.file` 만 요청합니다 — 다른 파일에는 접근할 수 없습니다.
 
 ### 2-3. 파일 선택
 
-Google Drive 의 파일 선택 창이 뜹니다. 변환하려는 Google Docs 파일을 골라 **선택** 을 누르면 끝입니다.
+Google 이 띄우는 파일 선택 창이 열립니다. 창 제목은 *"LaTeXFlow — Choose a Google Doc or .docx file"* 입니다. 목록에는 Google Docs 문서와 `.docx` · `.odt` · `.rtf` 가 뜨고 폴더도 보이므로, 파일이 폴더 안에 있으면 들어가서 고르면 됩니다. 스프레드시트와 슬라이드는 목록에 나오지 않습니다.
 
-> _스크린샷 자리: Picker 에서 .gdoc 파일 선택 모습_
-> `![Drive Picker — 파일 선택](/assets/img/posts/2026-06-25/04-picker-select.png){: width="720" }`
-
-도구가 파일을 자동으로 `.docx` 로 변환해 받아 다음 단계 *수식 탐지* 화면으로 넘어갑니다.
+변환할 문서를 골라 **선택** 을 누르면 끝입니다. 버튼 라벨이 잠깐 `Downloading…` 으로 바뀌고, 고른 게 Google Docs 문서면 도구가 구글에 `.docx` 로 내보내 달라고 요청해 그 결과를 받습니다. 받아지는 즉시 다음 단계인 *수식 탐지* 화면으로 넘어갑니다.
 
 ## 3. Path C — Docs 앱 export
 
@@ -60,26 +53,19 @@ OAuth 가 부담스럽거나 이미 *Google Docs* 앱이 깔려 있다면 이 pa
 
 ### 3-1. Google Docs 앱 설치 (없다면)
 
-App Store 에서 **Google Docs** 를 설치합니다. (Drive 앱과는 다른 별개 앱입니다.)
-
-> _스크린샷 자리: App Store 의 Google Docs 앱 화면_
-> `![App Store — Google Docs](/assets/img/posts/2026-06-25/05-docs-appstore.png){: width="540" }`
+App Store 에서 **Google Docs** 를 설치합니다. 아이콘이 파란 문서 모양이고, 이름이 *Google Docs* 입니다. Drive 앱(초록·노랑·파랑 삼각형)과는 다른 별개 앱이라, Drive 앱만 깔려 있으면 이 path 를 쓸 수 없습니다.
 
 ### 3-2. Docs 앱에서 파일 열기 → 내보내기
 
 변환할 Google Docs 파일을 Docs 앱에서 엽니다. 우측 상단 **⋯ (더보기)** → **공유 및 내보내기** → **다른 이름으로 저장** 또는 **사본 보내기** → **Word (.docx)** 를 고릅니다.
 
-> _스크린샷 자리: Docs 앱의 ⋯ 메뉴 → 공유 및 내보내기 → Word 선택_
-> `![Docs 앱 — Word 로 내보내기](/assets/img/posts/2026-06-25/06-docs-export.png){: width="540" }`
+메뉴 이름은 앱 버전에 따라 조금씩 다릅니다. 확인 기준은 메뉴 이름이 아니라 결과입니다 — 형식 목록에서 **Word (.docx)** 를 고를 수 있으면 맞는 자리입니다. PDF 밖에 없다면 Docs 앱이 아니라 Drive 앱을 열었을 가능성이 높습니다.
 
 ### 3-3. 파일 앱에 저장 → 도구에 끌어다 놓기
 
 내보낸 `.docx` 파일을 *파일 (Files) 앱* 의 원하는 위치 (예: *나의 iPad*) 에 저장합니다.
 
-Safari 에서 [LaTeXFlow Scan](/latexflow/web/) 을 열고, 카드 안 점선 영역에 방금 저장한 `.docx` 파일을 끌어다 놓습니다. (또는 점선 영역을 탭해 파일 선택 창을 열어도 됩니다.)
-
-> _스크린샷 자리: 파일 앱에서 .docx 를 Safari 의 LaTeXFlow 화면으로 끌어다 놓는 모습_
-> `![파일 끌어다 놓기](/assets/img/posts/2026-06-25/07-drag-drop.png){: width="720" }`
+Safari 에서 [LaTeXFlow Scan](/latexflow/web/) 을 열고, 카드 안 점선 영역에 방금 저장한 `.docx` 파일을 끌어다 놓습니다. iPad 에서는 끌어다 놓기보다 **점선 영역을 탭해 파일 선택 창을 여는 편** 이 대체로 쉽습니다. 어느 쪽이든 결과는 같습니다.
 
 ## 4. 이런 경우엔
 
@@ -90,7 +76,7 @@ Google Docs 앱이 아닌 *Google Drive 앱* 에서 다운로드한 경우입니
 같은 원인입니다 — Drive 앱은 Google Docs 를 PDF 로만 export 합니다. Path A (도구 안 Picker) 또는 Path C (Docs 앱) 둘 중 하나가 필요합니다.
 
 **Picker 에서 파일이 안 보여요.**
-Picker 는 본인 계정의 Drive 안 파일만 보여 줍니다. 다른 계정으로 공유받은 파일이라면 그 계정으로 로그인하거나, 본인 Drive 에 복사한 뒤 선택해 주세요.
+먼저 문서를 만든 그 Google 계정으로 로그인했는지 확인해 주세요. 학교 계정으로 만든 문서를 개인 계정으로 찾고 있는 경우가 가장 흔합니다. 계정이 맞는데도 안 보이면, 문서를 내 Drive 에 사본으로 저장한 뒤 고르는 쪽이 확실합니다. 폴더 안에 있는 파일이라면 Picker 에서 폴더를 열고 들어가면 됩니다.
 
 ---
 
