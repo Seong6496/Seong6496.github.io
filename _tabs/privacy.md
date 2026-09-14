@@ -5,7 +5,7 @@ icon: fas fa-shield-alt
 order: 5
 ---
 
-*Last updated: 2026-06-23*
+*Last updated: 2026-09-14*
 
 본 정책은 **mathsystem.dev 사이트** (블로그 및 LaTeXFlow 도구 페이지) 방문 시 수집되는 데이터, 사용되는 쿠키 / 제3자 서비스 / 광고에 대해 안내합니다.
 

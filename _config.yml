@@ -26,7 +26,7 @@ title: Math System                       # the main title
 tagline: LaTeX·수식·도구 이야기            # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
-  Math System 블로그 — LaTeX, 수식, Google Docs·Word 에서 수학 글쓰기를 다루는 곳. LaTeXFlow 가 운영합니다.
+  Math System 블로그 — LaTeX, 수식, Google Docs·Word 에서 수학 글쓰기를 다루는 곳. 테오레마(Teolemma) 가 운영합니다.
 
 # Default social preview image (og:image, twitter:image) for pages
 # without their own front-matter `image:`. 1200x630 brand banner.

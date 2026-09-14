@@ -5,7 +5,7 @@ icon: fas fa-file-contract
 order: 6
 ---
 
-*Last updated: 2026-07-13*
+*Last updated: 2026-09-14*
 
 본 페이지는 **mathsystem.dev 블로그** 의 콘텐츠·광고·외부 링크에 대한 책임 범위 및 고지를 안내합니다.
 

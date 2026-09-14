@@ -5,7 +5,7 @@ permalink: /latexflow/terms/
 description: Terms of Service for the LaTeXFlow Google Docs Add-on and Web app.
 ---
 
-*Last updated: 2026-06-29*
+*Last updated: 2026-09-14*
 
 By installing or using **LaTeXFlow** — either the **Google Docs™ Add-on** ("the Add-on") or the **Web app** at `mathsystem.dev/latexflow/web/` ("the Web app") — you agree to these Terms of Service. Sections marked **(Add-on)** apply only to the Add-on; sections marked **(Web app)** apply only to the Web app; unmarked sections apply to both.
 
