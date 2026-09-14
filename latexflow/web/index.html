@@ -1968,9 +1968,10 @@ function buildUndelimGroup(items) {
   const shown = Math.min(undelimShown, n);
   const rest  = n - shown;
 
-  // 펼치기 버튼 라벨은 여기서 한 번만 계산해 접힌 상태의 안내문과 버튼이 같은
-  // 문자열을 쓴다 — 두 곳에서 따로 만들면 언젠가 서로 어긋난다.
-  const openLabel = n === 1 ? 'Show it' : `Show all ${n}`;
+  // 펼치기 버튼 라벨. 접힌 상태의 안내문과 버튼이 같은 문자열을 쓰도록 한 곳에
+  // 둔다 — 두 곳에서 따로 만들면 언젠가 서로 어긋난다. 숫자는 붙이지 않는다:
+  // 총계가 바로 윗줄 머리에 있어서 버튼에 또 적으면 소음이다 (사용자 결정 2026-09-14).
+  const openLabel = 'Show all';
 
   // 접힌 상태 = 이미 수식이 검출된 문서다. 그 화면은 오늘 잘 돌아가고 있으므로
   // 총계 한 줄 + "아래 버튼을 누르라" 한 줄만 얹는다 (침범 최소화). 안내 없이
@@ -1980,11 +1981,12 @@ function buildUndelimGroup(items) {
   lead.className = 'undelim-lead';
   lead.innerHTML =
     `<div class="undelim-count"><span class="undelim-n" data-clarity-unmask="true">${n}</span> ` +
-    `paragraph${n === 1 ? '' : 's'} look like math but have no delimiter.</div>` +
+    (n === 1 ? `paragraph looks like math but has no delimiter.</div>`
+             : `paragraphs look like math but have no delimiter.</div>`) +
     (shown === 0 ?
-      `<div class="undelim-hint">Nothing in them was detected — press ` +
-      `<strong>${openLabel}</strong> below to open them and wrap the math.</div>` :
-      `<div class="undelim-hint">Nothing in them was detected. Open one, wrap the math in ` +
+      `<div class="undelim-hint">Unwrapped math stays plain text and is not converted. ` +
+      `Press <strong>${openLabel}</strong> below, then wrap the math in <code>$…$</code>.</div>` :
+      `<div class="undelim-hint">Unwrapped math stays plain text and is not converted. Open one, wrap the math in ` +
       `<code>$…$</code> or <code>$$…$$</code>, then Save — the live preview shows what gets ` +
       `detected as you type. Once you have seen the pattern, fixing the rest in your word ` +
       `processor and uploading the file again is often faster than editing each one here.</div>`);
@@ -2004,8 +2006,9 @@ function buildUndelimGroup(items) {
   const buttons = [];
 
   // 펼치기 = 한 번에 전부. 5장씩 끊어 여는 단계는 없앴다 (여러 번 누르게 만드는
-  // 쪽이 더 답답하다는 사용자 피드백). 라벨은 실제 남은 수를 말한다 — 눌렀을 때
-  // 몇 장이 열릴지 버튼이 미리 알려주지 않으면 누르기가 망설여진다.
+  // 쪽이 더 답답하다는 사용자 피드백). 접힌 상태의 버튼은 숫자 없이 "Show all" —
+  // 총계는 윗줄 머리에 이미 있다 (사용자 결정 2026-09-14). 펼친 뒤의 버튼만
+  // 남은 수를 말한다 — 눌렀을 때 몇 장이 더 열릴지는 버튼 말고는 알 데가 없다.
   if (rest > 0) {
     const more = document.createElement('button');
     more.className = 'btn-ghost';
