@@ -571,6 +571,7 @@
   .undelim-lead .undelim-hint {
     font-size: 14px; line-height: 1.6; color: var(--text-muted);
   }
+  .undelim-lead .undelim-hint strong { color: var(--text); font-weight: 500; }
   .undelim-lead code {
     font-family: var(--font-mono); font-size: 13px;
     background: var(--bg); padding: 0 3px; border-radius: 2px;
@@ -1967,14 +1968,22 @@ function buildUndelimGroup(items) {
   const shown = Math.min(undelimShown, n);
   const rest  = n - shown;
 
+  // 펼치기 버튼 라벨은 여기서 한 번만 계산해 접힌 상태의 안내문과 버튼이 같은
+  // 문자열을 쓴다 — 두 곳에서 따로 만들면 언젠가 서로 어긋난다.
+  const openLabel = n === 1 ? 'Show it' : `Show all ${n}`;
+
   // 접힌 상태 = 이미 수식이 검출된 문서다. 그 화면은 오늘 잘 돌아가고 있으므로
-  // 총계 한 줄만 얹고 설명은 사용자가 펼쳤을 때 준다 (침범 최소화).
+  // 총계 한 줄 + "아래 버튼을 누르라" 한 줄만 얹는다 (침범 최소화). 안내 없이
+  // 총계만 두면 사용자는 버튼을 안 누르고 떠난다 (Clarity 2026-09 세션 실측).
+  // 숫자는 Clarity 마스킹에서 제외 — 문단 수이지 사용자 콘텐츠가 아니다.
   const lead = document.createElement('div');
   lead.className = 'undelim-lead';
   lead.innerHTML =
-    `<div class="undelim-count"><span class="undelim-n">${n}</span> ` +
+    `<div class="undelim-count"><span class="undelim-n" data-clarity-unmask="true">${n}</span> ` +
     `paragraph${n === 1 ? '' : 's'} look like math but have no delimiter.</div>` +
-    (shown === 0 ? '' :
+    (shown === 0 ?
+      `<div class="undelim-hint">Nothing in them was detected — press ` +
+      `<strong>${openLabel}</strong> below to open them and wrap the math.</div>` :
       `<div class="undelim-hint">Nothing in them was detected. Open one, wrap the math in ` +
       `<code>$…$</code> or <code>$$…$$</code>, then Save — the live preview shows what gets ` +
       `detected as you type. Once you have seen the pattern, fixing the rest in your word ` +
@@ -2002,7 +2011,7 @@ function buildUndelimGroup(items) {
     more.className = 'btn-ghost';
     more.type = 'button';
     more.textContent = shown === 0
-      ? (n === 1 ? 'Show it' : `Show all ${n}`)
+      ? openLabel
       : (rest === 1 ? 'Show the last one' : `Show the other ${rest}`);
     more.addEventListener('click', () => { undelimShown = n; renderAll(); });
     buttons.push(more);
