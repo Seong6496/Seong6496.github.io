@@ -9,6 +9,8 @@ description: Terms of Service for the LaTeXFlow Google Docs Add-on and Web app.
 
 By installing or using **LaTeXFlow** — either the **Google Docs™ Add-on** ("the Add-on") or the **Web app** at `mathsystem.dev/latexflow/web/` ("the Web app") — you agree to these Terms of Service. Sections marked **(Add-on)** apply only to the Add-on; sections marked **(Web app)** apply only to the Web app; unmarked sections apply to both.
 
+The Service is provided by Teolemma.
+
 ---
 
 ## 1. Description of Service (Add-on)
@@ -75,4 +77,4 @@ These Terms are governed by the laws of the Republic of Korea, without regard to
 
 ## 8. Contact
 
-Questions about these Terms: sung2417@gmail.com
+Questions about these Terms: mathfolis.support@gmail.com

@@ -30,13 +30,13 @@ Everything a Google Docs™ Add-on user — or a reviewer — needs, in one tabl
 | **Who receives it** | **No third party.** Not sold, not shared, not transferred, not disclosed — for any purpose, including advertising. Google Cloud is the only infrastructure processor. See §4a. |
 | **How it is protected** | HTTPS/TLS in transit · Google-managed encryption at rest · write-only service account · public access prevention · pseudonymization · the collection endpoint never logs your LaTeX. See §4b. |
 | **One thing to know about failures** | If a conversion fails, the Add-on writes a diagnostic line to its own Apps Script execution log, and that line **can include the LaTeX that failed**. Nothing is transmitted or stored by us. See §3b. |
-| **Deleting your data** | Email `sung2417@gmail.com` from the Google account you used with the Add-on. See §6. |
+| **Deleting your data** | Email `mathfolis.support@gmail.com` from the Google account you used with the Add-on. See §6. |
 
 ---
 
 ## 1. Who We Are `[Both]`
 
-LaTeXFlow is developed and maintained by an individual developer (contact: sung2417@gmail.com). The Add-on is published on the Google Workspace Marketplace; the Web app is hosted at `mathsystem.dev/latexflow/web/`. The same developer is the data controller for both products.
+LaTeXFlow is operated by Teolemma (contact: mathfolis.support@gmail.com). The Add-on is published on the Google Workspace Marketplace; the Web app is hosted at `mathsystem.dev/latexflow/web/`. Teolemma is the data controller for both products.
 
 ---
 
@@ -174,7 +174,7 @@ These protections apply to all data described in §3a, including data derived fr
 | **Caching** | `[Both]` Stored objects are written with `Cache-Control: private, no-store`. |
 | **Region** | `[Both]` All storage is in **`asia-northeast3` (Seoul, Republic of Korea)** — see §4a. |
 | **Retention** | `[Both]` Training data is retained while it remains useful for model training; records unused for more than 12 months are reviewed quarterly and deleted if no longer needed. See §6. |
-| **Deletion on request** | `[Add-on]` Email `sung2417@gmail.com` **from the Google account you used with the Add-on** — we recompute your identifier from that address and delete the matching records. Nothing else is needed.<br>`[Web app]` Email the same address including your `latexflow_anon_hash` value (§5b). |
+| **Deletion on request** | `[Add-on]` Email `mathfolis.support@gmail.com` **from the Google account you used with the Add-on** — we recompute your identifier from that address and delete the matching records. Nothing else is needed.<br>`[Web app]` Email the same address including your `latexflow_anon_hash` value (§5b). |
 
 ---
 
@@ -203,7 +203,7 @@ localStorage.setItem('latexflow_collect_optout', '1')
 
 The opt-out is enforced immediately by the Web app and persists until you clear site data. While the opt-out is set, no further submissions are sent. You may also simply avoid using the Web app if you prefer not to contribute.
 
-To request deletion of previously submitted Web app records, email `sung2417@gmail.com` together with the value of `latexflow_anon_hash` from your browser (read it from the Console using `localStorage.getItem('latexflow_anon_hash')`). Without that identifier we cannot locate your submissions, because no email, name, or IP address is stored alongside them.
+To request deletion of previously submitted Web app records, email `mathfolis.support@gmail.com` together with the value of `latexflow_anon_hash` from your browser (read it from the Console using `localStorage.getItem('latexflow_anon_hash')`). Without that identifier we cannot locate your submissions, because no email, name, or IP address is stored alongside them.
 
 ---
 
@@ -215,7 +215,7 @@ To request deletion of previously submitted Web app records, email `sung2417@gma
 
 **How to request deletion:**
 
-- **`[Add-on]`** Email `sung2417@gmail.com` **from the Google account you used with the Add-on**. Your identifier is derived from your email address, so we can recompute it from the address you write from and delete the matching records. You do not need to supply anything else.
+- **`[Add-on]`** Email `mathfolis.support@gmail.com` **from the Google account you used with the Add-on**. Your identifier is derived from your email address, so we can recompute it from the address you write from and delete the matching records. You do not need to supply anything else.
 - **`[Web app]`** Email the same address and include your `latexflow_anon_hash` value, as described in §5b. Without it we cannot locate your submissions, because nothing identifying is stored alongside them.
 
 ---
@@ -252,5 +252,5 @@ We may update this policy from time to time. The "Last updated" date at the top 
 
 For privacy-related questions or data deletion requests:
 
-**Email:** sung2417@gmail.com
+**Email:** mathfolis.support@gmail.com
 **Support page:** [mathsystem.dev/latexflow/support/](/latexflow/support/) — FAQ and a public message board

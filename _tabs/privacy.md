@@ -69,7 +69,7 @@ EU 거주자는 GDPR 에 따른 권리를 가집니다 — 데이터 접근 / �
 
 ## 9. 연락
 
-privacy 관련 문의: [sung2417@gmail.com](mailto:sung2417@gmail.com)
+privacy 관련 문의: [mathfolis.support@gmail.com](mailto:mathfolis.support@gmail.com)
 
 ---
 

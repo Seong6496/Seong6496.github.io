@@ -21,7 +21,7 @@ LaTeXFlow 도구 사용 관련 약관은 [LaTeXFlow Terms](/latexflow/terms/) �
 - 문법·명령어는 시간에 따라 변경될 수 있으며, 본 블로그의 예제가 최신 표준과 다를 수 있습니다.
 - 실제 논문·과제·업무 사용 시에는 해당 환경에서 직접 검증하시기 바랍니다.
 
-콘텐츠 오류 발견 시 [sung2417@gmail.com](mailto:sung2417@gmail.com) 로 알려주시면 확인 후 정정합니다.
+콘텐츠 오류 발견 시 [mathfolis.support@gmail.com](mailto:mathfolis.support@gmail.com) 로 알려주시면 확인 후 정정합니다.
 
 ## 2. 광고 (Google AdSense)
 
@@ -52,7 +52,7 @@ LaTeXFlow 도구 사용 관련 약관은 [LaTeXFlow Terms](/latexflow/terms/) �
 블로그 포스트 (`/blog/` 하위) 의 **글·이미지 저작권은 작성자에게 있습니다**.
 
 - 개인 학습 · 참고 용도의 인용은 자유롭게 하되, **출처 (URL + 작성자) 를 명시** 해 주시기 바랍니다.
-- 상업적 재게시 · 대량 복제 · 강의 자료 배포 등은 사전 문의 필요: [sung2417@gmail.com](mailto:sung2417@gmail.com).
+- 상업적 재게시 · 대량 복제 · 강의 자료 배포 등은 사전 문의 필요: [mathfolis.support@gmail.com](mailto:mathfolis.support@gmail.com).
 - 인용 시 원문 링크 (canonical URL) 로 걸어주시면 감사합니다.
 
 LaTeXFlow 도구 (`google-docs-latex-addon`) 의 코드는 별도 [MIT License](https://github.com/Seong6496/google-docs-latex-addon/blob/main/LICENSE) 를 따릅니다.
@@ -73,7 +73,7 @@ LaTeXFlow 도구 (`google-docs-latex-addon`) 의 코드는 별도 [MIT License](
 
 ## 8. 연락
 
-본 고지 관련 문의: [sung2417@gmail.com](mailto:sung2417@gmail.com)
+본 고지 관련 문의: [mathfolis.support@gmail.com](mailto:mathfolis.support@gmail.com)
 
 ---
 

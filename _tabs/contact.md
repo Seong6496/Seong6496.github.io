@@ -7,7 +7,7 @@ order: 7
 
 ## 연락
 
-LaTeXFlow 도구 버그 / 기능 요청은 [GitHub Issues](https://github.com/Seong6496/google-docs-latex-addon/issues) 로, 그 외 모든 문의 (privacy / 블로그 / 기타) 는 [sung2417@gmail.com](mailto:sung2417@gmail.com) 으로.
+LaTeXFlow 도구 버그 / 기능 요청은 [GitHub Issues](https://github.com/Seong6496/google-docs-latex-addon/issues) 로, 그 외 모든 문의 (privacy / 블로그 / 기타) 는 [mathfolis.support@gmail.com](mailto:mathfolis.support@gmail.com) 으로.
 
 ## 관련 페이지
 

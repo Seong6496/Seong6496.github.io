@@ -29,7 +29,7 @@ Please include:
 - **(Web app)** Your browser and OS, and whether you used drag-drop or Google Drive import
 
 For privacy requests, or anything you would rather not post publicly, email
-**sung2417@gmail.com**.
+**mathfolis.support@gmail.com**.
 
 ---
 
@@ -64,7 +64,7 @@ A. The result screen first reports what was actually read — `Scanned N paragra
 A. Each PNG includes the original LaTeX in its alt-text (`AIMATH_FORMULA::v1::` tag). You can recover the source for any equation from the image's alt-text field in Word or Google Docs.
 
 **Q. How do I turn off data collection in the Web app?**
-A. The Web app sends only the equation source and rendered PNG (no other document content) to our collection endpoint. An in-app toggle is on the roadmap; in the meantime, email sung2417@gmail.com and we will arrange an opt-out for your account.
+A. The Web app sends only the equation source and rendered PNG (no other document content) to our collection endpoint. An in-app toggle is on the roadmap; in the meantime, email mathfolis.support@gmail.com and we will arrange an opt-out for your account.
 
 ---
 

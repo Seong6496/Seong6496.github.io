@@ -9,9 +9,9 @@ order: 4
 
 ## 누가 만드나
 
-수학·수식을 다루는 도구(LaTeXFlow)를 만드는 **독립 개발자**가 직접 운영합니다. 회사 조직이나 콘텐츠 외주가 아니라, 도구를 만들며 매일 부딪히는 문제를 그대로 글로 옮기는 1인 프로젝트입니다. 그래서 이 블로그의 글은 대부분 "직접 겪고 해결한 것" 에서 출발합니다 — Google Docs 에 적은 수식이 발표 자료에서 깨졌던 경험, Word 논문 초안의 수식 수십 개를 손보던 마감 직전의 밤, 챗봇 답변을 붙였더니 대괄호만 남던 순간처럼요.
+수학·수식을 다루는 도구(LaTeXFlow)를 만드는 **테오레마(Teolemma)** 가 운영합니다. 콘텐츠 외주가 아니라, 도구를 만들며 매일 부딪히는 문제를 그대로 글로 옮기는 1인 프로젝트입니다. 그래서 이 블로그의 글은 대부분 "직접 겪고 해결한 것" 에서 출발합니다 — Google Docs 에 적은 수식이 발표 자료에서 깨졌던 경험, Word 논문 초안의 수식 수십 개를 손보던 마감 직전의 밤, 챗봇 답변을 붙였더니 대괄호만 남던 순간처럼요.
 
-문의는 [sung2417@gmail.com](mailto:sung2417@gmail.com) 또는 [GitHub](https://github.com/Seong6496/google-docs-latex-addon/issues) 으로 받습니다.
+문의는 [mathfolis.support@gmail.com](mailto:mathfolis.support@gmail.com) 또는 [GitHub](https://github.com/Seong6496/google-docs-latex-addon/issues) 으로 받습니다.
 
 ## 무엇을 만드나
 
