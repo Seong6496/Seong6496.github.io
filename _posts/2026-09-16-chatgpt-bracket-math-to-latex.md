@@ -1,17 +1,17 @@
 ---
-title: "ChatGPT Wrote Your Math in Square Brackets: How to Convert It Anyway"
+title: "Fix ChatGPT's LaTeX in Word: The Four Shapes It Arrives In"
 date: 2026-09-16 09:00:00 +0900
 lang: en
 locale: en_US
 permalink: /blog/en/posts/chatgpt-bracket-math-to-latex/
 categories: [LaTeXFlow, Guide]
-tags: [chatgpt, latex, bracket-mode, markdown, docx, ai]
+tags: [chatgpt, latex, word, bracket-mode, markdown, docx, cases, ai]
 math: true
 pin: false
-description: "Copy a ChatGPT answer into a document and the display equations arrive as bare square brackets, backslashes gone. Which backslashes Markdown eats and why, which delimiters survive the trip, and how bracket mode recovers the ones that did not."
+description: "Paste a ChatGPT answer into Word and its equations arrive in one of four shapes: bare square brackets, bare parentheses, cases and matrix rows glued together by a lost backslash, or clean dollar signs. A diagnosis table for telling them apart, which ones can be recovered, and how bracket mode brings the bracket shape back."
 ---
 
-You asked ChatGPT for twenty AP Calculus BC practice problems, copied the answer, and pasted it into a document. On screen the equations were rendered beautifully. In the document they look like this:
+You asked ChatGPT for twenty AP Calculus BC practice problems, copied the answer, and pasted it into a Word document. On screen the equations were rendered beautifully. In the document they look like this:
 
 ```
 [\lim_{x \to 2} \frac{x^2-4}{x-2}]
@@ -21,7 +21,20 @@ Not `$…$`, not `\[ … \]` — **LaTeX sitting inside a bare square bracket**.
 
 The short version: the outer backslashes were eaten by the chat window's own Markdown rendering, and this specific damage *is* recoverable — that is what **bracket mode** is for. In the [web app](/latexflow/web/) it is on by default, so you can drag the file in as-is. In the Google Docs add-on it ships **off**, and you tick it yourself.
 
-The longer version — why only the outer backslashes vanish, which delimiters survive intact, and how to stop it happening again — is below.
+The longer version — why only the outer backslashes vanish, which delimiters survive intact, and how to stop it happening again — is below. But the square bracket is only one of the shapes a ChatGPT answer can arrive in, and the others are not all fixable. So first, a diagnosis.
+
+## Diagnose first: the four shapes
+
+Open the pasted document and look at one equation. It will match one of these four rows.
+
+| What you see in the document | Where it came from | Recoverable? | What to do |
+|---|---|---|---|
+| `[\lim_{x \to 2} \frac{x^2-4}{x-2}]` — square brackets, the backslashes *inside* intact | `\[ … \]` display math; the outer backslashes were eaten by Markdown | **Yes** | Drop the file in as-is; bracket mode is on by default (sections 1 and 3) |
+| `( \frac{x^2-4}{x-2} )` — round parentheses around LaTeX | `\( … \)` inline math; the same loss | **No** | Ask the chatbot again with `$…$` (section 2) |
+| `\begin{cases}ax+b & (x<1)\3 & (x=1)\x^2 …` — a digit or a letter glued to a *single* backslash inside `cases` or a matrix | The `\\` row separator collapsed to `\` | **Not automatically** — the tool shows the broken pieces in red and leaves that equation as text | Put the `\\` back with Edit LaTeX, or ask again (section 5-1) |
+| `$\frac{x^2-4}{x-2}$`, `$$ … $$` — dollar signs intact | Dollar delimiters survive Markdown | Nothing to recover | Just convert |
+
+Two of the four need no work, one is recovered for you, and one you have to fix by hand or re-request. The rest of this post takes the rows in that order: the bracket shape in detail, the parenthesis shape and why it is lost, then the collapsed row separator, which the earlier version of this post did not cover.
 
 ## 1. The symptom: a bracket pair with the backslashes missing
 
@@ -78,6 +91,8 @@ Three things matter there:
 - **Standardise on `$…$` and `$$…$$`** — the only forms with no copy loss.
 - **Ban `\(...\)`** — rendering turns it into `( … )` and it is gone for good (see 1-3). `\[...\]` is also best avoided, but at worst bracket mode recovers it.
 - **Ban plain text** — writing `x^2` as *"x squared"* removes the LaTeX entirely, and then no tool can help.
+
+If the answer contains a `cases` block or a matrix, glance at it before you paste: every row should end in a double backslash `\\`. A single backslash glued to the next row (`\3`, `\x^2`) is the third shape from the table, and it is easier to re-request than to repair — section 5-1 shows what it looks like.
 
 One request to avoid: **do not ask for a .docx file.** A chatbot-generated `.docx` stores its equations as Word equation objects (`<m:oMath>`), and a tool that reads raw LaTeX text in a document cannot read those. Take the answer as text and paste it into an empty document yourself.
 
@@ -136,6 +151,34 @@ Bracket mode is for the case above: the outer backslashes lost during Markdown r
 
 You do not have to work out which case you have in advance. In the web app both paths run at once with bracket mode already on, so whatever form the answer took, just drop the file in.
 
+There is one shape, though, that no scanner setting helps with, because the damage is inside the equation rather than around it.
+
+### 5-1. The shape bracket mode cannot fix: a collapsed double backslash in cases and matrices
+
+This one came out of a real AP Calculus practice document during testing. The delimiters were fine — the equation sat in ordinary `$…$` — but the piecewise function inside looked like this:
+
+```
+f(x)=\begin{cases}ax+b & (x<1)\3 & (x=1)\x^2 & (x>1)\end{cases}
+```
+
+What it should have been:
+
+```
+f(x)=\begin{cases}ax+b & (x<1)\\3 & (x=1)\\x^2 & (x>1)\end{cases}
+```
+
+In `cases`, `pmatrix`, `bmatrix`, `align` and every other row-based environment, the row separator is a **double backslash** `\\`. Somewhere between the chat window and the document, each pair became a single backslash, and that lone backslash then glued itself onto whatever came next: `\3` and `\x`. Neither is a LaTeX command. The same thing happens to a matrix — `1&2\\3&4` arrives as `1&2\3&4`.
+
+The route is the same family as the bracket damage in section 1. In Markdown a backslash in front of a punctuation character is an escape, and a backslash is itself punctuation, so `\\` rendered as text comes out as `\`. Where exactly the pair collapsed varies with the chat interface and the paste path, and this post does not claim to know it for every setup — what is measured is the arrival shape above, which is the part you can see.
+
+**Why this one is not recovered for you.** In the bracket case there is evidence to act on: the bracket shell is still there, and the `\frac` inside proves it was math. Here the evidence is gone. `\3` was probably `\\3`, but a tool that rewrote every unknown backslash-plus-character into a row break would be guessing, and a wrong guess produces an equation that renders cleanly and says something different — a matrix with the wrong number of rows, a piecewise function with the cases merged. A visible error is the safer outcome, so that is what happens instead:
+
+- **Detection works.** The delimiters are intact, so the equation shows up in *Detected Equations* like any other.
+- **The card preview flags it.** The pieces that are not commands — `\3`, `\x` — are drawn in red, and the three rows of the `cases` block are squashed onto a single line, because there is no row separator left to break them. That preview is the signal to look for.
+- **Export leaves it alone.** When you press **Render PNG · Export**, that equation is not turned into a picture. It stays in the document as the original text, and the completion message adds a red line: *"⚠ 2 equations failed to render and were left as original text."* No red error image goes into your `.docx`.
+
+**The fix** is either of two things. In the tool, press **Edit LaTeX** on the card and put the `\\` back in front of `3` and `x^2` — the preview under the text box updates as you type, the red disappears when the rows come back, and after **Save** the equation exports with the rest. Or, if the answer has many of them, go back to the chatbot with the request from section 2 and check the row separators before pasting the new answer. Two or three broken rows are quicker to fix in place; a whole problem set of matrices is quicker to re-request.
+
 ## 6. FAQ
 
 **Does it differ between chatbots?**
@@ -152,6 +195,12 @@ Yes. The cost is that `[\...]` shapes are then not detected at all and you fix t
 
 **Can I just ask the chatbot to produce the .docx?**
 Not recommended. A chatbot-produced `.docx` puts the equations in as Word equation objects (`<m:oMath>`), and a tool reading raw LaTeX text in the document cannot read them. Take the answer as text and paste it into an empty document.
+
+**The equation was detected, but the preview has red pieces in it and it came back as text after export.**
+That is the third shape from the table: a row separator `\\` inside `cases` or a matrix collapsed to a single `\`. Bracket mode has nothing to do with it — the delimiters were fine, the inside was not. Section 5-1 shows the shape and the two ways to fix it.
+
+**Does it have to be Word?**
+It has to be a `.docx`. Word is the usual source, but a Google Docs document downloaded as `.docx`, or a file saved from another editor in that format, goes through the same scan. If you would rather convert inside Google Docs without downloading anything, the add-on linked below does that.
 
 ---
 
