@@ -88,7 +88,7 @@ You downloaded through the *Google Drive* app. A `.gdoc` is a cloud reference wi
 Same cause. The Drive app only exports a Google Doc as PDF. Use Route A or Route B.
 
 **It imported, but zero equations were found.**
-Then the import worked and the document is the problem — either the maths is not wrapped in LaTeX delimiters, or it was inserted with *Insert → Equation* and is an object rather than text. Those are two different fixes: [detected 0 equations](/blog/en/posts/no-latex-delimiters-recover-document/) and [equation objects are not text](/blog/en/posts/word-equation-objects-not-text/).
+Then the import worked and the document is the problem — either the maths is not wrapped in LaTeX delimiters, or it was inserted with *Insert → Symbols → Equation* and is an object rather than text. Those are two different fixes: [detected 0 equations](/blog/en/posts/no-latex-delimiters-recover-document/) and [equation objects are not text](/blog/en/posts/word-equation-objects-not-text/).
 
 **I have a PDF and nothing else.**
 There is no route from here. A PDF is not a supported input, and converting one back to `.docx` reliably enough to preserve the maths is its own problem. Go back to the original Google Doc if you still have it.
