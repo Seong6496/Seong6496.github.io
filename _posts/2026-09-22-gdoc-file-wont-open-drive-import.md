@@ -156,7 +156,7 @@ Scanned 62 paragraphs · 48 equations found
 If the equation count is zero, the import did not fail — the problem is in the document. It will be one of two things:
 
 - The maths is not wrapped in LaTeX delimiters → [detected 0 equations](/blog/en/posts/no-latex-delimiters-recover-document/)
-- The equations are objects inserted with *Insert → Equation* → [equation objects are not text](/blog/en/posts/word-equation-objects-not-text/)
+- The equations are objects inserted with *Insert → Symbols → Equation* → [equation objects are not text](/blog/en/posts/word-equation-objects-not-text/)
 
 For documents arriving from Google Docs the second is especially common. An equation built with the Docs equation tool stays an object when exported to `.docx`, and there is nowhere to attach a delimiter.
 
