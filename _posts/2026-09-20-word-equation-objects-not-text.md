@@ -98,7 +98,7 @@ Equation-object documents usually arrive by one of four routes.
 
 **① Written directly in Word.** `Alt` + `=` is Word's default way to enter an equation, so most maths documents written in Word are this.
 
-**② The Google Docs equation tool.** An equation inserted with *Insert → Equation* is an object inside Docs too, and exporting to `.docx` turns it into an OOXML equation object.
+**② The Google Docs equation tool.** An equation inserted with *Insert → Symbols → Equation* is an object inside Docs too, and exporting to `.docx` turns it into an OOXML equation object.
 
 **③ A .docx exported from another word processor.** Equations built in another program's equation editor are converted to the same specification on export. The count keys on the tag, so the originating program does not matter.
 
@@ -210,7 +210,7 @@ Only the text ones are found. Because the count is not zero, the zero-detect scr
 Only `.docx` is read. A PDF has a fundamentally different structure and is not supported.
 
 **Google Docs has the same problem, doesn't it?**
-It does, and worse in one specific way. An equation made with *Insert → Equation* in Docs is an object there too, and its paragraph text reads back mangled rather than empty — `\frac{1}{2}` comes back as `12`. So wrapping it in `$$` produces `$$12$$`, which is perfectly valid LaTeX and will convert happily into an image reading **12**. There is no error and the result looks plausible. Do not wrap a native Docs equation; retype the maths as LaTeX text instead. [What Google Docs actually stores for those equations](/blog/en/posts/google-docs-equation-editor-internals/) has the full table.
+It does, and worse in one specific way. An equation made with *Insert → Symbols → Equation* in Docs is an object there too, and its paragraph text reads back mangled rather than empty — `\frac{1}{2}` comes back as `12`. So wrapping it in `$$` produces `$$12$$`, which is perfectly valid LaTeX and will convert happily into an image reading **12**. There is no error and the result looks plausible. Do not wrap a native Docs equation; retype the maths as LaTeX text instead. [What Google Docs actually stores for those equations](/blog/en/posts/google-docs-equation-editor-internals/) has the full table.
 
 ## 11. Summary
 

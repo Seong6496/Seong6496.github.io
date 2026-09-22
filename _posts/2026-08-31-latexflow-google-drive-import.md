@@ -169,7 +169,7 @@ Scanned 62 paragraphs · 48 equations found
 수식 수가 0 으로 나온다면 가져오기가 실패한 게 아니라 문서 쪽 문제입니다. 원인이 둘 중 하나입니다.
 
 - 수식이 LaTeX 구분자로 감싸여 있지 않다 → [구분자가 없는 문서 되살리기](/blog/posts/latexflow-no-delimiter-recovery/)
-- Docs 의 *삽입 → 수식* 으로 넣은 수식 개체다 → [수식 개체와 텍스트의 차이](/blog/posts/word-equation-objects-not-text/)
+- Docs 의 *삽입 → 기호 → 수식* 으로 넣은 수식 개체다 → [수식 개체와 텍스트의 차이](/blog/posts/word-equation-objects-not-text/)
 
 Google Docs 에서 넘어온 문서는 두 번째 경우가 특히 흔합니다. Docs 의 수식 도구로 넣은 식은 `.docx` 로 내보낼 때도 개체 그대로 넘어가서, 구분자를 붙일 자리가 없습니다.
 

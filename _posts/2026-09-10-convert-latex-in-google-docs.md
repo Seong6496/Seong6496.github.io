@@ -17,7 +17,7 @@ You have this in a Google Doc:
 The area of a circle is $\pi r^2$, and $$\int_0^1 x^2\,dx = \frac{1}{3}$$.
 ```
 
-and you want it to look like an equation instead of a row of backslashes. Google Docs has no way to do that on its own — its own *Insert → Equation* builds a different kind of object entirely, and it will not read your LaTeX.
+and you want it to look like an equation instead of a row of backslashes. Google Docs has no way to do that on its own — its own *Insert → Symbols → Equation* builds a different kind of object entirely, and it will not read your LaTeX.
 
 This is the whole path, once through: install, consent, scan, convert. About five minutes the first time, and roughly fifteen seconds every time after.
 
@@ -25,7 +25,7 @@ This is the whole path, once through: install, consent, scan, convert. About fiv
 
 Two things have to be true before any of this works.
 
-**The maths must be text.** If you typed `\pi r^2` with the keyboard, it is text. If you built it with *Insert → Equation*, it is an object, and nothing below applies to it — see section 8.
+**The maths must be text.** If you typed `\pi r^2` with the keyboard, it is text. If you built it with *Insert → Symbols → Equation*, it is an object, and nothing below applies to it — see section 8.
 
 **The maths must be wrapped in a delimiter.** Detection keys on delimiters, so a bare `\frac{1}{2}` with nothing around it is not found. Four are read:
 
@@ -133,7 +133,7 @@ The fix is on the same Scan tab, above the scan button. Select the formula in th
 
 Note that this button wraps as inline `$…$` only. For display maths, type the `$$` pair yourself.
 
-**② The equations are native Docs equation objects.** If you built them with *Insert → Equation*, they are not text and the scanner never sees them. **No delimiter will help**, and it is worth being explicit about why you should not try: the paragraph text of a native equation reads back with its structure destroyed. A `\frac{1}{2}` comes back as `12`. Wrap that in `$$` and you get `$$12$$`, which is valid LaTeX, converts without complaint, and leaves you an image reading **12** where a half used to be. No error, and the result looks plausible enough to miss. Retype the maths as LaTeX text instead. [What Docs actually stores for those equations](/blog/en/posts/google-docs-equation-editor-internals/) has the full picture.
+**② The equations are native Docs equation objects.** If you built them with *Insert → Symbols → Equation*, they are not text and the scanner never sees them. **No delimiter will help**, and it is worth being explicit about why you should not try: the paragraph text of a native equation reads back with its structure destroyed. A `\frac{1}{2}` comes back as `12`. Wrap that in `$$` and you get `$$12$$`, which is valid LaTeX, converts without complaint, and leaves you an image reading **12** where a half used to be. No error, and the result looks plausible enough to miss. Retype the maths as LaTeX text instead. [What Docs actually stores for those equations](/blog/en/posts/google-docs-equation-editor-internals/) has the full picture.
 
 **③ An inline `$…$` broken by a line break.** Inline dollar maths has to open and close on one line. The other three delimiters are not affected.
 
