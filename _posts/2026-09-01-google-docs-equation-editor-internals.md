@@ -11,7 +11,7 @@ pin: false
 description: "We opened up equations built with the Google Docs equation editor and logged the structure Apps Script returns. It is a small tree with LaTeX command names already in it. Here is the full function table, the symbol list, and the things Docs cannot build at all."
 ---
 
-If you build an equation in Google Docs with *Insert → Equation*, what is actually stored?
+If you build an equation in Google Docs with *Insert → Symbols → Equation*, what is actually stored?
 
 Not what it looks like on screen — what a program reading the document gets back. The answer matters if you ever want to move that document somewhere else, because the two obvious ways to read a Doc give completely different answers, and one of them is quietly useless.
 
@@ -196,6 +196,8 @@ Absolute value is the one row a markdown table cannot show cleanly, because its 
 
 Single bars, not double. Double bars are the norm, which is a different construct and not what this function produces.
 
+One addition, measured 2026-09-22: the toolbar's Math operations menu has twenty entries, not fourteen. Thirteen of the fourteen above are on it (`\vec` is typed only), and the other seven — `\subsuperscript`, `\bigcapab`, `\bigcupab`, `\coprodab`, `\rbracelr`, `\sbracelr`, `\bracelr` — are also `EQUATION_FUNCTION` nodes and also typeable by name. That makes twenty-one functions in total, not fourteen; the table above is the original probe and has not been extended.
+
 ## 6. Symbols need no table at all
 
 This was the pleasant surprise. We logged **93 symbols** from the palette, and every single `getCode()` value came back as a valid, ordinary LaTeX command. For symbols there is no mapping table to build at all — you print the code.
@@ -251,25 +253,27 @@ The normal distribution density function nests `\frac` inside `\superscript` ins
 
 This is the part most worth knowing if you are planning around the equation editor, and it is genuinely good news for anyone writing a converter.
 
-We tried to build each of these in the Docs equation editor and could not:
+We tried to build each of these in the Docs equation editor. The first three could not be built; the last two we originally reported as missing, and that turned out to be true only for the typed form:
 
 | Construct | Status in the Docs equation editor |
 |---|---|
 | Matrices | cannot be built |
 | Cases / piecewise | cannot be built |
 | Double integrals | cannot be built |
-| Auto-sized brackets | do not exist — brackets are plain characters |
-| Function names such as `\sin` | no such concept — they are plain letters |
+| Auto-sized brackets | exist as structures — the toolbar's ( ) [ ] { } \| \| entries, or their typed names `\rbracelr`, `\sbracelr`, `\bracelr`, `\abs`, come back as one-argument `EQUATION_FUNCTION` nodes. Typed `(` `)` `{` `}` stay plain characters; `\left(` / `\right)` are not accepted |
+| Function names such as `\sin` | exist as symbols — `\sin`, `\cos`, `\log` typed and followed by a space come back as `EQUATION_SYMBOL` nodes with that code. Plain typed `sin x` stays letters |
+
+*Corrected 2026-09-22 — re-measured with the toolbar and the backslash command forms; the original measured only typed characters and plain `sin x`. The three "cannot be built" rows were re-checked on 2026-09-21 and stand.*
 
 If you have been planning to write a matrix in Google Docs and export it, that plan does not work, and it is better to know now than at 2 a.m. before a deadline.
 
-The flip side is that the set of things the editor *can* produce is small and closed. Fourteen functions and ninety-three symbols is the whole surface. A converter that handles all of them handles everything the editor can make — not most of it, all of it.
+The flip side is that the set of things the editor *can* produce is small and closed. Twenty-one functions (the fourteen in section 5 plus the seven noted under that table) and ninety-three symbols is the whole surface we have measured. A converter that handles all of them handles everything the editor's menus can make — not most of it, all of it.
 
 ## 9. Three awkward corners
 
-**Brackets are characters, and braces will break your output.** Typing `(1/2)`, `{1/2}`, or `[1/2]` gives you plain `TEXT` nodes containing those characters. That is fine for parentheses and square brackets, but a raw `{` or `}` reaching a LaTeX compiler is read as grouping and breaks the build. Any reassembler has to escape them as `\{` and `\}`.
+**Typed brackets are characters, and typed braces will break your output.** Typing `(1/2)`, `{1/2}`, or `[1/2]` gives you plain `TEXT` nodes containing those characters. That is fine for parentheses and square brackets, but a raw `{` or `}` reaching a LaTeX compiler is read as grouping and breaks the build. Any reassembler has to escape them as `\{` and `\}`. The toolbar's bracket entries are a different thing: ( ), [ ], { } and the absolute-value bars picked from the Math operations menu — or typed as `\rbracelr`, `\sbracelr`, `\bracelr`, `\abs` — come back as one-argument `EQUATION_FUNCTION` nodes, with the contents kept as a nested tree (a fraction inside is still a `\frac` node), so the natural LaTeX for them is a `\left` … `\right` pair, not a character.
 
-**Function names stay as letters — and leaving them alone is the more faithful choice.** Typing `sin x` produces a single `TEXT` node reading `sinx`. There is no function concept in the editor at all; what you typed is what is stored. It is tempting to "helpfully" rewrite that to `\sin`, but consider what the document actually looks like: Docs renders those letters in italic, exactly like any other variable. In LaTeX, `sin` is italic and `\sin` is upright. Leaving it as `sin` matches the original rendering; rewriting it changes the document's appearance based on a guess about intent. That is the same category of error as the silent `12` in section 1 — a plausible result that differs from the source. Better as an explicit opt-in setting than a default.
+**Plain-typed function names stay as letters — and leaving them alone is the more faithful choice.** Typing `sin x` produces a single `TEXT` node reading `sinx`; what you typed is what is stored. Typing `\sin` and a space is different: Docs converts it to an `EQUATION_SYMBOL` with code `\sin`, renders it upright, and it comes back out as `\sin` like any other symbol (measured 2026-09-22; `\cos` and `\log` behave the same). For the plain letters, it is tempting to "helpfully" rewrite `sin` to `\sin`, but consider what the document actually looks like: Docs renders those letters in italic, exactly like any other variable. In LaTeX, `sin` is italic and `\sin` is upright. Leaving it as `sin` matches the original rendering; rewriting it changes the document's appearance based on a guess about intent. That is the same category of error as the silent `12` in section 1 — a plausible result that differs from the source. Better as an explicit opt-in setting than a default.
 
 **Subscripts attach to one character.** Typing $\log_2 x$ splits into three pieces: `lo`, then `\subscript` over `g` and `2`, then `x`. Docs attaches the subscript to the immediately preceding character only. The reassembled source is ugly — `lo{g}_{2}x` — but it renders correctly, which is the part that matters.
 
