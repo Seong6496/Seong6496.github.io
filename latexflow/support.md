@@ -49,6 +49,23 @@ A. The scanner detects four delimiters — `$...$` (inline), `$$...$$` (display)
 **Q. How do I turn off data collection in the Add-on?**
 A. Go to **Extensions → LatexFlow → Data Collection Settings** in Google Docs. You can withdraw consent at any time. See our [Privacy Policy](/latexflow/privacy/) for details.
 
+### Export licence and purchases (Add-on)
+
+**Q. How do I get my licence key?**
+A. Buy a licence on the [Export page](/latexflow/export/). The payment is processed by Lemon Squeezy as merchant of record, and their receipt arrives right away. Your licence key comes in a **separate email from us**, sent to the email address you used at checkout, normally within 24 hours. It is not printed on the receipt.
+
+**Q. I have not received my key.**
+A. First check the spam folder of the address you used at checkout — the key is sent there, not to a Google account. If 24 hours have passed, email **mathfolis.support@gmail.com** with the order number from your Lemon Squeezy receipt (please do not post order numbers on the public board) and we will resend it.
+
+**Q. What is `LEMSQZY*` on my card statement?**
+A. That is the purchase. Lemon Squeezy is the merchant of record for LaTeXFlow, so the charge appears under their name rather than ours. Their explanation is at [lemonsqueezy.com/why-did-lemon-squeeezy-charge-me](https://www.lemonsqueezy.com/why-did-lemon-squeeezy-charge-me).
+
+**Q. How do I request a refund?**
+A. The refund policy is on the [Export page](/latexflow/export/#refunds) and in the [Terms of Service](/latexflow/terms/), section 1c. To request one, email **mathfolis.support@gmail.com** with your order number and, if you can, what went wrong. Lemon Squeezy may also refund a purchase within 60 days at its own discretion. A refund can take up to 10 days to show on your statement.
+
+**Q. How do I activate my key, or move it to another Google account?**
+A. In Google Docs™, open the LaTeXFlow sidebar, go to the **Export** tab, paste the key and click **Activate**. The key is stored in the Google account you activated it in and works in every document you open with that account. To move it, click **Deactivate** in the Export tab's License row on the old account, then paste and activate it on the new one. The key is personal to you — please do not share it.
+
 ### Web app (mathsystem.dev/latexflow/web/)
 
 **Q. What Google Drive access does the Web app get?**
@@ -72,3 +89,4 @@ A. The Web app sends only the equation source and rendered PNG (no other documen
 
 - [Privacy Policy](/latexflow/privacy/)
 - [Terms of Service](/latexflow/terms/)
+- [Export to LaTeX — price, licence and refunds](/latexflow/export/)

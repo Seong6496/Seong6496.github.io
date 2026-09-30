@@ -5,7 +5,7 @@ permalink: /latexflow/terms/
 description: Terms of Service for the LaTeXFlow Google Docs Add-on and Web app.
 ---
 
-*Last updated: 2026-09-14*
+*Last updated: 2026-09-30*
 
 By installing or using **LaTeXFlow** — either the **Google Docs™ Add-on** ("the Add-on") or the **Web app** at `mathsystem.dev/latexflow/web/` ("the Web app") — you agree to these Terms of Service. Sections marked **(Add-on)** apply only to the Add-on; sections marked **(Web app)** apply only to the Web app; unmarked sections apply to both.
 
@@ -15,11 +15,29 @@ The Service is provided by Teolemma.
 
 ## 1. Description of Service (Add-on)
 
-The Add-on is a Google Workspace Add-on that converts LaTeX mathematical expressions into image format and inserts them into Google Docs. It is provided free of charge.
+The Add-on is a Google Workspace Add-on that converts LaTeX mathematical expressions into image format and inserts them into Google Docs™. Its core features — scanning, converting, inserting and reverting equations — are provided free of charge. One feature, **Export to LaTeX**, is a paid feature that requires a licence key; it is described in Section 1c.
 
 ## 1b. Description of Service (Web app)
 
-The Web app is a browser-based tool at `mathsystem.dev/latexflow/web/` that converts LaTeX expressions inside a `.docx` file — uploaded directly or imported from Google Drive — into rendered PNG images. Document conversion runs in your browser. What is collected, and how to opt out, is described in the [Privacy Policy](/latexflow/privacy/). It is provided free of charge.
+The Web app is a browser-based tool at `mathsystem.dev/latexflow/web/` that converts LaTeX expressions inside a `.docx` file — uploaded directly or imported from Google Drive — into rendered PNG images. Document conversion runs in your browser. What is collected, and how to opt out, is described in the [Privacy Policy](/latexflow/privacy/). The Web app is provided free of charge and has no paid features.
+
+## 1c. Paid Features, Licences and Refunds (Add-on)
+
+**The paid feature.** *Export to LaTeX* converts the open Google Docs™ document into a `.tex` file. It is the only paid feature of LaTeXFlow. What it does and does not do, and its current price, are described on the [Export page](/latexflow/export/). Prices may change; a change does not affect a licence that has already been issued.
+
+**Licence.** Each purchase provides one licence key. The key is valid for **one year from the date it is issued**, followed by a 14-day grace period; after that, only the Export feature locks — the free features of the Add-on and any `.tex` files you have already exported are unaffected. Renewal is a new purchase. The key is **personal to the email address used at purchase** and may not be shared, published or resold.
+
+**Delivery.** The licence key is sent by us to the email address you used at checkout, normally within 24 hours of purchase. It is separate from the payment receipt.
+
+**Payments.** Payments are processed by **Lemon Squeezy** as merchant of record. Your purchase contract for the payment is with Lemon Squeezy, and its terms apply to the payment; your card statement shows `LEMSQZY*`. VAT or sales tax may be added at checkout depending on your country.
+
+**Refunds.**
+
+<!-- USER DECISION: refund policy -->
+If Export does not work for your document, write to us within **14 days** of purchase through the [Support page](/latexflow/support/) and we will refund the purchase. Lemon Squeezy, as the payment processor, may also refund a purchase within 60 days of purchase at its own discretion. Refunds go back to the original payment method and can take up to 10 days to appear on your statement.
+<!-- /USER DECISION -->
+
+**Chargebacks** are handled by the payment processor under its own rules.
 
 ---
 
@@ -54,6 +72,7 @@ LaTeXFlow is provided **"as is"** without warranties of any kind, express or imp
 - Uninterrupted or error-free operation
 - Compatibility with all Google Docs configurations or browsers
 - Accuracy of rendered equations in all cases
+- **(Add-on)** That the paid Export feature converts every element of every document — items it cannot convert are reported in its warning list rather than dropped silently
 
 ---
 
