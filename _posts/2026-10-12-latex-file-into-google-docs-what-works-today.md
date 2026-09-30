@@ -42,7 +42,7 @@ Two things to be clear about. The result is an image per equation, not a native 
 
 This is the part worth reading before you paste a long file, because it decides how much editing you do first.
 
-**The scanner detects delimited maths only.** It looks for text wrapped in one of four delimiter pairs — `$…$` and `\(…\)` for inline, `$$…$$` and `\[…\]` for display — plus, when you tick *Also detect `[ … ]`* in the panel, the bare square brackets that chat apps produce when they strip the backslashes from `\[ … \]`. That option is off by default in the add-on. Maths that is not inside one of those pairs is not an equation to the scanner. This is a deliberate boundary rather than a gap waiting to be filled: a detector loose enough to catch bare `\frac{1}{2}` also catches file paths, code, and any sentence that happens to contain a backslash, and it would start flagging documents that were fine.
+**The scanner detects delimited maths only.** It looks for text wrapped in one of four delimiter pairs — `$…$` and `\(…\)` for inline, `$$…$$` and `\[…\]` for display — plus, when you tick *Also detect `[ … ]`* in the panel, the bare square brackets that ChatGPT produces when it strips the backslashes from `\[ … \]`. That option is off by default in the add-on. Maths that is not inside one of those pairs is not an equation to the scanner. This is a deliberate boundary rather than a gap waiting to be filled: a detector loose enough to catch bare `\frac{1}{2}` also catches file paths, code, and any sentence that happens to contain a backslash, and it would start flagging documents that were fine.
 
 In a `.tex` file, three consequences follow.
 
