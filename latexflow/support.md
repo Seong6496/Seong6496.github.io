@@ -8,6 +8,8 @@ comments_category: "Q&A"
 comments_category_id: DIC_kwDOHGf2gM4DAHL6
 ---
 
+New to the add-on? Read the [Guide](/latexflow/guide/) first.
+
 Need help with **LaTeXFlow** — either the **Google Docs™ Add-on** or the **Web app** at `mathsystem.dev/latexflow/web/`? Here's how to get support.
 
 ---
