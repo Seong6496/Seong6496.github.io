@@ -7,7 +7,8 @@ description: How to use the LaTeXFlow add-on for Google Docs — install, insert
 
 This guide covers the **LaTeXFlow add-on for Google Docs™**. The add-on turns LaTeX into
 equation images inside your document. If something here does not match what you see, or
-your problem is not listed, see [Get help](#get-help) at the end.
+your problem is not listed, see [Get help](#get-help) at the end. Changes in each version are
+listed in [What's new](/latexflow/changelog/).
 
 ---
 
@@ -66,8 +67,9 @@ the Scan tab finds it and converts it in place.
 3. On a card, click the LaTeX to edit it before converting, or click **Skip** if it is not
    an equation (for example a price like `$100`).
 4. Convert with **⚡ Convert All**, or one card at a time with that card's
-   **➕ Insert into Docs** (read the [note on several equations in one paragraph](#several-equations-in-one-paragraph)
-   first). **⏹ Stop** halts Convert All after the equation in progress.
+   **➕ Insert into Docs**. **⏹ Stop** halts Convert All after the equation in progress.
+   If the document changed since the scan, the panel asks you to scan again — see
+   [the document changed since the scan](#the-document-changed-since-the-scan).
 
 The scanner looks at paragraphs, list items and table cells, and recognises four delimiters:
 
@@ -106,17 +108,16 @@ scan and convert again.
 
 ## 7. Troubleshooting
 
-### Several equations in one paragraph
+### The document changed since the scan
 
-<!-- revisit after hotfix release -->
-When a paragraph contains more than one equation, use **⚡ Convert All**, or click
-**🔍 Scan Document** again after each single conversion. Converting cards one by one from top
-to bottom in the same paragraph can fail with an error like
-`Index (127) must be less than the content length (104)`, or remove nearby text.
+Converting cards one at a time is safe, including several equations in the same paragraph.
+If you edit the document or switch to a different document tab after scanning, a card shows
+**Re-scan needed** and the panel says the document changed since the scan. Click
+**🔍 Re-scan** (or **🔍 Scan Document**), then convert again. Nothing in the document is
+changed until you do.
 
-- If text disappeared, undo with **Ctrl+Z** (**⌘+Z** on a Mac).
-- Do not edit the document or switch document tabs between scanning and converting. If you
-  did, scan again before converting.
+If you are using an older version and text disappeared during a conversion, undo with
+**Ctrl+Z** (**⌘+Z** on a Mac). See [What's new](/latexflow/changelog/) for the fix.
 
 ### Nothing was found
 
@@ -163,4 +164,6 @@ image size, preview errors and data collection settings.
 ## Get help
 
 If your problem is not covered here, report it on the [Support page](/latexflow/support/).
+In the add-on, **Report a problem** at the bottom of the panel, or in the
+**Extensions → LatexFlow** menu, opens the same page.
 Please include what you were trying to do, what happened, and the LaTeX involved.
