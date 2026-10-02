@@ -111,10 +111,12 @@ scan and convert again.
 ### The document changed since the scan
 
 Converting cards one at a time is safe, including several equations in the same paragraph.
-If you edit the document or switch to a different document tab after scanning, a card shows
-**Re-scan needed** and the panel says the document changed since the scan. Click
-**🔍 Re-scan** (or **🔍 Scan Document**), then convert again. Nothing in the document is
-changed until you do.
+If you edit the document after scanning, a card shows **Re-scan needed** and the panel says
+the document changed since the scan. Click **🔍 Re-scan** (or **🔍 Scan Document**), then
+convert again. Nothing in the document is changed until you do.
+
+If you switched to a different document tab, the message reads "Go back to the tab you
+scanned and click Re-scan. Or click Re-scan now to scan the tab you are viewing."
 
 If you are using an older version and text disappeared during a conversion, undo with
 **Ctrl+Z** (**⌘+Z** on a Mac). See [What's new](/latexflow/changelog/) for the fix.
@@ -164,6 +166,6 @@ image size, preview errors and data collection settings.
 ## Get help
 
 If your problem is not covered here, report it on the [Support page](/latexflow/support/).
-In the add-on, **Report a problem** at the bottom of the panel, or in the
-**Extensions → LatexFlow** menu, opens the same page.
+In the add-on, the **Support** link at the bottom of the panel opens the same page. So does
+**Extensions → LatexFlow → Help → Support**.
 Please include what you were trying to do, what happened, and the LaTeX involved.
