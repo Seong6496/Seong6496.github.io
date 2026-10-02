@@ -12,7 +12,8 @@ in the [Guide](/latexflow/guide/).
 
 ## Version 10
 
-<!-- DATE: fill on release -->
+Released 2026-10-02.
+
 <!-- Checked against hotfix 63bdc12 (= Apps Script version 10) and web's live verification Parts 6-7, 2026-10-02 -->
 
 This update fixes problems when converting equations from the **Scan** tab.
