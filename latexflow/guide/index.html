@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Guide · LaTeXFlow</title>
+  <meta name="description" content="How to use the LaTeXFlow add-on for Google Docs — install, insert equations, convert LaTeX already in a document, and fix common problems." />
+
+  <!-- Math System favicons — shared with Chirpy blog at /assets/img/favicons/ -->
+  <link rel="icon" href="/assets/img/favicons/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/img/favicons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/img/favicons/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/assets/img/favicons/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/assets/img/favicons/apple-touch-icon-180.png">
+
+  <!-- Tabler Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.4.0/dist/tabler-icons.min.css" />
+
+  <!-- fonts — web-prototype 와 동일 톤 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --paper:      #FBFAF6;
+      --white:      #FFFFFF;
+      --ink-900:    #191919;
+      --ink-600:    #5C5A53;
+      --ink-500:    #75726A;
+      --ink-400:    #9B9890;
+      --accent-700: #1F4FA3;
+      --accent-800: #173E82;
+      --hairline:   rgba(0, 0, 0, 0.12);
+
+      --bg:           var(--paper);
+      --bg-card:      var(--white);
+      --text:         var(--ink-900);
+      --text-muted:   var(--ink-500);
+      --text-hint:    var(--ink-400);
+      --accent:       var(--accent-700);
+      --accent-hover: var(--accent-800);
+      --accent-bg:    rgba(31, 79, 163, 0.08);
+      --border:       var(--hairline);
+
+      --font-display: 'STIX Two Text', 'Noto Serif KR', 'Times New Roman', serif;
+      --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo', 'Pretendard', 'Noto Sans KR', sans-serif;
+      --font-mono:    'JetBrains Mono', 'D2Coding', ui-monospace, 'SF Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* header — web-prototype hero 와 동일 톤 */
+    .doc-header {
+      background: var(--bg-card);
+      padding: 14px 20px;
+      border-bottom: 0.5px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .doc-header .brand { display: flex; align-items: center; gap: 8px; }
+    .doc-header .brand-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      background: var(--accent-bg);
+      color: var(--accent);
+      font-size: 16px;
+    }
+    .doc-header .brand a {
+      text-decoration: none;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      color: inherit;
+    }
+    .doc-header .brand-name {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 17px;
+      color: var(--text);
+    }
+    .doc-header .brand-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .doc-header .brand-link {
+      font-size: 13px;
+      color: var(--text-hint);
+      text-decoration: none;
+    }
+    .doc-header .brand-link:hover { color: var(--text); }
+    .doc-header .brand-link i { font-size: 12px; margin-left: 2px; }
+
+    /* nav — back / privacy / terms / support */
+    .doc-nav {
+      max-width: 780px;
+      margin: 28px auto 0;
+      padding: 0 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .doc-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 2px;
+      transition: color .12s, border-color .12s;
+    }
+    .doc-nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .doc-nav a.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
+    .doc-nav .back i { font-size: 12px; margin-right: 3px; }
+
+    /* main content */
+    main.doc-main {
+      max-width: 780px;
+      margin: 32px auto 64px;
+      padding: 0 20px;
+    }
+    .doc-main h1 {
+      font-family: var(--font-display);
+      font-size: 34px;
+      font-weight: 500;
+      letter-spacing: -0.4px;
+      margin: 0 0 12px;
+    }
+    .doc-main h2 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 500;
+      margin: 44px 0 12px;
+      padding-top: 16px;
+      border-top: 0.5px solid var(--border);
+    }
+    .doc-main h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin: 24px 0 8px;
+    }
+    .doc-main p,
+    .doc-main li {
+      margin-bottom: 12px;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    .doc-main ul,
+    .doc-main ol {
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+    .doc-main code {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      background: var(--bg-card);
+      padding: 1px 5px;
+      border-radius: 3px;
+      border: 0.5px solid var(--border);
+    }
+    .doc-main pre {
+      background: var(--bg-card);
+      border: 0.5px solid var(--border);
+      border-radius: 6px;
+      padding: 14px;
+      overflow-x: auto;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+    .doc-main pre code { background: none; border: none; padding: 0; }
+    .doc-main a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+    .doc-main a:hover { color: var(--accent-hover); }
+    .doc-main strong { font-weight: 600; }
+    .doc-main em { font-style: italic; color: var(--text-muted); }
+    .doc-main blockquote {
+      border-left: 3px solid var(--accent-bg);
+      padding: 10px 16px;
+      margin: 18px 0;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      border-radius: 0 4px 4px 0;
+    }
+    .doc-main blockquote p:last-child { margin-bottom: 0; }
+    .doc-main hr {
+      border: none;
+      border-top: 0.5px solid var(--border);
+      margin: 32px 0;
+    }
+    .doc-main table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 15px;
+    }
+    .doc-main th,
+    .doc-main td {
+      border: 0.5px solid var(--border);
+      padding: 8px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .doc-main th {
+      background: var(--bg-card);
+      font-weight: 600;
+    }
+
+    /* footer */
+    .doc-footer {
+      border-top: 0.5px solid var(--border);
+      padding: 24px 20px 32px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-hint);
+    }
+    .doc-footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin: 0 6px;
+    }
+    .doc-footer a:hover { color: var(--accent); }
+    .doc-footer .copy {
+      margin-top: 10px;
+      font-size: 12px;
+    }
+    .doc-footer .copy a { color: var(--text-muted); }
+
+    /* message board (opt-in per page via `comments: true`) */
+    .doc-comments-note {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    .doc-comments { margin-top: 20px; }
+    .doc-comments .giscus-frame { border: none; }
+  </style>
+  <!--
+  The GA snippet
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script defer src="https://www.googletagmanager.com/gtag/js?id=G-CF55QKHZBZ"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    gtag('js', new Date());
+    gtag('config', 'G-CF55QKHZBZ');
+  });
+</script>
+
+  <!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xm5dfbwul6");
+</script>
+
+</head>
+<body>
+
+<header class="doc-header">
+  <div class="brand">
+    <span class="brand-icon" aria-hidden="true"><i class="ti ti-math-function"></i></span>
+    <a href="/latexflow/web/">
+      <span class="brand-name">LaTeXFlow</span>
+      <span class="brand-sub">Scan</span>
+    </a>
+  </div>
+  <a class="brand-link" href="https://mathsystem.dev/" target="_blank" rel="noopener">MathSystem <i class="ti ti-external-link" aria-hidden="true"></i></a>
+</header>
+
+<nav class="doc-nav" aria-label="LaTeXFlow documentation">
+  <a class="back" href="/latexflow/web/"><i class="ti ti-arrow-left"></i>Back to tool</a>
+  <a href="/latexflow/privacy/" >Privacy</a>
+  <a href="/latexflow/terms/" >Terms</a>
+  <a href="/latexflow/guide/" class="active">Guide</a>
+  <a href="/latexflow/changelog/" >What's new</a>
+  <a href="/latexflow/support/" >Support</a>
+</nav>
+
+<main class="doc-main">
+  <h1>Guide</h1>
+  <p>This guide covers the <strong>LaTeXFlow add-on for Google Docs™</strong>. The add-on turns LaTeX into
+equation images inside your document. If something here does not match what you see, or
+your problem is not listed, see <a href="#get-help">Get help</a> at the end. Changes in each version are
+listed in <a href="/latexflow/changelog/">What’s new</a>.</p>
+
+<hr />
+
+<h2 id="1-install">1. Install</h2>
+
+<p>Install LaTeXFlow from the
+<a href="https://workspace.google.com/marketplace/app/latexflow/59137436133">Google Workspace Marketplace</a>.
+It is installed to your Google account; nothing is downloaded to your computer.</p>
+
+<h2 id="2-first-run-and-permissions">2. First run and permissions</h2>
+
+<p>During installation Google shows a consent screen in two pages: first your account, then a
+summary of the permissions with checkboxes and a <strong>Continue</strong> button.</p>
+
+<p><strong>Allow all of the requested permissions.</strong> The add-on needs each of them to show its panel
+and to read and change the document you have open. If you untick one, the panel or the scan
+will fail later with a permission error (see <a href="#7-troubleshooting">Troubleshooting</a>).</p>
+
+<p>The document permission is limited to the <strong>current document only</strong> — the one the add-on is
+running in. The add-on does not ask for access to your Drive or other files.</p>
+
+<h2 id="3-open-the-panel">3. Open the panel</h2>
+
+<p>In a document, choose <strong>Extensions → LatexFlow → Open Equation Panel</strong>.</p>
+
+<p>A panel titled <strong>LaTeX → Equation</strong> opens on the right. It has two tabs, <strong>Input</strong> and
+<strong>Scan</strong>, and opens on Input.</p>
+
+<p>The first time, a <strong>Data Collection Consent</strong> box covers the panel. It explains what is
+collected if you agree (the LaTeX source and the rendered image, with a pseudonymous ID).
+Choose <strong>Agree</strong> or <strong>Decline</strong> — the add-on works the same either way, and your choice is
+remembered. You can change it later under <strong>Extensions → LatexFlow → Data Collection
+Settings</strong>. Details are in the <a href="/latexflow/privacy/">Privacy Policy</a>.</p>
+
+<h2 id="4-type-an-equation-input-tab">4. Type an equation (Input tab)</h2>
+
+<ol>
+  <li>Click in the document where the equation should go.</li>
+  <li>In the <strong>Input</strong> tab, type LaTeX into the box, for example <code class="language-plaintext highlighter-rouge">\frac{d}{dx}\sin x = \cos x</code>.
+The symbol buttons (Greek, Sym, Frac, …) insert common commands.</li>
+  <li>Check the <strong>Preview</strong>.</li>
+  <li>Click <strong>➕ Insert into Docs</strong>.</li>
+</ol>
+
+<p>The button stays disabled while the preview shows an error, so fix the LaTeX first.</p>
+
+<p>The Input tab always inserts the equation as a <strong>display</strong> (block) equation. For inline
+equations, write them in the document as <code class="language-plaintext highlighter-rouge">$…$</code> and use the Scan tab instead.</p>
+
+<h2 id="5-convert-latex-already-in-the-document-scan-tab">5. Convert LaTeX already in the document (Scan tab)</h2>
+
+<p>If your document already contains LaTeX — for example an answer pasted from a chatbot —
+the Scan tab finds it and converts it in place.</p>
+
+<ol>
+  <li>Open the <strong>Scan</strong> tab and click <strong>🔍 Scan Document</strong>.</li>
+  <li>Each equation found appears as a card, in document order, with a badge showing its
+delimiter. The status line reads like <code class="language-plaintext highlighter-rouge">Found 7 equation(s) — display: 2, inline: 5</code>.</li>
+  <li>On a card, click the LaTeX to edit it before converting, or click <strong>Skip</strong> if it is not
+an equation (for example a price like <code class="language-plaintext highlighter-rouge">$100</code>).</li>
+  <li>Convert with <strong>⚡ Convert All</strong>, or one card at a time with that card’s
+<strong>➕ Insert into Docs</strong>. <strong>⏹ Stop</strong> halts Convert All after the equation in progress.
+If the document changed since the scan, the panel asks you to scan again — see
+<a href="#the-document-changed-since-the-scan">the document changed since the scan</a>.</li>
+</ol>
+
+<p>The scanner looks at paragraphs, list items and table cells, and recognises four delimiters:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Written as</th>
+      <th>Kind</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$…$</code></td>
+      <td>inline</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\(…\)</code></td>
+      <td>inline</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$$…$$</code></td>
+      <td>display</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\[…\]</code></td>
+      <td>display</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Bracket mode.</strong> Chat apps sometimes drop the backslashes from <code class="language-plaintext highlighter-rouge">\[ … \]</code>, leaving plain
+<code class="language-plaintext highlighter-rouge">[ … ]</code>. Tick <strong>Also detect [ … ] — backslashes stripped by chat apps</strong> before scanning to
+find those. It is <strong>off by default</strong> in the add-on, because brackets in ordinary writing are
+usually not equations.</p>
+
+<p><strong>Formula with no delimiters?</strong> Select it (or put the cursor in its line) and click
+<strong>Tag as $…$</strong>. With a selection it wraps the selection; with only a cursor it wraps the
+whole paragraph. Then scan again. The button wraps as inline <code class="language-plaintext highlighter-rouge">$…$</code> only — type <code class="language-plaintext highlighter-rouge">$$</code> yourself
+for a display equation.</p>
+
+<p>After converting, look over the document once: a formula with a LaTeX mistake can be
+converted into an image that shows a red error message instead of the equation.</p>
+
+<h2 id="6-turn-an-image-back-into-latex">6. Turn an image back into LaTeX</h2>
+
+<p>Converted equations are images, so anyone can see them without the add-on. The original
+LaTeX is stored with each image.</p>
+
+<p>To edit one, select one or more equation images in the document and click
+<strong>↩ Revert to LaTeX</strong> in the Scan tab. The image is replaced by its LaTeX text; edit it, then
+scan and convert again.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Select an equation image in the document first.</code> — nothing was selected.</li>
+  <li><code class="language-plaintext highlighter-rouge">No LaTeX metadata found. This image was not inserted by this addon.</code> — the image was not
+made by LaTeXFlow, so there is no LaTeX to restore.</li>
+</ul>
+
+<h2 id="7-troubleshooting">7. Troubleshooting</h2>
+
+<h3 id="the-document-changed-since-the-scan">The document changed since the scan</h3>
+
+<p>Converting cards one at a time is safe, including several equations in the same paragraph.
+If you edit the document after scanning, a card shows <strong>Re-scan needed</strong> and the panel says
+the document changed since the scan. Click <strong>🔍 Re-scan</strong> (or <strong>🔍 Scan Document</strong>), then
+convert again. Nothing in the document is changed until you do.</p>
+
+<p>If you switched to a different document tab, the message reads “Go back to the tab you
+scanned and click Re-scan. Or click Re-scan now to scan the tab you are viewing.”</p>
+
+<p>If you are using an older version and text disappeared during a conversion, undo with
+<strong>Ctrl+Z</strong> (<strong>⌘+Z</strong> on a Mac). See <a href="/latexflow/changelog/">What’s new</a> for the fix.</p>
+
+<h3 id="nothing-was-found">Nothing was found</h3>
+
+<p>The status line says <code class="language-plaintext highlighter-rouge">No equations found.</code> Check, in this order:</p>
+
+<ol>
+  <li><strong>No delimiters.</strong> The formula is plain text without <code class="language-plaintext highlighter-rouge">$…$</code>, <code class="language-plaintext highlighter-rouge">$$…$$</code>, <code class="language-plaintext highlighter-rouge">\(…\)</code> or <code class="language-plaintext highlighter-rouge">\[…\]</code>.
+Use <strong>Tag as $…$</strong> (section 5).</li>
+  <li><strong>It is a Google Docs equation.</strong> Equations made with <em>Insert → Equation</em> are not text, so
+the scanner cannot see them. Do not wrap them in delimiters — their text reads wrongly
+(<code class="language-plaintext highlighter-rouge">\frac{1}{2}</code> comes out as <code class="language-plaintext highlighter-rouge">12</code>). Retype them as LaTeX.</li>
+  <li><strong>An inline <code class="language-plaintext highlighter-rouge">$…$</code> is broken across lines.</strong> Open and close it on the same line.</li>
+  <li><strong>A display equation spans paragraphs.</strong> The opening and closing delimiters must be in
+the same paragraph. Use <strong>Shift+Enter</strong> for a line break inside it.</li>
+</ol>
+
+<p>Pasted from a chatbot with bare <code class="language-plaintext highlighter-rouge">[ … ]</code>? Turn on bracket mode (section 5) and scan again.</p>
+
+<h3 id="you-do-not-have-permission-to-call-">“You do not have permission to call …”</h3>
+
+<p>A permission was not granted, usually because a checkbox was unticked on the consent screen.</p>
+
+<ul>
+  <li>Close the panel, open it again from <strong>Extensions → LatexFlow → Open Equation Panel</strong>, and
+allow all requested permissions.</li>
+  <li>If you are signed in to <strong>several Google accounts</strong> in the same browser, the add-on can pick
+the wrong one. Open the document in a window where only one account is signed in (for
+example a private window) and try again.</li>
+</ul>
+
+<h3 id="contact-your-organization-administrator">“Contact your organization administrator”</h3>
+
+<p>Your school or work account’s administrator has blocked the add-on. Ask them to allow
+<strong>LatexFlow</strong> in the Google Workspace Marketplace settings for your organization. We cannot
+change this from our side.</p>
+
+<h3 id="the-latexflow-menu-is-missing">The LatexFlow menu is missing</h3>
+
+<p>Right after opening a document, the <strong>Extensions → LatexFlow</strong> menu sometimes does not appear.
+This happens when Google limits how many add-on scripts run at once (for example with many
+documents open at the same time). Reload the document.</p>
+
+<h3 id="other-questions">Other questions</h3>
+
+<p>The <a href="/latexflow/support/#frequently-asked-questions">Support page FAQ</a> answers questions about
+image size, preview errors and data collection settings.</p>
+
+<h2 id="get-help">Get help</h2>
+
+<p>If your problem is not covered here, report it on the <a href="/latexflow/support/">Support page</a>.
+In the add-on, the <strong>Support</strong> link at the bottom of the panel opens the same page. So does
+<strong>Extensions → LatexFlow → Help → Support</strong>.
+Please include what you were trying to do, what happened, and the LaTeX involved.</p>
+
+  <!--
+  Message board for the LaTeXFlow doc pages (layout: latexflow-doc).
+
+  Opt-in per page: renders only when the page sets `comments: true` in its front
+  matter — same gate as _includes/comments.html. privacy.md and terms.md share
+  this layout and deliberately do NOT set the key: they are the legal pages the
+  OAuth review and the Marketplace listing point at.
+
+  Reuses the giscus app already configured in _config.yml for the blog (same
+  repo; category is overridable per page, see below). It does not reuse _includes/comments/giscus.html, which
+  is Chirpy-specific — that one needs jQuery, the #tail-wrapper element and the
+  ModeToggle global, none of which exist in this standalone layout.
+
+  data-theme is fixed to light: the LaTeXFlow doc pages are light-only.
+  data-lang is "en": these pages are English, while the blog (site config) is Korean.
+
+  Category: falls back to the site config (Announcements, used by the blog) unless
+  the page overrides it with `comments_category` / `comments_category_id`. support.md
+  overrides it to Q&A, because GitHub restricts *creating* discussions in an
+  Announcements category to maintainers -- a visitor's first post there would fail --
+  and Q&A additionally lets an answer be marked.
+-->
+
+
+</main>
+
+<footer class="doc-footer">
+  <a href="/latexflow/web/">LaTeXFlow Scan</a> ·
+  <a href="/latexflow/privacy/">Privacy</a> ·
+  <a href="/latexflow/terms/">Terms</a> ·
+  <a href="/latexflow/support/">Support</a> ·
+  <a href="https://mathsystem.dev/">MathSystem</a>
+  <p class="copy">© 2026 Teolemma · LaTeXFlow · Contact: <a href="mailto:mathfolis.support@gmail.com">mathfolis.support@gmail.com</a></p>
+</footer>
+
+</body>
+</html>
