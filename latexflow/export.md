@@ -72,7 +72,7 @@ There are three ways to pay for Export. Prices are in US dollars.
     <tr>
       <td>Export pass</td>
       <td><span class="lfx-price">$1.99</span> <small>once</small></td>
-      <td>Export for <strong>one document</strong>. You can export that document again as many times as you need. Another document needs another pass.</td>
+      <td>Export for <strong>one document</strong>; another document needs another pass.</td>
     </tr>
     <!-- Import pass: add when Import ships -->
     <tr>

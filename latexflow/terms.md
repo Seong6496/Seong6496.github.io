@@ -25,7 +25,7 @@ The Web app is a browser-based tool at `mathsystem.dev/latexflow/web/` that conv
 
 **The paid feature.** *Export to LaTeX* converts the open Google Docs™ document into a `.tex` file. It is the only paid feature of LaTeXFlow. What it does and does not do, and its current price, are described on the [Export page](/latexflow/export/). Prices may change; a change does not affect a licence that has already been issued.
 
-**Products.** Export is sold as a **pass**, a one-off purchase that covers one document, or as a **monthly or annual subscription**, which covers every paid feature for any number of documents. A pass is tied to the first document you export with it, at the moment of that export; that document can be exported again without limit, and another document needs another pass. A subscription keeps the paid features working while it is active; when it ends, only the paid features lock — the free features of the Add-on and any `.tex` files you have already exported are unaffected.
+**Products.** Export is sold as a **pass**, a one-off purchase that covers one document, or as a **monthly or annual subscription**, which covers every paid feature for any number of documents. A pass is tied to the first document you export with it, at the moment of that export, and another document needs another pass. A subscription keeps the paid features working while it is active; when it ends, only the paid features lock — the free features of the Add-on and any `.tex` files you have already exported are unaffected.
 <!-- PENDING(addon probe): grace period -->
 
 **Licence.** Each purchase provides one licence key. The key is **personal to the email address used at purchase** and may not be shared, published or resold.
