@@ -2,7 +2,7 @@
 layout: latexflow-doc
 title: Export to LaTeX
 permalink: /latexflow/export/
-description: Export the open Google Docs™ document to a .tex file, inside Google Docs™ — the paid feature of the LaTeXFlow Add-on. $29 per year, one licence key.
+description: Export the open Google Docs™ document to a .tex file, inside Google Docs™ — the paid feature of the LaTeXFlow Add-on. A $1.99 pass for one document, or a subscription at $4.99 a month or $49 a year.
 ---
 
 <style>
@@ -14,6 +14,11 @@ description: Export the open Google Docs™ document to a .tex file, inside Goog
     color: var(--text-hint) !important; text-decoration: none !important;
     cursor: default; font-size: 15px;
   }
+  .lfx-buy-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .lfx-products { width: 100%; border-collapse: collapse; margin: 0 0 16px; }
+  .lfx-products th, .lfx-products td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 0.5px solid var(--border); }
+  .lfx-products .lfx-price { font-size: 22px; margin: 0; white-space: nowrap; }
+  .lfx-products small { font-size: 14px; color: var(--text-muted); }
   .lfx-buy-note { font-size: 14px; color: var(--text-muted); margin-top: 8px; }
 </style>
 
@@ -57,23 +62,47 @@ Export turns the Google Docs™ document you have open into a `.tex` file, in on
 
 ## Price
 
-<p class="lfx-price">$29 <small>per year</small></p>
+There are three ways to pay for Export. Prices are in US dollars.
 
-- One licence key per purchase.
-- No limit on the number of documents or exports during the year.
-- The key is valid for one year from the day it is issued. After the expiry date there is a 14-day grace period in which Export keeps working; after that, Export locks. Renewal is a new purchase.
-- When a key expires, only Export locks. The `.tex` files you already exported are yours, and every free feature of LaTeXFlow keeps working.
+<table class="lfx-products">
+  <thead>
+    <tr><th>Product</th><th>Price</th><th>Covers</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Export pass</td>
+      <td><span class="lfx-price">$1.99</span> <small>once</small></td>
+      <td>Export for <strong>one document</strong>. You can export that document again as many times as you need. Another document needs another pass.</td>
+    </tr>
+    <!-- Import pass: add when Import ships -->
+    <tr>
+      <td>Monthly subscription</td>
+      <td><span class="lfx-price">$4.99</span> <small>per month</small></td>
+      <td>Every paid feature, any number of documents.</td>
+    </tr>
+    <tr>
+      <td>Annual subscription</td>
+      <td><span class="lfx-price">$49</span> <small>per year</small></td>
+      <td>Every paid feature, any number of documents. A year costs about as much as ten months of the monthly subscription.</td>
+    </tr>
+  </tbody>
+</table>
+
+- **Subscriptions cover every paid feature of LaTeXFlow.** Today that is Export; Import (`.tex` → Google Docs™) is in development and will be included when it ships.
+- **A pass belongs to one document.** It is tied to the first document you export with it, at the moment you export.
+- **A subscription works while it is active.** When it ends, Export locks.
+  <!-- PENDING(addon probe): grace period -->
+- **When a subscription ends, only Export locks.** The `.tex` files you already exported are yours, and every free feature of LaTeXFlow keeps working.
 
 ---
 
 ## How buying works
 
 1. **Payment.** Payments are processed by [Lemon Squeezy](https://www.lemonsqueezy.com/) as merchant of record. You pay Lemon Squeezy, in US dollars; the checkout may show an estimate in your local currency, and VAT or sales tax may be added depending on your country. Your card statement will show `LEMSQZY*` rather than our name.
-2. **Receipt.** Lemon Squeezy emails you a receipt right away.
-3. **Licence key.** We send your licence key to the email address you used at checkout, in a separate email, normally within 24 hours. It is not on the receipt.
-4. **Activation.** In Google Docs™, open the LaTeXFlow sidebar, go to the **Export** tab, paste the key, and click **Activate**. The key is stored in the Google account you activated it in and applies to every document you open with that account.
+2. **Licence key.** Your licence key is in the Lemon Squeezy receipt email, which arrives right after payment. There is no separate email to wait for.
+3. **Activation.** In Google Docs™, open the LaTeXFlow sidebar, go to the **Export** tab, paste the key, and click **Activate**. The key is stored in the Google account you activated it in. A subscription key applies to every document you open with that account; a pass key applies to the first document you export with it.
 
-If anything goes wrong — no key after 24 hours, a key that will not activate — see the [Support page](/latexflow/support/#export-licence-and-purchases-add-on).
+If anything goes wrong — no key in the receipt email, a key that will not activate — see the [Support page](/latexflow/support/#export-licence-and-purchases-add-on).
 
 ---
 
@@ -89,11 +118,16 @@ Lemon Squeezy, as the payment processor, may also refund a purchase within 60 da
 
 ## Buy
 
-<p>
-  <!-- LS_CHECKOUT_URL: replace href when the store is live -->
-  <a class="lfx-buy" href="#" aria-disabled="true" onclick="return false;">Purchase opens soon</a>
+<!-- Checkout links: replace each href="#" with its Lemon Squeezy URL when the store is live -->
+<p class="lfx-buy-row">
+  <!-- LS_CHECKOUT_URL_PASS -->
+  <a class="lfx-buy" href="#" aria-disabled="true" onclick="return false;">Export pass — $1.99</a>
+  <!-- LS_CHECKOUT_URL_MONTHLY -->
+  <a class="lfx-buy" href="#" aria-disabled="true" onclick="return false;">Monthly — $4.99</a>
+  <!-- LS_CHECKOUT_URL_ANNUAL -->
+  <a class="lfx-buy" href="#" aria-disabled="true" onclick="return false;">Annual — $49</a>
 </p>
-<p class="lfx-buy-note">The store is not open yet. When it opens, this button will take you to the Lemon Squeezy checkout.</p>
+<p class="lfx-buy-note">The store is not open yet. When it opens, these buttons will take you to the Lemon Squeezy checkout.</p>
 
 ---
 
