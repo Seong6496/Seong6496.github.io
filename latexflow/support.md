@@ -52,10 +52,10 @@ A. Go to **Extensions → LatexFlow → Data Collection Settings** in Google Doc
 ### Export licence and purchases (Add-on)
 
 **Q. How do I get my licence key?**
-A. Buy a licence on the [Export page](/latexflow/export/). The payment is processed by Lemon Squeezy as merchant of record, and their receipt arrives right away. Your licence key comes in a **separate email from us**, sent to the email address you used at checkout, normally within 24 hours. It is not printed on the receipt.
+A. Buy a pass or a subscription on the [Export page](/latexflow/export/). The payment is processed by Lemon Squeezy as merchant of record. Your licence key is **in the Lemon Squeezy receipt email**, which arrives right after payment and is sent to the email address you used at checkout.
 
 **Q. I have not received my key.**
-A. First check the spam folder of the address you used at checkout — the key is sent there, not to a Google account. If 24 hours have passed, email **mathfolis.support@gmail.com** with the order number from your Lemon Squeezy receipt (please do not post order numbers on the public board) and we will resend it.
+A. Look for the Lemon Squeezy receipt in the inbox and spam folder of the address you used at checkout — it is sent there, not to a Google account. If there is no receipt, email **mathfolis.support@gmail.com** with the email address you paid with and, if you have it, the order number (please do not post order numbers on the public board).
 
 **Q. What is `LEMSQZY*` on my card statement?**
 A. That is the purchase. Lemon Squeezy is the merchant of record for LaTeXFlow, so the charge appears under their name rather than ours. Their explanation is at [lemonsqueezy.com/why-did-lemon-squeeezy-charge-me](https://www.lemonsqueezy.com/why-did-lemon-squeeezy-charge-me).
@@ -64,7 +64,7 @@ A. That is the purchase. Lemon Squeezy is the merchant of record for LaTeXFlow, 
 A. The refund policy is on the [Export page](/latexflow/export/#refunds) and in the [Terms of Service](/latexflow/terms/), section 1c. To request one, email **mathfolis.support@gmail.com** with your order number and, if you can, what went wrong. Lemon Squeezy may also refund a purchase within 60 days at its own discretion. A refund can take up to 10 days to show on your statement.
 
 **Q. How do I activate my key, or move it to another Google account?**
-A. In Google Docs™, open the LaTeXFlow sidebar, go to the **Export** tab, paste the key and click **Activate**. The key is stored in the Google account you activated it in and works in every document you open with that account. To move it, click **Deactivate** in the Export tab's License row on the old account, then paste and activate it on the new one. The key is personal to you — please do not share it.
+A. In Google Docs™, open the LaTeXFlow sidebar, go to the **Export** tab, paste the key and click **Activate**. The key is stored in the Google account you activated it in. A subscription key works in every document you open with that account; a pass key works for the first document you export with it. To move a key, click **Deactivate** in the Export tab's License row on the old account, then paste and activate it on the new one. The key is personal to you — please do not share it.
 
 ### Web app (mathsystem.dev/latexflow/web/)
 
