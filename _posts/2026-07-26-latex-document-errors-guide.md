@@ -248,9 +248,11 @@ l.30 \includegraphics{graph}
 컴파일러가 pdfLaTeX 이고 `kotex` 이 없으면 **아예 멈춥니다**.
 
 ```
-! Package inputenc Error: Unicode character 한 (U+D55C)
-(inputenc)                not set up for use with LaTeX.
+! LaTeX Error: Unicode character 한 (U+D55C)
+               not set up for use with LaTeX.
 ```
+
+(MiKTeX 25.12, LaTeX 2025-11-01 실측. 오래된 배포판에서는 같은 내용이 `Package inputenc Error` 로 시작할 수 있습니다.)
 
 컴파일러가 XeLaTeX / LuaLaTeX 인데 폰트에 한글 글자가 없으면 **멈추지 않고** 경고만 남습니다.
 
@@ -265,13 +267,13 @@ Missing character: There is no 한 in font [lmroman10-regular]:...
 **어떻게 고치는가.**
 
 1. 프리앰블에 `\usepackage{kotex}` 을 추가합니다.
-2. 컴파일러를 바꿉니다. Overleaf 라면 메뉴 → **Settings** → **Compiler** 에서 **XeLaTeX** 또는 **LuaLaTeX** 를 선택합니다.
+2. pdfLaTeX 라면 여기서 끝입니다 — MiKTeX 25.12 실측으로 `kotex` 한 줄이면 pdfLaTeX 에서도 한글이 나옵니다. 컴파일러를 **XeLaTeX** 또는 **LuaLaTeX** 로 바꾸는 것 (Overleaf 라면 메뉴 → **Settings** → **Compiler**) 은 한글 폰트를 이름으로 고르고 싶을 때만 필요합니다.
 
-둘 다 했는데 여전히 `Missing character` 가 남는다면 남은 원인은 폰트입니다. 다음 절로 이어집니다.
+XeLaTeX·LuaLaTeX 에서 `kotex` 을 넣었는데도 `Missing character` 가 남는다면 남은 원인은 폰트입니다. 다음 절로 이어집니다.
 
 ## Package kotex Error: Can't find korean font
 
-**언제 나오는가.** 컴파일러를 XeLaTeX 나 LuaLaTeX 로 바꾼 직후입니다. 앞 절의 조치를 하고 나서 이어서 만나는 경우가 많아, 사실상 같은 문제의 두 번째 단계로 보면 됩니다.
+**언제 나오는가.** 컴파일러를 XeLaTeX 나 LuaLaTeX 로 바꾼 뒤, 한글을 그릴 폰트를 찾지 못했을 때입니다. 앞 절의 조치를 하고 나서 이어서 만나는 경우가 있어, 같은 문제의 두 번째 단계로 볼 수 있습니다.
 
 **로그에서 어떻게 보이는가.**
 
@@ -281,7 +283,7 @@ Missing character: There is no 한 in font [lmroman10-regular]:...
 
 `Package kotex Error` 로 시작하므로 LaTeX 본체가 아니라 한국어 패키지가 낸 메시지입니다. 앞 절의 `Missing character` 가 "글자를 못 그렸다" 는 사후 보고라면, 이쪽은 "쓸 폰트를 아예 정하지 못했다" 는 사전 보고입니다.
 
-**왜 나는가.** XeLaTeX 와 LuaLaTeX 는 시스템에 설치된 폰트를 **이름으로** 불러 씁니다. 어떤 폰트를 쓸지 지정하지 않으면 한국어 글자를 담당할 폰트가 정해지지 않습니다.
+**왜 나는가.** XeLaTeX 와 LuaLaTeX 는 시스템에 설치된 폰트를 **이름으로** 불러 씁니다. 다만 폰트를 지정하지 않았다고 이 오류가 나지는 않습니다 — MiKTeX 25.12 실측으로 `kotex` 은 이때 배포판에 든 은바탕 (UnBatang) 으로 넘어가 오류 없이 한글을 찍습니다. 지정하지 않은 상태에서 문제가 되는 것은 그 은 글꼴이 설치되지 않은 환경입니다. 그리고 지정한 폰트 이름이 틀렸을 때는 실측으로 이 메시지가 아니라 `Package fontspec Error: The font "…" cannot be found` 가 납니다.
 
 **어떻게 고치는가.** 프리앰블에서 폰트를 명시합니다.
 

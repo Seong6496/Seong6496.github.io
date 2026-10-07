@@ -77,7 +77,7 @@ Overleaf 에는 구글 한글 폰트를 비롯해 여러 폰트가 내장돼 있
 
 ## 4. 제목·캡션을 한국어로
 
-한 가지 더 손볼 곳이 있습니다. 기본 `article` 클래스는 자동으로 붙는 이름표 — 그림 캡션의 "Figure", 표의 "Table", 목차의 "Contents" — 를 영어로 답니다. `kotex` 은 대개 이것을 한국어("그림", "표", "차례")로 바꿔 주지만, 클래스나 설정에 따라 영어가 그대로 남는 경우가 있습니다.
+한 가지 더 손볼 곳이 있습니다. 기본 `article` 클래스는 자동으로 붙는 이름표 — 그림 캡션의 "Figure", 표의 "Table", 목차의 "Contents" — 를 영어로 답니다. `\usepackage{kotex}` 한 줄만으로는 이것이 바뀌지 않습니다 — MiKTeX 25.12 에서 실측하면 pdfLaTeX·XeLaTeX·LuaLaTeX 모두 "Figure", "Table" 이 그대로 남습니다. `\usepackage[hangul]{kotex}` 처럼 `hangul` 옵션을 주면 "그림", "표", "차례" 로 바뀝니다.
 
 확실하게 한국어로 고정하려면 프리앰블에서 직접 이름표를 바꿉니다. 이 방법은 어떤 환경에서도 동작합니다.
 
@@ -89,7 +89,7 @@ Overleaf 에는 구글 한글 폰트를 비롯해 여러 폰트가 내장돼 있
 \renewcommand{\bibname}{참고문헌}    % report·book
 ```
 
-이렇게 두면 [그림 삽입](/blog/posts/latex-figures-captions/) 에서 만든 `\caption` 이 "그림 1" 로, 표가 "표 1" 로 나옵니다. `\today` 로 넣은 날짜도 XeLaTeX + kotex 환경에서는 한국어 형식으로 표시됩니다. 제목(`\maketitle`)은 한글 제목을 그대로 조판하므로 따로 손댈 것이 없습니다.
+이렇게 두면 [그림 삽입](/blog/posts/latex-figures-captions/) 에서 만든 `\caption` 이 "그림 1" 로, 표가 "표 1" 로 나옵니다. `\today` 로 넣은 날짜는 `hangul` 옵션이 있을 때 "2026년 10월 7일" 같은 한국어 형식이 되고, 옵션 없이는 "October 7, 2026" 으로 나옵니다 (실측, 세 엔진 동일). 제목(`\maketitle`)은 한글 제목을 그대로 조판하므로 따로 손댈 것이 없습니다.
 
 ## 정리
 
