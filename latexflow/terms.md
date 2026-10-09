@@ -2,10 +2,10 @@
 layout: latexflow-doc
 title: Terms of Service
 permalink: /latexflow/terms/
-description: Terms of Service for the LaTeXFlow Google Docs Add-on and Web app.
+description: Terms of Service for the LaTeXFlow Google Docs™ Add-on and Web app.
 ---
 
-*Last updated: 2026-10-07*
+*Last updated: 2026-10-09*
 
 By installing or using **LaTeXFlow** — either the **Google Docs™ Add-on** ("the Add-on") or the **Web app** at `mathsystem.dev/latexflow/web/` ("the Web app") — you agree to these Terms of Service. Sections marked **(Add-on)** apply only to the Add-on; sections marked **(Web app)** apply only to the Web app; unmarked sections apply to both.
 
@@ -15,7 +15,7 @@ The Service is provided by Teolemma.
 
 ## 1. Description of Service (Add-on)
 
-The Add-on is a Google Workspace Add-on that converts LaTeX mathematical expressions into image format and inserts them into Google Docs™. Its core features — scanning, converting, inserting and reverting equations — are provided free of charge. One feature, **Export to LaTeX**, is a paid feature that requires a licence key; it is described in Section 1c.
+The Add-on is a Google Workspace Add-on that converts LaTeX mathematical expressions into image format and inserts them into Google Docs™. Its core features — scanning, converting, inserting and reverting equations — are provided free of charge. Two features, **Export** (Google Docs™ → LaTeX) and **Import** (LaTeX → Google Docs™), are paid features that require a licence key; they are described in Section 1c.
 
 ## 1b. Description of Service (Web app)
 
@@ -23,9 +23,10 @@ The Web app is a browser-based tool at `mathsystem.dev/latexflow/web/` that conv
 
 ## 1c. Paid Features, Licences and Refunds (Add-on)
 
-**The paid feature.** *Export to LaTeX* converts the open Google Docs™ document into a `.tex` file. It is the only paid feature of LaTeXFlow. What it does and does not do, and its current price, are described on the [Export page](/latexflow/export/). Prices may change; a change does not affect a licence that has already been issued.
+**The paid features.** *Export* converts the open Google Docs™ document into a `.tex` file. *Import* writes a `.tex` file into the open Google Docs™ document. These are the paid features of LaTeXFlow. What they do and do not do, and their current prices, are described on the [Export & Import page](/latexflow/export/). Prices may change; a change does not affect a licence that has already been issued.
 
-**Products.** Export is sold as a **pass**, a one-off purchase that covers one document, or as a **monthly or annual subscription**, which covers every paid feature for any number of documents. A pass is tied to the first document you export with it, at the moment of that export, and another document needs another pass. A subscription keeps the paid features working while it is active; when it ends, only the paid features lock — the free features of the Add-on and any `.tex` files you have already exported are unaffected.
+**Products.** Each paid feature is sold as a **pass** — an *Export pass* or an *Import pass*, a one-off purchase that covers that one feature for one document — or both are covered by a **monthly or annual subscription**, which covers every paid feature for any number of documents. An Export pass is tied to the first document you export with it, at the moment of that export; another document needs another pass. A subscription keeps the paid features working while it is active; when it ends, only the paid features lock — the free features of the Add-on, any `.tex` files you have already exported and any documents you have already imported are unaffected.
+<!-- PENDING(addon): which document an Import pass is tied to, and at what moment -->
 <!-- PENDING(addon probe): grace period -->
 
 **Licence.** Each purchase provides one licence key. The key is **personal to the email address used at purchase** and may not be shared, published or resold.
@@ -37,7 +38,7 @@ The Web app is a browser-based tool at `mathsystem.dev/latexflow/web/` that conv
 **Refunds.**
 
 <!-- USER DECISION: refund policy -->
-If Export does not work for your document, write to us within **14 days** of purchase through the [Support page](/latexflow/support/) and we will refund the purchase. Lemon Squeezy, as the payment processor, may also refund a purchase within 60 days of purchase at its own discretion. Refunds go back to the original payment method and can take up to 10 days to appear on your statement.
+If Export or Import does not work for your document, write to us within **14 days** of purchase through the [Support page](/latexflow/support/) and we will refund the purchase. Lemon Squeezy, as the payment processor, may also refund a purchase within 60 days of purchase at its own discretion. Refunds go back to the original payment method and can take up to 10 days to appear on your statement.
 <!-- /USER DECISION -->
 
 **Chargebacks** are handled by the payment processor under its own rules.
@@ -59,7 +60,7 @@ You agree to use LaTeXFlow only for lawful purposes. You must not:
 
 LaTeXFlow may collect anonymized LaTeX source and rendered equation images for model training purposes, **subject to your explicit consent**.
 
-- **(Add-on)** Consent is managed inside Google Docs via *Extensions → LaTeXFlow → Data Collection Settings*.
+- **(Add-on)** Consent is managed inside Google Docs™ via *Extensions → LaTeXFlow → Data Collection Settings*.
 - **(Web app)** When you convert equations, the LaTeX source for each equation and its rendered PNG are sent to our collection endpoint. The non-equation contents of your document are never transmitted.
 
 See our [Privacy Policy](/latexflow/privacy/) for full details on what is collected and how it is stored.
@@ -73,9 +74,9 @@ You may opt out at any time. Opting out does not affect core functionality.
 LaTeXFlow is provided **"as is"** without warranties of any kind, express or implied. We do not guarantee:
 
 - Uninterrupted or error-free operation
-- Compatibility with all Google Docs configurations or browsers
+- Compatibility with all Google Docs™ configurations or browsers
 - Accuracy of rendered equations in all cases
-- **(Add-on)** That the paid Export feature converts every element of every document — items it cannot convert are reported in its warning list rather than dropped silently
+- **(Add-on)** That the paid Export and Import features convert every element of every document — items Export cannot convert are reported in its warning list rather than dropped silently
 
 ---
 

@@ -2,7 +2,7 @@
 layout: latexflow-doc
 title: Support
 permalink: /latexflow/support/
-description: Support and contact for the LaTeXFlow Google Docs Add-on and Web app.
+description: Support and contact for the LaTeXFlow Google Docs™ Add-on and Web app.
 comments: true
 comments_category: "Q&A"
 comments_category_id: DIC_kwDOHGf2gM4DAHL6
@@ -35,10 +35,10 @@ For privacy requests, or anything you would rather not post publicly, email
 
 ## Frequently Asked Questions
 
-### Add-on (inside Google Docs)
+### Add-on (inside Google Docs™)
 
 **Q. The equation image looks blurry in my document.**
-A. The Add-on inserts a PNG image sized to match standard inline/display text height. If you need a larger image, try scaling it after insertion using Google Docs' image resize handle.
+A. The Add-on inserts a PNG image sized to match standard inline/display text height. If you need a larger image, try scaling it after insertion using the Google Docs™ image resize handle.
 
 **Q. My LaTeX formula shows an error in the preview.**
 A. The preview uses Temml to render your formula. Check your LaTeX syntax — common issues include missing closing braces `}` or unsupported commands.
@@ -47,12 +47,13 @@ A. The preview uses Temml to render your formula. Check your LaTeX syntax — co
 A. The scanner detects four delimiters — `$...$` (inline), `$$...$$` (display), `\(...\)` (inline), and `\[...\]` (display). A separate **bracket mode** also finds `[ ... ]`, for display math whose backslashes a chat app stripped; it is **off by default**, so tick *Also detect `[ … ]`* in the panel before scanning if you need it. Make sure your formulas use one of these delimiters and are not inside special objects like drawings or images.
 
 **Q. How do I turn off data collection in the Add-on?**
-A. Go to **Extensions → LatexFlow → Data Collection Settings** in Google Docs. You can withdraw consent at any time. See our [Privacy Policy](/latexflow/privacy/) for details.
+A. Go to **Extensions → LatexFlow → Data Collection Settings** in Google Docs™. You can withdraw consent at any time. See our [Privacy Policy](/latexflow/privacy/) for details.
 
-### Export licence and purchases (Add-on)
+### Export & Import licence and purchases (Add-on)
+{: #export-licence-and-purchases-add-on}
 
 **Q. How do I get my licence key?**
-A. Buy a pass or a subscription on the [Export page](/latexflow/export/). The payment is processed by Lemon Squeezy as merchant of record. Your licence key is **in the Lemon Squeezy receipt email**, which arrives right after payment and is sent to the email address you used at checkout.
+A. Buy a pass (Export or Import, one document each) or a subscription (Export and Import) on the [Export & Import page](/latexflow/export/). The payment is processed by Lemon Squeezy as merchant of record. Your licence key is **in the Lemon Squeezy receipt email**, which arrives right after payment and is sent to the email address you used at checkout.
 
 **Q. I have not received my key.**
 A. Look for the Lemon Squeezy receipt in the inbox and spam folder of the address you used at checkout — it is sent there, not to a Google account. If there is no receipt, email **mathfolis.support@gmail.com** with the email address you paid with and, if you have it, the order number (please do not post order numbers on the public board).
@@ -61,10 +62,14 @@ A. Look for the Lemon Squeezy receipt in the inbox and spam folder of the addres
 A. That is the purchase. Lemon Squeezy is the merchant of record for LaTeXFlow, so the charge appears under their name rather than ours. Their explanation is at [lemonsqueezy.com/why-did-lemon-squeeezy-charge-me](https://www.lemonsqueezy.com/why-did-lemon-squeeezy-charge-me).
 
 **Q. How do I request a refund?**
-A. The refund policy is on the [Export page](/latexflow/export/#refunds) and in the [Terms of Service](/latexflow/terms/), section 1c. To request one, email **mathfolis.support@gmail.com** with your order number and, if you can, what went wrong. Lemon Squeezy may also refund a purchase within 60 days at its own discretion. A refund can take up to 10 days to show on your statement.
+A. The refund policy is on the [Export & Import page](/latexflow/export/#refunds) and in the [Terms of Service](/latexflow/terms/), section 1c. To request one, email **mathfolis.support@gmail.com** with your order number and, if you can, what went wrong. Lemon Squeezy may also refund a purchase within 60 days at its own discretion. A refund can take up to 10 days to show on your statement.
 
 **Q. How do I activate my key, or move it to another Google account?**
-A. In Google Docs™, open the LaTeXFlow sidebar, go to the **Export** tab, paste the key and click **Activate**. The key is stored in the Google account you activated it in. A subscription key works in every document you open with that account; a pass key works for the first document you export with it. To move a key, click **Deactivate** in the Export tab's License row on the old account, then paste and activate it on the new one. The key is personal to you — please do not share it.
+A. In Google Docs™, open the LaTeXFlow sidebar, go to the **Export** tab, paste the key and click **Activate**. The key is stored in the Google account you activated it in. A subscription key works in every document you open with that account; an Export pass key works for the first document you export with it. The key is personal to you — please do not share it.
+
+- **Subscription key:** to move it, click **Deactivate** in the Export tab's License row on the old account, then paste and activate it on the new one.
+- **Pass key (one document):** <!-- PENDING(user decision ①): can a pass key that is already tied to a document be moved to another Google account, and if so, does the document binding move with it? --> Moving a pass key is not covered yet; if you need to, email **mathfolis.support@gmail.com**.
+
 
 ### Web app (mathsystem.dev/latexflow/web/)
 
@@ -78,7 +83,7 @@ A. The scanner detects `$...$`, `$$...$$`, `\(...\)`, and `\[...\]`. A fifth **b
 A. The result screen first reports what was actually read — `Scanned N paragraphs · 0 equations found` — and then walks you through the fix: the same line shown before and after delimiters are added, plus every delimiter that works. If the file holds Word equation *objects*, it says how many; those are not text, so no delimiter can reach them and that math has to be retyped or pasted back in as LaTeX text. Paragraphs that look like math but carry no delimiter are listed above the guide — open one, wrap the math in `$...$` or `$$...$$`, and the live preview confirms what gets detected. **Try another file** reopens the file picker.
 
 **Q. How do I recover the original LaTeX from a rendered image?**
-A. Each PNG includes the original LaTeX in its alt-text (`AIMATH_FORMULA::v1::` tag). You can recover the source for any equation from the image's alt-text field in Word or Google Docs.
+A. Each PNG includes the original LaTeX in its alt-text (`AIMATH_FORMULA::v1::` tag). You can recover the source for any equation from the image's alt-text field in Word or Google Docs™.
 
 **Q. How do I turn off data collection in the Web app?**
 A. The Web app sends only the equation source and rendered PNG (no other document content) to our collection endpoint. An in-app toggle is on the roadmap; in the meantime, email mathfolis.support@gmail.com and we will arrange an opt-out for your account.
@@ -89,4 +94,4 @@ A. The Web app sends only the equation source and rendered PNG (no other documen
 
 - [Privacy Policy](/latexflow/privacy/)
 - [Terms of Service](/latexflow/terms/)
-- [Export to LaTeX — price, licence and refunds](/latexflow/export/)
+- [Export & Import — price, licence and refunds](/latexflow/export/)
