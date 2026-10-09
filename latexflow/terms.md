@@ -25,8 +25,13 @@ The Web app is a browser-based tool at `mathsystem.dev/latexflow/web/` that conv
 
 **The paid features.** *Export* converts the open Google Docs™ document into a `.tex` file. *Import* writes a `.tex` file into the open Google Docs™ document. These are the paid features of LaTeXFlow. What they do and do not do, and their current prices, are described on the [Export & Import page](/latexflow/export/). Prices may change; a change does not affect a licence that has already been issued.
 
-**Products.** Each paid feature is sold as a **pass** — an *Export pass* or an *Import pass*, a one-off purchase that covers that one feature for one document — or both are covered by a **monthly or annual subscription**, which covers every paid feature for any number of documents. An Export pass is tied to the first document you export with it, at the moment of that export; another document needs another pass. A subscription keeps the paid features working while it is active; when it ends, the paid features lock immediately, with no grace period, and only the paid features lock — the free features of the Add-on, any `.tex` files you have already exported and any documents you have already imported are unaffected.
-<!-- PENDING(addon): which document an Import pass is tied to, and at what moment -->
+**Products.** There are three products. Each covers every paid feature (Export and Import) for any number of documents, on one Google account at a time:
+
+- a **7-day pass**, a one-time payment that does not renew; it ends 7 days after <!-- PENDING(leader measure): 7-day start - "activation" (first Activate in the sidebar) or "purchase"; swap the one word if needed -->activation;
+- a **monthly subscription**; and
+- an **annual subscription**.
+
+A subscription keeps the paid features working while it is active. When a pass or a subscription ends, the paid features lock immediately; there is no grace period. Only the paid features lock — the free features of the Add-on, any `.tex` files you have already exported and any documents you have already imported are unaffected.
 
 **Licence.** Each purchase provides one licence key. The key is **personal to the email address used at purchase** and may not be shared, published or resold.
 

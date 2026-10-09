@@ -53,7 +53,7 @@ A. Go to **Extensions → LatexFlow → Data Collection Settings** in Google Doc
 {: #export-licence-and-purchases-add-on}
 
 **Q. How do I get my licence key?**
-A. Buy a pass (Export or Import, one document each) or a subscription (Export and Import) on the [Export & Import page](/latexflow/export/). The payment is processed by Lemon Squeezy as merchant of record. Your licence key is **in the Lemon Squeezy receipt email**, which arrives right after payment and is sent to the email address you used at checkout.
+A. Buy a 7-day pass or a subscription (monthly or annual) on the [Export & Import page](/latexflow/export/). The payment is processed by Lemon Squeezy as merchant of record. Your licence key is **in the Lemon Squeezy receipt email**, which arrives right after payment and is sent to the email address you used at checkout.
 
 **Q. I have not received my key.**
 A. Look for the Lemon Squeezy receipt in the inbox and spam folder of the address you used at checkout — it is sent there, not to a Google account. If there is no receipt, email **mathfolis.support@gmail.com** with the email address you paid with and, if you have it, the order number (please do not post order numbers on the public board).
@@ -65,10 +65,7 @@ A. That is the purchase. Lemon Squeezy is the merchant of record for LaTeXFlow, 
 A. The refund policy is on the [Export & Import page](/latexflow/export/#refunds) and in the [Terms of Service](/latexflow/terms/), section 1c. To request one, email **mathfolis.support@gmail.com** with your order number and, if you can, what went wrong. Lemon Squeezy may also refund a purchase within 60 days at its own discretion. A refund can take up to 10 days to show on your statement.
 
 **Q. How do I activate my key, or move it to another Google account?**
-A. In Google Docs™, open the LaTeXFlow sidebar, go to the **Export** tab, paste the key and click **Activate**. The key is stored in the Google account you activated it in. A subscription key works in every document you open with that account; an Export pass key works for the first document you export with it. The key is personal to you — please do not share it.
-
-- **Subscription key:** to move it, click **Deactivate** in the Export tab's License row on the old account, then paste and activate it on the new one.
-- **Pass key (one document):** <!-- PENDING(user decision ①): can a pass key that is already tied to a document be moved to another Google account, and if so, does the document binding move with it? --> Moving a pass key is not covered yet; if you need to, email **mathfolis.support@gmail.com**.
+A. In Google Docs™, open the LaTeXFlow sidebar, paste the key into the **License** field and click **Activate**. One key opens both Export and Import, in every document you open with that Google account. A key — 7-day pass or subscription — is used on one Google account at a time. To move it, click **Deactivate** in the sidebar on the old account; that frees the key, and you can paste and activate it on the new one. The key is personal to you — please do not share it.
 
 
 ### Web app (mathsystem.dev/latexflow/web/)
