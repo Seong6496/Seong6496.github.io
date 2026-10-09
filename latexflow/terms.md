@@ -25,9 +25,8 @@ The Web app is a browser-based tool at `mathsystem.dev/latexflow/web/` that conv
 
 **The paid features.** *Export* converts the open Google Docs™ document into a `.tex` file. *Import* writes a `.tex` file into the open Google Docs™ document. These are the paid features of LaTeXFlow. What they do and do not do, and their current prices, are described on the [Export & Import page](/latexflow/export/). Prices may change; a change does not affect a licence that has already been issued.
 
-**Products.** Each paid feature is sold as a **pass** — an *Export pass* or an *Import pass*, a one-off purchase that covers that one feature for one document — or both are covered by a **monthly or annual subscription**, which covers every paid feature for any number of documents. An Export pass is tied to the first document you export with it, at the moment of that export; another document needs another pass. A subscription keeps the paid features working while it is active; when it ends, only the paid features lock — the free features of the Add-on, any `.tex` files you have already exported and any documents you have already imported are unaffected.
+**Products.** Each paid feature is sold as a **pass** — an *Export pass* or an *Import pass*, a one-off purchase that covers that one feature for one document — or both are covered by a **monthly or annual subscription**, which covers every paid feature for any number of documents. An Export pass is tied to the first document you export with it, at the moment of that export; another document needs another pass. A subscription keeps the paid features working while it is active; when it ends, the paid features lock immediately, with no grace period, and only the paid features lock — the free features of the Add-on, any `.tex` files you have already exported and any documents you have already imported are unaffected.
 <!-- PENDING(addon): which document an Import pass is tied to, and at what moment -->
-<!-- PENDING(addon probe): grace period -->
 
 **Licence.** Each purchase provides one licence key. The key is **personal to the email address used at purchase** and may not be shared, published or resold.
 

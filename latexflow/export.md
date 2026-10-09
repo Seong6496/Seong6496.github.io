@@ -101,8 +101,7 @@ There are four products: a pass for each direction, and two subscriptions that c
 - **Subscriptions cover every paid feature of LaTeXFlow:** Export and Import.
 - **A pass covers one direction and one document.** An Export pass does not unlock Import, and an Import pass does not unlock Export. An Export pass is tied to the first document you export with it, at the moment you export.
   <!-- PENDING(addon): which document an Import pass is tied to, and at what moment (the document you import into, at import time?) -->
-- **A subscription works while it is active.** When it ends, Export and Import lock.
-  <!-- PENDING(addon probe): grace period -->
+- **A subscription works while it is active.** When it ends, Export and Import lock immediately; there is no grace period.
 - **When a subscription ends, only the paid features lock.** The `.tex` files you already exported and the documents you already imported are yours, and every free feature of LaTeXFlow keeps working.
 
 ---
