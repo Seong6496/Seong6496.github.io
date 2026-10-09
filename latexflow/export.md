@@ -94,7 +94,7 @@ There are three ways to pay. Each one opens both paid features, Export and Impor
 </table>
 
 - **Every product covers every paid feature of LaTeXFlow:** Export and Import, any number of documents, on one Google account at a time.
-- **The 7-day pass** ends 7 days after <!-- PENDING(leader measure): 7-day start - "activation" (first Activate in the sidebar) or "purchase"; swap the one word if needed -->activation. It is a one-time payment and does not renew.
+- **The 7-day pass** ends 7 days after purchase, not after activation, so buy it when you need it. It is a one-time payment and does not renew.
 - **A subscription works while it is active.**
 - **When a pass or subscription ends, Export and Import lock immediately;** there is no grace period.
 - **Only the paid features lock.** The `.tex` files you already exported and the documents you already imported are yours, and every free feature of LaTeXFlow keeps working.

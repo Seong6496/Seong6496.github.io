@@ -27,7 +27,7 @@ The Web app is a browser-based tool at `mathsystem.dev/latexflow/web/` that conv
 
 **Products.** There are three products. Each covers every paid feature (Export and Import) for any number of documents, on one Google account at a time:
 
-- a **7-day pass**, a one-time payment that does not renew; it ends 7 days after <!-- PENDING(leader measure): 7-day start - "activation" (first Activate in the sidebar) or "purchase"; swap the one word if needed -->activation;
+- a **7-day pass**, a one-time payment that does not renew; it ends 7 days after purchase;
 - a **monthly subscription**; and
 - an **annual subscription**.
 
