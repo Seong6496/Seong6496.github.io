@@ -29,7 +29,7 @@ The Web app is a browser-based tool at `mathsystem.dev/latexflow/web/` that conv
 
 - a **7-day pass**, a one-time payment that does not renew; it ends 7 days after purchase;
 - a **monthly subscription**; and
-- an **annual subscription**.
+- a **yearly subscription**.
 
 A subscription renews automatically at the end of each month or year until it is cancelled. You can cancel at any time from the [Lemon Squeezy customer portal](https://teolemma.lemonsqueezy.com/billing), where you sign in with the email address used at checkout; after cancelling, the paid features stay open until the end of the period already paid for. When a pass or a subscription ends, the paid features lock immediately; there is no grace period. Only the paid features lock — the free features of the Add-on, any `.tex` files you have already exported and any documents you have already imported are unaffected.
 

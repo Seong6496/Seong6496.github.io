@@ -53,7 +53,7 @@ Import goes the other way: it reads a LaTeX (`.tex`) file and writes it into the
 
 ## Passes and subscriptions
 
-Export and Import are opened by a 7-day pass, a monthly subscription or an annual subscription. Each one opens both features for any number of documents; they differ only in how long.
+Export and Import are opened by a 7-day pass, a monthly subscription or a yearly subscription. Each one opens both features for any number of documents; they differ only in how long.
 
 Prices and purchase: [LaTeXFlow store](https://teolemma.lemonsqueezy.com/)
 
@@ -80,7 +80,7 @@ If anything goes wrong — no key in the receipt email, a key that will not acti
 If Export or Import does not work for your document, write to us through the [Support page](/latexflow/support/) and we will refund the purchase:
 
 - **7-day pass:** within **7 days** of purchase, while the pass runs.
-- **Monthly or annual subscription:** within **14 days** of the first payment. Renewal payments are not refunded; cancel before the next renewal instead.
+- **Monthly or yearly subscription:** within **14 days** of the first payment. Renewal payments are not refunded; cancel before the next renewal instead.
 
 Tell us what went wrong; it helps us fix it for the next person.
 
