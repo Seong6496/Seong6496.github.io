@@ -77,7 +77,7 @@ If anything goes wrong — no key in the receipt email, a key that will not acti
 
 ## Refunds
 
-If Export or Import does not work for your document, write to us through the [Support page](/latexflow/support/) and we will refund the purchase:
+If Export or Import does not work for your document, email **mathfolis.support@gmail.com** with your order number and we will refund the purchase:
 
 - **7-day pass:** within **7 days** of purchase, while the pass runs.
 - **Monthly or yearly subscription:** within **14 days** of the first payment. Renewal payments are not refunded; cancel before the next renewal instead.
