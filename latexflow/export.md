@@ -2,28 +2,12 @@
 layout: latexflow-doc
 title: Export & Import
 permalink: /latexflow/export/
-description: Export a Google Docs™ document to a .tex file, or import a .tex file into Google Docs™ — the paid features of the LaTeXFlow Add-on. A 7-day pass for $1.99, or a subscription at $4.99 a month or $49 a year.
+description: How Export (Google Docs™ → .tex) and Import (.tex → Google Docs™) work in the LaTeXFlow Add-on — what they convert, how to activate a licence key, cancelling and refunds.
 ---
 
-<style>
-  .lfx-price { font-family: var(--font-display); font-size: 30px; font-weight: 500; margin: 0 0 4px; }
-  .lfx-price small { font-family: var(--font-body); font-size: 16px; font-weight: 400; color: var(--text-muted); }
-  .lfx-buy {
-    display: inline-block; padding: 10px 18px; border-radius: 6px;
-    border: 0.5px solid var(--border); background: var(--bg-card);
-    color: var(--text) !important; text-decoration: none !important;
-    cursor: pointer; font-size: 15px;
-  }
-  .lfx-buy:hover { border-color: var(--accent); color: var(--accent) !important; }
-  .lfx-buy-row { display: flex; flex-wrap: wrap; gap: 8px; }
-  .lfx-products { width: 100%; border-collapse: collapse; margin: 0 0 16px; }
-  .lfx-products th, .lfx-products td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 0.5px solid var(--border); }
-  .lfx-products .lfx-price { font-size: 22px; margin: 0; white-space: nowrap; }
-  .lfx-products small { font-size: 14px; color: var(--text-muted); }
-  .lfx-buy-note { font-size: 14px; color: var(--text-muted); margin-top: 8px; }
-</style>
-
 *The two paid features of the LaTeXFlow Google Docs™ Add-on: **Export** (Google Docs™ → LaTeX) and **Import** (LaTeX → Google Docs™). Everything else in LaTeXFlow — scanning, converting, inserting and reverting equations — stays free.*
+
+Prices and purchase: [LaTeXFlow store](https://teolemma.lemonsqueezy.com/)
 
 ---
 
@@ -67,32 +51,11 @@ Import goes the other way: it reads a LaTeX (`.tex`) file and writes it into the
 
 ---
 
-## Price
+## Passes and subscriptions
 
-There are three ways to pay. Each one opens both paid features, Export and Import, for any number of documents; they differ only in how long. Prices are in US dollars.
+Export and Import are opened by a 7-day pass, a monthly subscription or an annual subscription. Each one opens both features for any number of documents; they differ only in how long.
 
-<table class="lfx-products">
-  <thead>
-    <tr><th>Product</th><th>Price</th><th>Covers</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>7-day pass</td>
-      <td><span class="lfx-price">$1.99</span> <small>once</small></td>
-      <td>For one paper or one deadline. Export and Import for 7 days. Paid once; it does not renew.</td>
-    </tr>
-    <tr>
-      <td>Monthly subscription</td>
-      <td><span class="lfx-price">$4.99</span> <small>per month</small></td>
-      <td>If you convert regularly. Export and Import while the subscription is active.</td>
-    </tr>
-    <tr>
-      <td>Annual subscription</td>
-      <td><span class="lfx-price">$49</span> <small>per year</small></td>
-      <td>Export and Import for a year — about two months free compared with twelve months of Monthly ($59.88).</td>
-    </tr>
-  </tbody>
-</table>
+Prices and purchase: [LaTeXFlow store](https://teolemma.lemonsqueezy.com/)
 
 - **Every product covers every paid feature of LaTeXFlow:** Export and Import, any number of documents, on one Google account at a time.
 - **The 7-day pass** ends 7 days after purchase. It is a one-time payment and does not renew.
@@ -122,17 +85,6 @@ If Export or Import does not work for your document, write to us through the [Su
 Tell us what went wrong; it helps us fix it for the next person.
 
 Lemon Squeezy, as the payment processor, may also refund a purchase within 60 days of purchase at its own discretion. Refunds go back to the original payment method and can take up to 10 days to appear on your statement.
-
----
-
-## Buy
-
-<p class="lfx-buy-row">
-  <a class="lfx-buy" href="https://teolemma.lemonsqueezy.com/checkout/buy/2a18762b-2f68-435a-bd7e-998d96b756df">7-day pass — $1.99</a>
-  <a class="lfx-buy" href="https://teolemma.lemonsqueezy.com/checkout/buy/04358cb0-9430-41b0-9418-9af22219d4d7">Monthly — $4.99</a>
-  <a class="lfx-buy" href="https://teolemma.lemonsqueezy.com/checkout/buy/1e0c61e2-158b-4668-a4b5-ec9c1a9c973c">Annual — $49</a>
-</p>
-<p class="lfx-buy-note">Checkout is run by Lemon Squeezy. Your licence key arrives in the receipt email.</p>
 
 ---
 

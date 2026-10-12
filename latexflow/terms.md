@@ -23,7 +23,7 @@ The Web app is a browser-based tool at `mathsystem.dev/latexflow/web/` that conv
 
 ## 1c. Paid Features, Licences and Refunds (Add-on)
 
-**The paid features.** *Export* converts the open Google Docs™ document into a `.tex` file. *Import* writes a `.tex` file into the open Google Docs™ document. These are the paid features of LaTeXFlow. What they do and do not do, and their current prices, are described on the [Export & Import page](/latexflow/export/). Prices may change; a change does not affect a licence that has already been issued, and an active subscription keeps the price it started with — its renewals are charged at that original price.
+**The paid features.** *Export* converts the open Google Docs™ document into a `.tex` file. *Import* writes a `.tex` file into the open Google Docs™ document. These are the paid features of LaTeXFlow. What they do and do not do is described on the [Export & Import page](/latexflow/export/); their current prices are listed in the [LaTeXFlow store](https://teolemma.lemonsqueezy.com/). Prices may change; a change does not affect a licence that has already been issued, and an active subscription keeps the price it started with — its renewals are charged at that original price.
 
 **Products.** There are three products. Each covers every paid feature (Export and Import) for any number of documents, on one Google account at a time:
 
