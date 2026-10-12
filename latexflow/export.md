@@ -2,7 +2,7 @@
 layout: latexflow-doc
 title: Export & Import
 permalink: /latexflow/export/
-description: Export a Google Docs™ document to a .tex file, or import a .tex file into Google Docs™ — the paid features of the LaTeXFlow Add-on, coming in the next version. A 7-day pass for $1.99, or a subscription at $4.99 a month or $49 a year.
+description: Export a Google Docs™ document to a .tex file, or import a .tex file into Google Docs™ — the paid features of the LaTeXFlow Add-on. A 7-day pass for $1.99, or a subscription at $4.99 a month or $49 a year.
 ---
 
 <style>
@@ -11,9 +11,10 @@ description: Export a Google Docs™ document to a .tex file, or import a .tex f
   .lfx-buy {
     display: inline-block; padding: 10px 18px; border-radius: 6px;
     border: 0.5px solid var(--border); background: var(--bg-card);
-    color: var(--text-hint) !important; text-decoration: none !important;
-    cursor: default; font-size: 15px;
+    color: var(--text) !important; text-decoration: none !important;
+    cursor: pointer; font-size: 15px;
   }
+  .lfx-buy:hover { border-color: var(--accent); color: var(--accent) !important; }
   .lfx-buy-row { display: flex; flex-wrap: wrap; gap: 8px; }
   .lfx-products { width: 100%; border-collapse: collapse; margin: 0 0 16px; }
   .lfx-products th, .lfx-products td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 0.5px solid var(--border); }
@@ -22,7 +23,7 @@ description: Export a Google Docs™ document to a .tex file, or import a .tex f
   .lfx-buy-note { font-size: 14px; color: var(--text-muted); margin-top: 8px; }
 </style>
 
-*The two paid features of the LaTeXFlow Google Docs™ Add-on: **Export** (Google Docs™ → LaTeX) and **Import** (LaTeX → Google Docs™). Both are coming in the next version of the Add-on, which is pending Google review. Everything else in LaTeXFlow — scanning, converting, inserting and reverting equations — stays free.*
+*The two paid features of the LaTeXFlow Google Docs™ Add-on: **Export** (Google Docs™ → LaTeX) and **Import** (LaTeX → Google Docs™). Everything else in LaTeXFlow — scanning, converting, inserting and reverting equations — stays free.*
 
 ---
 
@@ -62,13 +63,13 @@ Export turns the Google Docs™ document you have open into a `.tex` file, in on
 
 ## Import
 
-Import goes the other way: it reads a LaTeX (`.tex`) file and writes it into the Google Docs™ document you have open, from the LaTeXFlow sidebar — headings, lists, tables and equations. Equations arrive as LaTeX text; the free **Scan** feature then turns them into equation images, if you want images. Like Export, it is coming in the next version of the Add-on (pending Google review).
+Import goes the other way: it reads a LaTeX (`.tex`) file and writes it into the Google Docs™ document you have open, from the LaTeXFlow sidebar — headings, lists, tables and equations. Equations arrive as LaTeX text; the free **Scan** feature then turns them into equation images, if you want images.
 
 ---
 
 ## Price
 
-There are three ways to pay. Each one opens both paid features, Export and Import, for any number of documents; they differ only in how long. Prices are in US dollars. Both features are coming in the next version of the Add-on (pending Google review).
+There are three ways to pay. Each one opens both paid features, Export and Import, for any number of documents; they differ only in how long. Prices are in US dollars.
 
 <table class="lfx-products">
   <thead>
@@ -95,7 +96,7 @@ There are three ways to pay. Each one opens both paid features, Export and Impor
 
 - **Every product covers every paid feature of LaTeXFlow:** Export and Import, any number of documents, on one Google account at a time.
 - **The 7-day pass** ends 7 days after purchase. It is a one-time payment and does not renew.
-- **A subscription renews automatically** each month or each year until you cancel it. You can cancel at any time from the Lemon Squeezy customer portal, where you sign in with the email address you used at checkout. After you cancel, Export and Import stay open until the end of the period you have already paid for.
+- **A subscription renews automatically** each month or each year until you cancel it. You can cancel at any time from the [Lemon Squeezy customer portal](https://teolemma.lemonsqueezy.com/billing), where you sign in with the email address you used at checkout. After you cancel, Export and Import stay open until the end of the period you have already paid for.
 - **When a pass or subscription ends, Export and Import lock immediately;** there is no grace period.
 - **Only the paid features lock.** The `.tex` files you already exported and the documents you already imported are yours, and every free feature of LaTeXFlow keeps working.
 
@@ -126,13 +127,12 @@ Lemon Squeezy, as the payment processor, may also refund a purchase within 60 da
 
 ## Buy
 
-<!-- Checkout links: replace each #LS_CHECKOUT_* href with its live Lemon Squeezy checkout URL (and drop aria-disabled / onclick) when the next version ships -->
 <p class="lfx-buy-row">
-  <a class="lfx-buy" href="#LS_CHECKOUT_PASS7" aria-disabled="true" onclick="return false;">7-day pass — $1.99</a>
-  <a class="lfx-buy" href="#LS_CHECKOUT_MONTHLY" aria-disabled="true" onclick="return false;">Monthly — $4.99</a>
-  <a class="lfx-buy" href="#LS_CHECKOUT_ANNUAL" aria-disabled="true" onclick="return false;">Annual — $49</a>
+  <a class="lfx-buy" href="https://teolemma.lemonsqueezy.com/checkout/buy/2a18762b-2f68-435a-bd7e-998d96b756df">7-day pass — $1.99</a>
+  <a class="lfx-buy" href="https://teolemma.lemonsqueezy.com/checkout/buy/04358cb0-9430-41b0-9418-9af22219d4d7">Monthly — $4.99</a>
+  <a class="lfx-buy" href="https://teolemma.lemonsqueezy.com/checkout/buy/1e0c61e2-158b-4668-a4b5-ec9c1a9c973c">Annual — $49</a>
 </p>
-<p class="lfx-buy-note">Checkout opens with the next version of the Add-on, which brings Export and Import and is pending Google review. Until then these buttons are inactive.</p>
+<p class="lfx-buy-note">Checkout is run by Lemon Squeezy. Your licence key arrives in the receipt email.</p>
 
 ---
 
