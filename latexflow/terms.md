@@ -41,7 +41,7 @@ A subscription renews automatically at the end of each month or year until it is
 
 **Refunds.**
 
-If Export or Import does not work for your document, write to us through the [Support page](/latexflow/support/) and we will refund the purchase, provided you write within **7 days of purchase** for a 7-day pass, or within **14 days of the first payment** for a monthly or annual subscription. Renewal payments of a subscription are not refunded; cancel before the next renewal instead. Lemon Squeezy, as the payment processor, may also refund a purchase within 60 days of purchase at its own discretion. Refunds go back to the original payment method and can take up to 10 days to appear on your statement.
+If Export or Import does not work for your document, write to us through the [Support page](/latexflow/support/) and we will refund the purchase, provided you write within **7 days of purchase** for a 7-day pass, or within **14 days of the first payment** for a monthly or yearly subscription. Renewal payments of a subscription are not refunded; cancel before the next renewal instead. Lemon Squeezy, as the payment processor, may also refund a purchase within 60 days of purchase at its own discretion. Refunds go back to the original payment method and can take up to 10 days to appear on your statement.
 
 **Chargebacks** are handled by the payment processor under its own rules.
 
