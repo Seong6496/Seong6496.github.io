@@ -5,7 +5,7 @@ permalink: /latexflow/terms/
 description: Terms of Service for the LaTeXFlow Google Docs™ Add-on and Web app.
 ---
 
-*Last updated: 2026-10-09*
+*Last updated: 2026-10-12*
 
 By installing or using **LaTeXFlow** — either the **Google Docs™ Add-on** ("the Add-on") or the **Web app** at `mathsystem.dev/latexflow/web/` ("the Web app") — you agree to these Terms of Service. Sections marked **(Add-on)** apply only to the Add-on; sections marked **(Web app)** apply only to the Web app; unmarked sections apply to both.
 
@@ -23,7 +23,7 @@ The Web app is a browser-based tool at `mathsystem.dev/latexflow/web/` that conv
 
 ## 1c. Paid Features, Licences and Refunds (Add-on)
 
-**The paid features.** *Export* converts the open Google Docs™ document into a `.tex` file. *Import* writes a `.tex` file into the open Google Docs™ document. These are the paid features of LaTeXFlow. What they do and do not do, and their current prices, are described on the [Export & Import page](/latexflow/export/). Prices may change; a change does not affect a licence that has already been issued.
+**The paid features.** *Export* converts the open Google Docs™ document into a `.tex` file. *Import* writes a `.tex` file into the open Google Docs™ document. These are the paid features of LaTeXFlow. What they do and do not do, and their current prices, are described on the [Export & Import page](/latexflow/export/). Prices may change; a change does not affect a licence that has already been issued, and an active subscription keeps the price it started with — its renewals are charged at that original price.
 
 **Products.** There are three products. Each covers every paid feature (Export and Import) for any number of documents, on one Google account at a time:
 
@@ -31,7 +31,7 @@ The Web app is a browser-based tool at `mathsystem.dev/latexflow/web/` that conv
 - a **monthly subscription**; and
 - an **annual subscription**.
 
-A subscription keeps the paid features working while it is active. When a pass or a subscription ends, the paid features lock immediately; there is no grace period. Only the paid features lock — the free features of the Add-on, any `.tex` files you have already exported and any documents you have already imported are unaffected.
+A subscription renews automatically at the end of each month or year until it is cancelled. You can cancel at any time from the Lemon Squeezy customer portal, where you sign in with the email address used at checkout; after cancelling, the paid features stay open until the end of the period already paid for. When a pass or a subscription ends, the paid features lock immediately; there is no grace period. Only the paid features lock — the free features of the Add-on, any `.tex` files you have already exported and any documents you have already imported are unaffected.
 
 **Licence.** Each purchase provides one licence key. The key is **personal to the email address used at purchase** and may not be shared, published or resold.
 
@@ -41,9 +41,7 @@ A subscription keeps the paid features working while it is active. When a pass o
 
 **Refunds.**
 
-<!-- USER DECISION: refund policy -->
-If Export or Import does not work for your document, write to us within **14 days** of purchase through the [Support page](/latexflow/support/) and we will refund the purchase. Lemon Squeezy, as the payment processor, may also refund a purchase within 60 days of purchase at its own discretion. Refunds go back to the original payment method and can take up to 10 days to appear on your statement.
-<!-- /USER DECISION -->
+If Export or Import does not work for your document, write to us through the [Support page](/latexflow/support/) and we will refund the purchase, provided you write within **7 days of purchase** for a 7-day pass, or within **14 days of the first payment** for a monthly or annual subscription. Renewal payments of a subscription are not refunded; cancel before the next renewal instead. Lemon Squeezy, as the payment processor, may also refund a purchase within 60 days of purchase at its own discretion. Refunds go back to the original payment method and can take up to 10 days to appear on your statement.
 
 **Chargebacks** are handled by the payment processor under its own rules.
 

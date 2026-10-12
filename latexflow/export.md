@@ -95,7 +95,7 @@ There are three ways to pay. Each one opens both paid features, Export and Impor
 
 - **Every product covers every paid feature of LaTeXFlow:** Export and Import, any number of documents, on one Google account at a time.
 - **The 7-day pass** ends 7 days after purchase. It is a one-time payment and does not renew.
-- **A subscription works while it is active.**
+- **A subscription renews automatically** each month or each year until you cancel it. You can cancel at any time from the Lemon Squeezy customer portal, where you sign in with the email address you used at checkout. After you cancel, Export and Import stay open until the end of the period you have already paid for.
 - **When a pass or subscription ends, Export and Import lock immediately;** there is no grace period.
 - **Only the paid features lock.** The `.tex` files you already exported and the documents you already imported are yours, and every free feature of LaTeXFlow keeps working.
 
@@ -113,11 +113,14 @@ If anything goes wrong — no key in the receipt email, a key that will not acti
 
 ## Refunds
 
-<!-- USER DECISION: refund policy -->
-If Export or Import does not work for your document, write to us within **14 days** of purchase through the [Support page](/latexflow/support/) and we will refund the purchase. Tell us what went wrong; it helps us fix it for the next person.
+If Export or Import does not work for your document, write to us through the [Support page](/latexflow/support/) and we will refund the purchase:
+
+- **7-day pass:** within **7 days** of purchase, while the pass runs.
+- **Monthly or annual subscription:** within **14 days** of the first payment. Renewal payments are not refunded; cancel before the next renewal instead.
+
+Tell us what went wrong; it helps us fix it for the next person.
 
 Lemon Squeezy, as the payment processor, may also refund a purchase within 60 days of purchase at its own discretion. Refunds go back to the original payment method and can take up to 10 days to appear on your statement.
-<!-- /USER DECISION -->
 
 ---
 
