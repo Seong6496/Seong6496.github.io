@@ -10,6 +10,8 @@ on:
       - 'latexflow/**'
       - 'index.html'
       - '.github/workflows/lint-posts.yml'
+      - '_config.yml'
+      - 'Gemfile.lock'
   pull_request:
     paths:
       - '_posts/**.md'
@@ -18,8 +20,28 @@ on:
       - 'latexflow/**'
       - 'index.html'
       - '.github/workflows/lint-posts.yml'
+      - '_config.yml'
+      - 'Gemfile.lock'
 
 jobs:
+  # 예약 글(미래 date)은 배포 빌드에서 빠지므로 깨져도 발행일 cron 재빌드에서야 터지고, 그 뒤 예약 글 전부가 막힌다.
+  # 2026-10-20 글의 {{x}_{i}} 가 Liquid 오류로 --future 빌드를 깨뜨린 사건 (bb7cfd7) 이후 추가. 툴체인은 pages-deploy.yml 과 동일.
+  future-build:
+    name: Future build (scheduled posts must build)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # for posts's lastmod
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+          bundler-cache: true
+
+      - name: Build including future-dated posts
+        run: JEKYLL_ENV=production bundle exec jekyll build --future -d _site_future
+
   heading-inline-code:
     name: No inline-code in headings (Chirpy h-anchor mismatch)
     runs-on: ubuntu-latest
