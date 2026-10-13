@@ -6,7 +6,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LaTeXFlow — LaTeX in any document, converted at once</title>
-  <meta name="description" content="Convert every LaTeX formula in your .docx or Google Doc into clean images. Web app (no install) and Google Docs Add-on. Free." />
+  <meta name="description" content="Convert every LaTeX formula in your .docx or Google Doc into clean images. Web app (no install) and Google Docs™ Add-on. Converting is free; Export to LaTeX and Import from .tex are paid." />
   <meta name="google-site-verification" content="CHyPDPLcZJFDFFsbZ2URfOsY68wd8e4Ib42NQJ5Skio" />
   <!-- Math System favicons — shared with Chirpy blog at /assets/img/favicons/ -->
   <link rel="icon" href="/assets/img/favicons/favicon.ico" sizes="any">
@@ -328,6 +328,19 @@
       vertical-align: middle;
     }
 
+    /* EXPORT & IMPORT — 유료 기능 안내 */
+    .section-subtitle code {
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      background: var(--accent-bg);
+      color: var(--accent);
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+    .paid-links { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 20px; font-size: 0.9375rem; }
+    .paid-links a { color: var(--accent); border-bottom: 1px solid transparent; }
+    .paid-links a:hover { color: var(--accent-hover); border-bottom-color: var(--accent-hover); }
+
     /* HOW IT WORKS — 두 path 분리 (Web 위, Add-on 아래) */
     .how-two-paths {
       display: grid;
@@ -646,10 +659,20 @@
   </div>
 </section>
 
+<!-- EXPORT & IMPORT — 유료 기능 (Add-on, LaTeX file 탭) -->
+<section class="features" id="export-import">
+  <div class="section-inner">
+    <div class="section-label">Paid · Add-on</div>
+    <div class="section-title">Export &amp; Import</div>
+    <p class="section-subtitle">The <strong>LaTeX file</strong> tab of the Google Docs™ Add-on turns your document into a <code>.tex</code> file you can download or open in Overleaf, and brings a <code>.tex</code> file back into Google Docs™. Both need a license key; everything above stays free.</p>
+    <p class="paid-links"><a href="/latexflow/export/">How Export &amp; Import work →</a><a href="https://teolemma.lemonsqueezy.com" target="_blank" rel="noopener">Get a license <i class="ti ti-arrow-up-right" aria-hidden="true"></i></a></p>
+  </div>
+</section>
+
 <!-- Final CTA — paper 톤 + 두 버튼 (동일 accent, hero 와 같은 쌍) -->
 <div class="cta">
   <h2>Ready to write math, not fight it?</h2>
-  <p>Free. No account needed for the Web app.</p>
+  <p>Converting is free. No account needed for the Web app.</p>
   <div class="hero-actions">
     <a class="btn-primary" href="./web/">Try the Web app →</a>
     <a class="btn-primary" href="https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2" target="_blank" rel="noopener">Install for Google Docs <i class="ti ti-arrow-up-right" aria-hidden="true"></i></a>
