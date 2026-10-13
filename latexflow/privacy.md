@@ -5,7 +5,7 @@ permalink: /latexflow/privacy/
 description: How LaTeXFlow (Google Docs™ Add-on and Web app) handles your data.
 ---
 
-*Last updated: 2026-09-14*
+*Last updated: 2026-10-13*
 
 > 📋 **Site-wide privacy** (cookies, advertising, third-party services on the blog and tool pages): [mathsystem.dev/blog/privacy/](/blog/privacy/). This page covers **only the LaTeXFlow tool itself** (Add-on permissions, Web app data processing).
 
@@ -122,6 +122,30 @@ Two things you should know about that line:
 - It is written to Google's own Apps Script execution logging inside the developer's Google Cloud project, and is **retained under Google's default logging behaviour. We do not set a retention period for it**, and we make no retention commitment about it.
 
 **`[Web app]`** The Web app does not transmit error logs.
+
+### 3c. License Check for Export and Import `[Add-on]` {#license-check}
+
+Export and Import, on the Add-on's **LaTeX file** tab, need a license key. The free features — Input, Scan, Convert and Revert — make no license check. To check a key, the Add-on calls the **Lemon Squeezy License API** (`api.lemonsqueezy.com/v1/licenses/`). This is the only network call the license check makes, and it is made from Google's Apps Script servers, not from your browser.
+
+**What is sent to Lemon Squeezy:**
+
+| Value | What it is |
+|---|---|
+| **License key** | The key you pasted into the Add-on. |
+| **Instance name** | `user:` followed by a random identifier the Add-on generates once for your Google account. It is not derived from your email address or from anything else about you. Sent only when a key is activated. |
+| **Instance ID** | The identifier Lemon Squeezy assigns to that activation. Sent when a key is checked again or deactivated. |
+
+**Not sent:** your document's content, the document identifier, your Google account email address, or the pseudonymous identifier used for training data (§3a).
+
+**When it is sent** — only once you have entered a key; with no key stored, nothing is sent:
+
+- **Activate** — when you paste a key and press **Activate**. The key is first checked on its own, then activated with the instance name.
+- **Check** — when the sidebar opens and when you use Export or Import. A key that passed a check is trusted for up to 6 hours (never past its end date) without asking Lemon Squeezy again; after a failed check, Lemon Squeezy is not asked again for 10 minutes.
+- **Deactivate** — when you press **Deactivate**.
+
+**What is stored, and where:** in the Add-on's **user properties** for your Google account (Apps Script `PropertiesService`, user scope), never in the document: the license key, the instance ID and instance name, the plan, the key's end date, the result of the last check, and the times of the last checks. Deactivating removes the key from this list once Lemon Squeezy confirms it; if Lemon Squeezy cannot be reached, the entry is kept, marked as removed, so that pasting the key again reuses the same activation.
+
+**Purchases and payment:** passes and subscriptions are bought on the [LaTeXFlow store](https://teolemma.lemonsqueezy.com), not inside the Add-on. **Lemon Squeezy is the merchant of record** and handles payment and billing details; the Add-on never sees them. Lemon Squeezy's handling of your data is governed by the [Lemon Squeezy privacy policy](https://www.lemonsqueezy.com/privacy).
 
 ---
 
