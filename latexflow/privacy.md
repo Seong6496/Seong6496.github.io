@@ -27,7 +27,7 @@ Everything a Google Docs™ Add-on user — or a reviewer — needs, in one tabl
 | **Consent model** | **Explicit opt-in.** Nothing is collected unless you agree in the consent dialog. Collection is gated on a stored preference that **defaults to unset — taking no action means nothing is collected.** You may withdraw at any time (§5a). |
 | **Does declining cost you anything?** | **No. Every feature works fully without consenting.** Conversion, insertion, and reverting an image back to editable LaTeX all work identically — reverting reads the LaTeX from the image's own alt text inside your document, never from collected data. |
 | **Where it is stored** | Google Cloud Storage in the developer's own project, **`asia-northeast3` (Seoul, Republic of Korea)** only. No cross-border transfer. See §4. |
-| **Who receives it** | **No third party.** Not sold, not shared, not transferred, not disclosed — for any purpose, including advertising. Google Cloud is the only infrastructure processor. See §4a. |
+| **Who receives it** | **No third party.** Not sold, not shared, not transferred, not disclosed — for any purpose, including advertising. Google Cloud is the only infrastructure processor. See §4a.<br>Google user data goes to no third party; only for the Export and Import license check does Lemon Squeezy receive your license key and a random instance name — see [§3c](#license-check). |
 | **How it is protected** | HTTPS/TLS in transit · Google-managed encryption at rest · write-only service account · public access prevention · pseudonymization · the collection endpoint never logs your LaTeX. See §4b. |
 | **One thing to know about failures** | If a conversion fails, the Add-on writes a diagnostic line to its own Apps Script execution log, and that line **can include the LaTeX that failed**. Nothing is transmitted or stored by us. See §3b. |
 | **Deleting your data** | Email `mathfolis.support@gmail.com` from the Google account you used with the Add-on. See §6. |
@@ -246,7 +246,7 @@ To request deletion of previously submitted Web app records, email `mathfolis.su
 
 ## 7. Third-Party Services `[Both]`
 
-**§4a is the authoritative answer to who receives your data: no third party does.** The services listed here are the infrastructure this project runs on and the CDN your browser loads rendering libraries from. They are not recipients of Google user data for their own purposes.
+**§4a is the authoritative answer to who receives your data: no third party does.** The services listed here are the infrastructure this project runs on and the CDN your browser loads rendering libraries from. They are not recipients of Google user data for their own purposes. Google user data goes to no third party; only for the Export and Import license check does Lemon Squeezy receive your license key and a random instance name — see [§3c](#license-check).
 
 | Service | Role | Receives Google user data? |
 |---|---|---|
