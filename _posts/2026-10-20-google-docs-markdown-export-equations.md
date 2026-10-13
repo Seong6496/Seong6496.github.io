@@ -8,6 +8,7 @@ categories: [Google Docs, Reference]
 tags: [google-docs, markdown, export, equations, latex, equation-editor, copy-as-markdown, reference]
 math: false
 pin: false
+render_with_liquid: false
 description: "Google Docs™ has two ways to get Markdown out — File > Download > Markdown (.md) and Edit > Copy as Markdown — and they treat equations differently. Measured on one test document: Download keeps equation-editor equations as real LaTeX in $…$; Copy as Markdown flattens them to bare characters and drops Greek letters; LaTeX typed as text comes out escaped (\\$E \\= mc^2\\$); an image becomes a base64 data URI, with the alt description as the ![alt] text and the alt title as the link title — which is where the LaTeXFlow add-on's LaTeX ends up. Paste from Markdown does not turn $…$ back into equations."
 ---
 
