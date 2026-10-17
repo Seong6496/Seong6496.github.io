@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Export & Import · LaTeXFlow</title>
+  <meta name="description" content="How Export (Google Docs™ → .tex) and Import (.tex → Google Docs™) work in the LaTeXFlow Add-on — what they convert, how to activate a licence key, cancelling and refunds." />
+
+  <!-- Math System favicons — shared with Chirpy blog at /assets/img/favicons/ -->
+  <link rel="icon" href="/assets/img/favicons/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/img/favicons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/img/favicons/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/assets/img/favicons/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/assets/img/favicons/apple-touch-icon-180.png">
+
+  <!-- Tabler Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.4.0/dist/tabler-icons.min.css" />
+
+  <!-- fonts — web-prototype 와 동일 톤 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --paper:      #FBFAF6;
+      --white:      #FFFFFF;
+      --ink-900:    #191919;
+      --ink-600:    #5C5A53;
+      --ink-500:    #75726A;
+      --ink-400:    #9B9890;
+      --accent-700: #1F4FA3;
+      --accent-800: #173E82;
+      --hairline:   rgba(0, 0, 0, 0.12);
+
+      --bg:           var(--paper);
+      --bg-card:      var(--white);
+      --text:         var(--ink-900);
+      --text-muted:   var(--ink-500);
+      --text-hint:    var(--ink-400);
+      --accent:       var(--accent-700);
+      --accent-hover: var(--accent-800);
+      --accent-bg:    rgba(31, 79, 163, 0.08);
+      --border:       var(--hairline);
+
+      --font-display: 'STIX Two Text', 'Noto Serif KR', 'Times New Roman', serif;
+      --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo', 'Pretendard', 'Noto Sans KR', sans-serif;
+      --font-mono:    'JetBrains Mono', 'D2Coding', ui-monospace, 'SF Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* header — web-prototype hero 와 동일 톤 */
+    .doc-header {
+      background: var(--bg-card);
+      padding: 14px 20px;
+      border-bottom: 0.5px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .doc-header .brand { display: flex; align-items: center; gap: 8px; }
+    .doc-header .brand-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      background: var(--accent-bg);
+      color: var(--accent);
+      font-size: 16px;
+    }
+    .doc-header .brand a {
+      text-decoration: none;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      color: inherit;
+    }
+    .doc-header .brand-name {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 17px;
+      color: var(--text);
+    }
+    .doc-header .brand-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .doc-header .brand-link {
+      font-size: 13px;
+      color: var(--text-hint);
+      text-decoration: none;
+    }
+    .doc-header .brand-link:hover { color: var(--text); }
+    .doc-header .brand-link i { font-size: 12px; margin-left: 2px; }
+
+    /* nav — back / privacy / terms / support */
+    .doc-nav {
+      max-width: 780px;
+      margin: 28px auto 0;
+      padding: 0 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .doc-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 2px;
+      transition: color .12s, border-color .12s;
+    }
+    .doc-nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .doc-nav a.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
+    .doc-nav .back i { font-size: 12px; margin-right: 3px; }
+
+    /* main content */
+    main.doc-main {
+      max-width: 780px;
+      margin: 32px auto 64px;
+      padding: 0 20px;
+    }
+    .doc-main h1 {
+      font-family: var(--font-display);
+      font-size: 34px;
+      font-weight: 500;
+      letter-spacing: -0.4px;
+      margin: 0 0 12px;
+    }
+    .doc-main h2 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 500;
+      margin: 44px 0 12px;
+      padding-top: 16px;
+      border-top: 0.5px solid var(--border);
+    }
+    .doc-main h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin: 24px 0 8px;
+    }
+    .doc-main p,
+    .doc-main li {
+      margin-bottom: 12px;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    .doc-main ul,
+    .doc-main ol {
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+    .doc-main code {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      background: var(--bg-card);
+      padding: 1px 5px;
+      border-radius: 3px;
+      border: 0.5px solid var(--border);
+    }
+    .doc-main pre {
+      background: var(--bg-card);
+      border: 0.5px solid var(--border);
+      border-radius: 6px;
+      padding: 14px;
+      overflow-x: auto;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+    .doc-main pre code { background: none; border: none; padding: 0; }
+    .doc-main a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+    .doc-main a:hover { color: var(--accent-hover); }
+    .doc-main strong { font-weight: 600; }
+    .doc-main em { font-style: italic; color: var(--text-muted); }
+    .doc-main blockquote {
+      border-left: 3px solid var(--accent-bg);
+      padding: 10px 16px;
+      margin: 18px 0;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      border-radius: 0 4px 4px 0;
+    }
+    .doc-main blockquote p:last-child { margin-bottom: 0; }
+    .doc-main hr {
+      border: none;
+      border-top: 0.5px solid var(--border);
+      margin: 32px 0;
+    }
+    .doc-main table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 15px;
+    }
+    .doc-main th,
+    .doc-main td {
+      border: 0.5px solid var(--border);
+      padding: 8px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .doc-main th {
+      background: var(--bg-card);
+      font-weight: 600;
+    }
+
+    /* footer */
+    .doc-footer {
+      border-top: 0.5px solid var(--border);
+      padding: 24px 20px 32px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-hint);
+    }
+    .doc-footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin: 0 6px;
+    }
+    .doc-footer a:hover { color: var(--accent); }
+    .doc-footer .copy {
+      margin-top: 10px;
+      font-size: 12px;
+    }
+    .doc-footer .copy a { color: var(--text-muted); }
+
+    /* message board (opt-in per page via `comments: true`) */
+    .doc-comments-note {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    .doc-comments { margin-top: 20px; }
+    .doc-comments .giscus-frame { border: none; }
+  </style>
+  <!--
+  The GA snippet
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script defer src="https://www.googletagmanager.com/gtag/js?id=G-CF55QKHZBZ"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    gtag('js', new Date());
+    gtag('config', 'G-CF55QKHZBZ');
+  });
+</script>
+
+  <!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xm5dfbwul6");
+</script>
+
+</head>
+<body>
+
+<header class="doc-header">
+  <div class="brand">
+    <span class="brand-icon" aria-hidden="true"><i class="ti ti-math-function"></i></span>
+    <a href="/latexflow/web/">
+      <span class="brand-name">LaTeXFlow</span>
+      <span class="brand-sub">Scan</span>
+    </a>
+  </div>
+  <a class="brand-link" href="https://mathsystem.dev/" target="_blank" rel="noopener">MathSystem <i class="ti ti-external-link" aria-hidden="true"></i></a>
+</header>
+
+<nav class="doc-nav" aria-label="LaTeXFlow documentation">
+  <a class="back" href="/latexflow/web/"><i class="ti ti-arrow-left"></i>Back to tool</a>
+  <a href="/latexflow/privacy/" >Privacy</a>
+  <a href="/latexflow/terms/" >Terms</a>
+  <a href="/latexflow/guide/" >Guide</a>
+  <a href="/latexflow/export/" class="active">Export &amp; Import</a>
+  <a href="/latexflow/changelog/" >What's new</a>
+  <a href="/latexflow/support/" >Support</a>
+</nav>
+
+<main class="doc-main">
+  <h1>Export & Import</h1>
+  <p><em>The two paid features of the LaTeXFlow Google Docs™ Add-on: <strong>Export</strong> (Google Docs™ → LaTeX) and <strong>Import</strong> (LaTeX → Google Docs™). Everything else in LaTeXFlow — scanning, converting, inserting and reverting equations — stays free.</em></p>
+
+<p>Prices and purchase: <a href="https://teolemma.lemonsqueezy.com/">LaTeXFlow store</a></p>
+
+<hr />
+
+<h2 id="export-what-it-does">Export: what it does</h2>
+
+<p>Export turns the Google Docs™ document you have open into a <code class="language-plaintext highlighter-rouge">.tex</code> file, in one step, from the LaTeXFlow sidebar. The conversion runs inside Google Docs™ itself: your manuscript is not uploaded to a server — not ours, not anyone else’s. Equations made with the Docs equation editor, equations LaTeXFlow inserted, and LaTeX you typed between <code class="language-plaintext highlighter-rouge">$…$</code> delimiters all come out as LaTeX. You can download the file, copy it to the clipboard, or open it directly as a new Overleaf project.</p>
+
+<hr />
+
+<h2 id="export-what-comes-out">Export: what comes out</h2>
+
+<ul>
+  <li><strong>Document structure.</strong> The title, headings (<code class="language-plaintext highlighter-rouge">\section</code>, <code class="language-plaintext highlighter-rouge">\subsection</code>, <code class="language-plaintext highlighter-rouge">\subsubsection</code>), bulleted and numbered lists including nested ones, page breaks, horizontal rules, and a table of contents if your document has one.</li>
+  <li><strong>Text formatting.</strong> Bold, italic, underline, superscript and subscript, monospace text, links (<code class="language-plaintext highlighter-rouge">\href</code>), footnotes (<code class="language-plaintext highlighter-rouge">\footnote</code>), and centred or right-aligned paragraphs.</li>
+  <li><strong>Tables.</strong> Written as <code class="language-plaintext highlighter-rouge">tabular</code> with rules. Cells merged across columns become <code class="language-plaintext highlighter-rouge">\multicolumn</code>.</li>
+  <li><strong>Equations from the Docs equation editor</strong> (Insert → Equation). They are read from the document’s own equation structure and rewritten as LaTeX — fractions, roots, sums, products and integrals with limits, sub- and superscripts, vectors, hats, bars, and bracket groups. Nothing is guessed from pixels; this is not OCR.</li>
+  <li><strong>Equations inserted by LaTeXFlow.</strong> The original LaTeX is stored in each image and is restored exactly as you wrote it.</li>
+  <li><strong>LaTeX you typed as text</strong>, between <code class="language-plaintext highlighter-rouge">$…$</code>, <code class="language-plaintext highlighter-rouge">$$…$$</code>, <code class="language-plaintext highlighter-rouge">\(…\)</code> or <code class="language-plaintext highlighter-rouge">\[…\]</code>, passes through unchanged.</li>
+  <li><strong>Citations.</strong> Paste your <code class="language-plaintext highlighter-rouge">.bib</code> file in the sidebar and write <code class="language-plaintext highlighter-rouge">[@key]</code> in the text; it becomes <code class="language-plaintext highlighter-rouge">\cite{key}</code>, with the bibliography attached to the <code class="language-plaintext highlighter-rouge">.tex</code>.</li>
+  <li><strong>A preamble</strong> with the packages the document needs, so the file is meant to compile as it is. The documents in our test suite are compiled under two engines, pdfLaTeX and Tectonic.</li>
+  <li><strong>Nothing is dropped silently.</strong> A character that has no LaTeX equivalent is written as a visible placeholder, <code class="language-plaintext highlighter-rouge">\LFXmissing{XXXX}</code>, and listed in a warning panel with its paragraph number, so you can fix that one spot. Anything else Export could not convert is reported in the same list.</li>
+</ul>
+
+<hr />
+
+<h2 id="export-what-it-does-not-do">Export: what it does not do</h2>
+
+<ul>
+  <li><strong>Images are not embedded.</strong> Each image becomes a <code class="language-plaintext highlighter-rouge">figure</code> placeholder with a caption slot and a warning; you add the image file yourself.</li>
+  <li><strong>Visual styling is not carried over.</strong> Font names, font sizes, colours, highlighting, line spacing, indentation, the shape of list bullets, table borders and column widths, headers and footers — the LaTeX document class decides these.</li>
+  <li><strong>Cells merged across rows</strong> are flagged in the warning list but not written as <code class="language-plaintext highlighter-rouge">\multirow</code>.</li>
+  <li><strong>Strikethrough</strong> is dropped; the text is kept and a warning is added.</li>
+  <li><strong>Equations inside headings, table cells and footnotes</strong> are written inline (<code class="language-plaintext highlighter-rouge">$…$</code>), not as display equations.</li>
+  <li><strong>An equation-editor element we do not recognise</strong> is written out as it is and marked “check this” in the warning list, rather than replaced with a guess.</li>
+  <li><strong>No reference lookup.</strong> Export does not search for citations or generate BibTeX. You bring your own <code class="language-plaintext highlighter-rouge">.bib</code>.</li>
+  <li><strong>No journal templates.</strong></li>
+  <li><strong>Add-on only.</strong> The Web app has no Export feature.</li>
+</ul>
+
+<hr />
+
+<h2 id="import">Import</h2>
+
+<p>Import goes the other way: it reads a LaTeX (<code class="language-plaintext highlighter-rouge">.tex</code>) file and writes it into the Google Docs™ document you have open, from the LaTeXFlow sidebar — headings, lists, tables and equations. Equations arrive as LaTeX text; the free <strong>Scan</strong> feature then turns them into equation images, if you want images.</p>
+
+<hr />
+
+<h2 id="passes-and-subscriptions">Passes and subscriptions</h2>
+
+<p>Export and Import are opened by a 7-day pass, a monthly subscription or a yearly subscription. Each one opens both features for any number of documents; they differ only in how long.</p>
+
+<p>Prices and purchase: <a href="https://teolemma.lemonsqueezy.com/">LaTeXFlow store</a></p>
+
+<ul>
+  <li><strong>Every product covers every paid feature of LaTeXFlow:</strong> Export and Import, any number of documents, on one Google account at a time.</li>
+  <li><strong>The 7-day pass</strong> ends 7 days after purchase. It is a one-time payment and does not renew.</li>
+  <li><strong>A subscription renews automatically</strong> each month or each year until you cancel it. You can cancel at any time from the <a href="https://teolemma.lemonsqueezy.com/billing">Lemon Squeezy customer portal</a>, where you sign in with the email address you used at checkout. After you cancel, Export and Import stay open until the end of the period you have already paid for.</li>
+  <li><strong>When a pass or subscription ends, Export and Import lock immediately;</strong> there is no grace period.</li>
+  <li><strong>Only the paid features lock.</strong> The <code class="language-plaintext highlighter-rouge">.tex</code> files you already exported and the documents you already imported are yours, and every free feature of LaTeXFlow keeps working.</li>
+</ul>
+
+<hr />
+
+<h2 id="how-buying-works">How buying works</h2>
+
+<ol>
+  <li><strong>Payment.</strong> Payments are processed by <a href="https://www.lemonsqueezy.com/">Lemon Squeezy</a> as merchant of record. You pay Lemon Squeezy, in US dollars; the checkout may show an estimate in your local currency, and VAT or sales tax may be added depending on your country. Your card statement will show <code class="language-plaintext highlighter-rouge">LEMSQZY*</code> rather than our name.</li>
+  <li><strong>Licence key.</strong> Your licence key is in the Lemon Squeezy receipt email, which arrives right after payment. There is no separate email to wait for.</li>
+  <li><strong>Activation.</strong> In Google Docs™, open the LaTeXFlow sidebar, paste the key into the <strong>License</strong> field, and click <strong>Activate</strong>. One key opens both Export and Import, in every document you open with that Google account. A key is used on one Google account at a time.</li>
+</ol>
+
+<p>If anything goes wrong — no key in the receipt email, a key that will not activate — see the <a href="/latexflow/support/#export-licence-and-purchases-add-on">Support page</a>.</p>
+
+<hr />
+
+<h2 id="refunds">Refunds</h2>
+
+<p>If Export or Import does not work for your document, email <strong>mathfolis.support@gmail.com</strong> with your order number and we will refund the purchase:</p>
+
+<ul>
+  <li><strong>7-day pass:</strong> within <strong>7 days</strong> of purchase, while the pass runs.</li>
+  <li><strong>Monthly or yearly subscription:</strong> within <strong>14 days</strong> of the first payment. Renewal payments are not refunded; cancel before the next renewal instead.</li>
+</ul>
+
+<p>Tell us what went wrong; it helps us fix it for the next person.</p>
+
+<p>Lemon Squeezy, as the payment processor, may also refund a purchase within 60 days of purchase at its own discretion. Refunds go back to the original payment method and can take up to 10 days to appear on your statement.</p>
+
+<hr />
+
+<h2 id="legal">Legal</h2>
+
+<ul>
+  <li><a href="/latexflow/terms/">Terms of Service</a> — section 1c covers the paid features, licences and refunds</li>
+  <li><a href="/latexflow/privacy/">Privacy Policy</a></li>
+  <li><a href="/latexflow/support/">Support</a></li>
+</ul>
+
+  <!--
+  Message board for the LaTeXFlow doc pages (layout: latexflow-doc).
+
+  Opt-in per page: renders only when the page sets `comments: true` in its front
+  matter — same gate as _includes/comments.html. privacy.md and terms.md share
+  this layout and deliberately do NOT set the key: they are the legal pages the
+  OAuth review and the Marketplace listing point at.
+
+  Reuses the giscus app already configured in _config.yml for the blog (same
+  repo; category is overridable per page, see below). It does not reuse _includes/comments/giscus.html, which
+  is Chirpy-specific — that one needs jQuery, the #tail-wrapper element and the
+  ModeToggle global, none of which exist in this standalone layout.
+
+  data-theme is fixed to light: the LaTeXFlow doc pages are light-only.
+  data-lang is "en": these pages are English, while the blog (site config) is Korean.
+
+  Category: falls back to the site config (Announcements, used by the blog) unless
+  the page overrides it with `comments_category` / `comments_category_id`. support.md
+  overrides it to Q&A, because GitHub restricts *creating* discussions in an
+  Announcements category to maintainers -- a visitor's first post there would fail --
+  and Q&A additionally lets an answer be marked.
+-->
+
+
+</main>
+
+<footer class="doc-footer">
+  <a href="/latexflow/web/">LaTeXFlow Scan</a> ·
+  <a href="/latexflow/privacy/">Privacy</a> ·
+  <a href="/latexflow/terms/">Terms</a> ·
+  <a href="/latexflow/support/">Support</a> ·
+  <a href="https://mathsystem.dev/">MathSystem</a>
+  <p class="copy">© 2026 Teolemma · LaTeXFlow · Contact: <a href="mailto:mathfolis.support@gmail.com">mathfolis.support@gmail.com</a></p>
+</footer>
+
+</body>
+</html>
