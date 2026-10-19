@@ -19,15 +19,19 @@ The test file is a two-page note of the kind a co-author might send: a title and
 
 Open an empty tab (or an empty document), open LaTeXFlow, go to **LaTeX file**, and press **Choose .tex file** in the Import section. Nothing is written yet. The sidebar first reports what it read:
 
-![The Import section after choosing received_paper.tex: 17 blocks — 3 paragraphs, 4 headings, 2 list items, 1 table; 12 equations (2 display) — written as LaTeX text; 2 bibliography entries — saved to this document's Bibliography on import; Import into: Tab 1 with a Use current tab button; and an expanded list of 3 notes on what changes on the way in](/assets/img/posts/2026-10-28/01-import-pick.png){: width="336" }
+![The Import section after choosing received_paper.tex: 17 blocks — 3 paragraphs, 4 headings, 2 list items, 1 table; 12 equations (2 display) — written as LaTeX text; 2 bibliography entries — saved to this document's Bibliography on import; Import into: Tab 4 with a Use current tab button; an expanded list of 4 notes on what changes on the way in; and the Import button](/assets/img/posts/2026-10-28/01-import-pick.png){: width="330" }
 
-The three notes are the parts that cannot come in as they are: the author line becomes a subtitle, the footnote becomes a `[1]` marker with an entry under "Notes", and the figure file is not in the `.tex`, so a placeholder line is written instead. Import writes at the end of the tab named after **Import into:**. If that tab already has content, it asks you to tick **Append anyway** first.
+The four notes are the parts that cannot come in as they are: the author line becomes a subtitle, the footnote becomes a `[1]` marker with an entry under "Notes", the figure file is not in the `.tex`, so a placeholder line is written instead, and the two citations are written as `[@key]` text markers that Export turns back into `\cite`. Import writes at the end of the tab named after **Import into:**. If that tab already has content, it asks you to tick **Append anyway** first.
 
 ## 2. Right after Import
 
-Press **Import**. The sidebar counts "17 / 17 blocks written" and confirms that the 2 bibliography entries were saved.
+Press **Import**. The sidebar counts "17 / 17 blocks written", confirms that the 2 bibliography entries were saved, and points to the Scan tab for the equations:
 
-![The imported document with the sidebar: the title Eigenvalues of Small Matrices, the subtitle Draft for review, Introduction as a heading with a [1] marker and the text [@strang2016], the characteristic polynomial subsection with a display equation written over three lines as \[, the equation and \], two bullet points with inline LaTeX, and the start of the table; the sidebar shows 17 / 17 blocks written and the bibliography message](/assets/img/posts/2026-10-28/02-imported-top.png){: width="720" }
+![The sidebar after the import: a greyed-out Import button, 17 / 17 blocks written, Imported received_paper.tex — 17 blocks, 12 equations, the message that 2 bibliography entries from the .tex were saved to this document, and a note that equations were written as LaTeX text and the Scan tab turns them into images](/assets/img/posts/2026-10-28/02b-import-done.png){: width="320" }
+
+The top of the document:
+
+![The imported document: the title Eigenvalues of Small Matrices, the subtitle Draft for review, Introduction as a heading with a [1] marker and the text [@strang2016], the characteristic polynomial subsection with a display equation written over three lines as \[, the equation and \], two bullet points with inline LaTeX, and the start of the table](/assets/img/posts/2026-10-28/02-imported-top.png){: width="720" }
 
 What came in as Docs structure:
 
@@ -39,7 +43,7 @@ What came in as Docs structure:
 What came in as text:
 
 - **Equations** are LaTeX source between delimiters, inline in `$…$` and display as three lines, `\[`, the equation, `\]`. This is deliberate: the source stays editable until you decide to render it (section 4).
-- **Citations** are `[@strang2016]` and `[@noether1918]`, a marker with the citation key. The pick summary does not mention them.
+- **Citations** are `[@strang2016]` and `[@noether1918]`, a marker with the citation key.
 
 The lower half of the file:
 
@@ -87,7 +91,7 @@ The file above did not use every case. From the add-on's own rules, the ones you
 | `\tableofcontents` | a bold line telling you to use Insert › Table of contents |
 | `\usepackage` lines | not written; Export writes its own preamble |
 
-Each of these appears as a note in the pick summary before you press Import. Two exceptions: packages that Export writes itself (such as `amsmath` or `graphicx`) are skipped without a note, and citations come in as `[@key]` without a note.
+Each of these appears as a note in the pick summary before you press Import. The exception is packages that Export writes itself (such as `amsmath` or `graphicx`): they are skipped without a note.
 
 ## 6. Where it stops
 
