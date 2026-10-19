@@ -10,6 +10,31 @@ in the [Guide](/latexflow/guide/).
 
 ---
 
+## Version 14
+
+Released 2026-10-19.
+
+<!-- Checked against gdla-stage6 feature/v13 e0e79f4 / 0a16154 / 68c98cf / edab52e / 52d1281 / 1e3e1dc. Apps Script version 13 exists unused; this release is 14. Date is a placeholder until the live release is confirmed. -->
+
+### Changed
+
+- **Export keeps paragraphs apart.** The exported `.tex` now has an empty line between
+  paragraphs, so each Docs paragraph stays its own paragraph in the PDF. Before, some
+  neighbouring paragraphs could run together into one. A line right after a display equation
+  still continues that paragraph, as in LaTeX. `.tex` files exported by earlier versions
+  still import as before.
+- The export summary now reads "1 table", "1 image" and "1 citation" for a single item.
+- When Import writes citations as `[@key]` markers, the summary now says so in a note, before
+  you press **Import**. Export turns the markers back into `\cite`.
+- A saved bibliography is no longer added to an export that has no citations — for example,
+  a worksheet tab in the same document as a paper.
+- The **Bibliography** badge now shows the entries that are actually saved. If you empty the
+  box while entries are saved, the button reads **Clear** and removes them.
+- The license end date in the **License** section is now always shown in English, whatever
+  language Google Docs™ is set to. The time is still your local time.
+
+---
+
 ## Version 12
 
 Released 2026-10-12.
