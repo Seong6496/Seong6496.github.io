@@ -145,7 +145,7 @@ Export and Import, on the Add-on's **LaTeX file** tab, need a license key. The f
 
 **What is stored, and where:** in the Add-on's **user properties** for your Google account (Apps Script `PropertiesService`, user scope), never in the document: the license key, the instance ID and instance name, the plan, the key's end date, the result of the last check, and the times of the last checks. Deactivating removes the key from this list once Lemon Squeezy confirms it; if Lemon Squeezy cannot be reached, the entry is kept, marked as removed, so that pasting the key again reuses the same activation.
 
-**Purchases and payment:** passes and subscriptions are bought on the [LaTeXFlow store](https://teolemma.lemonsqueezy.com), not inside the Add-on. **Lemon Squeezy is the merchant of record** and handles payment and billing details; the Add-on never sees them. Lemon Squeezy's handling of your data is governed by the [Lemon Squeezy privacy policy](https://www.lemonsqueezy.com/privacy).
+**Purchases and payment:** passes and subscriptions are bought on the [LaTeXFlow store](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=doc&utm_campaign=privacy), not inside the Add-on. **Lemon Squeezy is the merchant of record** and handles payment and billing details; the Add-on never sees them. Lemon Squeezy's handling of your data is governed by the [Lemon Squeezy privacy policy](https://www.lemonsqueezy.com/privacy).
 
 ---
 

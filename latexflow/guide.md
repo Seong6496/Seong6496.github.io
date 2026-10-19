@@ -15,7 +15,7 @@ listed in [What's new](/latexflow/changelog/).
 ## 1. Install
 
 Install LaTeXFlow from the
-[Google Workspace Marketplace](https://workspace.google.com/marketplace/app/latexflow/59137436133).
+[Google Workspace Marketplace](https://workspace.google.com/marketplace/app/latexflow/59137436133?utm_source=blog&utm_medium=guide&utm_campaign=guide).
 It is installed to your Google account; nothing is downloaded to your computer.
 
 ## 2. First run and permissions

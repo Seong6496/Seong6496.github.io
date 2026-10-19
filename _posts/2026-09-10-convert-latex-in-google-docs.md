@@ -40,7 +40,7 @@ There is a fifth, optional one — a bare `[ … ]`, for text pasted out of a ch
 
 ## 2. Install from the Google Workspace Marketplace
 
-Install [LaTeXFlow from the Google Workspace Marketplace](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2). It is a Google Docs editor add-on, so it installs against your Google account rather than being downloaded to your machine.
+Install [LaTeXFlow from the Google Workspace Marketplace](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=convert-latex-in-google-docs). It is a Google Docs editor add-on, so it installs against your Google account rather than being downloaded to your machine.
 
 ## 3. First run: the consent screen
 

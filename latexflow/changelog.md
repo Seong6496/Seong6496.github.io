@@ -19,7 +19,7 @@ Released 2026-10-12.
 ### Changed
 
 - On the locked **LaTeX file** tab, **Get a license →** now opens the
-  [LaTeXFlow store](https://teolemma.lemonsqueezy.com), where the passes and subscriptions
+  [LaTeXFlow store](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=doc&utm_campaign=changelog), where the passes and subscriptions
   are listed.
 - A new **How it works →** link opens the [Export guide](/latexflow/export/): activating a
   key, cancelling a subscription and refunds.

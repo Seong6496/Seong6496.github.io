@@ -7,7 +7,7 @@ description: How Export (Google Docs™ → .tex) and Import (.tex → Google Do
 
 *The two paid features of the LaTeXFlow Google Docs™ Add-on: **Export** (Google Docs™ → LaTeX) and **Import** (LaTeX → Google Docs™). Everything else in LaTeXFlow — scanning, converting, inserting and reverting equations — stays free.*
 
-Prices and purchase: [LaTeXFlow store](https://teolemma.lemonsqueezy.com/)
+Prices and purchase: [LaTeXFlow store](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=guide&utm_campaign=export&utm_content=top)
 
 ---
 
@@ -55,7 +55,7 @@ Import goes the other way: it reads a LaTeX (`.tex`) file and writes it into the
 
 Export and Import are opened by a 7-day pass, a monthly subscription or a yearly subscription. Each one opens both features for any number of documents; they differ only in how long.
 
-Prices and purchase: [LaTeXFlow store](https://teolemma.lemonsqueezy.com/)
+Prices and purchase: [LaTeXFlow store](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=guide&utm_campaign=export&utm_content=bottom)
 
 - **Every product covers every paid feature of LaTeXFlow:** Export and Import, any number of documents, on one Google account at a time.
 - **The 7-day pass** ends 7 days after purchase. It is a one-time payment and does not renew.

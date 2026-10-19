@@ -56,7 +56,7 @@ A. Go to **Extensions → LatexFlow → Data Collection Settings** in Google Doc
 {: #export-licence-and-purchases-add-on}
 
 **Q. How do I get my licence key?**
-A. Buy a 7-day pass or a subscription (monthly or yearly) in the [LaTeXFlow store](https://teolemma.lemonsqueezy.com/). The payment is processed by Lemon Squeezy as merchant of record. Your licence key is **in the Lemon Squeezy receipt email**, which arrives right after payment and is sent to the email address you used at checkout.
+A. Buy a 7-day pass or a subscription (monthly or yearly) in the [LaTeXFlow store](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=doc&utm_campaign=support&utm_content=faq). The payment is processed by Lemon Squeezy as merchant of record. Your licence key is **in the Lemon Squeezy receipt email**, which arrives right after payment and is sent to the email address you used at checkout.
 
 **Q. I have not received my key.**
 A. Look for the Lemon Squeezy receipt in the inbox and spam folder of the address you used at checkout — it is sent there, not to a Google account. If there is no receipt, email **mathfolis.support@gmail.com** with the email address you paid with and, if you have it, the order number (please do not post order numbers on the public board).
@@ -95,4 +95,4 @@ A. The Web app sends only the equation source and rendered PNG (no other documen
 - [Privacy Policy](/latexflow/privacy/)
 - [Terms of Service](/latexflow/terms/)
 - [Export & Import — how it works, licence and refunds](/latexflow/export/)
-- [LaTeXFlow store — prices and purchase](https://teolemma.lemonsqueezy.com/)
+- [LaTeXFlow store — prices and purchase](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=doc&utm_campaign=support&utm_content=links)

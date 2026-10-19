@@ -39,7 +39,7 @@ description: "Google Docs 안에 LaTeX 가 글자로 적혀 있고, 그걸 수�
 
 ## 2. Marketplace 에서 설치
 
-[Google Workspace Marketplace 의 LaTeXFlow](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2) 에서 설치합니다. Google Docs 편집기 애드온이라 내 컴퓨터에 뭘 내려받는 게 아니라 Google 계정에 설치됩니다.
+[Google Workspace Marketplace 의 LaTeXFlow](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=latexflow-addon-install-first-conversion) 에서 설치합니다. Google Docs 편집기 애드온이라 내 컴퓨터에 뭘 내려받는 게 아니라 Google 계정에 설치됩니다.
 
 ## 3. 첫 실행 — 동의 화면
 

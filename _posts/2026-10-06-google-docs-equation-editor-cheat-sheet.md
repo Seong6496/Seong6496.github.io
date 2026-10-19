@@ -161,7 +161,7 @@ What the editor *stores* for these names is a separate question with a separate 
 
 Tables A and B are the vocabulary, and table C is its edge. Matrices, piecewise functions, aligned lines, text inside math and anything with `\left` are past the edge, and no name typed into the box will bring them in.
 
-The way around is the same one the earlier post ends on: write those constructs as LaTeX text in the paragraph — `$$\begin{pmatrix} a & b \\ c & d \end{pmatrix}$$` — and let [LaTeXFlow for Google Docs](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2) render the text into an equation image in place. The image is not a native equation object, but it is a matrix, which the native editor will never be. [Installing it and converting a first equation](/blog/en/posts/convert-latex-in-google-docs/) takes about two minutes.
+The way around is the same one the earlier post ends on: write those constructs as LaTeX text in the paragraph — `$$\begin{pmatrix} a & b \\ c & d \end{pmatrix}$$` — and let [LaTeXFlow for Google Docs](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=google-docs-equation-editor-cheat-sheet) render the text into an equation image in place. The image is not a native equation object, but it is a matrix, which the native editor will never be. [Installing it and converting a first equation](/blog/en/posts/convert-latex-in-google-docs/) takes about two minutes.
 
 ---
 
