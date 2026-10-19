@@ -29,9 +29,9 @@ Export does not need this step. It reads equations whether they are LaTeX text, 
 
 On the **LaTeX file** tab, leave **Full document** selected (or pick **Selection** to export only the highlighted part) and press **Convert to LaTeX**:
 
-![The LaTeX file tab with Full document selected, an empty Bibliography section, the Convert to LaTeX button and the result line Converted — Worksheet_3_Quadratic_Functions.tex](/assets/img/posts/2026-10-26/03-export-result.png){: width="336" }
+![The LaTeX file tab after Convert to LaTeX: the result line Converted — LaTeXFlow_v13_test.tex, the counts 0 native · 11 image · 0 text equations · 1 table · 0 images · 0 citations, the message Nothing skipped — every equation converted, a preview box starting with the line % LaTeXFlow Export (format 2) — nothing skipped: every equation converted, and the Download .tex, Copy .tex and Open in Overleaf buttons](/assets/img/posts/2026-10-26/03-export-result.png){: width="330" }
 
-Under that line the sidebar counts what it found — for this sheet, 11 image equations, 1 table, no images, no citations — says "Nothing skipped — every equation converted", and shows a preview of the file with **Download .tex**, **Copy .tex** and **Open in Overleaf** buttons.
+The sidebar names the file after the document (this capture was taken in a test copy, hence `LaTeXFlow_v13_test.tex`) and counts what it found: 11 equations, all from converted images (none from the Docs equation editor, none left as text), 1 table, no images, no citations. "Nothing skipped — every equation converted" means no warnings. Below that is a preview of the file and the **Download .tex**, **Copy .tex** and **Open in Overleaf** buttons.
 
 ## 3. What is in the file
 
