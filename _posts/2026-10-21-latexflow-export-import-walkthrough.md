@@ -39,7 +39,7 @@ The third tab, **LaTeX file**, holds Export (this document → `.tex`) and Impor
 
 ![The LaTeX file tab while locked: an Export to LaTeX section with a Paste your license key field and an Activate button, the note No license key yet — paste your key to unlock Export, and an Import a LaTeX file section that says Import uses the same LaTeXFlow license as Export](/assets/img/posts/2026-10-21/04-locked.png){: width="336" }
 
-Short passes and subscriptions are sold on the [LaTeXFlow store](https://teolemma.lemonsqueezy.com). The key arrives with the purchase. Paste it into the field and press **Activate**. The License section then shows **Licensed**, and the Export and Import controls appear.
+Short passes and subscriptions are sold on the [LaTeXFlow store](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=latexflow-export-import-walkthrough&utm_content=license). The key arrives with the purchase. Paste it into the field and press **Activate**. The License section then shows **Licensed**, and the Export and Import controls appear.
 
 ![The LaTeX file tab after activation: Full document and Selection options, a collapsed Bibliography (.bib) section with no entries, a Convert to LaTeX button, a License section marked Licensed with Activate and Deactivate buttons, and below it an Import section with a Choose .tex file button](/assets/img/posts/2026-10-21/05-activated.png){: width="336" }
 
@@ -109,6 +109,6 @@ That is by design: Import writes equations as LaTeX text, not as images, so they
 
 ## 6. Where to go next
 
-- Passes and subscriptions: [LaTeXFlow store](https://teolemma.lemonsqueezy.com)
+- Passes and subscriptions: [LaTeXFlow store](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=latexflow-export-import-walkthrough&utm_content=next)
 - Activation, cancelling and refunds: [Export guide](/latexflow/export/)
 - First-time install and the free features: [install walkthrough](/blog/en/posts/convert-latex-in-google-docs/)
