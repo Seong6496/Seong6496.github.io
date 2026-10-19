@@ -14,7 +14,7 @@ in the [Guide](/latexflow/guide/).
 
 Released 2026-10-19.
 
-<!-- Checked against gdla-stage6 feature/v13 e0e79f4 / 0a16154 / 68c98cf / edab52e / 52d1281 / 1e3e1dc. Apps Script version 13 exists unused; this release is 14. Date is a placeholder until the live release is confirmed. -->
+<!-- Checked against gdla-stage6 feature/v13 e0e79f4 / 0a16154 / 68c98cf / edab52e / 52d1281 / 1e3e1dc. Apps Script version 13 exists unused; this release is 14. -->
 
 ### Changed
 
