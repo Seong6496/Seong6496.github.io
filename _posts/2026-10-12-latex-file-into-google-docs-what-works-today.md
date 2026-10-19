@@ -92,4 +92,4 @@ Everything in the file that is structure rather than text or maths arrives as pl
 
 ## 5. One line to close
 
-We are looking at a proper `.tex` import that keeps the structure — headings, lists, tables, footnotes — so that step 4 is not done by hand; if that matters to you, say so on the [support page](/latexflow/support/) and it helps us decide what to build next.
+*Update:* LaTeXFlow now has an **Import** feature that reads the `.tex` file and writes headings, lists, tables and equations into the document, so much of step 4 is no longer done by hand. Import is a paid feature; the free path above still works as described. How it works: [Export & Import guide](/latexflow/export/#import).
