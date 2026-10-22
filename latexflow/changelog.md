@@ -10,6 +10,63 @@ in the [Guide](/latexflow/guide/).
 
 ---
 
+## Version 15
+
+Released 2026-10-22.
+
+<!-- Checked against gdla-stage6 feature/v15: R67 items 1-11 (.tmp/r67_export_quality.md), R68c e61776d, R68g 5227a73,
+     R68k a689f47, R70 52e068d / 4dd1470 / 4efa9ee / 1158388. Apps Script version 15. Numbers: leader's final figures, R73c. -->
+
+### Export
+
+- **Documents compile without a bibliography.** If no `.bib` is saved, the exported `.tex`
+  no longer points to one, so it compiles as it is. Citations print as `[?]` until you add
+  a bibliography.
+- **Citations with page numbers** come out as `\cite[p.~5]{key}`, and several keys in one
+  bracket become one `\cite`.
+- **Numbered equations stay numbered.** An equation followed by a tab and a number such as
+  `(1)` becomes a display equation with that number.
+- Minimum and maximum with limits, circled numbers (①), Roman numerals (Ⅰ) and
+  strikethrough text now come out as they look in the document. Strikethrough inside a
+  heading is still dropped, with a warning.
+- **No double heading numbers.** If your headings already carry numbers, such as
+  "1. Introduction", LaTeX does not add a second one.
+- **List numbering continues.** A numbered list that is interrupted by a paragraph carries
+  on from where it stopped, as it does in Google Docs™.
+
+### Import
+
+- **Quotes** (`quote`, `quotation`, `verse`) are now indented in Google Docs™ as in the
+  PDF, and Export writes them back as quotes.
+- **Custom item labels** such as `\item[a)]` are kept, and Export writes them back.
+- A list that continues an earlier one, such as `[start=4]`, keeps its numbers.
+- `\cite[5]{key}` keeps its page note.
+- **Real-world LaTeX imports much better.** User macros (`\newcommand`, `\def` and similar)
+  are handled in more cases, and comments or labels inside `align` no longer leave a broken
+  equation. When you export again, the packages your equations use (for example
+  `mathrsfs`, `bm` or `physics`) are loaded for you.
+
+<!-- Final figures from the leader, 2026-10-22: arXiv 142/150 (R73c, conservative; 147 not used),
+     300,000 generated documents (round 2 harness, excluding hand-written start numbers),
+     P1 corpus 20/20 (20 Google Docs in sung2417 pdf_p1, exported with v15, R72). -->
+
+### How we tested
+
+We tested Version 15 on 150 LaTeX papers from arXiv, in mathematics, physics, computer
+science, statistics, economics, quantitative biology and teaching<!-- corpus manifest.csv (R69-B):
+     math 40, physics 30, cs 30, stat 10 / econ 5 / q-bio 5, education 10 (math.HO, physics.ed-ph),
+     Korean packages 10, book-length or macro-heavy 10; years 2012-2026 -->. Each paper was imported
+and then exported again. For 142 of the 150, the exported `.tex` compiles as it is.
+
+We also ran 300,000 generated test documents through Import and Export. The text and
+equations were kept in all of them, and every exported file was valid LaTeX. The one thing
+not kept is a list starting number typed by hand, which Google Docs™ cannot store.
+
+Finally, we exported 20 documents written in Google Docs™ — worksheets and research notes.
+All 20 compile as exported.
+
+---
+
 ## Version 14
 
 Released 2026-10-19.
