@@ -12,11 +12,10 @@ in the [Guide](/latexflow/guide/).
 
 ## Version 15
 
-Released ____.
+Released 2026-10-22.
 
-<!-- DRAFT (corpus, 2026-10-22, branch draft/v15-whatsnew, not pushed). Release date left blank on purpose.
-     Checked against gdla-stage6 feature/v15: R67 items 1-11 (.tmp/r67_export_quality.md), R68c e61776d, R68g 5227a73,
-     R68k a689f47, R70 52e068d / 4dd1470 / 4efa9ee / 1158388. Re-check against the final release commit before publishing. -->
+<!-- Checked against gdla-stage6 feature/v15: R67 items 1-11 (.tmp/r67_export_quality.md), R68c e61776d, R68g 5227a73,
+     R68k a689f47, R70 52e068d / 4dd1470 / 4efa9ee / 1158388. Apps Script version 15. Numbers: leader's final figures, R73c. -->
 
 ### Export
 
@@ -47,30 +46,24 @@ Released ____.
   equation. When you export again, the packages your equations use (for example
   `mathrsfs`, `bm` or `physics`) are loaded for you.
 
-<!-- NUMBERS (user decision 2026-10-22: the numbers go in; v15 ships after R73 passes).
-     Every {{...}} is a placeholder. The leader sends the FINAL figures from R73; fill them in
-     before publishing and do not publish with any {{...}} left. Exact numbers only, no rounding
-     up, no "almost all". Source of record: docs/technical_guide/compatibility_verification_record.md
-     (gdla-main); note the R73 round in a comment next to each figure.
-     Last recorded figures, for reference only (do not use): round 2 R70 = 128/150 compile,
-     I2 = 100% over 300,000 generated documents (excluding hand-written start=N lists);
-     R71 reported 142/150 (in progress on 2026-10-22).
-     {{WHERE_CHECKED}}: say how the round-trip was run, e.g. "in Google Docs" only if R73 ran it
-     in real Google Docs; otherwise describe the test setup plainly. -->
+<!-- Final figures from the leader, 2026-10-22: arXiv 142/150 (R73c, conservative; 147 not used),
+     300,000 generated documents (round 2 harness, excluding hand-written start numbers),
+     P1 corpus 20/20 (20 Google Docs in sung2417 pdf_p1, exported with v15, R72). -->
 
-### Tested on real papers
+### How we tested
 
 We tested Version 15 on 150 LaTeX papers from arXiv, in mathematics, physics, computer
 science, statistics, economics, quantitative biology and teaching<!-- corpus manifest.csv (R69-B):
      math 40, physics 30, cs 30, stat 10 / econ 5 / q-bio 5, education 10 (math.HO, physics.ed-ph),
-     Korean packages 10, book-length or macro-heavy 10; years 2012-2026 -->. Each paper was imported and then
-exported again {{WHERE_CHECKED}}. For {{N_COMPILE}} of the 150, the exported `.tex`
-compiles as it is<!-- R73: {{N_COMPILE}}/150 -->. {{FAILURE_NOTE}}<!-- e.g. "The other {{150-N}}
-     still need some hand editing, mostly {{MAIN_REASON}}." Drop the sentence if N_COMPILE = 150. -->
+     Korean packages 10, book-length or macro-heavy 10; years 2012-2026 -->. Each paper was imported
+and then exported again. For 142 of the 150, the exported `.tex` compiles as it is.
 
-We also ran {{N_GENERATED}} generated test documents through Import and Export
-{{GENERATED_RESULT}}<!-- R73: e.g. "and every word and equation was kept"; state any exclusion
-     exactly as recorded (round 2 excluded hand-written start=N lists). -->.
+We also ran 300,000 generated test documents through Import and Export. The text and
+equations were kept in all of them, and every exported file was valid LaTeX. The one thing
+not kept is a list starting number typed by hand, which Google Docs™ cannot store.
+
+Finally, we exported 20 documents written in Google Docs™ — worksheets and research notes.
+All 20 compile as exported.
 
 ---
 
