@@ -63,8 +63,8 @@ Released ____.
 We tested Version 15 on 150 LaTeX papers from arXiv, in mathematics, physics, computer
 science, statistics, economics, quantitative biology and teaching<!-- corpus manifest.csv (R69-B):
      math 40, physics 30, cs 30, stat 10 / econ 5 / q-bio 5, education 10 (math.HO, physics.ed-ph),
-     Korean packages 10, book-length or macro-heavy 10; years 2012-2026 -->. Each paper was imported into Google
-Docs™ and exported again {{WHERE_CHECKED}}. For {{N_COMPILE}} of the 150, the exported `.tex`
+     Korean packages 10, book-length or macro-heavy 10; years 2012-2026 -->. Each paper was imported and then
+exported again {{WHERE_CHECKED}}. For {{N_COMPILE}} of the 150, the exported `.tex`
 compiles as it is<!-- R73: {{N_COMPILE}}/150 -->. {{FAILURE_NOTE}}<!-- e.g. "The other {{150-N}}
      still need some hand editing, mostly {{MAIN_REASON}}." Drop the sentence if N_COMPILE = 150. -->
 
