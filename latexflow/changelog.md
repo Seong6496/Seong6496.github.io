@@ -46,9 +46,7 @@ Released 2026-10-22.
   equation. When you export again, the packages your equations use (for example
   `mathrsfs`, `bm` or `physics`) are loaded for you.
 
-<!-- Final figures from the leader, 2026-10-22: arXiv 142/150 (R73c, conservative; 147 not used),
-     300,000 generated documents (round 2 harness, excluding hand-written start numbers),
-     P1 corpus 20/20 (20 Google Docs in sung2417 pdf_p1, exported with v15, R72). -->
+<!-- Figures: arXiv 142/150 (R73c), 300,000 generated documents (round 2), P1 corpus 20/20 (R72). -->
 
 ### How we tested
 
