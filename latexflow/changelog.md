@@ -47,15 +47,30 @@ Released ____.
   equation. When you export again, the packages your equations use (for example
   `mathrsfs`, `bm` or `physics`) are loaded for you.
 
-<!-- NUMBERS: leader and user decide whether this paragraph goes in at all. Each figure is from
-     docs/technical_guide/compatibility_verification_record.md (gdla-main); keep the round with it.
-     Caveat: both figures come from the test harness's model of Google Docs; the real-Docs check
-     (R69-C) had no results yet on 2026-10-22. Remove the caveat only if R69-C agrees.
-     R71 (in progress 2026-10-22) may change the 128; use the latest recorded round. -->
+<!-- NUMBERS (user decision 2026-10-22: the numbers go in; v15 ships after R73 passes).
+     Every {{...}} is a placeholder. The leader sends the FINAL figures from R73; fill them in
+     before publishing and do not publish with any {{...}} left. Exact numbers only, no rounding
+     up, no "almost all". Source of record: docs/technical_guide/compatibility_verification_record.md
+     (gdla-main); note the R73 round in a comment next to each figure.
+     Last recorded figures, for reference only (do not use): round 2 R70 = 128/150 compile,
+     I2 = 100% over 300,000 generated documents (excluding hand-written start=N lists);
+     R71 reported 142/150 (in progress on 2026-10-22).
+     {{WHERE_CHECKED}}: say how the round-trip was run, e.g. "in Google Docs" only if R73 ran it
+     in real Google Docs; otherwise describe the test setup plainly. -->
 
-To check these changes, we imported 150 LaTeX papers from arXiv and exported them again.
-For 128 of them, the exported `.tex` compiles as it is<!-- round 2, R70, code 9e2c438: 128/150 (round 1: 62/150) -->.
-In 300,000 generated test documents, every word and equation was kept after Import and Export<!-- round 2, R70: I2 = 100%, excluding hand-written start=N lists (a documented design conversion) -->.
+### Tested on real papers
+
+We tested Version 15 on 150 LaTeX papers from arXiv, in mathematics, physics, computer
+science, statistics, economics, quantitative biology and teaching<!-- corpus manifest.csv (R69-B):
+     math 40, physics 30, cs 30, stat 10 / econ 5 / q-bio 5, education 10 (math.HO, physics.ed-ph),
+     Korean packages 10, book-length or macro-heavy 10; years 2012-2026 -->. Each paper was imported into Google
+Docs™ and exported again {{WHERE_CHECKED}}. For {{N_COMPILE}} of the 150, the exported `.tex`
+compiles as it is<!-- R73: {{N_COMPILE}}/150 -->. {{FAILURE_NOTE}}<!-- e.g. "The other {{150-N}}
+     still need some hand editing, mostly {{MAIN_REASON}}." Drop the sentence if N_COMPILE = 150. -->
+
+We also ran {{N_GENERATED}} generated test documents through Import and Export
+{{GENERATED_RESULT}}<!-- R73: e.g. "and every word and equation was kept"; state any exclusion
+     exactly as recorded (round 2 excluded hand-written start=N lists). -->.
 
 ---
 
