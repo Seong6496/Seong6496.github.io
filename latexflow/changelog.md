@@ -10,6 +10,55 @@ in the [Guide](/latexflow/guide/).
 
 ---
 
+## Version 15
+
+Released ____.
+
+<!-- DRAFT (corpus, 2026-10-22, branch draft/v15-whatsnew, not pushed). Release date left blank on purpose.
+     Checked against gdla-stage6 feature/v15: R67 items 1-11 (.tmp/r67_export_quality.md), R68c e61776d, R68g 5227a73,
+     R68k a689f47, R70 52e068d / 4dd1470 / 4efa9ee / 1158388. Re-check against the final release commit before publishing. -->
+
+### Export
+
+- **Documents compile without a bibliography.** If no `.bib` is saved, the exported `.tex`
+  no longer points to one, so it compiles as it is. Citations print as `[?]` until you add
+  a bibliography.
+- **Citations with page numbers** come out as `\cite[p.~5]{key}`, and several keys in one
+  bracket become one `\cite`.
+- **Numbered equations stay numbered.** An equation followed by a tab and a number such as
+  `(1)` becomes a display equation with that number.
+- Minimum and maximum with limits, circled numbers (①), Roman numerals (Ⅰ) and
+  strikethrough text now come out as they look in the document. Strikethrough inside a
+  heading is still dropped, with a warning.
+- **No double heading numbers.** If your headings already carry numbers, such as
+  "1. Introduction", LaTeX does not add a second one.
+- **List numbering continues.** A numbered list that is interrupted by a paragraph carries
+  on from where it stopped, as it does in Google Docs™.
+
+### Import
+
+- **Quotes** (`quote`, `quotation`, `verse`) are now indented in Google Docs™ as in the
+  PDF, and Export writes them back as quotes.
+- **Custom item labels** such as `\item[a)]` are kept, and Export writes them back.
+- A list that continues an earlier one, such as `[start=4]`, keeps its numbers.
+- `\cite[5]{key}` keeps its page note.
+- **Real-world LaTeX imports much better.** User macros (`\newcommand`, `\def` and similar)
+  are handled in more cases, and comments or labels inside `align` no longer leave a broken
+  equation. When you export again, the packages your equations use (for example
+  `mathrsfs`, `bm` or `physics`) are loaded for you.
+
+<!-- NUMBERS: leader and user decide whether this paragraph goes in at all. Each figure is from
+     docs/technical_guide/compatibility_verification_record.md (gdla-main); keep the round with it.
+     Caveat: both figures come from the test harness's model of Google Docs; the real-Docs check
+     (R69-C) had no results yet on 2026-10-22. Remove the caveat only if R69-C agrees.
+     R71 (in progress 2026-10-22) may change the 128; use the latest recorded round. -->
+
+To check these changes, we imported 150 LaTeX papers from arXiv and exported them again.
+For 128 of them, the exported `.tex` compiles as it is<!-- round 2, R70, code 9e2c438: 128/150 (round 1: 62/150) -->.
+In 300,000 generated test documents, every word and equation was kept after Import and Export<!-- round 2, R70: I2 = 100%, excluding hand-written start=N lists (a documented design conversion) -->.
+
+---
+
 ## Version 14
 
 Released 2026-10-19.
