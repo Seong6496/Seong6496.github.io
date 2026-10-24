@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>What's new · LaTeXFlow</title>
+  <meta name="description" content="Release notes for the LaTeXFlow add-on for Google Docs — what changed in each version." />
+
+  <!-- Math System favicons — shared with Chirpy blog at /assets/img/favicons/ -->
+  <link rel="icon" href="/assets/img/favicons/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/img/favicons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/img/favicons/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/assets/img/favicons/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/assets/img/favicons/apple-touch-icon-180.png">
+
+  <!-- Tabler Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.4.0/dist/tabler-icons.min.css" />
+
+  <!-- fonts — web-prototype 와 동일 톤 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --paper:      #FBFAF6;
+      --white:      #FFFFFF;
+      --ink-900:    #191919;
+      --ink-600:    #5C5A53;
+      --ink-500:    #75726A;
+      --ink-400:    #9B9890;
+      --accent-700: #1F4FA3;
+      --accent-800: #173E82;
+      --hairline:   rgba(0, 0, 0, 0.12);
+
+      --bg:           var(--paper);
+      --bg-card:      var(--white);
+      --text:         var(--ink-900);
+      --text-muted:   var(--ink-500);
+      --text-hint:    var(--ink-400);
+      --accent:       var(--accent-700);
+      --accent-hover: var(--accent-800);
+      --accent-bg:    rgba(31, 79, 163, 0.08);
+      --border:       var(--hairline);
+
+      --font-display: 'STIX Two Text', 'Noto Serif KR', 'Times New Roman', serif;
+      --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo', 'Pretendard', 'Noto Sans KR', sans-serif;
+      --font-mono:    'JetBrains Mono', 'D2Coding', ui-monospace, 'SF Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* header — web-prototype hero 와 동일 톤 */
+    .doc-header {
+      background: var(--bg-card);
+      padding: 14px 20px;
+      border-bottom: 0.5px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .doc-header .brand { display: flex; align-items: center; gap: 8px; }
+    .doc-header .brand-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      background: var(--accent-bg);
+      color: var(--accent);
+      font-size: 16px;
+    }
+    .doc-header .brand a {
+      text-decoration: none;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      color: inherit;
+    }
+    .doc-header .brand-name {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 17px;
+      color: var(--text);
+    }
+    .doc-header .brand-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .doc-header .brand-link {
+      font-size: 13px;
+      color: var(--text-hint);
+      text-decoration: none;
+    }
+    .doc-header .brand-link:hover { color: var(--text); }
+    .doc-header .brand-link i { font-size: 12px; margin-left: 2px; }
+
+    /* nav — back / privacy / terms / support */
+    .doc-nav {
+      max-width: 780px;
+      margin: 28px auto 0;
+      padding: 0 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .doc-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 2px;
+      transition: color .12s, border-color .12s;
+    }
+    .doc-nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .doc-nav a.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
+    .doc-nav .back i { font-size: 12px; margin-right: 3px; }
+
+    /* main content */
+    main.doc-main {
+      max-width: 780px;
+      margin: 32px auto 64px;
+      padding: 0 20px;
+    }
+    .doc-main h1 {
+      font-family: var(--font-display);
+      font-size: 34px;
+      font-weight: 500;
+      letter-spacing: -0.4px;
+      margin: 0 0 12px;
+    }
+    .doc-main h2 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 500;
+      margin: 44px 0 12px;
+      padding-top: 16px;
+      border-top: 0.5px solid var(--border);
+    }
+    .doc-main h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin: 24px 0 8px;
+    }
+    .doc-main p,
+    .doc-main li {
+      margin-bottom: 12px;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    .doc-main ul,
+    .doc-main ol {
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+    .doc-main code {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      background: var(--bg-card);
+      padding: 1px 5px;
+      border-radius: 3px;
+      border: 0.5px solid var(--border);
+    }
+    .doc-main pre {
+      background: var(--bg-card);
+      border: 0.5px solid var(--border);
+      border-radius: 6px;
+      padding: 14px;
+      overflow-x: auto;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+    .doc-main pre code { background: none; border: none; padding: 0; }
+    .doc-main a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+    .doc-main a:hover { color: var(--accent-hover); }
+    .doc-main strong { font-weight: 600; }
+    .doc-main em { font-style: italic; color: var(--text-muted); }
+    .doc-main blockquote {
+      border-left: 3px solid var(--accent-bg);
+      padding: 10px 16px;
+      margin: 18px 0;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      border-radius: 0 4px 4px 0;
+    }
+    .doc-main blockquote p:last-child { margin-bottom: 0; }
+    .doc-main hr {
+      border: none;
+      border-top: 0.5px solid var(--border);
+      margin: 32px 0;
+    }
+    .doc-main table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 15px;
+    }
+    .doc-main th,
+    .doc-main td {
+      border: 0.5px solid var(--border);
+      padding: 8px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .doc-main th {
+      background: var(--bg-card);
+      font-weight: 600;
+    }
+
+    /* footer */
+    .doc-footer {
+      border-top: 0.5px solid var(--border);
+      padding: 24px 20px 32px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-hint);
+    }
+    .doc-footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin: 0 6px;
+    }
+    .doc-footer a:hover { color: var(--accent); }
+    .doc-footer .copy {
+      margin-top: 10px;
+      font-size: 12px;
+    }
+    .doc-footer .copy a { color: var(--text-muted); }
+
+    /* message board (opt-in per page via `comments: true`) */
+    .doc-comments-note {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    .doc-comments { margin-top: 20px; }
+    .doc-comments .giscus-frame { border: none; }
+  </style>
+  <!--
+  The GA snippet
+-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script defer src="https://www.googletagmanager.com/gtag/js?id=G-CF55QKHZBZ"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    gtag('js', new Date());
+    gtag('config', 'G-CF55QKHZBZ');
+  });
+</script>
+
+  <!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xm5dfbwul6");
+</script>
+
+</head>
+<body>
+
+<header class="doc-header">
+  <div class="brand">
+    <span class="brand-icon" aria-hidden="true"><i class="ti ti-math-function"></i></span>
+    <a href="/latexflow/web/">
+      <span class="brand-name">LaTeXFlow</span>
+      <span class="brand-sub">Scan</span>
+    </a>
+  </div>
+  <a class="brand-link" href="https://mathsystem.dev/" target="_blank" rel="noopener">MathSystem <i class="ti ti-external-link" aria-hidden="true"></i></a>
+</header>
+
+<nav class="doc-nav" aria-label="LaTeXFlow documentation">
+  <a class="back" href="/latexflow/web/"><i class="ti ti-arrow-left"></i>Back to tool</a>
+  <a href="/latexflow/privacy/" >Privacy</a>
+  <a href="/latexflow/terms/" >Terms</a>
+  <a href="/latexflow/guide/" >Guide</a>
+  <a href="/latexflow/export/" >Export &amp; Import</a>
+  <a href="/latexflow/changelog/" class="active">What's new</a>
+  <a href="/latexflow/support/" >Support</a>
+</nav>
+
+<main class="doc-main">
+  <h1>What's new</h1>
+  <p>Changes to the <strong>LaTeXFlow add-on for Google Docs™</strong>, newest first. How to use the add-on is
+in the <a href="/latexflow/guide/">Guide</a>.</p>
+
+<hr />
+
+<h2 id="version-15">Version 15</h2>
+
+<p>Released 2026-10-22.</p>
+
+<!-- Checked against gdla-stage6 feature/v15: R67 items 1-11 (.tmp/r67_export_quality.md), R68c e61776d, R68g 5227a73,
+     R68k a689f47, R70 52e068d / 4dd1470 / 4efa9ee / 1158388. Apps Script version 15. Numbers: leader's final figures, R73c. -->
+
+<h3 id="export">Export</h3>
+
+<ul>
+  <li><strong>Documents compile without a bibliography.</strong> If no <code class="language-plaintext highlighter-rouge">.bib</code> is saved, the exported <code class="language-plaintext highlighter-rouge">.tex</code>
+no longer points to one, so it compiles as it is. Citations print as <code class="language-plaintext highlighter-rouge">[?]</code> until you add
+a bibliography.</li>
+  <li><strong>Citations with page numbers</strong> come out as <code class="language-plaintext highlighter-rouge">\cite[p.~5]{key}</code>, and several keys in one
+bracket become one <code class="language-plaintext highlighter-rouge">\cite</code>.</li>
+  <li><strong>Numbered equations stay numbered.</strong> An equation followed by a tab and a number such as
+<code class="language-plaintext highlighter-rouge">(1)</code> becomes a display equation with that number.</li>
+  <li>Minimum and maximum with limits, circled numbers (①), Roman numerals (Ⅰ) and
+strikethrough text now come out as they look in the document. Strikethrough inside a
+heading is still dropped, with a warning.</li>
+  <li><strong>No double heading numbers.</strong> If your headings already carry numbers, such as
+“1. Introduction”, LaTeX does not add a second one.</li>
+  <li><strong>List numbering continues.</strong> A numbered list that is interrupted by a paragraph carries
+on from where it stopped, as it does in Google Docs™.</li>
+</ul>
+
+<h3 id="import">Import</h3>
+
+<ul>
+  <li><strong>Quotes</strong> (<code class="language-plaintext highlighter-rouge">quote</code>, <code class="language-plaintext highlighter-rouge">quotation</code>, <code class="language-plaintext highlighter-rouge">verse</code>) are now indented in Google Docs™ as in the
+PDF, and Export writes them back as quotes.</li>
+  <li><strong>Custom item labels</strong> such as <code class="language-plaintext highlighter-rouge">\item[a)]</code> are kept, and Export writes them back.</li>
+  <li>A list that continues an earlier one, such as <code class="language-plaintext highlighter-rouge">[start=4]</code>, keeps its numbers.</li>
+  <li><code class="language-plaintext highlighter-rouge">\cite[5]{key}</code> keeps its page note.</li>
+  <li><strong>Real-world LaTeX imports much better.</strong> User macros (<code class="language-plaintext highlighter-rouge">\newcommand</code>, <code class="language-plaintext highlighter-rouge">\def</code> and similar)
+are handled in more cases, and comments or labels inside <code class="language-plaintext highlighter-rouge">align</code> no longer leave a broken
+equation. When you export again, the packages your equations use (for example
+<code class="language-plaintext highlighter-rouge">mathrsfs</code>, <code class="language-plaintext highlighter-rouge">bm</code> or <code class="language-plaintext highlighter-rouge">physics</code>) are loaded for you.</li>
+</ul>
+
+<!-- Figures: arXiv 142/150 (R73c), 300,000 generated documents (round 2), P1 corpus 20/20 (R72). -->
+
+<h3 id="how-we-tested">How we tested</h3>
+
+<p>We tested Version 15 on 150 LaTeX papers from arXiv, in mathematics, physics, computer
+science, statistics, economics, quantitative biology and teaching<!-- corpus manifest.csv (R69-B):
+     math 40, physics 30, cs 30, stat 10 / econ 5 / q-bio 5, education 10 (math.HO, physics.ed-ph),
+     Korean packages 10, book-length or macro-heavy 10; years 2012-2026 -->. Each paper was imported
+and then exported again. For 142 of the 150, the exported <code class="language-plaintext highlighter-rouge">.tex</code> compiles as it is.</p>
+
+<p>We also ran 300,000 generated test documents through Import and Export. The text and
+equations were kept in all of them, and every exported file was valid LaTeX. The one thing
+not kept is a list starting number typed by hand, which Google Docs™ cannot store.</p>
+
+<p>Finally, we exported 20 documents written in Google Docs™ — worksheets and research notes.
+All 20 compile as exported.</p>
+
+<hr />
+
+<h2 id="version-14">Version 14</h2>
+
+<p>Released 2026-10-19.</p>
+
+<!-- Checked against gdla-stage6 feature/v13 e0e79f4 / 0a16154 / 68c98cf / edab52e / 52d1281 / 1e3e1dc. Apps Script version 13 exists unused; this release is 14. -->
+
+<h3 id="changed">Changed</h3>
+
+<ul>
+  <li><strong>Export keeps paragraphs apart.</strong> The exported <code class="language-plaintext highlighter-rouge">.tex</code> now has an empty line between
+paragraphs, so each Docs paragraph stays its own paragraph in the PDF. Before, some
+neighbouring paragraphs could run together into one. A line right after a display equation
+still continues that paragraph, as in LaTeX. <code class="language-plaintext highlighter-rouge">.tex</code> files exported by earlier versions
+still import as before.</li>
+  <li>The export summary now reads “1 table”, “1 image” and “1 citation” for a single item.</li>
+  <li>When Import writes citations as <code class="language-plaintext highlighter-rouge">[@key]</code> markers, the summary now says so in a note, before
+you press <strong>Import</strong>. Export turns the markers back into <code class="language-plaintext highlighter-rouge">\cite</code>.</li>
+  <li>A saved bibliography is no longer added to an export that has no citations — for example,
+a worksheet tab in the same document as a paper.</li>
+  <li>The <strong>Bibliography</strong> badge now shows the entries that are actually saved. If you empty the
+box while entries are saved, the button reads <strong>Clear</strong> and removes them.</li>
+  <li>The license end date in the <strong>License</strong> section is now always shown in English, whatever
+language Google Docs™ is set to. The time is still your local time.</li>
+</ul>
+
+<hr />
+
+<h2 id="version-12">Version 12</h2>
+
+<p>Released 2026-10-12.</p>
+
+<!-- Checked against gdla-main 06be66f / 586dae9 (stage6 40e8864, cbfa1b0) and changelog_20261012.md §4-4 -->
+
+<h3 id="changed-1">Changed</h3>
+
+<ul>
+  <li>On the locked <strong>LaTeX file</strong> tab, <strong>Get a license →</strong> now opens the
+<a href="https://teolemma.lemonsqueezy.com/?utm_source=blog&amp;utm_medium=doc&amp;utm_campaign=changelog">LaTeXFlow store</a>, where the passes and subscriptions
+are listed.</li>
+  <li>A new <strong>How it works →</strong> link opens the <a href="/latexflow/export/">Export guide</a>: activating a
+key, cancelling a subscription and refunds.</li>
+  <li>The yearly subscription is now shown as <strong>Yearly</strong>.</li>
+</ul>
+
+<hr />
+
+<h2 id="version-11">Version 11</h2>
+
+<p>Released 2026-10-12.</p>
+
+<!-- Checked against gdla-main a08b71b / 404bf5f and changelog_20261012.md §2-§3 -->
+
+<p>This update adds two features that need a license, on a new <strong>LaTeX file</strong> tab. Input,
+Scan and Convert stay free.</p>
+
+<h3 id="added">Added</h3>
+
+<ul>
+  <li><strong>Export to LaTeX.</strong> Turns the document, or a selection, into a <code class="language-plaintext highlighter-rouge">.tex</code> file. Press
+<strong>Convert to LaTeX</strong>; the panel shows what was converted and a preview of the file, with
+<strong>Download .tex</strong>, <strong>Copy .tex</strong> and <strong>Open in Overleaf</strong>.</li>
+  <li><strong>Import a LaTeX file.</strong> Brings a <code class="language-plaintext highlighter-rouge">.tex</code> file into the document — headings, lists, tables
+and equations. Press <strong>Choose .tex file</strong>, check the summary, and press <strong>Import</strong>. The
+content goes into the document tab you were on when you chose the file; <strong>Use current tab</strong>
+switches to the tab you are on now. If that tab already has content, Import asks before
+adding the file at its end. Equations are written as LaTeX text, so you can turn them into
+equations with <strong>Scan</strong> and <strong>Convert All</strong>.</li>
+  <li><strong>License.</strong> Paste a license key and press <strong>Activate</strong>. One key opens both Export and
+Import, for one Google account on any device. <strong>Deactivate</strong> releases the key from this
+account.</li>
+</ul>
+
+<h3 id="changed-2">Changed</h3>
+
+<ul>
+  <li>If a permission the add-on needs was not granted, it now stops and asks you to open the
+panel again so the permission can be granted: “LaTeXFlow needs all the permissions it asked
+for. Close this panel and open it again from Extensions › LatexFlow › Open Equation Panel to
+grant them.”</li>
+</ul>
+
+<hr />
+
+<h2 id="version-10">Version 10</h2>
+
+<p>Released 2026-10-02.</p>
+
+<!-- Checked against hotfix 63bdc12 (= Apps Script version 10) and web's live verification Parts 6-7, 2026-10-02 -->
+
+<p>This update fixes problems when converting equations from the <strong>Scan</strong> tab.</p>
+
+<h3 id="fixed">Fixed</h3>
+
+<ul>
+  <li>Converting equations one card at a time in the same paragraph could fail with an error
+like <code class="language-plaintext highlighter-rouge">Index (127) must be less than the content length (104)</code>, or delete nearby text. Each
+card now checks the text in the document before replacing it.</li>
+  <li>If the document was edited, or a different document tab was open, between scanning and
+converting, text could be removed in the wrong place. Now nothing is changed: the card
+shows <strong>Re-scan needed</strong> and the panel asks you to scan again. If you switched tabs, the
+message reads “Go back to the tab you scanned and click Re-scan. Or click Re-scan now to
+scan the tab you are viewing.”</li>
+  <li>If inserting the equation image failed, the LaTeX text could be lost. The text is now left
+in place.</li>
+</ul>
+
+<h3 id="changed-3">Changed</h3>
+
+<ul>
+  <li>Errors now appear inside the panel instead of in pop-up dialogs.</li>
+  <li>When the document changed since the scan, the panel shows a message with a
+<strong>🔍 Re-scan</strong> button, and <strong>⚡ Convert All</strong> stops at that point.</li>
+</ul>
+
+<h3 id="added-1">Added</h3>
+
+<ul>
+  <li>A clearer message when a permission was not granted, explaining how to allow it.</li>
+  <li><strong>Help</strong> and <strong>Support</strong> links at the bottom of the panel. They open the
+<a href="/latexflow/guide/">Guide</a> and the <a href="/latexflow/support/">Support page</a>.</li>
+  <li>A <strong>Help</strong> item in the <strong>Extensions → LatexFlow</strong> menu. It opens a small dialog with
+<strong>Guide</strong> and <strong>Support</strong> links.</li>
+</ul>
+
+<h2 id="version-9">Version 9</h2>
+
+<p>Released 2026-08-25.</p>
+
+<p>This is the baseline for these notes. Version 9 includes:</p>
+
+<ul>
+  <li><strong>Input</strong> tab — type LaTeX, check the live preview, and insert the equation at the cursor.</li>
+  <li><strong>Scan</strong> tab — find LaTeX written with <code class="language-plaintext highlighter-rouge">$…$</code>, <code class="language-plaintext highlighter-rouge">$$…$$</code>, <code class="language-plaintext highlighter-rouge">\(…\)</code> or <code class="language-plaintext highlighter-rouge">\[…\]</code> in paragraphs,
+list items and table cells, and convert it one card at a time or with <strong>⚡ Convert All</strong>.</li>
+  <li>An optional bracket mode for <code class="language-plaintext highlighter-rouge">[ … ]</code> (off by default), <strong>Tag as $…$</strong> for formulas without
+delimiters, and <strong>↩ Revert to LaTeX</strong> to turn an equation image back into text.</li>
+</ul>
+
+  <!--
+  Message board for the LaTeXFlow doc pages (layout: latexflow-doc).
+
+  Opt-in per page: renders only when the page sets `comments: true` in its front
+  matter — same gate as _includes/comments.html. privacy.md and terms.md share
+  this layout and deliberately do NOT set the key: they are the legal pages the
+  OAuth review and the Marketplace listing point at.
+
+  Reuses the giscus app already configured in _config.yml for the blog (same
+  repo; category is overridable per page, see below). It does not reuse _includes/comments/giscus.html, which
+  is Chirpy-specific — that one needs jQuery, the #tail-wrapper element and the
+  ModeToggle global, none of which exist in this standalone layout.
+
+  data-theme is fixed to light: the LaTeXFlow doc pages are light-only.
+  data-lang is "en": these pages are English, while the blog (site config) is Korean.
+
+  Category: falls back to the site config (Announcements, used by the blog) unless
+  the page overrides it with `comments_category` / `comments_category_id`. support.md
+  overrides it to Q&A, because GitHub restricts *creating* discussions in an
+  Announcements category to maintainers -- a visitor's first post there would fail --
+  and Q&A additionally lets an answer be marked.
+-->
+
+
+</main>
+
+<footer class="doc-footer">
+  <a href="/latexflow/web/">LaTeXFlow Scan</a> ·
+  <a href="/latexflow/privacy/">Privacy</a> ·
+  <a href="/latexflow/terms/">Terms</a> ·
+  <a href="/latexflow/support/">Support</a> ·
+  <a href="https://mathsystem.dev/">MathSystem</a>
+  <p class="copy">© 2026 Teolemma · LaTeXFlow · Contact: <a href="mailto:mathfolis.support@gmail.com">mathfolis.support@gmail.com</a></p>
+</footer>
+
+</body>
+</html>
