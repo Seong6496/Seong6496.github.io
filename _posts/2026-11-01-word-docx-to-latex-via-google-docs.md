@@ -19,7 +19,7 @@ This post goes through that route step by step. It also covers what changes on t
 
 In [Google Drive](https://drive.google.com/), use **New › File upload** and pick the `.docx`. Nothing is converted yet; Drive stores the Word file as it is.
 
-<!-- TODO image (web pane): Drive with the uploaded .docx in the file list, showing the Word icon. File: /assets/img/posts/2026-11-01/03-drive-upload.png -->
+![Google Drive search results showing one file, degeneracy-colouring.docx, with the blue Word icon next to its name](/assets/img/posts/2026-11-01/03-drive-upload.png){: width="600" }
 
 ## 2. Open it as a Google Docs™ document
 
@@ -29,7 +29,7 @@ To convert it, choose **File › Save as Google Docs**. Docs makes a converted c
 
 If you do this often, Drive can convert on upload instead: in Drive's **Settings**, turn on **Convert uploads** ("Convert uploaded files to Google Docs editor format"). Uploaded Word files then arrive as Docs documents directly.
 
-<!-- TODO image (web pane): the .docx open in Docs with the .DOCX badge, File menu open on "Save as Google Docs". File: /assets/img/posts/2026-11-01/04-save-as-google-docs.png -->
+![The .docx open in Google Docs: the title degeneracy-colouring with a .DOCX badge beside it, and the File menu open with Save as Google Docs highlighted](/assets/img/posts/2026-11-01/04-save-as-google-docs.png){: width="640" }
 
 ## 3. Check that the equations came across
 
@@ -70,7 +70,7 @@ Open **Extensions › LaTeXFlow**, go to the **LaTeX file** tab, leave **Full do
 
 If the document has citations and you have a `.bib` file, paste it into the sidebar before converting, and the bibliography goes into the `.tex`. Citations become `\cite` only when they are written as `[@key]` markers in the text. We have not tested Word's own citation fields or reference-manager fields through this route.
 
-<!-- TODO image (web pane): the LaTeX file tab after Convert to LaTeX on a converted Word document, showing the result line with "N native" and the Download .tex / Open in Overleaf buttons. File: /assets/img/posts/2026-11-01/05-export-result.png -->
+![The LaTeXFlow sidebar on the LaTeX file tab after Convert to LaTeX: Converted — degeneracy-colouring.tex, the line 82 native · 0 image · 0 text equations · 1 table · 1 image · 5 citations, five warnings, a preview of the .tex, and the Download .tex, Copy .tex and Open in Overleaf buttons](/assets/img/posts/2026-11-01/05-export-result.png){: width="560" }
 
 The top of the file for the same paper, with Word's equations now in LaTeX:
 
