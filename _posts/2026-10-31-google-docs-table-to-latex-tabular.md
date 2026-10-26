@@ -19,7 +19,7 @@ LaTeX 에서 표를 손으로 짜 본 분은 압니다. 칸마다 `&`, 줄마다
 - 첫 번째 표: 머리글 칸을 합쳤습니다. "중간고사"·"기말고사" 는 두 칸을 가로로 합쳤고, "반" 은 두 줄을 세로로 합쳤습니다. 머리글은 굵게 했습니다.
 - 두 번째 표: 칸 안에 수식이 있고, 한 칸에는 줄을 바꿔 두 줄로 적었습니다.
 
-<!-- TODO image (web pane, mathfolis.support): a Google Doc with the two example tables — table 1 header: "반" merged over 2 rows, "중간고사"/"기말고사" each merged over 2 columns, sub-header 평균/표준편차, rows 1반 72.4 11.3 75.1 10.8 / 2반 69.8 12.6 73.0 11.9; table 2: 지표|식|비고 with x-bar and sigma equations and a cell "단위: 점" + line break + "(100점 만점)". File: /assets/img/posts/2026-10-31/table-00-in-google-docs.png -->
+![구글 문서의 예시 표 두 개: 반별 성적 요약 표는 굵은 머리글 반(두 줄로 세로 병합), 중간고사·기말고사(각각 두 칸 가로 병합), 그 아래 평균·표준편차, 1반 72.4 11.3 75.1 10.8, 2반 69.8 12.6 73.0 11.9. 계산에 쓴 식 표는 지표·식·비고 머리글, 평균의 식 x 바 = n 분의 1 시그마 x i 와 비고 단위: 점 / (100점 만점) 두 줄, 표준편차의 식 시그마 = 루트 안 n 분의 1 시그마 (x i − x 바) 제곱 과 비고 n 은 학생 수](/assets/img/posts/2026-10-31/table-00-in-google-docs.png){: width="620" }
 
 ## 2. 표만 내보내기
 
@@ -27,7 +27,7 @@ LaTeX 에서 표를 손으로 짜 본 분은 압니다. 칸마다 `&`, 줄마다
 
 문서 전체를 내보내려면 **Full document** 를 그대로 두면 됩니다. 결과는 **Copy .tex** 로 복사해 이미 쓰고 있는 `.tex` 에 붙여넣거나, **Download .tex** · **Open in Overleaf** 로 받습니다.
 
-<!-- TODO image (web pane, mathfolis.support): sidebar after Convert to LaTeX with Selection on table 1 — result line with "1 table", the warning "Table 1 has merged cells or uneven rows — columns may need adjusting", Copy .tex button. File: /assets/img/posts/2026-10-31/table-03-sidebar.png -->
+![첫 번째 표의 아래 두 줄을 선택한 채 Selection 으로 Convert to LaTeX 를 누른 사이드바: Converted — 성적표-예시.tex, 결과 줄 0 native · 0 image · 0 text equations · 1 table, 펼친 경고 Table 1 has merged cells or uneven rows — columns may need adjusting, .tex 미리보기, Download .tex · Copy .tex · Open in Overleaf 버튼](/assets/img/posts/2026-10-31/table-03-sidebar.png){: width="720" }
 
 ## 3. 나온 LaTeX
 
