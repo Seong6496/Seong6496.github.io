@@ -1,0 +1,81 @@
+---
+title: "받은 .tex 파일, 구글 문서에서 열어 고치는 법"
+date: 2026-10-31 09:00:00 +0900
+categories: [LaTeXFlow, 사용법]
+tags: [latexflow, google-docs, latex, tex-파일, 공동-작업, 댓글, 지도교수, 논문]
+math: false
+pin: false
+description: "지도교수님이나 공저자가 .tex 파일을 보냈는데 나는 구글 문서에서 댓글 달고 고치고 싶을 때 — LaTeX 파일을 구글 문서로 가져오면 제목·목록·표·인용문은 문서 구조로, 수식은 LaTeX 글자로 들어옵니다. 각주·상호참조·그림처럼 구글 문서에 자리가 없는 것은 어떻게 표시되는지, 수식을 보이게 바꾸는 법까지 한국어 메모 한 편으로 확인합니다."
+---
+
+지도교수님이 검토 메모를 `.tex` 파일로 보내셨습니다. 열어 보면 백슬래시와 중괄호가 가득하고, 댓글을 달 곳도 마땅치 않습니다. Overleaf 에 올려서 PDF 를 보며 따로 메모하는 방법도 있지만, 연구실이 구글 문서로 일한다면 **그 파일을 구글 문서로 열어** 문장 옆에 바로 댓글을 다는 편이 빠릅니다.
+
+구글 문서 애드온 **LaTeXFlow** 의 **LaTeX file** 탭에 있는 **Import** 가 그 일을 합니다. `.tex` 파일 하나를 읽어서 지금 열린 구글 문서에 씁니다. 이 기능은 라이선스 키가 있어야 열립니다.
+
+## 1. 받은 파일
+
+예시는 한 쪽짜리 검토 메모입니다. `kotex` 로 쓴 한글, 절 두 개, 번호 달린 수식과 그 수식을 가리키는 `\eqref`, 각주, 쪽수가 붙은 인용, `(가)`·`(나)` 로 표시한 확인 항목, 인용문(`quote`), 표와 표 제목, 행렬이 든 글머리 목록, 그리고 파일 안에 들어 있는 참고문헌(`filecontents`)이 있습니다. PDF 로 보면 이렇습니다.
+
+![받은 .tex 를 컴파일한 PDF: 열방정식 수치해 검토 메모 제목과 검토용 초안 부제, 1 문제 설정의 번호 (1) 수식과 [2, p. 45] 인용, 2 확인할 점의 (가) (나) 항목, 들여 쓴 인용문, 격자 간격·오차·비율 표와 Table 1 제목, 행렬이 든 글머리 목록, References](/assets/img/posts/2026-10-31/01-received-tex-pdf.png){: width="520" }
+
+## 2. 가져오기
+
+빈 구글 문서(또는 빈 탭)를 열고 **확장 프로그램 › LaTeXFlow** › **LaTeX file** 탭에서 **Choose .tex file** 로 파일을 고릅니다. 아직 아무것도 쓰지 않습니다. 사이드바가 먼저 무엇을 읽었는지, 그리고 들어오면서 바뀌는 것이 무엇인지 **안내 목록** 으로 보여 줍니다. 확인하고 **Import** 를 누르면 그때 씁니다.
+
+<!-- TODO image (web pane): Import pick summary for advisor_note.tex (Korean) — block/equation counts, "Import into" tab, the list of notes (footnote, label, ref, cite marker, subtitle, fixed tag). Source file: F:\github\google-docs-latex-addon\.tmp\r87\advisor_note.tex. File: /assets/img/posts/2026-10-31/02-import-pick.png -->
+
+**Import into:** 에 적힌 탭의 끝에 씁니다. 그 탭에 이미 내용이 있으면 **Append anyway** 를 체크해야 쓰므로, 실수로 기존 원고 뒤에 붙는 일은 없습니다.
+
+## 3. 구글 문서에 들어온 모양
+
+<!-- TODO image (web pane): the imported document top — title/subtitle, Heading 1 sections, the equation as three lines of LaTeX text, (가)(나) items, indented quote, the Docs table, italic caption line. File: /assets/img/posts/2026-10-31/03-imported.png -->
+
+**문서 구조로 들어오는 것**
+
+- `\title` 은 구글 문서의 제목 스타일, `\author` 는 부제 스타일 줄이 됩니다.
+- `\section` 은 제목 1 이 되어 왼쪽 개요에 보입니다.
+- 글머리 목록은 구글 문서의 글머리 목록이 됩니다.
+- `\item[(가)]` 처럼 직접 붙인 항목 표시는 `(가)` 그대로 남습니다.
+- 인용문(`quote`)은 PDF 처럼 들여 쓴 문단이 됩니다.
+- 표는 같은 행·열의 구글 문서 표가 되고, 표 제목은 표 바로 아래 기울임꼴 가운데 줄이 됩니다.
+- 파일 안의 참고문헌은 본문에 쓰이지 않고 이 문서의 **Bibliography** 에 저장됩니다.
+
+**글자로 들어오는 것**
+
+- **수식** 은 LaTeX 원문 그대로 들어옵니다. 본문 수식은 `$…$`, 디스플레이 수식은 `\[`, 수식, `\]` 세 줄입니다. 일부러 이렇게 합니다. 댓글을 달거나 고치는 동안 원문을 그대로 볼 수 있어야 하니까요.
+- **인용** 은 `[@evans2010, p. 45]` 같은 표시가 됩니다. 다시 LaTeX 로 내보낼 때 `\cite[p.~45]{evans2010}` 로 돌아가므로 표시는 지우지 않고 둡니다.
+
+## 4. 구글 문서에 자리가 없는 것 — 표시해 두고 알려 줍니다
+
+구글 문서에는 진짜 각주나 상호참조를 애드온이 만들 방법이 없습니다. 그래서 없애지 않고 **눈에 띄는 표시** 로 남깁니다. 모두 가져오기 전에 안내 목록에 한 줄씩 나옵니다.
+
+| .tex 에서 | 구글 문서에서 | 손볼 때 |
+|---|---|---|
+| `\footnote{…}` | 본문에 `[1]`, 문서 끝 "Notes" 아래에 각주 내용 | 진짜 각주가 필요하면 삽입 › 각주로 옮깁니다. 진짜 각주는 다시 내보낼 때 `\footnote` 가 됩니다 |
+| `\label{eq:heat}` | 없어지고, 수식 번호는 `\tag{1}` 로 고정 | 수식을 더 넣어도 번호가 저절로 바뀌지 않으니 번호를 직접 맞춥니다 |
+| `\eqref{eq:heat}` | `[ref:eq:heat]` 글자 | `(1)` 로 바꿔 씁니다 |
+| `\author{…}` | 부제 줄 | 다시 내보내면 제목 아래 가운데 줄로 나옵니다 |
+| `\includegraphics{…}` | 굵은 `[Image: 파일명 — insert here]` 줄 | 갖고 있는 그림 파일을 그 자리에 넣고 줄을 지웁니다 |
+
+`[` 로 검색하면 손볼 자리를 한 번에 찾을 수 있습니다.
+
+`.tex` 파일 하나만 읽기 때문에, `\input{…}` 으로 나눈 장이나 따로 있는 `refs.bib` 는 따라가지 않습니다. 장이 여러 파일이면 하나씩 가져오고, 참고문헌은 `.bib` 내용을 **LaTeX file** 탭의 **Bibliography (.bib)** 칸에 붙여넣어 저장하면 됩니다.
+
+## 5. 수식을 보이게 바꾸기
+
+글을 다 고쳤거나, 읽는 사람에게 수식 모양을 보여 주고 싶으면 LaTeXFlow 의 **Scan** 탭(무료)에서 **Scan Document** › **Convert All** 을 누릅니다. LaTeX 글자가 수식 그림으로 바뀌고, 표 안의 수식과 행렬도 바뀝니다. 디스플레이 수식은 그림이 작은 크기로 왼쪽에 붙으니, 필요하면 가운데 정렬 버튼으로 맞춥니다.
+
+<!-- TODO image (web pane): the same document after Scan › Convert All — rendered equations incl. the matrix in the bullet. File: /assets/img/posts/2026-10-31/04-after-scan.png -->
+
+수식 그림 안에는 LaTeX 원문이 저장되어 있어서, 다시 고칠 때는 **Revert to LaTeX** 로 원문으로 되돌리고, 다시 LaTeX 로 내보낼 때는 원문이 그대로 나옵니다.
+
+## 6. 다시 .tex 로 보낼 때
+
+댓글로 합의한 내용을 반영했으면 **Convert to LaTeX** 로 다시 `.tex` 를 만들 수 있습니다. 이 메모를 저희 시험 도구(구글 문서가 저장하는 방식을 본뜬 모델)로 돌려 보면 가져오기 → 내보내기를 한 번 한 결과와 두 번 한 결과가 **한 글자도 다르지 않았고**, 원본과 다시 내보낸 파일 모두 pdfLaTeX + BibTeX 로 컴파일되었습니다. 원본과 다른 점은 위 표의 것들(각주가 `[1]` 표시, `\eqref` 가 글자)과 표 열 정렬이 왼쪽으로 통일된 정도입니다.
+
+[버전 15](/latexflow/changelog/#version-15) 를 출시 전에 arXiv 논문 150편으로 시험했을 때, 가져온 뒤 다시 내보낸 `.tex` 가 그대로 컴파일된 것이 142편이었습니다. 버전 15 부터는 `\newcommand`, `\def` 같은 사용자 매크로도 더 많은 경우에 펼쳐서 읽습니다.
+
+받은 파일은 구글 문서에서 댓글과 수정으로 다듬고, 최종본을 LaTeX 쪽에 반영하면 됩니다. 어느 쪽을 원본으로 둘지는 다음 글에서 다룹니다.
+
+- 라이선스 키: [LaTeXFlow 스토어](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=open-tex-file-in-google-docs)
+- 무엇이 어떻게 바뀌는지, 활성화·해지·환불: [Export & Import 안내](/latexflow/export/)
