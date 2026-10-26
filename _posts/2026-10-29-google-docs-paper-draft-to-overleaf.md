@@ -38,7 +38,7 @@ description: "지도교수와 구글 문서에서 댓글로 다듬던 논문 초
 
 Zotero, Google Scholar, 학회 사이트에서 받은 BibTeX 항목을 `.bib` 하나로 모읍니다. LaTeXFlow 사이드바의 **LaTeX file** 탭에서 **Bibliography (.bib)** 칸에 붙여넣고 저장하면, 그 항목들이 이 문서에 저장됩니다. 한 번 저장해 두면 다음에 내보낼 때마다 다시 붙일 필요가 없습니다.
 
-<!-- TODO image (web pane): LaTeX file tab — Bibliography (.bib) box with pasted entries and the "N entries" badge after saving. File: /assets/img/posts/2026-10-29/04-bib-box.png -->
+![LaTeXFlow 사이드바의 LaTeX file 탭: Bibliography (.bib) 를 펼치면 [@key] 로 인용하라는 안내, @article{crank1947, ... 로 시작하는 붙여넣은 BibTeX, 813 / 9000 chars, Save 버튼, Saved (3 entries) 와 3 entries 표시](/assets/img/posts/2026-10-29/04-bib-box.png){: width="330" }
 
 `.bib` 를 붙이지 않고 내보내도 파일은 컴파일됩니다. 인용이 `[?]` 로 찍히고, 파일 맨 위 주석에 나중에 참고문헌을 붙이는 방법이 적혀 있습니다.
 

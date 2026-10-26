@@ -21,9 +21,9 @@ description: "워드로 만든 평가지나 보고서를 LaTeX 로 옮기는 방
 
 **파일 › Google Docs로 저장**(Save as Google Docs)을 누르면 구글 문서로 바뀐 사본이 따로 만들어지고 열립니다. 원래 `.docx` 는 그대로 남습니다. 워드 수식이 구글 문서 수식으로 바뀌는 것이 이 단계입니다.
 
-<!-- TODO image (web pane): a .docx opened in Docs (Korean UI) with the .DOCX badge, File menu open on "Google Docs로 저장". File: /assets/img/posts/2026-11-04/03-save-as-google-docs.png -->
+![구글 문서에서 연 워드 파일: 제목 삼각비-형성평가 옆에 .DOCX 표시, 파일 메뉴가 열려 있고 Google Docs로 저장 이 강조됨](/assets/img/posts/2026-11-04/03-save-as-google-docs.png){: width="640" }
 
-워드 파일을 자주 옮긴다면 드라이브 **설정** 에서 **업로드 변환**(업로드한 파일을 구글 문서 형식으로 변환)을 켜 두면, 올릴 때부터 구글 문서로 들어옵니다.
+워드 파일을 자주 옮긴다면 드라이브 **설정** 에서 **업로드 항목을 Google Docs 편집기 형식으로 변환**을 켜 두면, 올릴 때부터 구글 문서로 들어옵니다.
 
 ## 2. 수식이 넘어왔는지 확인하기
 
@@ -63,7 +63,7 @@ $$\begin{cases} x^2-3x-10 \le 0 \\ x^2-4x+3 > 0 \end{cases}$$
 
 **확장 프로그램 › LaTeXFlow** › **LaTeX file** 탭에서 **Full document** 로 **Convert to LaTeX** 를 누릅니다. 결과 줄의 `native` 는 구글 문서 수식, `text equations` 는 3절에서 LaTeX 로 친 수식, `image` 는 Scan 으로 바꾼 수식의 수입니다. 합이 원래 수식 수보다 적으면 변환에서 빠진 것이 있으니 3절로 넣으면 됩니다.
 
-<!-- TODO image (web pane): LaTeX file tab result line for the converted Word exam, showing native + text equation counts. File: /assets/img/posts/2026-11-04/04-export-result.png -->
+![변환한 평가지와 LaTeXFlow 사이드바: 본문의 sinA, cosA, tanA 정의 줄은 $…$ 사이 LaTeX 글자로 다시 쳐 있고, 결과 줄은 38 native · 0 image · 2 text equations · 1 table · 1 image · 0 citations](/assets/img/posts/2026-11-04/04-export-result.png){: width="660" }
 
 **Download .tex** 로 받거나 **Open in Overleaf** 로 바로 엽니다. 한글이 있으면 `kotex` 가 들어가고, 원 숫자 보기 ①~⑤ 는 정의와 함께 들어가서, 받은 파일 그대로 컴파일됩니다.
 

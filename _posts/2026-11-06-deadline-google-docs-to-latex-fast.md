@@ -29,7 +29,7 @@ description: "학위논문 초안, 학회 원고, 기말 시험지를 이번 주
 
 구글 문서에서 **확장 프로그램 › LaTeXFlow** 로 사이드바를 열고, **LaTeX file** 탭의 **License** 칸에 키를 붙여넣고 **Activate** 를 누릅니다. 그 구글 계정으로 여는 모든 문서에서 열립니다.
 
-<!-- TODO image (web pane): LaTeX file tab License section — key field + Activate, then the "Licensed" state. No key visible. File: /assets/img/posts/2026-11-06/01-activate.png -->
+![LaTeX file 탭의 License 칸: Licensed 표시와 플랜 이름 Monthly, Paste a license key 입력란, Activate 와 Deactivate 버튼](/assets/img/posts/2026-11-06/01-activate.png){: width="300" }
 
 ## 3. 변환하고 Overleaf 로
 

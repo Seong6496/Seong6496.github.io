@@ -28,7 +28,7 @@ description: "구글 문서로 만든 단원평가 시험지를 LaTeX(.tex) 파�
 
 수식 편집기로 넣은 수식 73개(native), 표 2개, 그림 1개를 찾았다는 뜻입니다. 그 아래 **Download .tex**, **Copy .tex**, **Open in Overleaf** 버튼이 있습니다.
 
-<!-- TODO image (web pane): LaTeX file tab after Convert to LaTeX on a Korean exam document — result line with "N native", warnings list, Download .tex / Open in Overleaf buttons. File: /assets/img/posts/2026-10-27/04-sidebar-result.png -->
+![단원평가 시험지 옆의 LaTeXFlow 사이드바: Converted — 이차함수-단원평가.tex, 결과 줄 73 native · 0 image · 0 text equations · 2 tables · 1 image · 0 citations, 펼친 경고 3개(지원하지 않는 요소 2개는 빠짐, Image 1 은 자리표시), .tex 미리보기, Download .tex · Copy .tex · Open in Overleaf 버튼](/assets/img/posts/2026-10-27/04-sidebar-result.png){: width="640" }
 
 ## 3. .tex 파일 안
 

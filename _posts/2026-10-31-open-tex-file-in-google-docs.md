@@ -22,13 +22,13 @@ description: "지도교수님이나 공저자가 .tex 파일을 보냈는데 나
 
 빈 구글 문서(또는 빈 탭)를 열고 **확장 프로그램 › LaTeXFlow** › **LaTeX file** 탭에서 **Choose .tex file** 로 파일을 고릅니다. 아직 아무것도 쓰지 않습니다. 사이드바가 먼저 무엇을 읽었는지, 그리고 들어오면서 바뀌는 것이 무엇인지 **안내 목록** 으로 보여 줍니다. 확인하고 **Import** 를 누르면 그때 씁니다.
 
-<!-- TODO image (web pane): Import pick summary for advisor_note.tex (Korean) — block/equation counts, "Import into" tab, the list of notes (footnote, label, ref, cite marker, subtitle, fixed tag). Source file: F:\github\google-docs-latex-addon\.tmp\r87\advisor_note.tex. File: /assets/img/posts/2026-10-31/02-import-pick.png -->
+![advisor_note.tex 를 고른 뒤의 안내: 14 blocks — 2 paragraphs, 2 headings, 4 list items, 1 table / 13 equations (1 display) — written as LaTeX text / 2 bibliography entries / Import into: Tab 1, 그리고 6 notes — author·date 는 부제 줄, 각주는 [1] 표시와 Notes, label 은 빠지고 수식 (1) 은 번호 tag 1 로 고정, ref 는 [ref:eq:heat] 글자, 인용 2개는 [@key] 표시, 맨 아래 Import 버튼](/assets/img/posts/2026-10-31/02-import-pick.png){: width="330" }
 
 **Import into:** 에 적힌 탭의 끝에 씁니다. 그 탭에 이미 내용이 있으면 **Append anyway** 를 체크해야 쓰므로, 실수로 기존 원고 뒤에 붙는 일은 없습니다.
 
 ## 3. 구글 문서에 들어온 모양
 
-<!-- TODO image (web pane): the imported document top — title/subtitle, Heading 1 sections, the equation as three lines of LaTeX text, (가)(나) items, indented quote, the Docs table, italic caption line. File: /assets/img/posts/2026-10-31/03-imported.png -->
+![가져온 구글 문서: 제목 열방정식 수치해 검토 메모와 회색 부제 검토용 초안, 제목 1 문제 설정과 확인할 점, 여는 괄호 · 수식 · 닫는 괄호 세 줄로 들어온 디스플레이 수식, $…$ 사이의 본문 수식, [@evans2010, p. 45] 인용 표시, (가) (나) 항목, 들여 쓴 인용문, 3행 3열 표와 기울임꼴 표 제목, 글머리 목록, 맨 아래 Notes 의 [1] 각주](/assets/img/posts/2026-10-31/03-imported.png){: width="600" }
 
 **문서 구조로 들어오는 것**
 

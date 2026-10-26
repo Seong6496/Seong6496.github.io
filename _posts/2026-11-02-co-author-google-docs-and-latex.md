@@ -22,7 +22,7 @@ description: "공저자는 구글 문서에서, 나는 .tex 로 일할 때 — �
 
 버전 15 를 시험할 때는 만들어 낸 시험 문서 30만 개를 가져오기와 내보내기에 통과시켰는데, **글과 수식은 모두 남았고** 내보낸 파일은 모두 올바른 LaTeX 였습니다. 다만 목록 항목 안에 표가 든 경우처럼 배치가 복잡한 곳은 목록 들여쓰기 같은 **구조가 바뀌는 경우가 있습니다.** 오간 뒤에는 그런 곳만 한 번 훑어보세요.
 
-<!-- TODO image (web pane): one Google Doc with two tabs — tab 1 the original, tab 2 the same content after Export → Import, side by side or one after the other. File: /assets/img/posts/2026-11-02/01-two-tabs.png -->
+![한 구글 문서의 두 탭을 나란히: 왼쪽 탭 1 은 원래 보고서(구글 문서 수식으로 보이는 수식, 각주 번호), 오른쪽 탭 2 는 같은 문서를 .tex 로 내보냈다가 가져온 것 — 제목·부제·저자·요약·장 제목·인용 표시는 같고, 수식은 번호 tag 가 붙은 디스플레이 수식과 $…$ 의 LaTeX 글자, 각주는 [1] 표시](/assets/img/posts/2026-11-02/01-two-tabs.png)
 
 ## 2. 공저자에게 부탁할 네 가지
 
