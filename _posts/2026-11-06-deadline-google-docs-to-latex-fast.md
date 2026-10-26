@@ -49,7 +49,7 @@ description: "학위논문 초안, 학회 원고, 기말 시험지를 이번 주
 4. **수식 수.** 사이드바 결과 줄의 수식 수가 원고와 맞는지 봅니다.
 5. **모양.** 글꼴·줄 간격·여백은 옮기지 않습니다. 템플릿이 정합니다. 시험지라면 2단·답 쓸 공간·머리글을 몇 줄로 채웁니다([시험지 글](/blog/posts/google-docs-exam-worksheet-to-latex/) 5절).
 
-지도교수님이 `.tex` 로 수정본을 돌려주시면, **Import** 로 그 파일을 구글 문서로 열어 댓글을 달 수도 있습니다([받은 .tex 파일 열기](/blog/posts/open-tex-file-in-google-docs/)).
+지도교수님이 `.tex` 로 수정본을 돌려주시면, **Import** 로 그 파일을 구글 문서로 열어 댓글을 달 수도 있습니다([.tex 파일 가져오기 안내, 영문](/blog/en/posts/tex-file-into-google-docs-import/)).
 
 ## 5. 드는 비용
 

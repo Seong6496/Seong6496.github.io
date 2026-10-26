@@ -18,7 +18,7 @@ description: "공저자는 구글 문서에서, 나는 .tex 로 일할 때 — �
 
 **구글 문서에서 시작한 문서.** 구글 문서 → `.tex` → 구글 문서 → `.tex` 를 돌려도 내용이 그대로입니다. [버전 15](/latexflow/changelog/#version-15) 정식판에서 제목, 달러 금액, 쪽수 인용, 원 숫자, ※, 번호 달린 수식, 이어지는 번호 목록, 취소선이 든 문서를 내보내고, 그 `.tex` 를 다른 탭으로 가져와 다시 내보냈더니 두 `.tex` 가 **한 글자도 다르지 않았습니다**.
 
-**.tex 에서 시작한 문서.** 처음 가져올 때 구글 문서에 자리가 없는 몇 가지가 표시로 바뀝니다(아래 3절). [지난 글](/blog/posts/open-tex-file-in-google-docs/)의 한국어 검토 메모로 가져오기 → 내보내기를 두 번 돌려 보니, 첫 번째와 두 번째 `.tex` 가 똑같았습니다.
+**.tex 에서 시작한 문서.** 처음 가져올 때 구글 문서에 자리가 없는 몇 가지가 표시로 바뀝니다(아래 3절). 한국어 검토 메모 한 편으로 가져오기 → 내보내기를 두 번 돌려 보니, 첫 번째와 두 번째 `.tex` 가 똑같았습니다.
 
 버전 15 를 시험할 때는 만들어 낸 시험 문서 30만 개를 가져오기와 내보내기에 통과시켰는데, **글과 수식은 모두 남았고** 내보낸 파일은 모두 올바른 LaTeX 였습니다. 다만 목록 항목 안에 표가 든 경우처럼 배치가 복잡한 곳은 목록 들여쓰기 같은 **구조가 바뀌는 경우가 있습니다.** 오간 뒤에는 그런 곳만 한 번 훑어보세요.
 
@@ -65,7 +65,7 @@ LaTeX 를 몰라도 지킬 수 있는 것들입니다.
 - 글·수식·인용은 오가도 그대로 남고, 배치가 복잡한 곳(목록 안의 표 등)만 오간 뒤 한 번 확인합니다.
 - 원본은 주로 쓰는 사람 쪽에 둡니다.
 
-함께 보기: [받은 .tex 파일, 구글 문서에서 열어 고치는 법](/blog/posts/open-tex-file-in-google-docs/) · [구글 문서로 쓴 논문 초안, Overleaf로 옮기기](/blog/posts/google-docs-paper-draft-to-overleaf/)
+함께 보기: [구글 문서로 쓴 논문 초안, Overleaf로 옮기기](/blog/posts/google-docs-paper-draft-to-overleaf/)
 
 - 라이선스 키: [LaTeXFlow 스토어](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=co-author-google-docs-and-latex)
 - 무엇이 어떻게 바뀌는지, 활성화·해지·환불: [Export & Import 안내](/latexflow/export/)
