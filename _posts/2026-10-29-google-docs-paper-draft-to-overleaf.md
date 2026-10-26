@@ -52,7 +52,9 @@ Zotero, Google Scholar, 학회 사이트에서 받은 BibTeX 항목을 `.bib` �
 
 **Open in Overleaf** 를 누르면 새 Overleaf 프로젝트로 열리고(Overleaf 로그인 필요), Overleaf 가 BibTeX 까지 돌려서 컴파일합니다. 로컬에서 할 때는 pdfLaTeX → BibTeX → pdfLaTeX 두 번입니다.
 
-<!-- TODO image (web pane): the exported Korean paper opened in Overleaf, compiled PDF on the right with [1] [2, 3] citations. File: /assets/img/posts/2026-10-29/05-overleaf.png -->
+**Open in Overleaf** 로 열린 프로젝트는 이렇게 생겼습니다. 아래 그림은 이 보고서가 아니라 인용이 없는 영어 학습지를 같은 버튼으로 연 예시입니다. 왼쪽이 내보낸 `main.tex`(맨 위 몇 줄은 Overleaf 가 붙이는 안내 주석), 오른쪽이 Overleaf 가 컴파일한 PDF 입니다.
+
+![Overleaf 프로젝트 화면: 왼쪽 편집기에 main.tex — 1~8행은 Overleaf 의 Welcome to Overleaf 주석, 9행부터 LaTeXFlow Export 주석과 documentclass, 이차방정식 근의 공식과 판별식, 문항 목록 — 오른쪽에 컴파일된 PDF 첫 쪽 Worksheet 3: Quadratic Functions](/assets/img/posts/2026-10-29/05-overleaf.png){: width="720" }
 
 ## 4. .tex 안에서 참고문헌은 이렇게 들어갑니다
 
