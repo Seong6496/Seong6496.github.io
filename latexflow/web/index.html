@@ -3049,7 +3049,11 @@ function latexToPngBase64(latex, isDisplay) {
       const m = String(attr || '').match(/^([\d.]+)/);
       return m ? parseFloat(m[1]) : 0;
     }
-    const wEx = parseEx(svgEl.getAttribute('width'));
+    // 태그 달린 디스플레이(\tag, \tag*)는 MathJax 가 width="100%" 로 내고 실제 폭을
+    // style.minWidth 에 둔다. "100%" 를 100ex 로 읽으면 700px PNG 가 되어 본문 폭을 넘는다 (R89).
+    let wAttr = svgEl.getAttribute('width');
+    if (/%$/.test(wAttr || '')) wAttr = svgEl.style.minWidth;
+    const wEx = parseEx(wAttr);
     const hEx = parseEx(svgEl.getAttribute('height'));
 
     // ex 비례 — 수식 고유 크기를 그대로 px 로 환산한다. isDisplay 로 높이를 나누는
