@@ -999,6 +999,167 @@
   .faq-item { margin-bottom: 16px; }
   .faq-q { font-weight: 600; color: var(--text); margin-bottom: 4px; }
   .faq-a { color: var(--ink-600); line-height: 1.65; }
+
+  /* ============================================================
+     하우스 배너 (R106 계획 / R107) — 자사 제품·글만. 외부 광고 자리 없음.
+     자리(data-slot): side = 오른쪽 사이드바(≥1200px) · 좁으면 footer 위로 쌓임
+                      complete = Export 성공 직후 #gen-note 아래 카드 1장
+     배너(data-banner-id) 클릭·노출은 GA4 house_ad_click / house_ad_view.
+     문구에 가격·플랜 단어 금지 (사용자 10-27: 돈 얘기만 하는 것처럼 읽힘).
+     ============================================================ */
+  :root {
+    --house-warm-bg:  #FFF7ED;
+    --house-warm-ink: #9A5A12;
+    --house-cool-bg:  #F3F6FC;
+    --house-cool-line: #D9E2F5;
+  }
+  .work-col { min-width: 0; }
+  #house-side {
+    max-width: 800px;
+    margin: 40px auto 0;
+    display: grid;
+    gap: 12px;
+  }
+  @media (min-width: 600px) and (max-width: 1199px) {
+    #house-side { grid-template-columns: 1fr 1fr; }
+    #house-side .house-eyebrow,
+    #house-side .house-banner--feature { grid-column: 1 / -1; }
+  }
+  @media (min-width: 1200px) {
+    main.with-side {
+      display: grid;
+      grid-template-columns: minmax(0, 800px) 280px;
+      gap: 32px;
+      justify-content: center;
+      align-items: start;
+    }
+    /* 리뷰 단계는 원래 폭 제한이 없다 — 작업 열이 남는 폭을 다 쓴다 */
+    main.with-side:has(#review-stage:not([hidden])) {
+      grid-template-columns: minmax(0, 1fr) 280px;
+    }
+    #house-side { margin: 56px 0 0; max-width: none; }
+    main.with-side:has(#review-stage:not([hidden])) #house-side { margin-top: 0; }
+  }
+  @media (min-width: 1200px) and (min-height: 700px) {
+    #house-side { position: sticky; top: 24px; }
+  }
+  .house-eyebrow {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text-hint);
+  }
+  .house-banner {
+    display: flex; flex-direction: column; gap: 6px;
+    padding: 16px 18px;
+    background: var(--bg-card);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    text-decoration: none;
+    transition: border-color .12s;
+  }
+  a.house-banner:hover { border-color: var(--border-strong); }
+  .house-banner--feature { background: var(--house-warm-bg); }
+  .house-banner--feature .house-actions {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 8px;
+  }
+  @media (min-width: 600px) and (max-width: 1199px) {
+    .house-banner--feature .house-actions { flex-direction: row; align-items: center; gap: 16px; }
+  }
+  .house-label {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text-muted);
+  }
+  .house-banner--feature .house-label { color: var(--house-warm-ink); }
+  .house-title { font-size: 16px; font-weight: 600; line-height: 1.35; }
+  .house-banner--feature .house-title { font-family: var(--font-display); font-size: 20px; font-weight: 500; }
+  .house-body { font-size: 14px; color: var(--ink-600); line-height: 1.5; }
+  .house-body code { font-family: var(--font-mono); font-size: 13px; }
+  .house-go { font-size: 14px; font-weight: 500; color: var(--accent); margin-top: 2px; }
+
+  /* 완료 팝업 (C1) — 다운로드 직후 사용자는 아래로 스크롤하지 않는다 (사용자 10-27).
+     세션당 1회, 성공 분기에서만. 다운로드는 팝업보다 먼저 시작된다. */
+  #house-modal {
+    width: min(440px, calc(100vw - 32px));
+    max-height: calc(100vh - 32px);
+    margin: auto;
+    padding: 0;
+    border: 1px solid var(--house-cool-line);
+    border-radius: var(--radius-lg);
+    background: var(--bg-card);
+    color: var(--text);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  }
+  #house-modal::backdrop { background: rgba(25, 25, 25, 0.35); }
+  #house-modal .house-modal-inner {
+    position: relative;
+    display: flex; flex-direction: column; gap: 6px;
+    padding: 24px 24px 22px;
+    background: var(--house-cool-bg);
+  }
+  #house-modal .house-done {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 14px; color: var(--badge-live-text); margin-bottom: 6px; padding-right: 36px;
+  }
+  #house-modal .house-label { color: var(--accent); }
+  #house-modal .house-title { font-family: var(--font-display); font-size: 22px; font-weight: 500; line-height: 1.3; }
+  #house-modal .house-body { font-size: 15px; }
+  #house-modal .house-actions {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 12px;
+  }
+  #house-modal .house-x {
+    position: absolute; top: 10px; right: 10px;
+    width: 36px; height: 36px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: transparent; border: 0; border-radius: var(--radius);
+    color: var(--text-muted); font-size: 20px; cursor: pointer;
+  }
+  #house-modal .house-x:hover { background: rgba(0, 0, 0, 0.06); color: var(--text); }
+  .house-cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    min-height: 44px; padding: 0 18px;
+    background: var(--accent); color: var(--white);
+    border-radius: var(--radius); text-decoration: none;
+    font-size: 15px; font-weight: 500; white-space: nowrap;
+  }
+  .house-cta:hover { background: var(--accent-hover); }
+  .house-sub { font-size: 14px; color: var(--accent); text-decoration: none; white-space: nowrap; }
+  .house-sub:hover { text-decoration: underline; }
+
+  /* 완료 토스트 — 같은 세션 두 번째 Export 부터. Export 버튼 바로 아래 오른쪽, 아무것도 막지 않는다 */
+  .toolbar { position: relative; }
+  #house-toast {
+    position: absolute; top: calc(100% + 8px); right: 0; z-index: 20;
+    max-width: min(380px, calc(100vw - 32px));
+  }
+  #house-toast .house-toast-card {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 4px 12px;
+    padding: 10px 6px 10px 16px;
+    background: var(--house-cool-bg);
+    border: 1px solid var(--house-cool-line);
+    border-radius: var(--radius);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    font-size: 14px; color: var(--text);
+    opacity: 1; transition: opacity .3s;
+  }
+  #house-toast .house-toast-card[hidden] { display: none; }
+  #house-toast .house-toast-card.is-leaving { opacity: 0; }
+  #house-toast .house-toast-msg code { font-family: var(--font-mono); font-size: 13px; }
+  #house-toast .house-toast-link {
+    font-weight: 500; color: var(--accent); text-decoration: none; white-space: nowrap;
+    display: inline-flex; align-items: center; gap: 4px; min-height: 32px;
+  }
+  #house-toast .house-toast-link:hover { text-decoration: underline; }
+  #house-toast .house-x {
+    margin-left: auto;
+    width: 32px; height: 32px; padding: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: transparent; border: 0; border-radius: var(--radius);
+    color: var(--text-muted); font-size: 18px; cursor: pointer;
+  }
+  #house-toast .house-x:hover { background: rgba(0, 0, 0, 0.06); color: var(--text); }
+  @media (prefers-reduced-motion: reduce) {
+    #house-toast .house-toast-card { transition: none; }
+  }
 </style>
 <script>
   if (location.hostname === 'mathsystem.dev') {
@@ -1056,7 +1217,8 @@
   Privacy Policy (mathsystem.dev/privacy/) 가 AdSense cookies 명시 — 정책 충족.
 -->
 
-<main>
+<main class="with-side">
+<div class="work-col">
   <!-- 1단계: 업로드 -->
   <section id="upload-stage">
 
@@ -1230,6 +1392,14 @@
       <span class="spacer"></span>
       <button class="btn-ghost"   id="btn-reset">Start Over</button>
       <button class="btn-primary" id="btn-generate">Render PNG · Export</button>
+      <!-- 하우스 배너 · 완료 토스트 — 같은 세션 두 번째 Export 부터 (팝업은 첫 번째만). 막지 않음, ~6초 뒤 사라짐 -->
+      <aside class="house-slot" id="house-toast" data-slot="complete-toast" role="status" aria-live="polite" aria-label="Add-on suggestion">
+        <span class="house-toast-card" hidden>
+          <span class="house-toast-msg">Need the <code>.tex</code> source?</span>
+          <a class="house-banner-link house-toast-link" data-banner-id="export-toast" href="https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&amp;utm_source=blog&amp;utm_medium=tool&amp;utm_campaign=latexflow-web&amp;utm_content=export-toast" target="_blank" rel="noopener">Install the add-on <i class="ti ti-arrow-up-right" aria-hidden="true"></i></a>
+          <button type="button" class="house-x" aria-label="Close"><i class="ti ti-x" aria-hidden="true"></i></button>
+        </span>
+      </aside>
     </div>
 
     <div id="ambig-wrap" hidden>
@@ -1242,6 +1412,33 @@
 
     <div id="gen-note" hidden></div>
   </section>
+</div>
+
+  <!-- 하우스 배너 · 사이드 자리 — ≥1200px 오른쪽 열, 좁으면 작업 영역 뒤(footer 위) -->
+  <aside class="house-slot" id="house-side" data-slot="side" aria-label="More from MathSystem">
+    <p class="house-eyebrow">From the same maker</p>
+    <!-- S1: C1 과 같은 틀 — 주 버튼 = 설치, 가이드는 작은 보조 링크 (사용자 10-27) -->
+    <div class="house-banner house-banner--feature">
+      <span class="house-label">Google Docs™ add-on</span>
+      <span class="house-title">Google Docs™ → LaTeX</span>
+      <span class="house-body">Export your document as a <code>.tex</code> file, or import a <code>.tex</code> file back into Docs.</span>
+      <div class="house-actions">
+        <a class="house-banner-link house-cta" data-banner-id="export-side" href="https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&amp;utm_source=blog&amp;utm_medium=tool&amp;utm_campaign=latexflow-web&amp;utm_content=export-side" target="_blank" rel="noopener">Install the add-on <i class="ti ti-arrow-up-right" aria-hidden="true"></i></a>
+        <a class="house-banner-link house-sub" data-banner-id="export-side-guide" href="https://mathsystem.dev/latexflow/export/" target="_blank" rel="noopener">How it works →</a>
+      </div>
+    </div>
+    <a class="house-banner-link house-banner" data-banner-id="post-chatgpt-shapes" href="https://mathsystem.dev/blog/en/posts/chatgpt-bracket-math-to-latex/" target="_blank" rel="noopener">
+      <span class="house-label">From the blog</span>
+      <span class="house-title">Fix ChatGPT's LaTeX in Word: The Four Shapes It Arrives In</span>
+      <span class="house-go">Read →</span>
+    </a>
+    <a class="house-banner-link house-banner" data-banner-id="mathfolis-side" href="https://mathfolis.mathsystem.dev/?utm_source=blog&amp;utm_medium=tool&amp;utm_campaign=latexflow-web&amp;utm_content=mathfolis-side" target="_blank" rel="noopener">
+      <span class="house-label">Also from MathSystem</span>
+      <span class="house-title">Mathfolis — never the same problem twice</span>
+      <span class="house-body">Always-new practice problems for AP Calculus, Digital SAT Math, AP Statistics and AP Precalculus.</span>
+      <span class="house-go">Open Mathfolis ↗</span>
+    </a>
+  </aside>
 
 <!--
   AdSense footer banner slot — main 끝, footer 직전 자리.
@@ -1250,6 +1447,21 @@
   승인 후 박을 코드는 top banner 와 동일 패턴, data-ad-slot 만 다름.
 -->
 </main>
+
+<!-- 하우스 배너 · 완료 팝업 (C1) — Export 성공 직후, 세션당 1회 (openHouseModal) -->
+<dialog class="house-slot" id="house-modal" data-slot="complete-modal" aria-labelledby="house-modal-title" aria-describedby="house-modal-body">
+  <div class="house-modal-inner">
+    <button type="button" class="house-x" aria-label="Close"><i class="ti ti-x" aria-hidden="true"></i></button>
+    <span class="house-done"><i class="ti ti-circle-check" aria-hidden="true"></i> Your .docx is downloading.</span>
+    <span class="house-label">Next step · Google Docs™ add-on</span>
+    <span class="house-title" id="house-modal-title">Need the LaTeX source, not images?</span>
+    <span class="house-body" id="house-modal-body">The LaTeXFlow add-on exports a Google Docs™ document to a <code>.tex</code> file — headings, lists, tables and equations.</span>
+    <div class="house-actions">
+      <a class="house-banner-link house-cta" data-banner-id="export-complete" href="https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&amp;utm_source=blog&amp;utm_medium=tool&amp;utm_campaign=latexflow-web&amp;utm_content=export-complete" target="_blank" rel="noopener">Install the add-on <i class="ti ti-arrow-up-right" aria-hidden="true"></i></a>
+      <a class="house-banner-link house-sub" data-banner-id="export-complete-guide" href="https://mathsystem.dev/latexflow/export/" target="_blank" rel="noopener">How Export works →</a>
+    </div>
+  </div>
+</dialog>
 
 <footer class="site-footer">
   <a href="https://mathsystem.dev/latexflow/privacy/">Privacy Policy</a>
@@ -2702,6 +2914,7 @@ async function onGenerate() {
       (failed.length
         ? `<br><span style="color:#d93025">⚠ ${failed.length} equation${failed.length === 1 ? '' : 's'} failed to render and were left as original text.</span>`
         : '');
+    houseAfterExport();
   } catch (err) {
     console.error(err);
     note.innerHTML = '<strong style="color:#d93025">Render failed:</strong> ' + escHtml(err.message);
@@ -3122,6 +3335,169 @@ document.getElementById('btn-reset').addEventListener('click', () => {
   document.getElementById('upload-stage').hidden = false;
   setStatus('', '');
 });
+
+/* ============================================================
+ * 하우스 배너 (R107) — GA4 house_ad_click / house_ad_view / house_ad_close.
+ * gtag 는 mathsystem.dev 에서만 정의된다 → 그 밖(localhost)에서는 no-op.
+ * 사이드: 노출은 배너당 페이지 로드 1회 (IntersectionObserver).
+ * 완료 팝업: 열릴 때 view, CTA 에 click, X·Esc·바깥 클릭에 close (method 포함).
+ * ========================================================== */
+function houseTrack(name, el, extra) {
+  if (typeof window.gtag !== 'function') return;
+  const slot = el.closest('[data-slot]');
+  gtag('event', name, Object.assign({
+    banner_id: el.dataset.bannerId,
+    slot: slot ? slot.dataset.slot : '',
+    page: 'latexflow-web',
+    transport_type: 'beacon',
+  }, extra || {}));
+}
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('.house-banner-link');
+  if (a) houseTrack('house_ad_click', a);
+});
+const houseSeen = new WeakSet();
+const houseObserver = ('IntersectionObserver' in window)
+  ? new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting || houseSeen.has(en.target)) return;
+        houseSeen.add(en.target);
+        houseTrack('house_ad_view', en.target);
+      });
+    }, { threshold: 0.5 })
+  : null;
+function observeHouse(root) {
+  if (!houseObserver) return;
+  root.querySelectorAll('.house-banner-link').forEach((a) => {
+    // 같은 배너의 보조 링크(-guide)는 노출을 따로 세지 않는다
+    if (/-guide$/.test(a.dataset.bannerId)) return;
+    houseObserver.observe(a);
+  });
+}
+observeHouse(document.getElementById('house-side'));
+
+// ── 완료 팝업 ──
+// 세션당 1회: sessionStorage 가 막힌 브라우저(사생활 모드 등)에서는 메모리 플래그로 대신한다.
+const HOUSE_MODAL_KEY = 'latexflow_house_modal_shown';
+let houseModalShownMem = false;
+function houseModalShown() {
+  try { return sessionStorage.getItem(HOUSE_MODAL_KEY) === '1' || houseModalShownMem; }
+  catch (e) { return houseModalShownMem; }
+}
+function markHouseModalShown() {
+  houseModalShownMem = true;
+  try { sessionStorage.setItem(HOUSE_MODAL_KEY, '1'); } catch (e) { /* 메모리 플래그로 충분 */ }
+}
+let houseModalCloseBy = '';
+// onGenerate 성공 분기에서 triggerDownload() 뒤에 불린다 — 다운로드는 이미 시작됐고,
+// 여기서 무엇이 실패해도 렌더 결과(“Render failed”)로 번지지 않게 전부 삼킨다.
+// 세션 첫 성공 = 팝업, 그 뒤 성공 = 토스트 (사용자 10-27)
+function houseAfterExport() {
+  try {
+    if (!houseModalShown() && openHouseModal()) return;
+    showHouseToast();
+  } catch (e) {
+    console.warn('house banner skipped:', e);
+  }
+}
+function openHouseModal() {
+  const dlg = document.getElementById('house-modal');
+  if (!dlg || typeof dlg.showModal !== 'function' || dlg.open) return false;
+  markHouseModalShown();
+  houseModalCloseBy = '';
+  dlg.showModal();
+  dlg.querySelector('.house-cta').focus();
+  houseTrack('house_ad_view', dlg.querySelector('.house-cta'));
+  return true;
+}
+(function wireHouseModal() {
+  const dlg = document.getElementById('house-modal');
+  if (!dlg) return;
+  const close = (by) => { houseModalCloseBy = by; dlg.close(); };
+  dlg.querySelector('.house-x').addEventListener('click', () => close('x'));
+  // 바깥 클릭 = backdrop 클릭은 target 이 dialog 자신 (내용은 .house-modal-inner 가 다 덮는다)
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) close('outside'); });
+  // Esc: 기본 동작(cancel → close)을 쓰되 이유만 기록
+  dlg.addEventListener('cancel', () => { houseModalCloseBy = 'esc'; });
+  // CTA 는 새 탭으로 열리고 팝업은 닫는다 (click 은 문서 위임 리스너가 기록)
+  dlg.querySelectorAll('.house-banner-link').forEach((a) => a.addEventListener('click', () => close('cta')));
+  // 포커스 가두기: Tab / Shift+Tab 이 팝업 안에서만 돈다
+  dlg.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const f = [...dlg.querySelectorAll('a[href], button:not([disabled])')];
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+  dlg.addEventListener('close', () => {
+    const by = houseModalCloseBy || 'esc';
+    if (by !== 'cta') houseTrack('house_ad_close', dlg.querySelector('.house-cta'), { method: by });
+    const btn = document.getElementById('btn-generate');
+    if (btn) btn.focus();
+  });
+})();
+
+// ── 완료 토스트 ──
+// 포커스를 옮기지 않는다 (aria-live polite 로 읽힘). 6초 뒤 흐려지며 사라지고,
+// 마우스가 올라가 있거나 포커스가 안에 있으면 멈췄다가 벗어나면 6초를 다시 센다.
+const HOUSE_TOAST_MS = 6000;
+const HOUSE_TOAST_FADE_MS = 300;
+let houseToastTimer = 0;
+let houseToastFadeTimer = 0;
+let houseToastHeld = { hover: false, focus: false };
+function houseToastCard() {
+  const t = document.getElementById('house-toast');
+  return t ? t.querySelector('.house-toast-card') : null;
+}
+function houseToastArm() {
+  clearTimeout(houseToastTimer);
+  const card = houseToastCard();
+  if (!card || card.hidden || card.classList.contains('is-leaving')) return;
+  if (houseToastHeld.hover || houseToastHeld.focus) return;
+  houseToastTimer = setTimeout(() => hideHouseToast('timeout'), HOUSE_TOAST_MS);
+}
+function showHouseToast() {
+  const card = houseToastCard();
+  if (!card) return;
+  clearTimeout(houseToastFadeTimer);
+  card.classList.remove('is-leaving');
+  card.hidden = false;
+  houseToastHeld = { hover: false, focus: false };
+  houseToastArm();
+  houseTrack('house_ad_view', card.querySelector('.house-toast-link'));
+}
+function hideHouseToast(by) {
+  const card = houseToastCard();
+  if (!card || card.hidden || card.classList.contains('is-leaving')) return;
+  clearTimeout(houseToastTimer);
+  const hadFocus = card.contains(document.activeElement);
+  if (by !== 'cta') houseTrack('house_ad_close', card.querySelector('.house-toast-link'), { method: by });
+  card.classList.add('is-leaving');
+  houseToastFadeTimer = setTimeout(() => {
+    card.hidden = true;
+    card.classList.remove('is-leaving');
+  }, HOUSE_TOAST_FADE_MS);
+  // 토스트 안에서 닫았으면 포커스를 Export 버튼으로 돌려준다
+  if (hadFocus) {
+    const btn = document.getElementById('btn-generate');
+    if (btn) btn.focus();
+  }
+}
+(function wireHouseToast() {
+  const card = houseToastCard();
+  if (!card) return;
+  card.querySelector('.house-x').addEventListener('click', () => hideHouseToast('x'));
+  card.querySelector('.house-toast-link').addEventListener('click', () => hideHouseToast('cta'));
+  card.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideHouseToast('esc'); });
+  card.addEventListener('mouseenter', () => { houseToastHeld.hover = true; houseToastArm(); });
+  card.addEventListener('mouseleave', () => { houseToastHeld.hover = false; houseToastArm(); });
+  card.addEventListener('focusin', () => { houseToastHeld.focus = true; houseToastArm(); });
+  card.addEventListener('focusout', (e) => {
+    if (card.contains(e.relatedTarget)) return;
+    houseToastHeld.focus = false;
+    houseToastArm();
+  });
+})();
 
 /* ============================================================
  * 유틸
