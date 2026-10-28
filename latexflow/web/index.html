@@ -977,10 +977,14 @@
     background: var(--accent-bg);
     border-radius: 6px;
   }
+  /* 좁은 화면에서 표가 페이지 가로 스크롤을 만들지 않게 — 표만 자기 상자 안에서 스크롤 (R113) */
+  .info-table-wrap {
+    overflow-x: auto;
+    margin: 0 0 16px;
+  }
   .info-table {
     width: 100%;
     border-collapse: collapse;
-    margin: 0 0 16px;
     font-size: 15px;
   }
   .info-table th, .info-table td {
@@ -996,6 +1000,19 @@
     border-bottom: 0.5px solid var(--border);
   }
   .info-table td code { white-space: nowrap; }
+  /* 좁은 화면: "Detected" 칸을 각 줄 아래로 내려 표가 화면 폭 안에 들어오게 (R113) */
+  @media (max-width: 540px) {
+    .info-table, .info-table thead, .info-table tbody { display: block; }
+    .info-table tr {
+      display: grid; grid-template-columns: 96px minmax(0, 1fr);
+      border-bottom: 0.5px solid var(--border-soft);
+    }
+    .info-table thead tr { border-bottom-color: var(--border); }
+    .info-table th, .info-table td { border-bottom: 0; }
+    .info-table th:nth-child(3) { display: none; }
+    .info-table td:nth-child(3) { grid-column: 1 / -1; padding-top: 0; }
+    .info-table td:nth-child(2) code { white-space: normal; overflow-wrap: anywhere; }
+  }
   .faq-item { margin-bottom: 16px; }
   .faq-q { font-weight: 600; color: var(--text); margin-bottom: 4px; }
   .faq-a { color: var(--ink-600); line-height: 1.65; }
@@ -1132,7 +1149,7 @@
     max-width: min(380px, calc(100vw - 32px));
   }
   #house-toast .house-toast-card {
-    display: flex; align-items: center; flex-wrap: wrap; gap: 4px 12px;
+    display: flex; align-items: center; gap: 12px;
     padding: 10px 6px 10px 16px;
     background: var(--house-cool-bg);
     border: 1px solid var(--house-cool-line);
@@ -1143,6 +1160,9 @@
   }
   #house-toast .house-toast-card[hidden] { display: none; }
   #house-toast .house-toast-card.is-leaving { opacity: 0; }
+  /* 한 줄 유지 — 좁으면 문구만 줄바꿈, 링크와 X 는 같은 줄 (R113) */
+  #house-toast .house-toast-msg { flex: 1 1 auto; min-width: 0; }
+  #house-toast .house-toast-link, #house-toast .house-x { flex: none; }
   #house-toast .house-toast-msg code { font-family: var(--font-mono); font-size: 13px; }
   #house-toast .house-toast-link {
     font-weight: 500; color: var(--accent); text-decoration: none; white-space: nowrap;
@@ -1150,7 +1170,7 @@
   }
   #house-toast .house-toast-link:hover { text-decoration: underline; }
   #house-toast .house-x {
-    margin-left: auto;
+    margin-left: -4px;
     width: 32px; height: 32px; padding: 0;
     display: inline-flex; align-items: center; justify-content: center;
     background: transparent; border: 0; border-radius: var(--radius);
@@ -1328,6 +1348,7 @@
 
       <h2>Supported LaTeX delimiters</h2>
       <p>A formula is only detected if it already sits inside one of these delimiters. Bare LaTeX with no delimiter — <code>\frac{1}{2}</code> on its own — is treated as ordinary text and left untouched.</p>
+      <div class="info-table-wrap">
       <table class="info-table">
         <thead><tr><th>Delimiter</th><th>Example</th><th>Detected</th></tr></thead>
         <tbody>
@@ -1338,6 +1359,7 @@
           <tr><td><code>[ … ]</code></td><td><code>[\lim_{x\to0}\frac{\sin x}{x}]</code></td><td>Bracket mode — for AI-chatbot output whose backslashes were stripped by markdown. On by default; toggle it off if it over-detects.</td></tr>
         </tbody>
       </table>
+      </div>
 
       <h2>When people use it</h2>
       <h3>Google Docs class notes → clean slides</h3>
