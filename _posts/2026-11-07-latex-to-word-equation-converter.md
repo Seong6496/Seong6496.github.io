@@ -13,13 +13,15 @@ description: "A Word document full of LaTeX — an AI answer, a draft paper — 
 
 To turn every LaTeX equation in a Word document into an equation at once, drop the `.docx` onto [LaTeXFlow Scan](/latexflow/web/): it finds each formula, shows you a preview, and gives you back a `.docx` in which every formula is a rendered equation. Each one is an **image** with its LaTeX kept in the alt text — not an editable Word equation — so it looks right everywhere the document is opened, and the source is still there when you need it.
 
-(Word can turn a single LaTeX equation into a Word equation itself, in its equation editor. That is the better tool for one or two; this post is about the document with forty.)
+Recent versions of Word convert LaTeX too. Word in Microsoft 365, version 2606 or later on Windows (16.110 on Mac), turns LaTeX into Word equations as you paste it, when it is wrapped in `$…$`, `$$…$$`, `\(…\)` or `\[…\]`, and it converts a selected piece of LaTeX with **Insert › Equation** ([Microsoft's LaTeX support page](https://learn.microsoft.com/en-us/office/math/latex)). If you are pasting a fresh answer into an up-to-date Word, that is the simplest route.
+
+Scan is for the other cases: a `.docx` that already has the LaTeX sitting in it as text, converted all at once in the browser; an older Word, or no Word at all; and two shapes Word leaves alone. ChatGPT's bare `[ … ]` is not one of the delimiters Word recognises, and Word drops `\tag{…}` equation numbers on import. Scan handles both: it detects the bare brackets, and it keeps the tag number in the rendered image.
 
 ## 1. When this is the right tool
 
 Scan is built for documents where the maths is already written as LaTeX text:
 
-- **An AI answer pasted into Word.** ChatGPT, Claude or Gemini write their maths in LaTeX. After a copy and paste it often arrives as `$…$`, `\[…\]`, or as bare `[ … ]` with the backslashes gone. Scan reads all of these.
+- **An AI answer in a Word document.** ChatGPT and Gemini write their maths in LaTeX. In a Word older than version 2606, or once the answer has been saved into the document as text, it stays as `$…$` or `\[…\]`. ChatGPT's answers also often lose their backslashes and arrive as bare `[ … ]`, which Word's paste conversion does not pick up. Scan reads all of these.
 - **A draft written with LaTeX inline.** Notes, a paper draft or a worksheet where you typed `$\frac{a}{b}$` to keep going and planned to fix it later.
 - **A document someone else sent you** in either of those states.
 
@@ -69,7 +71,7 @@ What it is not: the images are not Word equations. You cannot click into one and
 No. Scan works on a `.docx` that already has LaTeX in it, and converts the equations. It does not turn a `.tex` file into a Word document.
 
 **Can I get editable Word equations?**
-Not from Scan. It produces images, with the LaTeX kept in the alt text. For a single formula, Word's own equation editor can take LaTeX and build a Word equation.
+Not from Scan. It produces images, with the LaTeX kept in the alt text. If you need editable Word equations and have Word 2606 or later, paste the LaTeX into Word, or select it and use **Insert › Equation**, and Word builds the equation.
 
 **Does it work on a Google Doc?**
 Yes: use **Import from Google Drive** on the Scan page, or convert inside the document with the free [Google Docs™ add-on](/blog/en/posts/convert-latex-in-google-docs/).
