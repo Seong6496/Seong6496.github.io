@@ -45,15 +45,15 @@ Bare LaTeX with no delimiter, such as `\frac{1}{2}` on its own, is left as text.
 
 **Step 2: drop the file.** Drag the `.docx` onto the drop area. A Google Doc can be brought in with **Import from Google Drive** instead.
 
-<!-- TODO image (web pane): Scan landing page with a .docx being dropped on the drop area; bracket-mode checkbox visible. File: /assets/img/posts/2026-11-07/01-drop.png -->
+![The LaTeXFlow Scan page with a .docx being dragged over the highlighted drop area; the "Also detect bracket" checkbox is ticked below it](/assets/img/posts/2026-11-07/01-drop.png){: width="700" }
 
 **Step 3: review what was found.** The **Detected Equations** list shows one card per formula with a live preview. Press **Skip** on anything that is not maths; a price such as `$100` is the usual case. If a paragraph has a `$` that never closes, an ambiguity card asks you to fix the text, rather than the tool guessing.
 
-<!-- TODO image (web pane): Detected Equations list for a pasted AI answer, several cards with previews, one Skip button visible. File: /assets/img/posts/2026-11-07/02-review.png -->
+![The Detected Equations list for an AI answer saved as .docx: cards for an inline and a display formula, each with a live preview, its LaTeX, the surrounding text, and Edit LaTeX and Skip buttons; the counter reads Selected 6, Skipped 1](/assets/img/posts/2026-11-07/02-review.png){: width="700" }
 
 **Step 4: Render PNG · Export.** Press **Render PNG · Export** and download the new `.docx`.
 
-<!-- TODO image (web pane): the downloaded .docx open in Word, equations rendered as images in the text. File: /assets/img/posts/2026-11-07/03-result-in-word.png -->
+![The exported .docx open in Word: the quadratic formula, the discriminant and a worked example now appear as rendered equation images inside the text, and the sentence with the two calculator prices stays as text](/assets/img/posts/2026-11-07/03-result-in-word.png){: width="640" }
 
 ## 4. What you get back
 
