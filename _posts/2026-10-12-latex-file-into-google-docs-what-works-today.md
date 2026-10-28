@@ -1,5 +1,5 @@
 ---
-title: "Bringing a LaTeX File into Google Docs™: What Works Today, Step by Step"
+title: "How to Convert a LaTeX File to Google Docs™: The Free Path and Full Import"
 date: 2026-10-12 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,12 +8,14 @@ categories: [Google Docs, Tutorial]
 tags: [latex, google-docs, tex-file, scan, delimiters, add-on, equations, tutorial]
 math: true
 pin: false
-description: "You have a .tex file and the text needs to live in Google Docs™ — for a co-author, for comments, for a class. The path that exists today, end to end: paste the body, scan, convert. What the scanner detects and what it does not (environments need wrapping), and what does not carry over from the file at all."
+description: "Two ways to convert a LaTeX (.tex) file to Google Docs™: paste the body and convert the equations for free, or import the whole file — headings, lists, tables, equations — with LaTeXFlow Import. What each one carries over, step by step."
 ---
+
+There are two ways to convert a LaTeX file to Google Docs™. The free one: paste the body of the `.tex` into a document and convert the equations with the LaTeXFlow add-on; headings, lists and tables are then redone by hand. The paid one: LaTeXFlow **Import** reads the `.tex` file and writes headings, lists, tables and equations into the document for you.
 
 You have a `.tex` file. A co-author who does not use LaTeX needs to comment on it, a course wants the submission as a Google Docs™ document, or a group is drafting in Docs and the maths lives in your file. Docs cannot open `.tex`, so the question is how much of the file survives the move.
 
-This post walks the path that exists today with the free LaTeXFlow add-on, and then says plainly where that path stops. Nothing here is a promise about a feature that does not exist yet.
+This post walks the free path first and says plainly where it stops, then shows what Import does from that point.
 
 ## 1. Two different problems in one file
 
@@ -90,6 +92,22 @@ If you find a paragraph after the scan that should have been an equation, you do
 
 Everything in the file that is structure rather than text or maths arrives as plain text with its command still attached. `\section{Method}` is the six characters of a heading and a command name; `\begin{itemize}` and each `\item` are words in a paragraph; a `tabular` block is rows of `&` and `\\`; `\cite{knuth84}` and the bibliography are a key and a list; `\label` and `\ref` are a name with nothing to resolve it; `\footnote{…}` is the note inline in the sentence; `\includegraphics{fig1.pdf}` is a file name, since the image itself was never in the `.tex`. For each of these you apply the Docs equivalent by hand — heading styles, a bulleted or numbered list, a Docs table, a footnote from the Insert menu, the image file from disk — and delete the command text. On a short document this is a few minutes. On a thesis chapter it is most of an afternoon, and it is the honest description of where this path stops.
 
-## 5. One line to close
+## 5. Converting the whole file: Import
 
-*Update:* LaTeXFlow now has an **Import** feature that reads the `.tex` file and writes headings, lists, tables and equations into the document, so much of step 4 is no longer done by hand. Import is a paid feature; the free path above still works as described. How it works: [Export & Import guide](/latexflow/export/#import).
+Import, on the **LaTeX file** tab of LaTeXFlow, does most of section 4 for you. Choose the `.tex` file and the sidebar first reports what it read, before anything is written:
+
+![The Import section after choosing a .tex file: 17 blocks — 3 paragraphs, 4 headings, 2 list items, 1 table; 12 equations written as LaTeX text; 2 bibliography entries; and the Import button](/assets/img/posts/2026-10-28/01-import-pick.png){: width="330" }
+
+Press **Import** and `\section` and `\subsection` become Docs headings, `itemize` becomes a bulleted list, and a `tabular` becomes a Docs table. Equations are written as LaTeX text, so the Scan and Convert All steps from section 2 turn them into images afterwards. A few things still change on the way in: a figure becomes a placeholder line, because the image file is not in the `.tex`; citations become `[@key]` markers; and Import reads one file, so it does not follow `\input` or a separate `.bib`. The free path above still works as described.
+
+Import is a paid feature. One real file taken through it part by part, with every screen, is in [You Received a .tex File: Editing It Together in Google Docs™](/blog/en/posts/tex-file-into-google-docs-import/); prices and licence keys are in the [Export & Import guide](/latexflow/export/#import).
+
+## 6. FAQ
+
+### How can I convert a LaTeX file to a Google Doc?
+
+Google Docs™ cannot open a `.tex` file. Either paste the body into a document and convert the equations with the free Scan (section 2), or use LaTeXFlow Import to write the whole file — headings, lists, tables and equations — into the document (section 5).
+
+### How do I use LaTeX in Google Docs?
+
+Not on its own: LaTeX typed into a document stays as plain text. With an add-on you can write LaTeX and convert it into equations; the [step-by-step guide](/blog/en/posts/convert-latex-in-google-docs/) starts from installing it.

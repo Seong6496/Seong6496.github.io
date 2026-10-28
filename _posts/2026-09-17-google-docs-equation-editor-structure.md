@@ -1,5 +1,5 @@
 ---
-title: "Google Docs 수식 편집기는 무엇을 저장하나 — Apps Script 로 구조를 열어봤다"
+title: "구글 독스(Google Docs™) 수식 편집기는 무엇을 저장하나 — Apps Script 로 구조를 열어봤다"
 date: 2026-09-17 09:00:00 +0900
 categories: [Google Docs, Reference]
 tags: [google-docs, 수식편집기, latex, apps-script, equation, reference]

@@ -1,5 +1,5 @@
 ---
-title: "How to Convert LaTeX in Google Docs: Install to First Equation"
+title: "Google Docs™ LaTeX Equations: Install the Add-on and Convert Your First One"
 date: 2026-09-10 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,8 +8,10 @@ categories: [LaTeXFlow, Guide]
 tags: [google-docs, latex, add-on, google-workspace-marketplace, equations, tutorial]
 math: true
 pin: false
-description: "You have LaTeX sitting as plain text in a Google Doc and you want it to look like an equation. This walks the whole path once: installing the add-on from the Marketplace, what the first-run consent screen asks for, running a scan, and what the document holds afterwards."
+description: "LaTeX you type into Google Docs™ stays as plain text. Turning it into equations with a free add-on, once through: installing from the Marketplace, what the consent screen asks, scanning, converting, and what the document holds afterwards."
 ---
+
+LaTeX you type into Google Docs™ stays as plain text; Docs does not turn it into equations. An add-on can: this post installs LaTeXFlow, which is free for converting, and turns a first equation from LaTeX into an image.
 
 You have this in a Google Doc:
 
@@ -92,7 +94,7 @@ Two things you can do to a card before converting:
 - **Click its LaTeX** to edit it in place. What gets converted is the edited value.
 - **Skip** it, if it is not really an equation. `$100` in a sentence about money will be picked up as an opening delimiter; skipping leaves the text alone.
 
-## 6. Converting one equation
+## 6. Converting the LaTeX you typed
 
 Press **➕ Insert into Docs** on a single card and that equation is replaced, in place, by a rendered image.
 
@@ -142,6 +144,9 @@ Note that this button wraps as inline `$…$` only. For display maths, type the 
 And if the maths came out of a chatbot as bare square brackets — `[\frac{1}{2}]` with the backslashes stripped — tick **`Also detect [ … ]`** and scan again. It is off by default in the add-on because a bracket in a document you are writing is more often prose than maths.
 
 ## 9. FAQ
+
+**How do I write LaTeX code in Google Docs?**
+Type it as ordinary text, wrapped in a delimiter: `$…$` for inline maths, `$$…$$` for a display equation. Then scan and convert (sections 5 and 6).
 
 **Do the people I share the document with need the add-on?**
 No. Converted equations are images and render for everyone.

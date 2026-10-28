@@ -1,5 +1,5 @@
 ---
-title: "Fix ChatGPT's LaTeX in Word: The Four Shapes It Arrives In"
+title: "ChatGPT LaTeX to Word: Fixing Equations After Copy and Paste"
 date: 2026-09-16 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [LaTeXFlow, Guide]
 tags: [chatgpt, latex, word, bracket-mode, markdown, docx, cases, ai]
 math: true
 pin: false
-description: "Paste a ChatGPT answer into Word and its equations arrive in one of four shapes: bare square brackets, bare parentheses, cases and matrix rows glued together by a lost backslash, or clean dollar signs. A diagnosis table for telling them apart, which ones can be recovered, and how bracket mode brings the bracket shape back."
+description: "Copy and paste a ChatGPT answer into Word and its LaTeX equations arrive in one of four shapes: bare square brackets, bare parentheses, cases and matrix rows glued together by a lost backslash, or clean dollar signs. A diagnosis table for telling them apart, which ones can be recovered, and how bracket mode brings the bracket shape back."
 ---
 
 You asked ChatGPT for twenty AP Calculus BC practice problems, copied the answer, and pasted it into a Word document. On screen the equations were rendered beautifully. In the document they look like this:
