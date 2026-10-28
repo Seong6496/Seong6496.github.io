@@ -90,7 +90,8 @@
     --font-display: 'STIX Two Text', 'Noto Serif KR', 'Times New Roman', serif;
     --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo',
                     'Pretendard', 'Noto Sans KR', sans-serif;
-    --font-mono:    'JetBrains Mono', 'D2Coding', ui-monospace, 'SF Mono', monospace;
+    /* R121: 라틴 고정폭을 D2Coding 앞에 — 한국어 글꼴로 떨어지면 백슬래시가 ₩ 로 그려진다 */
+    --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', 'D2Coding', monospace;
 
     /* shape */
     --radius:    8px;
@@ -98,6 +99,9 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* R121: 글꼴을 따로 안 준 <code> (기능 띠 배지, 구분자 표 등) 도 브라우저 기본 고정폭
+     대신 --font-mono 를 쓴다 — 한국어 Windows 기본 고정폭은 \ 를 ₩ 로 그린다 */
+  code, kbd, samp, pre { font-family: var(--font-mono); }
   body {
     font-family: var(--font-body);
     color: var(--text);
@@ -1949,6 +1953,15 @@ function _scanBracketEquations(text, paraIndex, cellPath, equations) {
   if (sp.length % 2 === 0) {
     for (let i = 0; i + 1 < sp.length; i += 2) occupied.push([sp[i], sp[i + 1] + 1]);
   }
+  // R121: 표준 \[...\] / \(...\) 범위도 제외 — 안 그러면 `\[ … \]` 안쪽의
+  // `[ … \]` 를 bracket 으로 다시 잡아 같은 식 카드가 두 장 생긴다.
+  // _scanStdLatexEquations 와 같은 정규식·같은 겹침 규칙.
+  const stdRe = /\\\[([\s\S]+?)\\\]|\\\(([\s\S]+?)\\\)/g;
+  while ((m = stdRe.exec(text)) !== null) {
+    const s = m.index, e = m.index + m[0].length;
+    if (occupied.some(([a, b]) => s < b && e > a)) continue;
+    occupied.push([s, e]);
+  }
 
   for (let i = 0; i < text.length; i++) {
     if (text[i] !== '[') continue;
@@ -2003,10 +2016,9 @@ function _scanBracketEquations(text, paraIndex, cellPath, equations) {
  *
  * 백슬래시 escape 라 paired delimiter — 항상 unambiguous (모호성 흐름 안 탐).
  *
- * 알려진 한계: bracket-mode 가 ON 인 상태에서 `\\[E=mc^2\\]` 같은 std display
- * 가 있으면 bracket scanner 가 `[E=mc^2\\]` 도 별개로 매칭해 중복 entry 가
- * 생길 수 있다. 사용자가 리뷰 UI 에서 한쪽을 skip 하거나 bracket-mode 를 끄면
- * 된다. 합치는 설계는 라운드 후속 결정 사항.
+ * (R121 해결) bracket-mode 가 ON 일 때 `\\[E=mc^2\\]` 의 안쪽 `[E=mc^2\\]` 를
+ * bracket scanner 가 따로 잡던 중복 — 이제 _scanBracketEquations 가 std 범위를
+ * 건너뛴다.
  */
 function _scanStdLatexEquations(text, paraIndex, cellPath, equations) {
   // $/$$ 자체 계산 — _scanBracketEquations 와 동일 패턴.
