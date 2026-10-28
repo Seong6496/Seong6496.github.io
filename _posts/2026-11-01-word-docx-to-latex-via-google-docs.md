@@ -13,7 +13,7 @@ description: "A Word document with Word equations, turned into a .tex file: open
 
 "How do I convert a Word document to LaTeX?" is one of the most viewed questions on TeX Stack Exchange, and the usual answers are command-line tools or retyping. If you have a Google account, there is another route that needs no installation on your computer: Google Docs™ can open a `.docx`, and when it does, it turns Word's equations into its own equations. From there, LaTeXFlow **Export** writes the document as a `.tex` file.
 
-This post goes through that route step by step. It also covers what changes on the way, because some of it happens in Docs' conversion before LaTeXFlow sees the document. Export needs a license key; the setup clicks are in the [Export and Import walkthrough](/blog/en/posts/latexflow-export-import-walkthrough/).
+This post goes through that route step by step. It also covers what changes on the way, because some of it happens in Docs' conversion before LaTeXFlow sees the document. Export needs a license key; the setup clicks are in the [step-by-step Google Docs™ to LaTeX guide](/blog/en/posts/latexflow-export-import-walkthrough/).
 
 ## 1. Upload the .docx to Google Drive
 

@@ -11,7 +11,7 @@ pin: false
 description: "A one-page maths worksheet written in Google Docs™ — headings, numbered questions, a table, inline and display equations — exported to a .tex file with LaTeXFlow and compiled in Overleaf. What each part becomes in the file, what the PDF looks like, and what to check before you print."
 ---
 
-Many worksheets and tests start in Google Docs™ because that is where colleagues comment and where last year's copy lives. At some point you may want the same sheet as LaTeX: for a cleaner PDF, for a question bank, or because the rest of the course is already in Overleaf. This post takes one real worksheet through LaTeXFlow **Export** and into Overleaf, and looks at what each part of the sheet becomes. Export needs a license key; the setup clicks are in the [Export and Import walkthrough](/blog/en/posts/latexflow-export-import-walkthrough/).
+Many worksheets and tests start in Google Docs™ because that is where colleagues comment and where last year's copy lives. At some point you may want the same sheet as LaTeX: for a cleaner PDF, for a question bank, or because the rest of the course is already in Overleaf. This post takes one real worksheet through LaTeXFlow **Export** and into Overleaf, and looks at what each part of the sheet becomes. Export needs a license key; the setup clicks are in the [step-by-step Google Docs™ to LaTeX guide](/blog/en/posts/latexflow-export-import-walkthrough/).
 
 ## 1. The worksheet
 

@@ -1,5 +1,5 @@
 ---
-title: "LaTeXFlow Export and Import in Google Docs™: A Walkthrough with Real Screenshots"
+title: "Google Docs™ to LaTeX: Exporting a Document with LaTeXFlow, Step by Step"
 date: 2026-10-21 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,8 +8,10 @@ categories: [Google Docs, Tutorial]
 tags: [latex, google-docs, tex-file, export, import, overleaf, add-on, equations, tutorial]
 math: true
 pin: false
-description: "One short Google Docs™ document taken through the whole LaTeXFlow loop: write equations as LaTeX, scan and convert them for free, unlock the LaTeX file tab with a license key, export a .tex file, then import that file back into an empty tab opened for it. Every step shown as it appeared on screen."
+description: "Google Docs™ cannot download a document as LaTeX. LaTeXFlow Export writes it as a .tex file you can download or open in Overleaf. One short document taken through every step — equations, licence key, Export, then Import back into Docs — as it appeared on screen."
 ---
+
+Google Docs™ has no LaTeX export of its own: *File → Download* offers formats such as Word, PDF and Markdown, but not `.tex`. The LaTeXFlow add-on's **Export** writes the document as a `.tex` file — headings, lists and equations included — that you can download or open directly in Overleaf.
 
 This post follows one small document through every step of LaTeXFlow, from typing LaTeX in Google Docs™ to a downloaded `.tex` file and back again. Scan and Convert are free. Export and Import, on the **LaTeX file** tab, need a license key. Each screenshot below was taken from the add-on as it is published on the Google Workspace Marketplace.
 
@@ -45,7 +47,7 @@ Short passes and subscriptions are sold on the [LaTeXFlow store](https://teolemm
 
 How activation works, how to cancel a subscription and how refunds are handled are covered in the [Export guide](/latexflow/export/).
 
-## 4. Export to LaTeX
+## 4. Export: Google Docs™ to LaTeX
 
 With **Full document** selected, press **Convert to LaTeX**. The result for this document:
 
