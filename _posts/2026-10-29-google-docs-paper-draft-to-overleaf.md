@@ -10,7 +10,7 @@ description: "지도교수와 구글 문서에서 댓글로 다듬던 논문 초
 
 초안은 구글 문서에서 쓰는 경우가 많습니다. 지도교수님이 댓글을 달기 쉽고, 공동 연구자와 동시에 고칠 수 있으니까요. 그런데 학회 템플릿이나 학위논문 양식이 LaTeX 라면 결국 Overleaf 로 옮겨야 하고, 그때 제일 귀찮은 것이 **참고문헌** 과 **수식 번호** 입니다.
 
-이 글은 그 둘이 그대로 넘어가도록 초안을 쓰는 법과, 구글 문서 애드온 **LaTeXFlow** 의 **LaTeX file** 탭에서 **Convert to LaTeX** 로 옮기는 순서를 정리합니다. 이 기능은 라이선스 키가 있어야 열립니다. 예시는 학부 연구생의 중간 보고서 한 편(열방정식의 유한차분법)입니다.
+이 글은 그 둘이 그대로 넘어가도록 초안을 쓰는 법과, 구글 문서 애드온 **LaTeXFlow** 의 **Export / Import** 탭에서 **Convert to LaTeX** 로 옮기는 순서를 정리합니다. 이 기능은 라이선스 키가 있어야 열립니다. 예시는 학부 연구생의 중간 보고서 한 편(열방정식의 유한차분법)입니다.
 
 ## 1. 초안에서 미리 해 둘 세 가지
 
@@ -36,9 +36,9 @@ description: "지도교수와 구글 문서에서 댓글로 다듬던 논문 초
 
 ## 2. .bib 를 사이드바에 붙여넣기
 
-Zotero, Google Scholar, 학회 사이트에서 받은 BibTeX 항목을 `.bib` 하나로 모읍니다. LaTeXFlow 사이드바의 **LaTeX file** 탭에서 **Bibliography (.bib)** 칸에 붙여넣고 저장하면, 그 항목들이 이 문서에 저장됩니다. 한 번 저장해 두면 다음에 내보낼 때마다 다시 붙일 필요가 없습니다.
+Zotero, Google Scholar, 학회 사이트에서 받은 BibTeX 항목을 `.bib` 하나로 모읍니다. LaTeXFlow 사이드바의 **Export / Import** 탭에서 **Bibliography (.bib)** 칸에 붙여넣고 저장하면, 그 항목들이 이 문서에 저장됩니다. 한 번 저장해 두면 다음에 내보낼 때마다 다시 붙일 필요가 없습니다.
 
-![LaTeXFlow 사이드바의 LaTeX file 탭: Bibliography (.bib) 를 펼치면 [@key] 로 인용하라는 안내, @article{crank1947, ... 로 시작하는 붙여넣은 BibTeX, 813 / 9000 chars, Save 버튼, Saved (3 entries) 와 3 entries 표시](/assets/img/posts/2026-10-29/04-bib-box.png){: width="330" }
+![LaTeXFlow 사이드바의 Export / Import 탭: Bibliography (.bib) 를 펼치면 [@key] 로 인용하라는 안내, @article{crank1947, ... 로 시작하는 붙여넣은 BibTeX, 813 / 9000 chars, Save 버튼, Saved (3 entries) 와 3 entries 표시](/assets/img/posts/2026-10-29/04-bib-box.png){: width="330" }
 
 `.bib` 를 붙이지 않고 내보내도 파일은 컴파일됩니다. 인용이 `[?]` 로 찍히고, 파일 맨 위 주석에 나중에 참고문헌을 붙이는 방법이 적혀 있습니다.
 

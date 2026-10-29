@@ -66,7 +66,7 @@ description: "Google Docs 안에 LaTeX 가 글자로 적혀 있고, 그걸 수�
 
 문서에서 **확장 프로그램 → LatexFlow → Open Equation Panel** 을 고릅니다.
 
-오른쪽에 사이드바가 열립니다. 창 제목은 *LaTeX → Equation* 이고, 탭은 **Input** 과 **Scan** 둘입니다. 처음 열리는 쪽은 Input 입니다.
+오른쪽에 사이드바가 열립니다. 창 제목은 *LaTeX → Equation* 이고, 탭은 **Equation**, **Scan**, **Export / Import** 셋입니다. 처음 열리는 쪽은 Equation 입니다. Export / Import 는 유료 기능이라 이 글에서는 앞의 둘만 씁니다.
 
 맨 처음 열 때는 **데이터 수집 동의** 오버레이가 사이드바를 덮습니다. 수식의 LaTeX 원문과 렌더 이미지가 익명으로 수집된다는 것, 이메일은 익명 ID 를 만드는 데만 읽히고 그 ID 는 이메일 + salt 의 SHA-256 을 잘라 쓴 값이라는 것, 설정은 **LatexFlow → Data Collection Settings** 에서 언제든 바꿀 수 있다는 것을 안내합니다.
 
@@ -103,7 +103,7 @@ Found 7 equation(s) — display: 2, inline: 5
 5 / 7 converted (1 skipped)
 ```
 
-**Input** 탭은 방향이 반대입니다. 입력창에 LaTeX 을 치고 라이브 프리뷰로 확인한 뒤, 문서에 커서를 두고 **➕ Insert into Docs** 를 누릅니다. 한 가지 알아 두실 것 — Input 탭은 어떻게 쓰든 **항상 디스플레이로** 삽입합니다. 인라인으로 넣고 싶으면 문서에 `$…$` 로 적고 Scan 탭을 쓰시는 편이 맞습니다.
+**Equation** 탭은 방향이 반대입니다. 입력창에 LaTeX 을 치고 라이브 프리뷰로 확인한 뒤, 문서에 커서를 두고 **➕ Insert into Docs** 를 누릅니다. 한 가지 알아 두실 것 — Equation 탭은 어떻게 쓰든 **항상 디스플레이로** 삽입합니다. 인라인으로 넣고 싶으면 문서에 `$…$` 로 적고 Scan 탭을 쓰시는 편이 맞습니다.
 
 ## 7. 변환 뒤 문서에 남는 것
 

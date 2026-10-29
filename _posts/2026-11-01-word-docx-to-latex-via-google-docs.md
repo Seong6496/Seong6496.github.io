@@ -66,11 +66,11 @@ The one difference: to change such an equation later, you edit its LaTeX rather 
 
 ## 5. Export with LaTeXFlow
 
-Open **Extensions › LaTeXFlow**, go to the **LaTeX file** tab, leave **Full document** selected and press **Convert to LaTeX**. The result line counts what Export found. For the paper above it read "82 native · 0 image · 0 text equations · 1 table · 1 image · 5 citations". "Native" means equations made in the Docs equation editor, which is what converted Word equations are. Equations you retyped in step 4 are counted as text equations, or as image equations after Scan. If the total is lower than the number of equations you expect, one went missing in the conversion; step 4 puts it back.
+Open **Extensions › LaTeXFlow**, go to the **Export / Import** tab, leave **Full document** selected and press **Convert to LaTeX**. The result line counts what Export found. For the paper above it read "82 native · 0 image · 0 text equations · 1 table · 1 image · 5 citations". "Native" means equations made in the Docs equation editor, which is what converted Word equations are. Equations you retyped in step 4 are counted as text equations, or as image equations after Scan. If the total is lower than the number of equations you expect, one went missing in the conversion; step 4 puts it back.
 
 If the document has citations and you have a `.bib` file, paste it into the sidebar before converting, and the bibliography goes into the `.tex`. Citations become `\cite` only when they are written as `[@key]` markers in the text. We have not tested Word's own citation fields or reference-manager fields through this route.
 
-![The LaTeXFlow sidebar on the LaTeX file tab after Convert to LaTeX: Converted — degeneracy-colouring.tex, the line 82 native · 0 image · 0 text equations · 1 table · 1 image · 5 citations, five warnings, a preview of the .tex, and the Download .tex, Copy .tex and Open in Overleaf buttons](/assets/img/posts/2026-11-01/05-export-result.png){: width="560" }
+![The LaTeXFlow sidebar on the Export / Import tab after Convert to LaTeX: Converted — degeneracy-colouring.tex, the line 82 native · 0 image · 0 text equations · 1 table · 1 image · 5 citations, five warnings, a preview of the .tex, and the Download .tex, Copy .tex and Open in Overleaf buttons](/assets/img/posts/2026-11-01/05-export-result.png){: width="560" }
 
 The top of the file for the same paper, with Word's equations now in LaTeX:
 

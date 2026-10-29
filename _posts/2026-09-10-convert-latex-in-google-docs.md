@@ -69,7 +69,7 @@ The first one is the important one. It is the `currentonly` form of document acc
 
 In the document: **Extensions → LatexFlow → Open Equation Panel**.
 
-A sidebar opens on the right, titled *LaTeX → Equation*. It has two tabs, **Input** and **Scan**, and opens on Input.
+A sidebar opens on the right, titled *LaTeX → Equation*. It has three tabs, **Equation**, **Scan** and **Export / Import**, and opens on Equation. Export / Import is the paid part; this post uses the first two.
 
 The very first time, a **Data Collection Consent** overlay covers the sidebar. It explains that the LaTeX source and rendered image of an equation are collected anonymously, that your email is read only to derive a pseudonymous ID — a truncated SHA-256 hash that never leaves the add-on — and that the setting can be changed at any time from **LatexFlow → Data Collection Settings**.
 
@@ -106,7 +106,7 @@ Progress shows as a count:
 5 / 7 converted (1 skipped)
 ```
 
-There is also the **Input** tab, which is the other way round: type LaTeX into the box, watch the live preview, place your cursor in the document, and press **➕ Insert into Docs**. One note on it — the Input tab always inserts in **display** mode, regardless of how you wrote the formula. If you want an inline equation, type it into the document with `$…$` and use the Scan tab instead.
+There is also the **Equation** tab, which is the other way round: type LaTeX into the box, watch the live preview, place your cursor in the document, and press **➕ Insert into Docs**. One note on it — the Equation tab always inserts in **display** mode, regardless of how you wrote the formula. If you want an inline equation, type it into the document with `$…$` and use the Scan tab instead.
 
 ## 7. What is in the document afterwards
 

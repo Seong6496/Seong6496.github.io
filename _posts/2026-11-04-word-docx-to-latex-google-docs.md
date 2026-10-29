@@ -11,7 +11,7 @@ description: "워드로 만든 평가지나 보고서를 LaTeX 로 옮기는 방
 학교 평가지도, 학회에 냈던 원고도 워드로 만든 것이 많습니다. 이것을 LaTeX 로 옮기려면 보통 변환 프로그램을 설치하거나 처음부터 다시 쳐야 합니다. 구글 계정이 있다면 설치 없이 가는 길이 하나 더 있습니다.
 
 1. `.docx` 를 구글 문서로 열면, 구글 문서가 **워드 수식을 구글 문서 수식으로** 바꿔 줍니다.
-2. 그 문서를 구글 문서 애드온 **LaTeXFlow** 의 **Convert to LaTeX** 로 `.tex` 로 내보냅니다(**LaTeX file** 탭, 라이선스 키 필요).
+2. 그 문서를 구글 문서 애드온 **LaTeXFlow** 의 **Convert to LaTeX** 로 `.tex` 로 내보냅니다(**Export / Import** 탭, 라이선스 키 필요).
 
 중학교 3학년 삼각비 형성평가 한 장으로 따라가 봅니다. 워드로 만들고 워드 수식으로 수식을 넣은 문서입니다.
 
@@ -61,7 +61,7 @@ $$\begin{cases} x^2-3x-10 \le 0 \\ x^2-4x+3 > 0 \end{cases}$$
 
 ## 4. 내보내기
 
-**확장 프로그램 › LaTeXFlow** › **LaTeX file** 탭에서 **Full document** 로 **Convert to LaTeX** 를 누릅니다. 결과 줄의 `native` 는 구글 문서 수식, `text equations` 는 3절에서 LaTeX 로 친 수식, `image` 는 Scan 으로 바꾼 수식의 수입니다. 합이 원래 수식 수보다 적으면 변환에서 빠진 것이 있으니 3절로 넣으면 됩니다.
+**확장 프로그램 › LaTeXFlow** › **Export / Import** 탭에서 **Full document** 로 **Convert to LaTeX** 를 누릅니다. 결과 줄의 `native` 는 구글 문서 수식, `text equations` 는 3절에서 LaTeX 로 친 수식, `image` 는 Scan 으로 바꾼 수식의 수입니다. 합이 원래 수식 수보다 적으면 변환에서 빠진 것이 있으니 3절로 넣으면 됩니다.
 
 ![변환한 평가지와 LaTeXFlow 사이드바: 본문의 sinA, cosA, tanA 정의 줄은 $…$ 사이 LaTeX 글자로 다시 쳐 있고, 결과 줄은 38 native · 0 image · 2 text equations · 1 table · 1 image · 0 citations](/assets/img/posts/2026-11-04/04-export-result.png){: width="660" }
 

@@ -10,7 +10,7 @@ description: "구글 문서로 만든 단원평가 시험지를 LaTeX(.tex) 파�
 
 시험지는 구글 문서로 만드는 경우가 많습니다. 동료 선생님과 같이 고치기 쉽고, 작년 시험지도 거기 있으니까요. 그런데 문제은행으로 모아 두거나, 다른 선생님이 Overleaf 에서 쓰고 있거나, 수식이 더 깔끔한 PDF 가 필요해지면 같은 시험지를 **LaTeX 파일** 로 갖고 싶어집니다.
 
-다시 치지 않고 옮기는 방법을 시험지 한 장으로 따라가 봅니다. 쓰는 도구는 구글 문서 애드온 **LaTeXFlow** 의 **LaTeX file** 탭에 있는 **Convert to LaTeX** 입니다. 이 기능은 라이선스 키가 있어야 열립니다. 애드온 설치는 [설치부터 첫 변환까지](/blog/posts/latexflow-addon-install-first-conversion/) 글에 있습니다.
+다시 치지 않고 옮기는 방법을 시험지 한 장으로 따라가 봅니다. 쓰는 도구는 구글 문서 애드온 **LaTeXFlow** 의 **Export / Import** 탭에 있는 **Convert to LaTeX** 입니다. 이 기능은 라이선스 키가 있어야 열립니다. 애드온 설치는 [설치부터 첫 변환까지](/blog/posts/latexflow-addon-install-first-conversion/) 글에 있습니다.
 
 ## 1. 시험지
 
@@ -20,7 +20,7 @@ description: "구글 문서로 만든 단원평가 시험지를 LaTeX(.tex) 파�
 
 ## 2. LaTeX 파일로 내보내기
 
-**확장 프로그램 › LaTeXFlow** 로 사이드바를 열고 **LaTeX file** 탭에서 **Full document** 가 선택된 채로 **Convert to LaTeX** 를 누릅니다. 이 시험지에서는 결과 줄이 이렇게 나왔습니다.
+**확장 프로그램 › LaTeXFlow** 로 사이드바를 열고 **Export / Import** 탭에서 **Full document** 가 선택된 채로 **Convert to LaTeX** 를 누릅니다. 이 시험지에서는 결과 줄이 이렇게 나왔습니다.
 
 ```text
 73 native · 0 image · 0 text equations · 2 tables · 1 image · 0 citations

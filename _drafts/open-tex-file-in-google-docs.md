@@ -12,7 +12,7 @@ description: "지도교수님이나 공저자가 .tex 파일을 보냈는데 나
 
 지도교수님이 검토 메모를 `.tex` 파일로 보내셨습니다. 열어 보면 백슬래시와 중괄호가 가득하고, 댓글을 달 곳도 마땅치 않습니다. Overleaf 에 올려서 PDF 를 보며 따로 메모하는 방법도 있지만, 연구실이 구글 문서로 일한다면 **그 파일을 구글 문서로 열어** 문장 옆에 바로 댓글을 다는 편이 빠릅니다.
 
-구글 문서 애드온 **LaTeXFlow** 의 **LaTeX file** 탭에 있는 **Import** 가 그 일을 합니다. `.tex` 파일 하나를 읽어서 지금 열린 구글 문서에 씁니다. 이 기능은 라이선스 키가 있어야 열립니다.
+구글 문서 애드온 **LaTeXFlow** 의 **Export / Import** 탭에 있는 **Import** 가 그 일을 합니다. `.tex` 파일 하나를 읽어서 지금 열린 구글 문서에 씁니다. 이 기능은 라이선스 키가 있어야 열립니다.
 
 ## 1. 받은 파일
 
@@ -22,7 +22,7 @@ description: "지도교수님이나 공저자가 .tex 파일을 보냈는데 나
 
 ## 2. 가져오기
 
-빈 구글 문서(또는 빈 탭)를 열고 **확장 프로그램 › LaTeXFlow** › **LaTeX file** 탭에서 **Choose .tex file** 로 파일을 고릅니다. 아직 아무것도 쓰지 않습니다. 사이드바가 먼저 무엇을 읽었는지, 그리고 들어오면서 바뀌는 것이 무엇인지 **안내 목록** 으로 보여 줍니다. 확인하고 **Import** 를 누르면 그때 씁니다.
+빈 구글 문서(또는 빈 탭)를 열고 **확장 프로그램 › LaTeXFlow** › **Export / Import** 탭에서 **Choose .tex file** 로 파일을 고릅니다. 아직 아무것도 쓰지 않습니다. 사이드바가 먼저 무엇을 읽었는지, 그리고 들어오면서 바뀌는 것이 무엇인지 **안내 목록** 으로 보여 줍니다. 확인하고 **Import** 를 누르면 그때 씁니다.
 
 ![advisor_note.tex 를 고른 뒤의 안내: 14 blocks — 2 paragraphs, 2 headings, 4 list items, 1 table / 13 equations (1 display) — written as LaTeX text / 2 bibliography entries / Import into: Tab 1, 그리고 6 notes — author·date 는 부제 줄, 각주는 [1] 표시와 Notes, label 은 빠지고 수식 (1) 은 번호 tag 1 로 고정, ref 는 [ref:eq:heat] 글자, 인용 2개는 [@key] 표시, 맨 아래 Import 버튼](/assets/img/posts/2026-10-31/02-import-pick.png){: width="330" }
 
@@ -61,7 +61,7 @@ description: "지도교수님이나 공저자가 .tex 파일을 보냈는데 나
 
 `[` 로 검색하면 손볼 자리를 한 번에 찾을 수 있습니다.
 
-`.tex` 파일 하나만 읽기 때문에, `\input{…}` 으로 나눈 장이나 따로 있는 `refs.bib` 는 따라가지 않습니다. 장이 여러 파일이면 하나씩 가져오고, 참고문헌은 `.bib` 내용을 **LaTeX file** 탭의 **Bibliography (.bib)** 칸에 붙여넣어 저장하면 됩니다.
+`.tex` 파일 하나만 읽기 때문에, `\input{…}` 으로 나눈 장이나 따로 있는 `refs.bib` 는 따라가지 않습니다. 장이 여러 파일이면 하나씩 가져오고, 참고문헌은 `.bib` 내용을 **Export / Import** 탭의 **Bibliography (.bib)** 칸에 붙여넣어 저장하면 됩니다.
 
 ## 5. 수식을 보이게 바꾸기
 

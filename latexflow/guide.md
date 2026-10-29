@@ -34,8 +34,9 @@ running in. The add-on does not ask for access to your Drive or other files.
 
 In a document, choose **Extensions → LatexFlow → Open Equation Panel**.
 
-A panel titled **LaTeX → Equation** opens on the right. It has two tabs, **Input** and
-**Scan**, and opens on Input.
+A panel titled **LaTeX → Equation** opens on the right. It has three tabs, **Equation**,
+**Scan** and **Export / Import**, and opens on Equation. Export / Import needs a license key;
+how it works is on the [Export & Import](/latexflow/export/) page.
 
 The first time, a **Data Collection Consent** box covers the panel. It explains what is
 collected if you agree (the LaTeX source and the rendered image, with a pseudonymous ID).
@@ -43,17 +44,17 @@ Choose **Agree** or **Decline** — the add-on works the same either way, and yo
 remembered. You can change it later under **Extensions → LatexFlow → Data Collection
 Settings**. Details are in the [Privacy Policy](/latexflow/privacy/).
 
-## 4. Type an equation (Input tab)
+## 4. Type an equation (Equation tab)
 
 1. Click in the document where the equation should go.
-2. In the **Input** tab, type LaTeX into the box, for example `\frac{d}{dx}\sin x = \cos x`.
+2. In the **Equation** tab, type LaTeX into the box, for example `\frac{d}{dx}\sin x = \cos x`.
    The symbol buttons (Greek, Sym, Frac, …) insert common commands.
 3. Check the **Preview**.
 4. Click **➕ Insert into Docs**.
 
 The button stays disabled while the preview shows an error, so fix the LaTeX first.
 
-The Input tab always inserts the equation as a **display** (block) equation. For inline
+The Equation tab always inserts the equation as a **display** (block) equation. For inline
 equations, write them in the document as `$…$` and use the Scan tab instead.
 
 ## 5. Convert LaTeX already in the document (Scan tab)

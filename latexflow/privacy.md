@@ -125,7 +125,7 @@ Two things you should know about that line:
 
 ### 3c. License Check for Export and Import `[Add-on]` {#license-check}
 
-Export and Import, on the Add-on's **LaTeX file** tab, need a license key. The free features — Input, Scan, Convert and Revert — make no license check. To check a key, the Add-on calls the **Lemon Squeezy License API** (`api.lemonsqueezy.com/v1/licenses/`). This is the only network call the license check makes, and it is made from Google's Apps Script servers, not from your browser.
+Export and Import, on the Add-on's **Export / Import** tab, need a license key. The free features — Equation, Scan, Convert and Revert — make no license check. To check a key, the Add-on calls the **Lemon Squeezy License API** (`api.lemonsqueezy.com/v1/licenses/`). This is the only network call the license check makes, and it is made from Google's Apps Script servers, not from your browser.
 
 **What is sent to Lemon Squeezy:**
 

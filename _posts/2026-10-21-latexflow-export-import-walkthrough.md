@@ -13,7 +13,7 @@ description: "Google Docs™ cannot download a document as LaTeX. LaTeXFlow Expo
 
 Google Docs™ has no LaTeX export of its own: *File → Download* offers formats such as Word, PDF and Markdown, but not `.tex`. The LaTeXFlow add-on's **Export** writes the document as a `.tex` file — headings, lists and equations included — that you can download or open directly in Overleaf.
 
-This post follows one small document through every step of LaTeXFlow, from typing LaTeX in Google Docs™ to a downloaded `.tex` file and back again. Scan and Convert are free. Export and Import, on the **LaTeX file** tab, need a license key. Each screenshot below was taken from the add-on as it is published on the Google Workspace Marketplace.
+This post follows one small document through every step of LaTeXFlow, from typing LaTeX in Google Docs™ to a downloaded `.tex` file and back again. Scan and Convert are free. Export and Import, on the **Export / Import** tab, need a license key. Each screenshot below was taken from the add-on as it is published on the Google Workspace Marketplace.
 
 ## 1. The document
 
@@ -35,15 +35,15 @@ Press **Convert All**. Each LaTeX span in the document is replaced by a rendered
 
 ![The same document after conversion: the quadratic formula, a not-equal-to-zero condition, Euler's identity and the Gaussian integral now appear as rendered equations in the text, and the sidebar shows 4 / 4 converted](/assets/img/posts/2026-10-21/03-converted.png){: width="720" }
 
-## 3. The LaTeX file tab and the license key
+## 3. The Export / Import tab and the license key
 
-The third tab, **LaTeX file**, holds Export (this document → `.tex`) and Import (a `.tex` file → this document). Without a key both are locked, and the tab shows a key field with an **Activate** button. One license covers both.
+The third tab, **Export / Import**, holds Export (this document → `.tex`) and Import (a `.tex` file → this document). Without a key both are locked, and the tab shows a key field with an **Activate** button. One license covers both.
 
-![The LaTeX file tab while locked: an Export to LaTeX section with a Paste your license key field and an Activate button, the note No license key yet — paste your key to unlock Export, and an Import a LaTeX file section that says Import uses the same LaTeXFlow license as Export](/assets/img/posts/2026-10-21/04-locked.png){: width="336" }
+![The Export / Import tab while locked: an Export to LaTeX section with a Paste your license key field and an Activate button, the note No license key yet — paste your key to unlock Export, and an Import a LaTeX file section that says Import uses the same LaTeXFlow license as Export](/assets/img/posts/2026-10-21/04-locked.png){: width="336" }
 
 Short passes and subscriptions are sold on the [LaTeXFlow store](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=latexflow-export-import-walkthrough&utm_content=license). The key arrives with the purchase. Paste it into the field and press **Activate**. The License section then shows **Licensed**, and the Export and Import controls appear.
 
-![The LaTeX file tab after activation: Full document and Selection options, a collapsed Bibliography (.bib) section with no entries, a Convert to LaTeX button, a License section marked Licensed with Activate and Deactivate buttons, and below it an Import section with a Choose .tex file button](/assets/img/posts/2026-10-21/05-activated.png){: width="336" }
+![The Export / Import tab after activation: Full document and Selection options, a collapsed Bibliography (.bib) section with no entries, a Convert to LaTeX button, a License section marked Licensed with Activate and Deactivate buttons, and below it an Import section with a Choose .tex file button](/assets/img/posts/2026-10-21/05-activated.png){: width="336" }
 
 How activation works, how to cancel a subscription and how refunds are handled are covered in the [Export guide](/latexflow/export/).
 

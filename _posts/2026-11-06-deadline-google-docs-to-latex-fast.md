@@ -27,9 +27,9 @@ description: "학위논문 초안, 학회 원고, 기말 시험지를 이번 주
 
 [LaTeXFlow 스토어](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=deadline-google-docs-to-latex-fast)에서 고르고 결제하면, 결제 영수증 이메일에 **라이선스 키** 가 들어 있습니다. 따로 기다릴 메일은 없습니다.
 
-구글 문서에서 **확장 프로그램 › LaTeXFlow** 로 사이드바를 열고, **LaTeX file** 탭의 **License** 칸에 키를 붙여넣고 **Activate** 를 누릅니다. 그 구글 계정으로 여는 모든 문서에서 열립니다.
+구글 문서에서 **확장 프로그램 › LaTeXFlow** 로 사이드바를 열고, **Export / Import** 탭의 **License** 칸에 키를 붙여넣고 **Activate** 를 누릅니다. 그 구글 계정으로 여는 모든 문서에서 열립니다.
 
-![LaTeX file 탭의 License 칸: Licensed 표시와 플랜 이름 Monthly, Paste a license key 입력란, Activate 와 Deactivate 버튼](/assets/img/posts/2026-11-06/01-activate.png){: width="300" }
+![Export / Import 탭의 License 칸: Licensed 표시와 플랜 이름 Monthly, Paste a license key 입력란, Activate 와 Deactivate 버튼](/assets/img/posts/2026-11-06/01-activate.png){: width="300" }
 
 ## 3. 변환하고 Overleaf 로
 

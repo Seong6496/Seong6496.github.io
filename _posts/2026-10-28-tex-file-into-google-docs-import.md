@@ -11,13 +11,13 @@ pin: false
 description: "A co-author sends a short paper as a .tex file and you want to comment and edit it in Google Docs™. What LaTeXFlow Import does with each part of the file: sections, lists, a table with matrices, a footnote, two citations, a figure and its caption. What arrives as Docs structure, what arrives as marked text, and what you still do by hand."
 ---
 
-The [earlier post on bringing a LaTeX file into Google Docs™](/blog/en/posts/latex-file-into-google-docs-what-works-today/) ended at its step 4: the structure of the file — headings, lists, tables, footnotes — had to be rebuilt by hand. This post takes the same situation with **Import**, on the **LaTeX file** tab of LaTeXFlow, and goes through one real file part by part. Import needs a license key; the click-by-click setup is in the [Export and Import walkthrough](/blog/en/posts/latexflow-export-import-walkthrough/).
+The [earlier post on bringing a LaTeX file into Google Docs™](/blog/en/posts/latex-file-into-google-docs-what-works-today/) ended at its step 4: the structure of the file — headings, lists, tables, footnotes — had to be rebuilt by hand. This post takes the same situation with **Import**, on the **Export / Import** tab of LaTeXFlow, and goes through one real file part by part. Import needs a license key; the click-by-click setup is in the [Export and Import walkthrough](/blog/en/posts/latexflow-export-import-walkthrough/).
 
 ## 1. The file
 
 The test file is a two-page note of the kind a co-author might send: a title and author line, two sections with subsections, a footnote, two `\cite` references with the `.bib` entries inside the file (a `filecontents` block), a bulleted list, a `table` whose first column holds `pmatrix` matrices, a `figure` with `\includegraphics` and a caption, and inline and display equations. The `.bib` sits inside the `.tex` because Import reads one file; it does not follow `\input`, `\include` or a separate `refs.bib`.
 
-Open an empty tab (or an empty document), open LaTeXFlow, go to **LaTeX file**, and press **Choose .tex file** in the Import section. Nothing is written yet. The sidebar first reports what it read:
+Open an empty tab (or an empty document), open LaTeXFlow, go to **Export / Import**, and press **Choose .tex file** in the Import section. Nothing is written yet. The sidebar first reports what it read:
 
 ![The Import section after choosing received_paper.tex: 17 blocks — 3 paragraphs, 4 headings, 2 list items, 1 table; 12 equations (2 display) — written as LaTeX text; 2 bibliography entries — saved to this document's Bibliography on import; Import into: Tab 4 with a Use current tab button; an expanded list of 4 notes on what changes on the way in; and the Import button](/assets/img/posts/2026-10-28/01-import-pick.png){: width="330" }
 
@@ -59,9 +59,9 @@ The footnote text is at the very end of the document, under a heading **Notes**,
 
 ## 3. The bibliography
 
-The two `.bib` entries were not written into the page. They were saved to the document's **Bibliography** on the LaTeX file tab, which now shows "2 entries":
+The two `.bib` entries were not written into the page. They were saved to the document's **Bibliography** on the Export / Import tab, which now shows "2 entries":
 
-![The LaTeX file tab after the import: the Bibliography (.bib) row shows a 2 entries badge, above Convert to LaTeX and a License row marked Licensed](/assets/img/posts/2026-10-28/06-bibliography.png){: width="336" }
+![The Export / Import tab after the import: the Bibliography (.bib) row shows a 2 entries badge, above Convert to LaTeX and a License row marked Licensed](/assets/img/posts/2026-10-28/06-bibliography.png){: width="336" }
 
 This is the Bibliography that Export reads. When the document is exported again, each `[@key]` marker goes back to `\cite{key}` and the entries go back into the file, so keep the markers as they are while you edit. The Bibliography belongs to the whole document, not to one tab. If the document already has a different bibliography, Import does not overwrite it and says so.
 

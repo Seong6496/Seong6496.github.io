@@ -94,7 +94,7 @@ Everything in the file that is structure rather than text or maths arrives as pl
 
 ## 5. Converting the whole file: Import
 
-Import, on the **LaTeX file** tab of LaTeXFlow, does most of section 4 for you. Choose the `.tex` file and the sidebar first reports what it read, before anything is written:
+Import, on the **Export / Import** tab of LaTeXFlow, does most of section 4 for you. Choose the `.tex` file and the sidebar first reports what it read, before anything is written:
 
 ![The Import section after choosing a .tex file: 17 blocks — 3 paragraphs, 4 headings, 2 list items, 1 table; 12 equations written as LaTeX text; 2 bibliography entries; and the Import button](/assets/img/posts/2026-10-28/01-import-pick.png){: width="330" }
 
