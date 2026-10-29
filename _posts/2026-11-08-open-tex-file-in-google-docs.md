@@ -1,13 +1,14 @@
 ---
-title: "받은 .tex 파일, 구글 문서에서 열어 고치는 법"
-date: 2026-10-31 09:00:00 +0900
+title: "지도교수님이 보낸 .tex 검토 메모, 구글 문서로 가져와 댓글 달기"
+date: 2026-11-08 09:00:00 +0900
 categories: [LaTeXFlow, 사용법]
 tags: [latexflow, google-docs, latex, tex-파일, 공동-작업, 댓글, 지도교수, 논문]
 math: false
 pin: false
 description: "지도교수님이나 공저자가 .tex 파일을 보냈는데 나는 구글 문서에서 댓글 달고 고치고 싶을 때 — LaTeX 파일을 구글 문서로 가져오면 제목·목록·표·인용문은 문서 구조로, 수식은 LaTeX 글자로 들어옵니다. 각주·상호참조·그림처럼 구글 문서에 자리가 없는 것은 어떻게 표시되는지, 수식을 보이게 바꾸는 법까지 한국어 메모 한 편으로 확인합니다."
 ---
-<!-- HOLD until v16 live; fill 04-after-scan.png on v16; then set date and move to _posts -->
+<!-- R138: updated for v16 (tab names, Continue import, faster Import, Revert all). Merge only after v16 is live;
+     if the release slips past 11-07, move the date to the next free day. 04-after-scan.png still TODO (web). -->
 
 
 지도교수님이 검토 메모를 `.tex` 파일로 보내셨습니다. 열어 보면 백슬래시와 중괄호가 가득하고, 댓글을 달 곳도 마땅치 않습니다. Overleaf 에 올려서 PDF 를 보며 따로 메모하는 방법도 있지만, 연구실이 구글 문서로 일한다면 **그 파일을 구글 문서로 열어** 문장 옆에 바로 댓글을 다는 편이 빠릅니다.
@@ -27,6 +28,8 @@ description: "지도교수님이나 공저자가 .tex 파일을 보냈는데 나
 ![advisor_note.tex 를 고른 뒤의 안내: 14 blocks — 2 paragraphs, 2 headings, 4 list items, 1 table / 13 equations (1 display) — written as LaTeX text / 2 bibliography entries / Import into: Tab 1, 그리고 6 notes — author·date 는 부제 줄, 각주는 [1] 표시와 Notes, label 은 빠지고 수식 (1) 은 번호 tag 1 로 고정, ref 는 [ref:eq:heat] 글자, 인용 2개는 [@key] 표시, 맨 아래 Import 버튼](/assets/img/posts/2026-10-31/02-import-pick.png){: width="330" }
 
 **Import into:** 에 적힌 탭의 끝에 씁니다. 그 탭에 이미 내용이 있으면 **Append anyway** 를 체크해야 쓰므로, 실수로 기존 원고 뒤에 붙는 일은 없습니다.
+
+이 메모 정도는 금방 끝납니다. 긴 파일은 나눠서 쓰고, 그동안 사이드바에 남은 시간이 나옵니다. 블록 1,000개쯤 되는 파일도 1분 안팎입니다. 중간에 구글 문서 쪽 오류로 멈추면 **Continue import** 버튼이 나오고, 누르면 멈춘 자리부터 이어서 씁니다. 처음부터 다시 가져올 필요는 없습니다.
 
 ## 3. 구글 문서에 들어온 모양
 
@@ -69,7 +72,7 @@ description: "지도교수님이나 공저자가 .tex 파일을 보냈는데 나
 
 <!-- TODO image (web pane): the same document after Scan › Convert All — rendered equations incl. the matrix in the bullet. File: /assets/img/posts/2026-10-31/04-after-scan.png -->
 
-수식 그림 안에는 LaTeX 원문이 저장되어 있어서, 다시 고칠 때는 **Revert to LaTeX** 로 원문으로 되돌리고, 다시 LaTeX 로 내보낼 때는 원문이 그대로 나옵니다.
+수식 그림 안에는 LaTeX 원문이 저장되어 있어서, 다시 고칠 때는 **Revert to LaTeX** 로 원문으로 되돌리고, 다시 LaTeX 로 내보낼 때는 원문이 그대로 나옵니다. 여러 개를 한꺼번에 되돌리려면 그 부분을 선택하고 **Revert all** 을 누릅니다. 아무것도 선택하지 않으면 탭 전체가 대상이고, 몇 개를 바꿀지 먼저 묻습니다. 되돌린 수식은 처음 쓴 구분자(`\[`, `$` 등) 그대로 돌아옵니다.
 
 ## 6. 다시 .tex 로 보낼 때
 
