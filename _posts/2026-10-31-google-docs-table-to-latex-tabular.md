@@ -27,7 +27,6 @@ LaTeX 에서 표를 손으로 짜 본 분은 압니다. 칸마다 `&`, 줄마다
 
 문서 전체를 내보내려면 **Full document** 를 그대로 두면 됩니다. 결과는 **Copy .tex** 로 복사해 이미 쓰고 있는 `.tex` 에 붙여넣거나, **Download .tex** · **Open in Overleaf** 로 받습니다.
 
-<!-- R184: table-03-sidebar.png is re-shot on live v17 (web, step 2); alt describes the new shot. -->
 ![첫 번째 표의 아래 두 줄을 선택한 채 Selection 으로 Convert to LaTeX 를 누른 사이드바: Converted — 성적표-예시.tex, 결과 줄 0 native · 0 image · 0 text equations · 1 table, 경고 없음, \multirow 가 든 .tex 미리보기, Download .tex · Copy .tex · Open in Overleaf 버튼](/assets/img/posts/2026-10-31/table-03-sidebar.png){: width="720" }
 
 ## 3. 나온 LaTeX
@@ -74,7 +73,6 @@ LaTeX 에서 표를 손으로 짜 본 분은 압니다. 칸마다 `&`, 줄마다
 
 받은 그대로 pdfLaTeX 로 컴파일하면 이렇습니다.
 
-<!-- R184: table-01-exported.png must be re-made from the v17 export (compile + crop, same size); alt describes the new image. -->
 ![내보낸 그대로 컴파일한 PDF: 첫 번째 표는 왼쪽 정렬이고, 반이 두 줄에 걸쳐 있고 그 오른쪽에 평균·표준편차가 제자리에 옴. 중간고사·기말고사는 두 칸에 걸침. 두 번째 표는 칸 안에 작은 크기의 평균과 표준편차 식](/assets/img/posts/2026-10-31/table-01-exported.png){: width="480" }
 
 ## 4. 몇 줄로 다듬기
