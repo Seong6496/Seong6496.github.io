@@ -49,7 +49,7 @@ Import reads one `.tex` file at a time and does not follow `\input` or `\include
 
 <!-- TODO image (web): the Import summary for a chapter file, with Import into: and the Append anyway checkbox. File: /assets/img/posts/2026-11-13/02-import-append.png -->
 
-`\section` and `\subsection` become Docs headings, lists become Docs lists and `tabular` becomes a Docs table. Equations arrive as LaTeX text between delimiters, so you can still edit them as source. The sidebar shows the blocks written and the time left; a file of about 1,000 blocks took about a minute in our tests. If Google Docs™ stops part-way, **Continue import** carries on from the block where it stopped.
+`\section` and `\subsection` become Docs headings, lists become Docs lists and `tabular` becomes a Docs table. Equations arrive as LaTeX text between delimiters, so you can still edit them as source. The sidebar shows how far it has got as a percentage; a file of about 1,000 blocks took about a minute in our tests. If Google Docs™ stops part-way, **Continue import** carries on from the block where it stopped.
 
 If you would rather keep each chapter apart, add a document tab for each one and import it there instead of appending.
 
