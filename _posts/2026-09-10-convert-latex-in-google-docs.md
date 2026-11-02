@@ -148,6 +148,12 @@ And if the maths came out of a chatbot as bare square brackets — `[\frac{1}{2}
 **How do I write LaTeX code in Google Docs?**
 Type it as ordinary text, wrapped in a delimiter: `$…$` for inline maths, `$$…$$` for a display equation. Then scan and convert (sections 5 and 6).
 
+**Does Google Docs™ support LaTeX equations?**
+Partly. Its own equation editor (*Insert → Symbols → Equation*) turns a backslash name such as `\alpha` or `\frac` into a symbol when you press Space, one name at a time; the [cheat sheet](/blog/en/posts/google-docs-equation-editor-cheat-sheet/) lists which names it accepts. Docs may also turn some pasted LaTeX into equations by itself, and how much differs between accounts. A whole formula typed as text, like the one above, stays text until an add-on converts it.
+
+**How do I add a LaTeX equation in Google Docs™?**
+Put the cursor where it should go, open LatexFlow, type the LaTeX into the box on the first tab and press **➕ Insert into Docs** (end of section 6). For LaTeX already written in the document, use the Scan tab.
+
 **Do the people I share the document with need the add-on?**
 No. Converted equations are images and render for everyone.
 
