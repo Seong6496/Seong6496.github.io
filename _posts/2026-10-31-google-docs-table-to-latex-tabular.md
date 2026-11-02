@@ -5,7 +5,7 @@ categories: [LaTeXFlow, 사용법]
 tags: [latexflow, google-docs, latex, 표, tabular, multicolumn, multirow, booktabs, overleaf]
 math: false
 pin: false
-description: "구글 문서에서 만든 성적표·실험 데이터 표를 칸마다 & 를 손으로 치지 않고 LaTeX tabular 로 옮깁니다. 병합한 칸은 \\multicolumn 으로, 표 안 수식은 그대로 나오고, 세로 병합·가운데 정렬·학술지 스타일 선(booktabs)·표 번호는 몇 줄로 채웁니다. 내보낸 그대로와 고친 뒤를 컴파일해 비교합니다."
+description: "구글 문서에서 만든 성적표·실험 데이터 표를 칸마다 & 를 손으로 치지 않고 LaTeX tabular 로 옮깁니다. 병합한 칸은 \\multicolumn·\\multirow 로, 표 안 수식은 그대로 나오고, 가운데 정렬·학술지 스타일 선(booktabs)·표 번호는 몇 줄로 채웁니다. 내보낸 그대로와 고친 뒤를 컴파일해 비교합니다."
 ---
 
 LaTeX 에서 표를 손으로 짜 본 분은 압니다. 칸마다 `&`, 줄마다 `\\`, 줄 사이에 `\hline` — 열이 다섯 개, 줄이 스무 개만 되어도 한참 걸리고, 칸 하나를 빠뜨리면 컴파일이 멈춥니다. 표는 구글 문서에서 만드는 편이 훨씬 빠릅니다. 칸을 늘리고 합치고 숫자를 붙여넣는 데 몇 분이면 되니까요.
@@ -27,7 +27,8 @@ LaTeX 에서 표를 손으로 짜 본 분은 압니다. 칸마다 `&`, 줄마다
 
 문서 전체를 내보내려면 **Full document** 를 그대로 두면 됩니다. 결과는 **Copy .tex** 로 복사해 이미 쓰고 있는 `.tex` 에 붙여넣거나, **Download .tex** · **Open in Overleaf** 로 받습니다.
 
-![첫 번째 표의 아래 두 줄을 선택한 채 Selection 으로 Convert to LaTeX 를 누른 사이드바: Converted — 성적표-예시.tex, 결과 줄 0 native · 0 image · 0 text equations · 1 table, 펼친 경고 Table 1 has merged cells or uneven rows — columns may need adjusting, .tex 미리보기, Download .tex · Copy .tex · Open in Overleaf 버튼](/assets/img/posts/2026-10-31/table-03-sidebar.png){: width="720" }
+<!-- R184: table-03-sidebar.png is re-shot on live v17 (web, step 2); alt describes the new shot. -->
+![첫 번째 표의 아래 두 줄을 선택한 채 Selection 으로 Convert to LaTeX 를 누른 사이드바: Converted — 성적표-예시.tex, 결과 줄 0 native · 0 image · 0 text equations · 1 table, 경고 없음, \multirow 가 든 .tex 미리보기, Download .tex · Copy .tex · Open in Overleaf 버튼](/assets/img/posts/2026-10-31/table-03-sidebar.png){: width="720" }
 
 ## 3. 나온 LaTeX
 
@@ -37,9 +38,9 @@ LaTeX 에서 표를 손으로 짜 본 분은 압니다. 칸마다 `&`, 줄마다
 \begin{center}
 \begin{tabular}{|l|l|l|l|l|}
 \hline
-\textbf{반} & \multicolumn{2}{l|}{\textbf{중간고사}} & \multicolumn{2}{l|}{\textbf{기말고사}} \\
-\hline
-평균 & 표준편차 & 평균 & 표준편차 &  \\
+\multirow{2}{*}{\textbf{반}} & \multicolumn{2}{l|}{\textbf{중간고사}} & \multicolumn{2}{l|}{\textbf{기말고사}} \\
+\cline{2-5}
+ & 평균 & 표준편차 & 평균 & 표준편차 \\
 \hline
 1반 & 72.4 & 11.3 & 75.1 & 10.8 \\
 \hline
@@ -50,20 +51,9 @@ LaTeX 에서 표를 손으로 짜 본 분은 압니다. 칸마다 `&`, 줄마다
 ```
 
 - **가로로 합친 칸** 은 `\multicolumn{2}{l|}{…}` 이 됩니다. 칸 수가 맞으니 그대로 컴파일됩니다.
-- **세로로 합친 칸**("반")은 첫 줄에만 글자가 나오고, 사이드바와 파일 머리의 경고 목록에 "Table 1 has merged cells or uneven rows" 가 한 줄 붙습니다. 그 **아래 줄**(평균·표준편차)은 빈 칸이 맨 앞이 아니라 **맨 뒤** 에 붙어서 한 칸씩 왼쪽으로 밀립니다. 컴파일은 되지만 "평균" 이 "반" 아래에 옵니다(아래 그림).
+- **세로로 합친 칸**("반")은 `\multirow{2}{*}{…}` 가 되어 두 줄에 걸칩니다. 아래 줄은 첫 칸을 비운 채 제자리에 나오고, 두 줄 사이 선은 `\cline{2-5}` 로 "반" 열만 빼고 긋습니다. 필요한 `\usepackage{multirow}` 는 파일 머리에 들어가고, 경고는 붙지 않습니다.
 - **굵은 글씨** 는 `\textbf` 가 됩니다.
 - 모든 열이 왼쪽 정렬 `l`, 줄마다 `\hline`, 표 전체는 가운데(`center`)입니다.
-
-**밀린 줄은 한 군데만 고치면 됩니다.** 그 줄 끝의 `&` 를 줄 맨 앞으로 옮깁니다.
-
-```latex
-% 나온 줄
-평균 & 표준편차 & 평균 & 표준편차 &  \\
-% 고친 줄
- & 평균 & 표준편차 & 평균 & 표준편차 \\
-```
-
-세로로 합친 칸이 있는 표의, 그 바로 아래 줄에만 생기는 일입니다. 경고가 붙은 표만 열어 보면 됩니다. "반" 을 두 줄에 걸쳐 가운데에 두는 `\multirow` 는 4절에 있습니다.
 
 두 번째 표입니다.
 
@@ -82,21 +72,14 @@ LaTeX 에서 표를 손으로 짜 본 분은 압니다. 칸마다 `&`, 줄마다
 - **칸 안 수식** 은 `$…$` 로 나옵니다. 구글 문서 수식 편집기로 넣었든, `$…$` 사이에 LaTeX 를 글자로 쳤든, LaTeXFlow 로 바꾼 수식 그림이든 같습니다. 칸 안에서는 디스플레이 수식도 문장 안 수식(`$…$`)으로 씁니다.
 - **칸 안 줄바꿈** 은 띄어쓰기 한 칸이 됩니다. "단위: 점 (100점 만점)".
 
-받은 그대로(밀린 줄을 고치기 전) pdfLaTeX 로 컴파일하면 이렇습니다.
+받은 그대로 pdfLaTeX 로 컴파일하면 이렇습니다.
 
-![내보낸 그대로 컴파일한 PDF: 첫 번째 표는 왼쪽 정렬이고, 둘째 줄의 평균·표준편차가 한 칸씩 왼쪽으로 밀려 평균이 반 아래에 오고 맨 오른쪽 칸이 비어 있음. 중간고사·기말고사는 두 칸에 걸침. 두 번째 표는 칸 안에 작은 크기의 평균과 표준편차 식](/assets/img/posts/2026-10-31/table-01-exported.png){: width="480" }
+<!-- R184: table-01-exported.png must be re-made from the v17 export (compile + crop, same size); alt describes the new image. -->
+![내보낸 그대로 컴파일한 PDF: 첫 번째 표는 왼쪽 정렬이고, 반이 두 줄에 걸쳐 있고 그 오른쪽에 평균·표준편차가 제자리에 옴. 중간고사·기말고사는 두 칸에 걸침. 두 번째 표는 칸 안에 작은 크기의 평균과 표준편차 식](/assets/img/posts/2026-10-31/table-01-exported.png){: width="480" }
 
 ## 4. 몇 줄로 다듬기
 
 여기서부터는 LaTeX 쪽 취향입니다. 각각 한두 줄이고, 아래 결과는 모두 실제로 컴파일한 것입니다.
-
-**세로 병합.** 3절에서 고친 줄은 그대로 두고, 머리말에 `\usepackage{multirow}` 를 넣고, 첫 칸을 `\multirow` 로 바꾼 뒤, 두 줄 사이 선을 "반" 열만 빼고 긋습니다.
-
-```latex
-\multirow{2}{*}{\textbf{반}} & \multicolumn{2}{c|}{\textbf{중간고사}} & \multicolumn{2}{c|}{\textbf{기말고사}} \\
-\cline{2-5}
- & 평균 & 표준편차 & 평균 & 표준편차 \\
-```
 
 **가운데 정렬.** 열 지정의 `l` 을 `c`(가운데)나 `r`(오른쪽)로 바꿉니다. 숫자 열은 `c` 나 `r` 가 읽기 좋습니다.
 
@@ -131,7 +114,7 @@ LaTeX 에서 표를 손으로 짜 본 분은 압니다. 칸마다 `&`, 줄마다
 
 칸 안 수식을 디스플레이 크기로 보이고 싶으면 위처럼 `$\displaystyle …$` 로 씁니다.
 
-네 가지를 넣은 결과입니다.
+세 가지를 넣은 결과입니다.
 
 ![고친 뒤 컴파일한 PDF: 첫 번째 표는 Table 1: 반별 성적 제목이 붙고, 반이 두 줄에 걸쳐 가운데, 숫자가 가운데 정렬. 두 번째 표는 세로선 없이 위·가운데·아래 가로선만 있고 식이 디스플레이 크기](/assets/img/posts/2026-10-31/table-02-after-fixes.png){: width="480" }
 
@@ -148,7 +131,7 @@ LaTeX 에서 표를 손으로 짜 본 분은 압니다. 칸마다 `&`, 줄마다
 
 **칸 색, 테두리 두께와 색, 열 너비** 는 옮기지 않습니다. LaTeX 에서는 위처럼 열 지정과 선 명령이 정하는 부분입니다. 칸 색이 꼭 필요하면 `\usepackage[table]{xcolor}` 를 넣고 `\cellcolor{gray!15}` 를 칸 앞에 씁니다. 표 안에 또 표를 넣은 경우는 안쪽 표의 칸이 바깥 칸 하나로 합쳐지고 경고가 붙습니다.
 
-정리하면, 표의 칸·병합·굵은 글씨·수식은 구글 문서에서 만든 그대로 `tabular` 로 넘어오고, 세로 병합과 모양은 위의 몇 줄로 채웁니다. `&` 와 `\\` 를 손으로 칠 일은 없습니다.
+정리하면, 표의 칸·병합·굵은 글씨·수식은 구글 문서에서 만든 그대로 `tabular` 로 넘어오고, 모양은 위의 몇 줄로 채웁니다. `&` 와 `\\` 를 손으로 칠 일은 없습니다.
 
 - 라이선스 키: [LaTeXFlow 스토어](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=google-docs-table-to-latex-tabular)
 - 무엇이 어떻게 바뀌는지, 활성화·해지·환불: [Export & Import 안내](/latexflow/export/)
