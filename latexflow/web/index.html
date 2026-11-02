@@ -16,7 +16,10 @@
 <!-- MathJax(SVG 출력): LaTeX → PNG 변환용 (애드온 Sidebar.html 과 동일 설정) -->
 <script>
   MathJax = {
-    loader:  { load: ['input/tex', 'output/svg'] },
+    loader:  { load: ['input/tex', 'output/svg', '[tex]/mathtools'] },   // mathtools: autoload 범위 밖 (\xrightleftharpoons 등)
+    tex:     { packages: { '[+]': ['mathtools'] },
+               macros: { dag: '\\dagger', ddag: '\\ddagger',   // LaTeX 텍스트 모드 별칭 — MathJax 에 없어 빨간 에러로 나옴
+                         pounds: '\\text{£}' } },             // R164: \pounds 도 MathJax 에 없음
     svg:     { fontCache: 'none' },   // 글리프 인라인 → canvas 변환 가능한 자기완결 SVG
     startup: { typeset: false }       // 페이지 자동 타이프셋 방지
   };
@@ -1866,12 +1869,17 @@ function _scanTextForEquations(text, paraIndex, cellPath, equations, ambiguous) 
   }
 
   // Collect single-$ positions not inside $$...$$
+  // R164 (애드온 R161 A 와 같은 규칙): 여는 `$` 뒤에서는 중괄호 깊이 0 의 `$` 만 닫는다 —
+  // `$\boxed{X=\text{R$ 1.000}}$` 는 수식 하나. 그런 닫는 `$` 가 없으면 예전처럼 다음 `$` 와 짝.
+  const inDisplay = (k) => displayRanges.some(([ds, de]) => k >= ds && k < de);
   const singlePos = [];
   for (let i = 0; i < text.length; i++) {
     if (text[i] !== '$') continue;
     if (text[i + 1] === '$') { i++; continue; }
-    const inDisplay = displayRanges.some(([ds, de]) => i >= ds && i < de);
-    if (!inDisplay) singlePos.push(i);
+    if (inDisplay(i)) continue;
+    singlePos.push(i);
+    const close = _inlineDollarCloseAt(text, i);
+    if (close > 0 && !inDisplay(close)) { singlePos.push(close); i = close; }
   }
 
   if (singlePos.length === 0) return;
@@ -1911,6 +1919,24 @@ function _scanTextForEquations(text, paraIndex, cellPath, equations, ambiguous) 
       ],
     });
   }
+}
+
+/**
+ * 여는 `$`(text[i]) 의 닫는 `$` 위치 — 애드온 Code.gs _inlineDollarAt_ (R161 A) 와 같은 규칙:
+ * 같은 줄에서 중괄호 깊이 0 의 `$` 에서 닫힌다. `\` 는 다음 글자와 한 묶음 (`\{` `\$` 는 세지 않음).
+ * 못 찾으면 -1 → caller 는 예전 동작(다음 `$` 와 짝 — 홀수면 웹 전용 모호 카드)으로 돌아간다.
+ */
+function _inlineDollarCloseAt(text, i) {
+  let depth = 0;
+  for (let k = i + 1; k < text.length; k++) {
+    const c = text[k];
+    if (c === '\\') { k++; continue; }
+    if (c === '\n') break;
+    if (c === '{') depth++;
+    else if (c === '}') { if (depth > 0) depth--; }
+    else if (c === '$' && depth === 0) return k;
+  }
+  return -1;
 }
 
 /**
@@ -2444,10 +2470,12 @@ function locLabel(eq) {
 
 function previewInto(el, latex, isDisplay) {
   try {
-    el.innerHTML = temml.renderToString(latex, { displayMode: isDisplay, throwOnError: true });
+    // R174 (add-on R161 73d89d3): the preview goes through the same render-safe step as the PNG
+    el.innerHTML = temml.renderToString(renderSafeLatex(latex), { displayMode: isDisplay, throwOnError: true });
     el.classList.remove('err');
   } catch (e) {
-    el.textContent = 'Render error: ' + e.message;
+    const hint = cutOffHint(latex);
+    el.textContent = 'Render error: ' + e.message + (hint ? ' ' + hint : '');
     el.classList.add('err');
   }
 }
@@ -3286,10 +3314,79 @@ function hasRenderError(svgEl) {
   );
 }
 
+/**
+ * R174: copied from the add-on (gdla-r133 feature/v16.1 src/Sidebar.html, R161) — keep the two identical.
+ * The LaTeX MathJax renders — only that. The card, the alt title, the document text and Revert keep the
+ * LaTeX as written (R161, October error report):
+ *   - `%` with no backslash before it → `\%`. TeX reads it as a comment to the end of the line, so
+ *     `\boxed{i=50%\text{ ao ano}}` lost its closing braces ("Extra open brace", 85 failures).
+ *   - a currency sign U+20A0–20CF (€ ₩ ₹ …) outside a text group → `\text{€}`. MathJax's SVG fonts have no
+ *     math glyph for it and the render crashed: "Cannot read properties of null (reading '4')" (17).
+ *   - a `$` left inside the equation is a literal dollar — Scan now keeps `$\boxed{X=\text{R$ 1.000}}$` whole
+ *     (Code.gs _inlineDollarAt_): outside a text group → `\$`; inside `\text{…}` only an unpaired one, so
+ *     `\text{if $x>0$}` stays math in text ("Math not terminated in text box").
+ * A `\` always pairs with the next character, so `\%` and `\\%` (line break, then percent) stay right.
+ */
+const RENDER_TEXT_CMDS = { text: 1, textrm: 1, textit: 1, textbf: 1, textsf: 1, texttt: 1, textup: 1, textnormal: 1, mbox: 1, hbox: 1 };
+function renderSafeLatex(latex) {
+  const s = String(latex == null ? '' : latex);
+  let out = '';
+  let depth = 0;
+  const textDepths = [];          // brace depth at which each open text group (\text{…}) started
+  let textNext = false;           // a text command was just read: its `{` opens a text group
+  let mathInText = false;         // between a `$` pair inside a text group
+  const inText = () => textDepths.length > 0 && !mathInText;
+  // a `$` inside a text group opens math only when its partner `$` comes before the group ends
+  const pairedInGroup = (from) => {
+    let d = 0;
+    for (let k = from + 1; k < s.length; k++) {
+      const ch = s[k];
+      if (ch === '\\') { k++; continue; }
+      if (ch === '{') d++;
+      else if (ch === '}') { if (d === 0) return false; d--; }
+      else if (ch === '$' && d === 0) return true;
+    }
+    return false;
+  };
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i];
+    if (c === '\\') {
+      const w = /^[A-Za-z]+/.exec(s.slice(i + 1, i + 41));
+      if (w) { out += '\\' + w[0]; i += w[0].length; textNext = RENDER_TEXT_CMDS[w[0]] === 1; continue; }
+      out += c + (i + 1 < s.length ? s[i + 1] : ''); i++; textNext = false; continue;
+    }
+    if (c === '{') { depth++; if (textNext) textDepths.push(depth); textNext = false; out += c; continue; }
+    if (/\s/.test(c)) { out += c; continue; }      // `\text {…}` still opens a text group
+    textNext = false;
+    if (c === '}') { if (textDepths.length && textDepths[textDepths.length - 1] === depth) { textDepths.pop(); mathInText = false; } if (depth > 0) depth--; out += c; continue; }
+    if (c === '%') { out += '\\%'; continue; }
+    if (c === '$') {
+      if (mathInText) { mathInText = false; out += c; continue; }
+      if (textDepths.length && pairedInGroup(i)) { mathInText = true; out += c; continue; }
+      out += '\\$'; continue;
+    }
+    if (c >= '₠' && c <= '⃏' && !inText()) { out += '\\text{' + c + '}'; continue; }
+    out += c;
+  }
+  return out;
+}
+
+/**
+ * R161 F: a render failure on LaTeX that ends where something was cut off — `\left`, `\right`, `\sqrt`, `\big…`
+ * or a bare `^` / `_` — gets a line saying so. The October logs: `(1{,}30)^4=\left`, `i_m=\sqrt`, `x^` — the
+ * document text itself had lost a `[ ]`, `*` or `\` on the way in (pasted answers), so no Scan change can repair it.
+ */
+// web: the last sentence differs — the web has Edit LaTeX on the card, no Re-scan button
+const CUT_OFF_HINT = 'This equation looks cut off in the document text (a [ ], * or \\ may be missing). Fix it with Edit LaTeX.';
+function cutOffHint(latex) {
+  const s = String(latex == null ? '' : latex).replace(/\s+$/, '');
+  return /(\\left|\\right|\\sqrt|\\[Bb]igg?[lrm]?|[\^_])$/.test(s) ? CUT_OFF_HINT : '';
+}
+
 /* ── LaTeX → PNG base64 (MathJax SVG → canvas) — Sidebar.html 와 동일 ── */
 function latexToPngBase64(latex, isDisplay) {
   return MathJax.startup.promise.then(() => {
-    const wrapper = MathJax.tex2svg(latex, { display: isDisplay });
+    const wrapper = MathJax.tex2svg(renderSafeLatex(latex), { display: isDisplay });
     const svgEl   = wrapper.querySelector('svg');
     if (!svgEl) throw new Error('SVG generation failed');
     if (hasRenderError(svgEl)) throw new Error('render-error: visual error in SVG output');
@@ -3301,7 +3398,8 @@ function latexToPngBase64(latex, isDisplay) {
     // 태그 달린 디스플레이(\tag, \tag*)는 MathJax 가 width="100%" 로 내고 실제 폭을
     // style.minWidth 에 둔다. "100%" 를 100ex 로 읽으면 700px PNG 가 되어 본문 폭을 넘는다 (R89).
     let wAttr = svgEl.getAttribute('width');
-    if (/%$/.test(wAttr || '')) wAttr = svgEl.style.minWidth;
+    // 읽은 뒤 min-width 는 지운다: 직렬화된 루트에 남으면 이미지가 w 보다 넓어질 수 있다 (R101 T3).
+    if (/%$/.test(wAttr || '')) { wAttr = svgEl.style.minWidth; svgEl.style.minWidth = ''; }
     const wEx = parseEx(wAttr);
     const hEx = parseEx(svgEl.getAttribute('height'));
 
