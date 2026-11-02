@@ -21,7 +21,7 @@ A single short `.tex` file is covered in [You Received a .tex File](/blog/en/pos
 2. Choose **File** in the upper left of the editor, then **Download as source (.zip)**. From the project list, the **Download .zip file** button does the same.
 3. Unzip the file on your computer.
 
-<!-- TODO image (web): Overleaf editor with the File menu open and "Download as source (.zip)" highlighted. File: /assets/img/posts/2026-11-13/01-overleaf-download-source.png -->
+![The Overleaf editor with the File menu open: Download is expanded and Download as source (.zip) is highlighted, above Download as PDF and the Word, Markdown and HTML exports](/assets/img/posts/2026-11-13/01-overleaf-download-source.png){: width="720" }
 
 A typical thesis or paper project unzips into something like this:
 
@@ -47,7 +47,7 @@ Import reads one `.tex` file at a time and does not follow `\input` or `\include
 5. Pick the next file, `chapters/introduction.tex`. Import writes at the end of the tab shown after **Import into:**, and since the tab now has content, tick **Append anyway**, then press **Import**.
 6. Repeat for each chapter in the order `main.tex` lists them.
 
-<!-- TODO image (web): the Import summary for a chapter file, with Import into: and the Append anyway checkbox. File: /assets/img/posts/2026-11-13/02-import-append.png -->
+![A document that already holds the title from main.tex, and the Export / Import tab after picking chapters/introduction.tex: 10 blocks with 2 headings and 2 list items, 7 equations written as LaTeX text, Import into: Tab 1, a note that Tab 1 already has content and Import writes at its end, and Append anyway ticked above the Import button](/assets/img/posts/2026-11-13/02-import-append.png){: width="720" }
 
 `\section` and `\subsection` become Docs headings, lists become Docs lists and `tabular` becomes a Docs table. Equations arrive as LaTeX text between delimiters, so you can still edit them as source. The sidebar shows how far it has got as a percentage; a file of about 1,000 blocks took about a minute in our tests. If Google Docs™ stops part-way, **Continue import** carries on from the block where it stopped.
 
