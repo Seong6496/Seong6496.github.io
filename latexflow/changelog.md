@@ -10,6 +10,142 @@ in the [Guide](/latexflow/guide/).
 
 ---
 
+## Version 17
+
+Released 2026-11-02.
+
+<!-- Checked against gdla-r133 feature/v16.1 72f0c10 (merged into main 36ccebb): R161 0819b15 (items A-G),
+     R167 2f4dbef, R169 0d49a97, R170 63b3ae8, R172 f136b82, R173 285b849, R176 099ac36 / 72f0c10.
+     Gate R176: arXiv 142/150, 0 I1/I5/I6 regressions. -->
+
+### Scan
+
+- **Google Docs™ equations are left alone.** When an equation Google Docs™ already made sat
+  between two `$` signs, Scan could read part of that equation as LaTeX, and
+  converting it could replace the Docs equation with an image of a piece of it. Such a match
+  now shows "Already a Google Docs™ equation — nothing to convert." and Convert All skips it.
+  `$…$` equations next to a Docs equation still convert.
+- **Equations with `$`, `%` or currency signs inside.** An equation such as
+  `$\text{R$ 1.000}$` is now read as one equation, and an escaped `\$` never ends one.
+  A `%`, €, £ or `\pounds` inside an equation no longer stops it from rendering.
+- Commands from the `mathtools` package, such as `\xrightleftharpoons`, now render.
+- **Cut-off equations say so.** When the LaTeX in the document ends in the middle, for example
+  after `\left` or `\sqrt`, the card shows "This equation looks cut off in the document
+  text" with what may be missing, instead of a parse error.
+- **Convert All stops when Google Docs™ refuses changes.** After two refusals in a row it
+  stops and says that Google Docs™ is refusing changes to this document right now. The
+  equations it did not convert stay as LaTeX text and can be converted later.
+- **Insert into Docs is faster.** Inserting one equation from a card or from the Equation
+  tab takes about 0.7 seconds less in our tests. If you allowed the optional data
+  collection, it is now sent after the equation is inserted.
+
+### Revert
+
+- **Revert all** is now always the whole tab, and it asks first. The question opens at
+  once and fills in the number of equation images when it has counted them.
+- **Revert to LaTeX** turns back every equation image in the part you drag over, across
+  several lines, list items or table cells. A single clicked image turns back only itself.
+  A selection that only touches the start of the next line leaves that line's images as
+  they are.
+- If some images cannot be turned back, the sidebar says how many were reverted and how
+  many failed.
+
+### Export
+
+- A `%` inside an equation is written as `\%`, so the rest of the equation is no longer
+  read as a LaTeX comment.
+- **Prices next to equations.** A line such as `preço R$ 5 e $x+1$` keeps `$x+1$` as an
+  equation and writes the price as text. Before, the whole line became text with a warning.
+  A line that could be read in more than one way is still written as text, with the same
+  warning.
+- A `$` inside the text of an equation image, as in `\text{R$ 1.000}`, is written so that the
+  `.tex` compiles.
+
+### How we tested
+
+The same 150 arXiv papers as for Version 15 and 16: 142 compile as exported, as before.
+Each change was also checked in a real Google Docs™ document.
+
+---
+
+## Version 16
+
+Released 2026-10-30.
+
+<!-- Checked against gdla-r133 feature/v16 7de97c4 (merged into main 405a8ec). Sources: v16_facts.md (R78-R140),
+     R137 P4, R141/R142, R144 real sidebar, R145-R152, R155 (B8), R156, R157; tab names v16_tab_names.md.
+     Convert All v15 2.7 s/eq = R120 (live v15, 35 eq); v16 0.7 s/eq = R132 (33 eq ~24 s), small doc unchanged after R150.
+     Import 999 blocks ~65 s = R111; v15 0/2 (R108). arXiv 142/150 = R155 gate. Auto-LaTeX named generically (R138 note 1). -->
+
+### The sidebar
+
+- The tabs are now called **Equation**, **Scan** and **Export / Import**. They were Input,
+  Scan and LaTeX file. Nothing else about them changed.
+- On the Scan tab, **Tag as $…$**, **Revert to LaTeX** and **Revert all** sit in one even row.
+
+### Scan
+
+- **Convert All is faster.** On a short test document an equation takes about 0.7 seconds;
+  Version 15 took about 2.7 seconds. The first equation appears after about 4 seconds, and
+  the sidebar shows the percentage done.
+- The document no longer jumps to each equation while Convert All runs, and new equation
+  images no longer show as broken until the page is reloaded.
+- While Convert All runs, the sidebar asks you not to edit the document, and the other image
+  buttons wait until it has finished.
+- **Revert all** turns every equation image back into LaTeX text at once: the selected part,
+  or the whole tab when nothing is selected. For the whole tab it asks first and says how
+  many images it will change.
+- Revert puts back the delimiter you typed. An equation written as `\[ … \]` comes back as
+  `\[ … \]`, not as `$$ … $$`.
+- Equation images made by other add-ons that keep the LaTeX in the image link are now counted
+  by Scan, can be reverted to LaTeX, and are written as LaTeX by Export.
+- A numbered equation such as `a=b \tag{2}` now fits the page, with the number right after it.
+- `\dag` and `\ddag` render.
+
+### Export
+
+- **Large documents export.** A long document is read in parts, with the percentage shown,
+  so a very long document no longer runs out of time. **Stop** pauses it; then
+  **Continue from N%** goes on from there and **Start over** begins again.
+- **Reference lists written in the document.** A `thebibliography` list, as Import brings
+  it in, is exported as a working reference list: the references print and `\cite` resolves.
+- A text equation that is a whole `align`, `gather`, `multline` or `equation` environment is
+  written without an extra `\[ \]` around it. Before, the `.tex` did not compile.
+- Table cells merged down a column are written with `\multirow` in the right columns.
+- With the Scan tab's bracket mode on, Export also reads ChatGPT's bare `[ … ]` as a display
+  equation.
+- With **Selection** chosen, the tab says how to select the part you want.
+- **Lists, quotes and centred text keep their structure through editing.** Import now marks
+  each block with the list, quote or alignment it belongs to, and Export reads that mark
+  instead of guessing from the blocks around it. Common edits — moving a paragraph, deleting
+  one, changing its indent, clearing formatting, copying it to another document — leave
+  either the original structure or a plain paragraph.
+- Ordinary Google Docs™ documents export the same as in Version 15.
+
+### Import
+
+- **Large files import faster and finish.** A `.tex` file of about 1,000 blocks imports in
+  about a minute. Version 15 stopped with a Google Docs™ error on the same file.
+- The sidebar shows how many blocks are written and the percentage done. A file large enough
+  to take a few minutes says so, with a rough number of minutes, as soon as you pick it.
+- **Continue import.** If Google Docs™ fails part-way, the sidebar offers **Continue import**,
+  which carries on from where it stopped. After **Stop**, the sidebar says "Stopping…" until
+  the current step is done.
+- Bold, italic, superscript and monospace text in titles, headings and author lines is kept.
+
+### How we tested
+
+We imported and exported again the same 150 arXiv papers as for Version 15: 142 of 150
+compile as they are, and no paper that compiled with Version 15 fails with Version 16. We
+ran 300,000 generated documents through Import and Export and compared them with Version 15:
+none lost structure that Version 15 kept. 40,000 documents of the kind people write directly
+in Google Docs™ export exactly as in Version 15.
+
+In real Google Docs™ documents, we imported 10 of the arXiv papers through the sidebar, from
+26 to 4,638 blocks, and exported them again: every `.tex` compiles.
+
+---
+
 ## Version 15
 
 Released 2026-10-22.
