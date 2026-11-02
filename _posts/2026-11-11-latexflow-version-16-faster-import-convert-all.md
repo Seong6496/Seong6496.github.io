@@ -34,13 +34,13 @@ Version 16 writes fewer changes for each list item and saves in larger steps, so
 
 While it runs, the sidebar shows how many blocks are written and what share of the file that is, for example "Writing 491 / 1272 blocks · 38%". A file large enough to take a few minutes says so as soon as you pick it, with a rough number of minutes. In our tests a file of about 1,270 blocks took about 2 minutes, and one of about 4,600 blocks about 12.
 
-<!-- TODO image (web): the Import progress line with blocks written and the percentage. File: /assets/img/posts/2026-11-11/01-import-progress.png -->
+![The Export / Import tab during an Import of a 999-block file: the large-file notice "importing may take around 2 minutes", a red Stop button, and the progress line "Writing 500 / 999 blocks · 50%" above a half-filled bar](/assets/img/posts/2026-11-11/01-import-progress.png){: width="330" }
 
 ### If Google Docs™ stops part-way
 
 Google Docs™ can still fail on a step now and then, for reasons on its side. Version 16 does not leave you with half a document and no way on. The sidebar says what happened and shows **Continue import** as the only choice, which carries on from the block where it stopped. In our tests with failures injected on purpose, every continued import ended with the same document as an import that never failed.
 
-<!-- TODO image (web): the sidebar after an interrupted Import, with the Continue import button. File: /assets/img/posts/2026-11-11/02-continue-import.png -->
+![The sidebar after an Import stopped part-way: "750 / 999 blocks written", "Stopped after 750 of 999 blocks — the rest was not written.", and Continue import as the only button, with "Writes the remaining 249 blocks after them. Don't edit the document before you continue."](/assets/img/posts/2026-11-11/02-continue-import.png){: width="330" }
 
 ## 2. Convert All: several times faster
 
