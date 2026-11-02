@@ -7,8 +7,9 @@ math: false
 pin: false
 description: "지도교수님이나 공저자가 .tex 파일을 보냈는데 나는 구글 문서에서 댓글 달고 고치고 싶을 때 — LaTeX 파일을 구글 문서로 가져오면 제목·목록·표·인용문은 문서 구조로, 수식은 LaTeX 글자로 들어옵니다. 각주·상호참조·그림처럼 구글 문서에 자리가 없는 것은 어떻게 표시되는지, 수식을 보이게 바꾸는 법까지 한국어 메모 한 편으로 확인합니다."
 ---
-<!-- R138: updated for v16 (tab names, Continue import, faster Import, Revert all). Merge only after v16 is live;
-     if the release slips past 11-07, move the date to the next free day. 04-after-scan.png still TODO (web). -->
+<!-- R138: updated for v16 (tab names, Continue import, faster Import, Revert all). R180: v16 live 10-30, v17 live 11-02 -
+     percent progress + large-file notice (R146/R148), Revert all = whole tab, Revert to LaTeX = dragged range (R167).
+     04-after-scan.png still TODO (web). -->
 
 
 지도교수님이 검토 메모를 `.tex` 파일로 보내셨습니다. 열어 보면 백슬래시와 중괄호가 가득하고, 댓글을 달 곳도 마땅치 않습니다. Overleaf 에 올려서 PDF 를 보며 따로 메모하는 방법도 있지만, 연구실이 구글 문서로 일한다면 **그 파일을 구글 문서로 열어** 문장 옆에 바로 댓글을 다는 편이 빠릅니다.
@@ -29,7 +30,7 @@ description: "지도교수님이나 공저자가 .tex 파일을 보냈는데 나
 
 **Import into:** 에 적힌 탭의 끝에 씁니다. 그 탭에 이미 내용이 있으면 **Append anyway** 를 체크해야 쓰므로, 실수로 기존 원고 뒤에 붙는 일은 없습니다.
 
-이 메모 정도는 금방 끝납니다. 긴 파일은 나눠서 쓰고, 그동안 사이드바에 남은 시간이 나옵니다. 블록 1,000개쯤 되는 파일도 1분 안팎입니다. 중간에 구글 문서 쪽 오류로 멈추면 **Continue import** 버튼이 나오고, 누르면 멈춘 자리부터 이어서 씁니다. 처음부터 다시 가져올 필요는 없습니다.
+이 메모 정도는 금방 끝납니다. 긴 파일은 나눠서 쓰고, 그동안 사이드바에 몇 블록, 몇 퍼센트까지 썼는지 나옵니다. 블록 1,000개쯤 되는 파일도 1분 안팎이고, 몇 분 걸릴 만큼 큰 파일이면 고르는 순간 대략 몇 분 걸릴지 먼저 알려 줍니다. 중간에 구글 문서 쪽 오류로 멈추면 **Continue import** 버튼이 나오고, 누르면 멈춘 자리부터 이어서 씁니다. 처음부터 다시 가져올 필요는 없습니다.
 
 ## 3. 구글 문서에 들어온 모양
 
@@ -72,13 +73,13 @@ description: "지도교수님이나 공저자가 .tex 파일을 보냈는데 나
 
 <!-- TODO image (web pane): the same document after Scan › Convert All — rendered equations incl. the matrix in the bullet. File: /assets/img/posts/2026-10-31/04-after-scan.png -->
 
-수식 그림 안에는 LaTeX 원문이 저장되어 있어서, 다시 고칠 때는 **Revert to LaTeX** 로 원문으로 되돌리고, 다시 LaTeX 로 내보낼 때는 원문이 그대로 나옵니다. 여러 개를 한꺼번에 되돌리려면 그 부분을 선택하고 **Revert all** 을 누릅니다. 아무것도 선택하지 않으면 탭 전체가 대상이고, 몇 개를 바꿀지 먼저 묻습니다. 되돌린 수식은 처음 쓴 구분자(`\[`, `$` 등) 그대로 돌아옵니다.
+수식 그림 안에는 LaTeX 원문이 저장되어 있어서, 다시 고칠 때는 **Revert to LaTeX** 로 원문으로 되돌리고, 다시 LaTeX 로 내보낼 때는 원문이 그대로 나옵니다. 여러 개를 한꺼번에 되돌리려면 그 부분을 드래그해 선택하고 **Revert to LaTeX** 를 누르면 선택 안의 수식 그림이 모두 돌아옵니다. 탭 전체를 되돌리는 **Revert all** 은 몇 개를 바꿀지 먼저 묻습니다. 되돌린 수식은 처음 쓴 구분자(`\[`, `$` 등) 그대로 돌아옵니다.
 
 ## 6. 다시 .tex 로 보낼 때
 
 댓글로 합의한 내용을 반영했으면 **Convert to LaTeX** 로 다시 `.tex` 를 만들 수 있습니다. 이 메모를 저희 시험 도구(구글 문서가 저장하는 방식을 본뜬 모델)로 돌려 보면 가져오기 → 내보내기를 한 번 한 결과와 두 번 한 결과가 **한 글자도 다르지 않았고**, 원본과 다시 내보낸 파일 모두 pdfLaTeX + BibTeX 로 컴파일되었습니다. 원본과 다른 점은 위 표의 것들(각주가 `[1]` 표시, `\eqref` 가 글자)과 표 열 정렬이 왼쪽으로 통일된 정도입니다.
 
-[버전 15](/latexflow/changelog/#version-15) 를 출시 전에 arXiv 논문 150편으로 시험했을 때, 가져온 뒤 다시 내보낸 `.tex` 가 그대로 컴파일된 것이 142편이었습니다. 버전 15 부터는 `\newcommand`, `\def` 같은 사용자 매크로도 더 많은 경우에 펼쳐서 읽습니다.
+[버전 15](/latexflow/changelog/#version-15) 를 출시 전에 arXiv 논문 150편으로 시험했을 때, 가져온 뒤 다시 내보낸 `.tex` 가 그대로 컴파일된 것이 142편이었습니다. [버전 16](/latexflow/changelog/#version-16) 도 같은 150편에서 142편입니다. 버전 15 부터는 `\newcommand`, `\def` 같은 사용자 매크로도 더 많은 경우에 펼쳐서 읽습니다.
 
 받은 파일은 구글 문서에서 댓글과 수정으로 다듬고, 최종본을 LaTeX 쪽에 반영하면 됩니다. 어느 쪽을 원본으로 둘지는 다음 글에서 다룹니다.
 

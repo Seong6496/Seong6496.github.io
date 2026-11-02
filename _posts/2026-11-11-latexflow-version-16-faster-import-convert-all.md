@@ -10,8 +10,8 @@ math: false
 pin: false
 description: "LaTeXFlow Version 16 for Google Docs™ imports large .tex files that Version 15 could not finish, and converts LaTeX to equation images several times faster. The measured times, how they were taken, why they vary from day to day, and what to do when Google Docs™ stops part-way."
 ---
-<!-- R138 (added): v16 speed post. Merge only after v16 is live; if the release slips, keep the date after the
-     release day. Sources: .tmp/r108_import_speed_fix.md §6, .tmp/r111_import_speed2.md §0, .tmp/r123_review2_fixes.md,
+<!-- R138 (added): v16 speed post. R180: v16 live 10-30, v17 11-02; progress is a percentage (R146), large-file
+     notice (R148, timings R144 real sidebar), Continue import only choice (R157). Sources: .tmp/r108_import_speed_fix.md §6, .tmp/r111_import_speed2.md §0, .tmp/r123_review2_fixes.md,
      .tmp/r120_autolatex_handson.md §1 (live v15 Convert All), .tmp/r132_convert_budget12.md §5 (v16 Convert All).
      Re-check the figures against .tmp/r137_p4.md before merging. -->
 
@@ -32,15 +32,15 @@ Both Version 15 runs ended with the same Google Docs™ message, "Service Docume
 
 Version 16 writes fewer changes for each list item and saves in larger steps, so the whole file is written in 4 steps, and in our runs Docs did not fail on it.
 
-While it runs, the sidebar shows how many blocks are written and about how much time is left. The estimate tends to run long: at a quarter of the way it said about 65 s were left when about 40 s were.
+While it runs, the sidebar shows how many blocks are written and what share of the file that is, for example "Writing 491 / 1272 blocks · 38%". A file large enough to take a few minutes says so as soon as you pick it, with a rough number of minutes. In our tests a file of about 1,270 blocks took about 2 minutes, and one of about 4,600 blocks about 12.
 
-<!-- TODO image (web, after v16 release): the Import progress line with blocks written and time left. File: /assets/img/posts/2026-11-11/01-import-progress.png -->
+<!-- TODO image (web): the Import progress line with blocks written and the percentage. File: /assets/img/posts/2026-11-11/01-import-progress.png -->
 
 ### If Google Docs™ stops part-way
 
-Google Docs™ can still fail on a step now and then, for reasons on its side. Version 16 does not leave you with half a document and no way on. The sidebar says what happened and shows **Continue import**, which carries on from the block where it stopped. In our tests with failures injected on purpose, every continued import ended with the same document as an import that never failed.
+Google Docs™ can still fail on a step now and then, for reasons on its side. Version 16 does not leave you with half a document and no way on. The sidebar says what happened and shows **Continue import** as the only choice, which carries on from the block where it stopped. In our tests with failures injected on purpose, every continued import ended with the same document as an import that never failed.
 
-<!-- TODO image (web, after v16 release): the sidebar after an interrupted Import, with the Continue import button. File: /assets/img/posts/2026-11-11/02-continue-import.png -->
+<!-- TODO image (web): the sidebar after an interrupted Import, with the Continue import button. File: /assets/img/posts/2026-11-11/02-continue-import.png -->
 
 ## 2. Convert All: several times faster
 
@@ -75,6 +75,8 @@ So treat the numbers above as typical, not guaranteed. A long document still tak
 ## 4. Getting Version 16
 
 Google Docs™ updates add-ons on its own, so there is nothing to install. If the sidebar still shows the tabs **Input** and **LaTeX file**, close it and open it again from **Extensions › LaTeXFlow**; Version 16 calls them **Equation** and **Export / Import**.
+
+Version 17 followed on 2 November 2026 with fixes for Scan, Revert and Export; it is listed on the same page.
 
 Scan and Convert All are free. Import and Export need a license key.
 

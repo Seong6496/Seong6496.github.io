@@ -80,7 +80,7 @@ Searching the document for `[Image:` finds every placeholder. A figure saved onl
 
 ## 5. Make the equations visible
 
-Until now the maths is LaTeX text, which is what you want while the wording is still changing. When readers need to see rendered maths, open the **Scan** tab, press **Scan Document**, then **Convert All**. Each equation becomes an image and keeps its LaTeX, and **Revert all** turns a selection, or the whole tab, back into source.
+Until now the maths is LaTeX text, which is what you want while the wording is still changing. When readers need to see rendered maths, open the **Scan** tab, press **Scan Document**, then **Convert All**. Each equation becomes an image and keeps its LaTeX, and **Revert to LaTeX** turns the images you select back into source; **Revert all** does the whole tab after asking.
 
 Scan, Convert All and Revert are free. Import and Export are the paid part of LaTeXFlow.
 
