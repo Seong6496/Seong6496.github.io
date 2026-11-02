@@ -9,7 +9,7 @@ description: "지도교수님이나 공저자가 .tex 파일을 보냈는데 나
 ---
 <!-- R138: updated for v16 (tab names, Continue import, faster Import, Revert all). R180: v16 live 10-30, v17 live 11-02 -
      percent progress + large-file notice (R146/R148), Revert all = whole tab, Revert to LaTeX = dragged range (R167).
-     04-after-scan.png still TODO (web). -->
+     R182: 02-import-pick re-shot on v17, 04-after-scan added. -->
 
 
 지도교수님이 검토 메모를 `.tex` 파일로 보내셨습니다. 열어 보면 백슬래시와 중괄호가 가득하고, 댓글을 달 곳도 마땅치 않습니다. Overleaf 에 올려서 PDF 를 보며 따로 메모하는 방법도 있지만, 연구실이 구글 문서로 일한다면 **그 파일을 구글 문서로 열어** 문장 옆에 바로 댓글을 다는 편이 빠릅니다.
@@ -71,7 +71,7 @@ description: "지도교수님이나 공저자가 .tex 파일을 보냈는데 나
 
 글을 다 고쳤거나, 읽는 사람에게 수식 모양을 보여 주고 싶으면 LaTeXFlow 의 **Scan** 탭(무료)에서 **Scan Document** › **Convert All** 을 누릅니다. LaTeX 글자가 수식 그림으로 바뀌고, 표 안의 수식과 행렬도 바뀝니다. 디스플레이 수식은 그림이 작은 크기로 왼쪽에 붙으니, 필요하면 가운데 정렬 버튼으로 맞춥니다.
 
-<!-- TODO image (web pane): the same document after Scan › Convert All — rendered equations incl. the matrix in the bullet. File: /assets/img/posts/2026-10-31/04-after-scan.png -->
+![Scan › Convert All 뒤의 같은 문서: [0,1] 같은 본문 수식, 번호 (1) 이 붙은 열방정식, 해 u(x,t), 격자 간격 h 와 비율 r, 표 안의 1/10 · 2.1×10⁻³ 같은 값, 글머리 목록의 2×2 행렬이 모두 수식 그림으로 바뀌었고 [@evans2010, p. 45] 인용 표시와 Notes 의 [1] 각주는 그대로](/assets/img/posts/2026-10-31/04-after-scan.png){: width="600" }
 
 수식 그림 안에는 LaTeX 원문이 저장되어 있어서, 다시 고칠 때는 **Revert to LaTeX** 로 원문으로 되돌리고, 다시 LaTeX 로 내보낼 때는 원문이 그대로 나옵니다. 여러 개를 한꺼번에 되돌리려면 그 부분을 드래그해 선택하고 **Revert to LaTeX** 를 누르면 선택 안의 수식 그림이 모두 돌아옵니다. 탭 전체를 되돌리는 **Revert all** 은 몇 개를 바꿀지 먼저 묻습니다. 되돌린 수식은 처음 쓴 구분자(`\[`, `$` 등) 그대로 돌아옵니다.
 
