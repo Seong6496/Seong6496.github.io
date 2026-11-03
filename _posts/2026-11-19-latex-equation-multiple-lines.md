@@ -11,7 +11,7 @@ pin: false
 description: "How to put a LaTeX equation on multiple lines: align* and aligned to line up the equals signs, split for one numbered equation, gather* to centre lines, multline* for one long formula, cases for piecewise functions — and why a double backslash on its own does nothing. Then how to get multi-line equations into Google Docs™, whose own equation editor cannot make a second line."
 ---
 
-<!-- Sources: .tmp/r192_multiline_check.md (2026-11-03, live v17 code 72f0c10 on a test deployment): aligned, align*, gather*, equation+split, cases, array, multline* render in Scan / Convert All and the Equation tab, export to .tex that compiles with pdflatex, Revert returns the text; bare \begin{equation} without $ is not detected; \[ a=b\\ c=d \] stays on one line; Docs' native editor made no second line (Shift+Enter left the box). -->
+<!-- Sources: .tmp/r192_multiline_check.md (2026-11-03, live v17 code 72f0c10 on a test deployment): aligned, align*, gather*, equation+split, cases, array, multline* render in Scan / Convert All and the Equation tab, export to .tex that compiles with pdflatex, Revert returns the text; bare \begin{equation} without dollar delimiters is not detected; \[ a=b\\ c=d \] stays on one line; Docs' native editor made no second line (Shift+Enter left the box). -->
 
 To put a LaTeX equation on multiple lines, wrap the lines in an environment: `align*` (or `aligned` inside `\[ … \]`) when the equals signs should line up, `gather*` when each line is simply centred, `multline*` for one formula too long for a line. End each line with `\\`; a `\\` on its own, without one of these environments, does not break the line.
 
