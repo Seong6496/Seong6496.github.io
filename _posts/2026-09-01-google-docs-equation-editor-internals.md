@@ -292,3 +292,7 @@ We build [LaTeXFlow](/latexflow/), which converts LaTeX written in a document in
 The short answer is that they are recoverable, deterministically, from a table small enough to fit in this post. We had assumed this would need something cleverer.
 
 If you are writing your own converter, the table in section 5 and the symbol lists in section 6 are the whole map. If you find a code we missed — particularly on a non-English Docs interface, which we could not test — we would like to know.
+
+---
+
+- Inserting and typing equations in the editor itself → [How to Insert an Equation in Google Docs™: Shortcuts, LaTeX Commands, and the Four Things It Cannot Build](/blog/en/posts/google-docs-equation-editor-typing-and-limits/)
