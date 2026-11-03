@@ -70,7 +70,7 @@ If you would rather type the problems where you already work — or a co-teacher
 
 The problems keep their equations exactly as written, and the template supplies the layout. A full example of a worksheet exported this way, with what each part becomes, is [From a Google Docs™ Worksheet to a .tex File You Can Open in Overleaf, Plus a LaTeX Template](/blog/en/posts/google-docs-worksheet-to-latex-overleaf/).
 
-<!-- TODO shot: a Google Docs™ document with three numbered homework problems containing $…$ and $$…$$ maths, and the LaTeXFlow Export / Import tab after Convert to LaTeX showing the .tex preview with \begin{enumerate}. Live v17. -->
+![A Google Docs™ page titled Homework 1 with three numbered problems written with LaTeX between dollar signs — solve a quadratic, compute an integral in a display, show a sum formula — and the LaTeXFlow Export / Import tab after Convert to LaTeX: Converted — Homework_1.tex, 0 native · 0 image · 4 text equations, Nothing skipped, and the .tex preview enlarged to show the whole file, where the list has become a begin{enumerate} block with one item per problem and the integral sits on its own lines between display brackets](/assets/img/posts/2026-11-23/02-export-enumerate.png){: width="720" }
 
 ## 4. FAQ
 
