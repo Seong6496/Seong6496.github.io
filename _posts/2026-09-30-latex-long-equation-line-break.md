@@ -1,11 +1,11 @@
 ---
-title: "LaTeX 긴 수식 줄바꿈 — multline·split·aligned 언제 무엇을 쓰나"
+title: "LaTeX 수식 줄바꿈 — 긴 수식 multline·split·aligned 언제 무엇을 쓰나"
 date: 2026-09-30 09:00:00 +0900
 categories: [LaTeX, 수식]
 tags: [latex, 줄바꿈, 긴수식, multline, split, aligned, gather, equation, amsmath, 수식]
 math: true
 pin: false
-description: "한 줄에 안 들어가는 LaTeX 수식을 나누는 세 가지 도구 — multline (첫 줄 왼쪽·마지막 줄 오른쪽), equation 안의 split (등호 기준으로 끊고 번호는 하나), aligned (정렬점 여러 개) — 를 언제 무엇을 쓰는지 판단 표와 코드·렌더 비교로 정리합니다. equation 안의 \\\\ 가 왜 아무 일도 안 하는지 실측 결과도 함께."
+description: "LaTeX 수식 줄바꿈: 한 줄에 안 들어가는 수식을 나누는 세 가지 도구 — multline (첫 줄 왼쪽·마지막 줄 오른쪽), equation 안의 split (등호 기준으로 끊고 번호는 하나), aligned (정렬점 여러 개) — 를 언제 무엇을 쓰는지 판단 표와 코드·렌더 비교로 정리합니다. equation 안의 \\\\ 가 왜 아무 일도 안 하는지 실측 결과도 함께."
 ---
 
 수식이 한 줄에 안 들어갑니다. 전개하다 보니 항이 열 개를 넘었고, 적분 세 겹에 합 세 겹이 붙어 오른쪽 여백을 뚫고 나갑니다. 가장 먼저 해 보는 것은 `equation` 안에 `\\` 를 넣는 일인데 — 아무 일도 일어나지 않습니다. 오류도 없고, 줄도 안 바뀝니다.
