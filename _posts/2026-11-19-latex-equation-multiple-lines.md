@@ -131,8 +131,8 @@ Google Docs™' own equation editor (**Insert › Symbols › Equation**) makes 
 3. On the **Scan** tab, press **🔍 Scan Document** and check the card's preview.
 4. Press **⚡ Convert All** (or **➕ Insert into Docs** on that card). The text becomes a rendered equation on several lines.
 
-<!-- TODO shot: a Google Docs™ document with $$\begin{aligned}…\end{aligned}$$, $$…\begin{cases}…$$ and $$\begin{multline*}…\end{multline*}$$ typed as text, and the LaTeXFlow Scan tab showing the cards with their multi-line previews (live v17, mathfolis.support or the R192 "v16.1 check" Tab 2). -->
-<!-- TODO shot: the same document after Convert All — the three equations rendered on several lines. -->
+![A Google Docs™ page with three equations typed as LaTeX text between double dollar signs — an aligned block, a cases block and a multline* block — and the LaTeXFlow Scan tab beside it after Scan Document: Found 3 equation(s), display: 3, 0 / 3 converted, and cards whose previews show the aligned equation on two lines with the equals signs lined up and the piecewise function with its brace](/assets/img/posts/2026-11-19/01-scan-multiline.png){: width="720" }
+![The same page after Convert All: (a+b)² = (a+b)(a+b) and = a² + 2ab + b² on two lines with the equals signs aligned, f(x) with a brace over the two cases x² for x ≥ 0 and −x for x < 0, and the long polynomial p(x) split over two lines, the first starting at the left and the second ending at the right](/assets/img/posts/2026-11-19/02-converted-multiline.png){: width="610" }
 
 Two things to know:
 
