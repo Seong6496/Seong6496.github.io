@@ -75,6 +75,9 @@ Press the copy button under the answer, then paste into the document with `Ctrl+
 **How do I copy and paste math equations in Google Docs™?**
 Paste the LaTeX, not the picture of it. Equations that Docs does not convert on the paste stay as LaTeX text; open LatexFlow, press **Scan Document** on the **Scan** tab, then **Convert All**. The same steps cover Gemini-style `$…$` and `$$…$$`.
 
+**How do I copy LaTeX into Google Docs™ from another source?**
+The same way as from a chatbot, whether the LaTeX comes from Overleaf, a `.tex` file or a web page: copy it with its delimiters — `$…$`, `$$…$$`, `\(…\)` or `\[…\]` — and paste. Docs may turn some of it into its own equations on the paste, depending on the account; the rest stays as LaTeX text, and **Scan Document** then **Convert All** converts it. To bring in a whole `.tex` file with its headings and lists, see [how to convert a LaTeX file to Google Docs™](/blog/en/posts/latex-file-into-google-docs-what-works-today/).
+
 **Why did some equations convert on their own and others not?**
 Google Docs™ converts some pasted LaTeX into its own equations by itself, and the range differs between accounts. Bare `[ … ]` was never converted in our test. Whatever stays as LaTeX text is what the add-on's Scan is for.
 
