@@ -73,6 +73,12 @@ No. Scan works on a `.docx` that already has LaTeX in it, and converts the equat
 **Can I get editable Word equations?**
 Not from Scan. It produces images, with the LaTeX kept in the alt text. If you need editable Word equations and have Word 2606 or later, paste the LaTeX into Word, or select it and use **Insert › Equation**, and Word builds the equation.
 
+**Why is LaTeX in Word not working?**
+LaTeX typed into the body of a Word document is ordinary text to Word, so `$\frac{a}{b}$` stays as characters. Word builds an equation from LaTeX only when it goes through its equation tools: in Word 2606 or later, paste the LaTeX, or select it and use **Insert › Equation**. That works one formula at a time; for a document that already holds many formulas as LaTeX text, Scan converts all of them in one pass (section 3).
+
+**Is there a LaTeX add-on for Word?**
+Scan is not one: nothing is installed in Word. It is a web page you drop the `.docx` onto, and you open the `.docx` it gives back in Word as usual.
+
 **Does it work on a Google Doc?**
 Yes: use **Import from Google Drive** on the Scan page, or convert inside the document with the free [Google Docs™ add-on](/blog/en/posts/convert-latex-in-google-docs/).
 
