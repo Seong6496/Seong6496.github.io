@@ -197,4 +197,4 @@ $$\int f(x)dx \quad \int f(x)\,dx \qquad f(x) = 1 \quad (x > 0)$$
 ---
 
 이전 글: [LaTeX 괄호 크기 — \left·\right 로 안 될 때 쓰는 세 가지](/blog/posts/latex-brackets-left-right-sizes/)
-함께 보기: [LaTeX 그리스 문자·수학 기호 완전 레퍼런스](/blog/posts/latex-greek-letters-complete/) · [kotex 로 한국어 논문 처음부터 세팅하기](/blog/posts/kotex-korean-setup/) · [LaTeX 수식 오류·실수 완전 해결 가이드](/blog/posts/latex-math-errors-guide/)
+함께 보기: [LaTeX 기호 총정리 — 그리스 문자·관계·집합·논리·화살표 완전 레퍼런스](/blog/posts/latex-greek-letters-complete/) · [kotex 로 한국어 논문 처음부터 세팅하기](/blog/posts/kotex-korean-setup/) · [LaTeX 수식 오류·실수 완전 해결 가이드](/blog/posts/latex-math-errors-guide/)
