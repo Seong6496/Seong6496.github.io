@@ -28,7 +28,7 @@ It works the same for a problem set, a worksheet with solutions or a short take-
 
 We compiled the file with pdfLaTeX before publishing it: no errors, no warnings, one page.
 
-<!-- TODO shot: the compiled PDF of homework-template.tex (page 1, full page), from Overleaf or a local pdfLaTeX build. -->
+![Page 1 of the compiled homework-template.tex: a running header with Your Name, MATH 101 and Homework 1, the title MATH 101 — Homework 1 with a due date, then Problems 1 to 4 in bold, each followed by an italic Solution with displayed equations — a factored quadratic, a definite integral, an induction proof with two aligned lines, and a piecewise function — and a small square at the end of every solution](/assets/img/posts/2026-11-23/01-compiled-pdf.png){: width="600" }
 
 ## 2. Fill it in
 
