@@ -5,7 +5,7 @@ permalink: /latexflow/privacy/
 description: How LaTeXFlow (Google Docs™ Add-on and Web app) handles your data.
 ---
 
-*Last updated: 2026-10-13*
+*Last updated: 2026-11-03*
 
 > 📋 **Site-wide privacy** (cookies, advertising, third-party services on the blog and tool pages): [mathsystem.dev/blog/privacy/](/blog/privacy/). This page covers **only the LaTeXFlow tool itself** (Add-on permissions, Web app data processing).
 
@@ -21,8 +21,9 @@ Everything a Google Docs™ Add-on user — or a reviewer — needs, in one tabl
 
 | | |
 |---|---|
-| **OAuth scopes** — four, and no others | `.../auth/documents.currentonly` — read and edit **only the document the Add-on is currently open in**; no access to your Drive or to any other file.<br>`.../auth/script.container.ui` — display the sidebar and the consent dialog inside Google Docs™.<br>`.../auth/script.external_request` — load the rendering libraries, and send opted-in training data to our collection endpoint.<br>`.../auth/userinfo.email` — derive the pseudonymous identifier below. The raw email is never transmitted. |
+| **OAuth scopes** — four, and no others | `.../auth/documents.currentonly` — read and edit **only the document the Add-on is currently open in**; no access to your Drive or to any other file.<br>`.../auth/script.container.ui` — display the sidebar and the consent dialog inside Google Docs™.<br>`.../auth/script.external_request` — load the rendering libraries, and send opted-in training data to our collection endpoint.<br>`.../auth/userinfo.email` — derive the pseudonymous identifier below, and recognise the developer's own test accounts inside the script so their usage is not counted. The raw email is never transmitted or logged. |
 | **What is collected** | Only if you opt in, and only per equation you convert: that **one equation's LaTeX source**, its **rendered PNG**, the **delimiter type**, a **16-hex pseudonym**, a **server timestamp**, and the **`source` label `"addon"`**. Nothing else. See §3a. |
+| **Feature usage counts** | Short log lines when you open the Export / Import tab, see its locked view, click a license link, finish an Export or Import, or activate a license — event names, numbers and short codes only, never document text, LaTeX, file names, keys or email. Kept in Google's logging in the developer's own project. See [§3d](#usage-counts). |
 | **What is never collected** | Your Google account email address · the document identifier · your document's body, its other text, tables, images, file name, or metadata. See §4a. |
 | **Consent model** | **Explicit opt-in.** Nothing is collected unless you agree in the consent dialog. Collection is gated on a stored preference that **defaults to unset — taking no action means nothing is collected.** You may withdraw at any time (§5a). |
 | **Does declining cost you anything?** | **No. Every feature works fully without consenting.** Conversion, insertion, and reverting an image back to editable LaTeX all work identically — reverting reads the LaTeX from the image's own alt text inside your document, never from collected data. |
@@ -48,7 +49,7 @@ The Add-on accesses your Google Docs™ document solely to provide its core func
 - **Document writing**: Detected expressions are replaced in-place with rendered equation images. The Add-on also reads inline image metadata to support reverting images back to editable LaTeX text.
 - **Sidebar and dialogs**: The Add-on displays a sidebar panel for LaTeX input and live preview, and a modal dialog for managing data collection consent, within Google Docs™.
 - **External rendering libraries**: The Add-on loads Temml and MathJax from jsDelivr CDN to render LaTeX expressions as images within the sidebar. No document content is included in these requests.
-- **User identification**: The Add-on reads your Google account email address only to derive a pseudonymous identifier for optional training data. The email is hashed **inside the Add-on** — `SHA-256(email + salt)`, truncated to 16 hexadecimal characters — and **your raw email address never leaves the script**. It is not transmitted, not stored, and not shared. See §4b.
+- **User identification**: The Add-on reads your Google account email address only to derive a pseudonymous identifier for optional training data, and to recognise the developer's own test accounts so that their usage is not counted in §3d. The email is hashed **inside the Add-on** — `SHA-256(email + salt)`, truncated to 16 hexadecimal characters — and **your raw email address never leaves the script**. It is not transmitted, not stored, and not shared. See §4b.
 
 **OAuth scopes requested by the Add-on** — four, and no others. Each is listed with its justification in [The Add-on at a Glance](#addon-glance) above; that table is the authoritative list.
 
@@ -114,7 +115,7 @@ Fields collected:
 
 ### 3b. Failure Diagnostics `[Add-on]`
 
-**We do not collect error logs.** When a conversion fails, the Add-on writes a single diagnostic line to the **Apps Script execution log** for that run. Nothing is transmitted to us, stored by us, or written to any database, spreadsheet, or file.
+**We do not transmit or store error logs ourselves.** When a conversion fails, the Add-on writes a single diagnostic line to the **Apps Script execution log** for that run. Nothing is transmitted to us, stored by us, or written to any database, spreadsheet, or file.
 
 Two things you should know about that line:
 
@@ -146,6 +147,10 @@ Export and Import, on the Add-on's **Export / Import** tab, need a license key. 
 **What is stored, and where:** in the Add-on's **user properties** for your Google account (Apps Script `PropertiesService`, user scope), never in the document: the license key, the instance ID and instance name, the plan, the key's end date, the result of the last check, and the times of the last checks. Deactivating removes the key from this list once Lemon Squeezy confirms it; if Lemon Squeezy cannot be reached, the entry is kept, marked as removed, so that pasting the key again reuses the same activation.
 
 **Purchases and payment:** passes and subscriptions are bought on the [LaTeXFlow store](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=doc&utm_campaign=privacy), not inside the Add-on. **Lemon Squeezy is the merchant of record** and handles payment and billing details; the Add-on never sees them. Lemon Squeezy's handling of your data is governed by the [Lemon Squeezy privacy policy](https://www.lemonsqueezy.com/privacy).
+
+### 3d. Feature Usage Counts `[Add-on]` {#usage-counts}
+
+To learn whether people find Export and Import at all, the Add-on writes one short line to the same Apps Script execution log when you open the Export / Import tab, see its locked view, click **Get a license** or **How it works**, finish an Export or an Import, or activate a license. Each line holds only the event name and numbers or short codes (for example `export`, `locked`, `no_key`, or a count of blocks) — **never your document text, LaTeX, file name, license key, or email address.** Google attaches its own anonymous per-user key to every log line; we use it only to count how many different users reached each step. Nothing is sent outside Google's logging in the developer's own Google Cloud project, and the lines are kept under Google's default retention (currently 30 days).
 
 ---
 
@@ -235,7 +240,7 @@ To request deletion of previously submitted Web app records, email `mathfolis.su
 
 **`[Both]`** Training data is retained while it remains useful for model training. Records that have been unused for more than 12 months are reviewed quarterly and deleted if they are no longer needed.
 
-**`[Add-on]`** We do not collect error logs, so there is no error-log retention period to state. The Apps Script execution-log diagnostics described in §3b are retained under Google's default logging behaviour; **we do not set a retention period for them.**
+**`[Add-on]`** We do not transmit or store error logs ourselves, so there is no error-log retention period of ours to state. The Apps Script execution-log diagnostics described in §3b and the feature usage counts described in §3d are retained under Google's default logging behaviour; **we do not set a retention period for them.**
 
 **How to request deletion:**
 
