@@ -14,6 +14,12 @@ Google Docs 에서 *삽입 → 기호 → 수식* 으로 식을 하나 만들면
 
 Apps Script 로 일회용 프로브를 만들어 손으로 만든 수식이 든 문서를 훑고, 본문을 재귀로 걸으면서 element 종류와 `getCode()` · `getText()` 가 돌려주는 값을 전부 찍었습니다. 이 글은 그 로그와 거기서 해독한 내용입니다. 문서로 정리된 곳을 찾지 못해서 API 가 실제로 무엇을 돌려주는지 직접 본 결과이고, 따라서 전부 문서가 아니라 측정입니다.
 
+## 구글 독스 수식 입력 — 삽입 → 기호 → 수식
+
+구글 독스(Google Docs™)에서 수식은 메뉴 **삽입 → 기호 → 수식** 으로 넣습니다. 커서 자리에 빈 수식 상자가 생기고, 상자 안에서 `\alpha`, `\frac` 같은 백슬래시 이름을 친 뒤 스페이스를 누르면 기호나 분수 틀로 바뀝니다. 입력 규칙과 이 편집기로 만들 수 없는 것(행렬·연립·여러 줄 수식)은 [How to Insert an Equation in Google Docs™](/blog/en/posts/google-docs-equation-editor-typing-and-limits/) (영문) 에 화면과 함께 정리해 두었습니다. 긴 수식을 LaTeX 로 한 번에 넣고 싶다면 [구글 문서를 LaTeX 수식 입력기로](/blog/posts/latexflow-addon-install-first-conversion/) 가 그 방법입니다.
+
+이 글은 그렇게 넣은 수식이 문서 안에 무엇으로 저장되는지를 다룹니다.
+
 ## 1. 텍스트 계층은 막다른 길이다
 
 실패부터 봅니다. 나머지 내용이 존재하는 이유가 여기 있습니다.
