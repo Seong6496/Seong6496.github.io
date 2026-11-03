@@ -1,5 +1,5 @@
 ---
-title: "The Google Docs Equation Editor: Typing It Fast, and the Four Things It Cannot Build"
+title: "How to Insert an Equation in Google Docs™: Shortcuts, LaTeX Commands, and the Four Things It Cannot Build"
 date: 2026-10-02 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [Google Docs, Guide]
 tags: [google-docs, equation-editor, equations, latex, shortcuts, matrix, guide]
 math: true
 pin: false
-description: "Where the equation editor moved to (Insert > Symbols > Equation, Alt+I Y E), which backslash commands it takes and what key actually converts them, how to move between fraction and root slots without the mouse, and the four constructs it cannot make at all: matrices, piecewise cases, double integrals and multi-line aligned equations. Measured on a live document, screenshots included."
+description: "To insert an equation in Google Docs™, use Insert > Symbols > Equation, or Alt+I Y E. Then: which backslash commands it takes and what key actually converts them, how to move between fraction and root slots without the mouse, and the four constructs it cannot make at all: matrices, piecewise cases, double integrals and multi-line aligned equations, with the way to get them anyway. Measured on a live document, screenshots included."
 ---
 
 If you only need one thing from this post, it is the table. Everything else here is about typing faster inside the editor; the table is about what no amount of typing will produce.
@@ -109,13 +109,21 @@ Two consequences of "the palette is the list":
 
 Back to the table, with what was actually tried.
 
-**Matrix.** There is no palette entry, and typing `\begin{matrix} a & b \\ c & d \end{matrix}` produces the literal text in the screenshot above. `\matrix` and `\pmatrix` do the same. Nothing in the editor makes a second row.
+### Matrix
 
-**Piecewise function.** Same reason from the other side: `\cases` stays literal, and there is no line break inside a box. Enter, Shift+Enter and Tab all leave the box.
+There is no palette entry, and typing `\begin{matrix} a & b \\ c & d \end{matrix}` produces the literal text in the screenshot above. `\matrix` and `\pmatrix` do the same. Nothing in the editor makes a second row.
 
-**Double integral.** `\iint` is literal (it gets the spell-check underline). The palette's integrals are `\int` and `\oint`, each with limit slots. Two `\int` in a row is the only way to write ∬, and it reads as two single integrals because that is what it is.
+### Piecewise functions
 
-**Multi-line aligned block.** Not in the earlier probe's list, but it belongs with the other three: anything that in LaTeX would be `align` or `gather` has to be one equation object per line, one paragraph per line, with nothing keeping the equals signs under each other.
+Same reason from the other side: `\cases` stays literal, and there is no line break inside a box. Enter, Shift+Enter and Tab all leave the box.
+
+### Double integral
+
+`\iint` is literal (it gets the spell-check underline). The palette's integrals are `\int` and `\oint`, each with limit slots. Two `\int` in a row is the only way to write ∬, and it reads as two single integrals because that is what it is.
+
+### Multiple lines in a Google Docs equation
+
+Not in the earlier probe's list, but it belongs with the other three: anything that in LaTeX would be `align` or `gather` has to be one equation object per line, one paragraph per line, with nothing keeping the equals signs under each other.
 
 ## 6. The two things the earlier list got wrong
 
@@ -133,13 +141,35 @@ _`sin x \ne \sin x`: the first `sin` is three italic letters, the second is an u
 
 The caveat, repeated because it matters: this is what the editor **displays**. Whether it stores `\sin` as a function, as a symbol code, or as three letters with a style flag is a different question, and one that has to be answered by reading the document back through Apps Script, as the September post did for everything else. Until that is done, do not assume a converter will see the difference between the two halves of that screenshot.
 
-## 7. If you need a matrix anyway
+## 7. If you need a matrix, cases or multiple lines anyway
 
 Nothing in this post makes a matrix appear in Google Docs' own equation editor, because nothing can. What you can do is stop using that editor for the constructs it lacks and write those as LaTeX text in the paragraph instead — `$$\begin{pmatrix} a & b \\ c & d \end{pmatrix}$$`, or a `cases` block, or an `align*` — and have an add-on render that text into an equation image in place.
 
-That is what [LaTeXFlow for Google Docs](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=google-docs-equation-editor-typing-and-limits) does: it scans the document for `$…$` and `$$…$$` text, shows each match as a card with a preview, and replaces the text with a rendered image on request. The image is not a native equation object — it will not open in the equation toolbar — but the LaTeX source stays in the image's alt text, so it can be reverted to text, edited and converted again. The install-to-first-equation walkthrough is in [How to Convert LaTeX in Google Docs](/blog/en/posts/convert-latex-in-google-docs/).
+That is what [LaTeXFlow for Google Docs™](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=google-docs-equation-editor-typing-and-limits) does: it scans the document for LaTeX written between delimiters such as `$…$` and `$$…$$`, shows each match as a card with a preview, and replaces the text with a rendered image on request. The image is not a native equation object — it will not open in the equation toolbar — but the LaTeX source stays in the image's alt text, so it can be reverted to text, edited and converted again.
+
+For a piecewise function, the whole job is four steps:
+
+1. Type the LaTeX as ordinary text in its own paragraph:
+   `$$f(x) = \begin{cases} x^2 & x \ge 0 \\ -x & x < 0 \end{cases}$$`
+   — a matrix (`pmatrix`) or a multi-line block (`aligned`) goes the same way.
+2. Open **Extensions → LatexFlow → Open Equation Panel**.
+3. On the **Scan** tab, press **Scan Document** and check the preview on the card.
+4. Press **Insert into Docs** on that card, or **Convert All** for every equation in the document.
+
+The install-to-first-equation walkthrough, consent screen included, is in [How to Use LaTeX in Google Docs™](/blog/en/posts/convert-latex-in-google-docs/).
 
 A reasonable division of labour, then: the native editor for the things it does well — Greek letters, fractions, roots, sums and integrals with limits, typed fast with backslash names and Tab — and LaTeX text plus a converter for the four things it cannot build.
+
+## 8. FAQ
+
+**How do I insert an equation in Google Docs™?**
+**Insert > Symbols > Equation**, or Alt+I, then Y, then E in Chrome on Windows (section 1). An empty equation box appears at the cursor, and a second toolbar for equations appears under the main one.
+
+**How do I type math in Google Docs™?**
+Inside an equation box, type backslash names such as `\alpha`, `\frac` or `\sqrt` and press Space to convert each one (section 2), and use Tab to move between slots (section 3). For longer formulas, writing the whole thing as LaTeX text and converting it with an add-on is usually faster (section 7).
+
+**Can Google Docs™ do multi-line or piecewise equations?**
+Not in its own equation editor: Enter leaves the box, and there is no `cases` structure (section 5). Write them as LaTeX text — `cases` for a piecewise function, `aligned` for several lines — and convert that text with the Scan tab as in section 7.
 
 ---
 
