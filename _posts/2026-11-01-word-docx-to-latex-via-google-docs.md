@@ -1,5 +1,5 @@
 ---
-title: "From a Word .docx to LaTeX, by Way of Google Docs™"
+title: "Word to LaTeX Converter: A .docx to a .tex File by Way of Google Docs™"
 date: 2026-11-01 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [Google Docs, Tutorial]
 tags: [latex, google-docs, word, docx, tex-file, export, overleaf, equations]
 math: false
 pin: false
-description: "A Word document with Word equations, turned into a .tex file: open the .docx with Google Docs™, check that the equations came across as Docs equations, then export with LaTeXFlow. Step by step, with what Docs' own conversion changes before the add-on sees the document, and what you still check by hand."
+description: "A Word to LaTeX converter route that needs no installation: a Word document with Word equations, turned into a .tex file. Open the .docx with Google Docs™, check that the equations came across as Docs equations, then export with LaTeXFlow. Step by step, with what Docs' own conversion changes before the add-on sees the document, and what you still check by hand."
 ---
 
 "How do I convert a Word document to LaTeX?" is one of the most viewed questions on TeX Stack Exchange, and the usual answers are command-line tools or retyping. If you have a Google account, there is another route that needs no installation on your computer: Google Docs™ can open a `.docx`, and when it does, it turns Word's equations into its own equations. From there, LaTeXFlow **Export** writes the document as a `.tex` file.
@@ -101,6 +101,14 @@ In Overleaf the project compiles on opening; locally, run pdfLaTeX on the file. 
 ![The compiled PDF of the same paper: the title, the abstract, 1 Preliminaries with the numbered display equation (1), 2 Results with Lemma 2 and its proof ending in a filled square, a framed placeholder box reading Image 1 where the figure was, and a footnote](/assets/img/posts/2026-11-01/02-compiled-pdf.png){: width="500" }
 
 Without a `.bib`, the file still compiles; citations print as [?] and the top of the `.tex` says how to add the bibliography.
+
+## FAQ
+
+**Can Overleaf convert Word to LaTeX?**
+Yes. Overleaf has its own Word import: **New project → Import → Word document (.docx)** converts the file into a new LaTeX project (Overleaf's documentation, checked on 3 November 2026). The route in this post is for when the document lives in Google Docs™ — for example when co-authors keep editing it there — and the `.tex` should come from that copy; **Open in Overleaf** in step 6 then takes it to Overleaf directly.
+
+**Does converting Word to LaTeX keep the equations?**
+On this route, Word equations that Docs opens as Docs equations are exported as LaTeX (step 3 shows how to check), and the few that Docs flattens or drops are retyped as LaTeX once in step 4.
 
 ## How far this goes
 
