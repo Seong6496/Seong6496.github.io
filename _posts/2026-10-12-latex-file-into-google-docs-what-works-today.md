@@ -110,7 +110,7 @@ Google Docs™ cannot open a `.tex` file. Either paste the body into a document 
 
 ### How do I use LaTeX in Google Docs?
 
-Not on its own: LaTeX typed into a document stays as plain text. With an add-on you can write LaTeX and convert it into equations; the [step-by-step guide](/blog/en/posts/convert-latex-in-google-docs/) starts from installing it.
+Not on its own: LaTeX typed into a document stays as plain text. With an add-on you can write LaTeX and convert it into equations; [How to Use LaTeX in Google Docs™](/blog/en/posts/convert-latex-in-google-docs/) walks through it from installing the add-on to the first equation.
 
 ### How can I convert LaTeX equations to Google Docs?
 
@@ -118,4 +118,4 @@ Paste them into the document with their delimiters — `$…$`, `$$…$$`, `\(�
 
 ### Can I use LaTeX code in Google Docs?
 
-Yes, as text that an add-on converts. Write the code between delimiters, as in a `.tex` file; the [Google Docs™ LaTeX equations guide](/blog/en/posts/convert-latex-in-google-docs/) covers writing it and what Scan reads.
+Yes, as text that an add-on converts. Write the code between delimiters, as in a `.tex` file; the [guide to using LaTeX in Google Docs™](/blog/en/posts/convert-latex-in-google-docs/) covers writing it and what Scan reads.
