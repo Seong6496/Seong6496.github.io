@@ -1,5 +1,5 @@
 ---
-title: "From a Google Docs™ Worksheet to a .tex File You Can Open in Overleaf"
+title: "From a Google Docs™ Worksheet to a .tex File You Can Open in Overleaf, Plus a LaTeX Template"
 date: 2026-10-26 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [Google Docs, Tutorial]
 tags: [latex, google-docs, tex-file, export, overleaf, worksheet, teachers, equations]
 math: false
 pin: false
-description: "A one-page maths worksheet written in Google Docs™ — headings, numbered questions, a table, inline and display equations — exported to a .tex file with LaTeXFlow and compiled in Overleaf. What each part becomes in the file, what the PDF looks like, and what to check before you print."
+description: "A one-page maths worksheet written in Google Docs™ — headings, numbered questions, a table, inline and display equations — exported to a .tex file with LaTeXFlow and compiled in Overleaf. What each part becomes in the file, what the PDF looks like, what to check before you print, and the result as a LaTeX worksheet or exam template to download."
 ---
 
 Many worksheets and tests start in Google Docs™ because that is where colleagues comment and where last year's copy lives. At some point you may want the same sheet as LaTeX: for a cleaner PDF, for a question bank, or because the rest of the course is already in Overleaf. This post takes one real worksheet through LaTeXFlow **Export** and into Overleaf, and looks at what each part of the sheet becomes. Export needs a license key; the setup clicks are in the [step-by-step Google Docs™ to LaTeX guide](/blog/en/posts/latexflow-export-import-walkthrough/).
@@ -114,6 +114,14 @@ A few things are worth a look in the `.tex`, not because anything is wrong, but 
 - **Images.** This sheet has none. An image in the document is written as a framed placeholder box ("Image 1"), and the image file has to be added to the Overleaf project by hand.
 
 If the class keeps a Docs copy for comments and a LaTeX copy for printing, the two do not stay in sync by themselves: an edit in one is not in the other until you export again.
+
+## 6. Use the exported file as a LaTeX worksheet or exam template
+
+Once the changes above are in, the file works as a template for the next sheet or test: keep the preamble and the layout, replace the questions. Here is this worksheet's export with the section 5 changes made by hand — unnumbered headings, a name and date line, answer space after each question (one `\answerspace` command you can resize in one place), centred table columns:
+
+- [worksheet-template.tex](/assets/files/2026-10-26/worksheet-template.tex) — compiles with pdfLaTeX as it is, locally or after uploading it to a new Overleaf project.
+
+For the next sheet you can also skip the template and write the questions in Google Docs™ as before: Export gives you a new `.tex`, and you copy its questions into the template.
 
 - License keys: [LaTeXFlow store](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=google-docs-worksheet-to-latex-overleaf)
 - What Export converts, activation, cancelling and refunds: [Export & Import guide](/latexflow/export/)
