@@ -112,8 +112,8 @@ You do not need a LaTeX installation to practise. With the free LaTeXFlow add-on
 3. Place the cursor in the document and press **➕ Insert into Docs**. The equation goes in as a display equation.
 4. For several equations in a sentence or a page, type them straight into the document between `$…$` or `$$…$$`, then on the **Scan** tab press **🔍 Scan Document** and **⚡ Convert All**.
 
-<!-- TODO shot: the LaTeXFlow Equation tab with the quadratic formula typed in the box and the live preview rendered below it, a Google Docs™ document beside it with the cursor on an empty line. Live v17. -->
-<!-- TODO shot: the same document after Insert into Docs, the formula rendered as a display equation. -->
+![The LaTeXFlow Equation tab beside a Google Docs™ page that says "The quadratic formula:": the box holds the LaTeX of the quadratic formula (\frac, \pm and \sqrt), the Preview below it shows the rendered quadratic formula, and the Insert into Docs button is active](/assets/img/posts/2026-11-25/01-equation-tab-preview.png){: width="720" }
+![After Insert into Docs: the quadratic formula now sits in the document on its own line under "The quadratic formula:", at full display size with the fraction bar and square root, and the sidebar still shows the LaTeX and its preview](/assets/img/posts/2026-11-25/02-inserted.png){: width="720" }
 
 Each converted equation keeps its LaTeX, so you can select it, press **↩ Revert to LaTeX**, fix it and convert it again.
 
