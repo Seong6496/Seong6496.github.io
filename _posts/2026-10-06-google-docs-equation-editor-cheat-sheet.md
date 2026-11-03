@@ -11,7 +11,7 @@ pin: false
 description: "A lookup table for the Google Docs equation editor (Insert > Symbols > Equation): all 125 palette names you can type as backslash commands — 40 Greek, 32 operations, 21 relations, 12 arrows, 20 structures — with their LaTeX equivalents, the seven Google-only structure names and what they mean in LaTeX, the commands Docs silently rejects (\\neq, \\to, \\left, \\iint, matrices), and how far each claim was verified."
 ---
 
-This is the table version of [the equation editor post](/blog/en/posts/google-docs-equation-editor-typing-and-limits/). That post explains how the editor behaves; this one is for looking a name up. If you already know that Space converts a backslash name and that the toolbar is the whole vocabulary, skip to the tables.
+This is the table version of [how to insert an equation in Google Docs™](/blog/en/posts/google-docs-equation-editor-typing-and-limits/). That post explains how the editor behaves; this one is for looking a name up. If you already know that Space converts a backslash name and that the toolbar is the whole vocabulary, skip to the tables.
 
 The editor opens from **Insert → Symbols → Equation** (keyboard: `Alt+I, Y, E`). Inside the box you type `\name` and press **Space**; the name becomes a symbol or a structure. Everything below was measured in Google Docs on the web, English UI, on 2026-09-21 and 2026-09-22, in one account on one machine — see §5 for exactly how far each table was checked.
 
@@ -26,7 +26,7 @@ The editor opens from **Insert → Symbols → Equation** (keyboard: `Alt+I, Y, 
 
 That is the whole input model. Slot navigation (Tab into the next slot of the innermost structure, arrows to walk linearly) is in the earlier post's §3 and is not repeated here.
 
-## 2. Table A — the 105 symbol names
+## 2. Table A — LaTeX math symbols Google Docs™ accepts: the 105 symbol names
 
 Every symbol name on the toolbar is also a LaTeX command with the same meaning, and none of them needs a LaTeX package. So for these five groups the "LaTeX equivalent" column would be the name itself; the tables show the glyph and the verification status instead. Status: **✓** typed as `\name` + Space and seen to convert; **○** typed in the same session but not screenshot-confirmed (treat as untested); nothing in the table failed.
 
@@ -165,5 +165,5 @@ The way around is the same one the earlier post ends on: write those constructs 
 
 ---
 
-- How the editor behaves while you type, with screenshots → [The Google Docs Equation Editor: Typing It Fast, and the Four Things It Cannot Build](/blog/en/posts/google-docs-equation-editor-typing-and-limits/)
+- How the editor behaves while you type, with screenshots → [How to Insert an Equation in Google Docs™: Shortcuts, LaTeX Commands, and the Four Things It Cannot Build](/blog/en/posts/google-docs-equation-editor-typing-and-limits/)
 - What each of these names becomes in the document's structure → [What Google Docs' Equation Editor Actually Stores](/blog/en/posts/google-docs-equation-editor-internals/)
