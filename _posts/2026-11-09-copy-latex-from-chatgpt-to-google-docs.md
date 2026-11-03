@@ -73,7 +73,7 @@ Scan found nothing to convert, because there was nothing left to read. The fix i
 Press the copy button under the answer, then paste into the document with `Ctrl+V`. The button copies the text with its LaTeX, so each equation either becomes a Docs equation on the paste or stays as LaTeX that the add-on can convert (sections 2 and 3).
 
 **How do I copy and paste math equations in Google Docs™?**
-Paste the LaTeX, not the picture of it. Equations that Docs does not convert on the paste stay as LaTeX text; open LatexFlow, press **Scan Document** on the **Scan** tab, then **Convert All**. The same steps cover Gemini-style `$…$` and `$$…$$`.
+Paste the LaTeX, not the picture of it. Equations that Docs does not convert on the paste stay as LaTeX text; open LatexFlow, press **Scan Document** on the **Scan** tab, then **Convert All**. The same steps cover Gemini-style `$…$` and `$$…$$`{% assign gemini_post = site.posts | where: "url", "/blog/en/posts/gemini-latex-google-docs/" | first %}{% if gemini_post %}; Gemini on its own, with a prompt that keeps its format steady, is in [Gemini LaTeX in Google Docs™](/blog/en/posts/gemini-latex-google-docs/){% endif %}.
 
 **How do I copy LaTeX into Google Docs™ from another source?**
 The same way as from a chatbot, whether the LaTeX comes from Overleaf, a `.tex` file or a web page: copy it with its delimiters — `$…$`, `$$…$$`, `\(…\)` or `\[…\]` — and paste. Docs may turn some of it into its own equations on the paste, depending on the account; the rest stays as LaTeX text, and **Scan Document** then **Convert All** converts it. To bring in a whole `.tex` file with its headings and lists, see [how to convert a LaTeX file to Google Docs™](/blog/en/posts/latex-file-into-google-docs-what-works-today/).
