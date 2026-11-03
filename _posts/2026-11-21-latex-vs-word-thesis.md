@@ -21,7 +21,7 @@ This post compares the two on the points that decide the choice, then shows the 
 
 | | LaTeX (for example in Overleaf) | Word / Google Docs™ |
 |---|---|---|
-| **Equations** | Typed as LaTeX; the reference standard for mathematical typesetting | Built-in equation editors. Word also accepts LaTeX input ([how](/blog/en/posts/how-to-use-latex-in-word/)); Docs' editor has no matrices or multi-line equations |
+| **Equations** | Typed as LaTeX; the reference standard for mathematical typesetting | Built-in equation editors. Word also accepts LaTeX input; Docs' editor has no matrices or multi-line equations |
 | **Citations** | BibTeX / BibLaTeX from a `.bib` file; style switched with one line | Citation tools or reference-manager plug-ins; style switched in the tool |
 | **Numbering and cross-references** | Sections, equations, figures and tables numbered and referenced automatically with `\label` / `\ref` | Possible with captions and cross-reference fields; takes discipline to keep updated |
 | **Layout** | Set by the document class or template; consistent, hard to nudge by hand | What you see is what you get; easy to nudge, easy to make inconsistent |
