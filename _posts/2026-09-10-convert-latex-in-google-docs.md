@@ -1,5 +1,5 @@
 ---
-title: "Google Docs™ LaTeX Equations: Install the Add-on and Convert Your First One"
+title: "How to Use LaTeX in Google Docs™: Install the Add-on and Convert Your First Equation"
 date: 2026-09-10 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [LaTeXFlow, Guide]
 tags: [google-docs, latex, add-on, google-workspace-marketplace, equations, tutorial]
 math: true
 pin: false
-description: "LaTeX you type into Google Docs™ stays as plain text. Turning it into equations with a free add-on, once through: installing from the Marketplace, what the consent screen asks, scanning, converting, and what the document holds afterwards."
+description: "How to use LaTeX in Google Docs™: LaTeX you type stays as plain text, and a free add-on turns it into equations. Once through: installing from the Marketplace, what the consent screen asks, scanning, converting, and what the document holds afterwards."
 ---
 
 LaTeX you type into Google Docs™ stays as plain text; Docs does not turn it into equations. An add-on can: this post installs LaTeXFlow, which is free for converting, and turns a first equation from LaTeX into an image.
@@ -157,8 +157,11 @@ Put the cursor where it should go, open LatexFlow, type the LaTeX into the box o
 **Do the people I share the document with need the add-on?**
 No. Converted equations are images and render for everyone.
 
+**Is there a LaTeX editor for Google Docs™?**
+Not a built-in one. Docs' own equation editor accepts backslash names such as `\frac` one at a time, but not a whole LaTeX formula ([how to insert an equation in Google Docs™](/blog/en/posts/google-docs-equation-editor-typing-and-limits/)). The [LaTeXFlow add-on](/latexflow/) adds one in the sidebar: on the **Equation** tab you type LaTeX, watch the live preview and press **➕ Insert into Docs** (section 6). For a whole `.tex` file, see [how to convert a LaTeX file to Google Docs™](/blog/en/posts/latex-file-into-google-docs-what-works-today/).
+
 **Can I change an equation after converting it?**
-Select the image, press **↩ Revert to LaTeX** to get the source back, edit it, and convert again.
+Select the image, press **↩ Revert to LaTeX** to get the source back, edit it, and convert again. To revert several at once, select them together by dragging across them first.
 
 **Does it work on an iPad?**
 Editor add-ons are not available in the iOS Docs app. On an iPad, use the [web app](/latexflow/web/) instead — export the document as `.docx`, or import it from Drive inside the tool.
