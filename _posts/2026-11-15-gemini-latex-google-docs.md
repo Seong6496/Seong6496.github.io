@@ -11,7 +11,7 @@ pin: false
 description: "Gemini writes its maths as LaTeX between $…$ and $$…$$. How to get Gemini's LaTeX into Google Docs™ as real equations: copy with the copy button, paste, and convert whatever Docs leaves as LaTeX text with the free LaTeXFlow add-on. Plus a prompt that keeps the format steady, and the one way of copying that cannot be repaired."
 ---
 
-<!-- Sources: .tmp/r118_paste_measure.md and the 11-09 post (paste test 2026-10-28: $…$ / $$…$$ shapes, account-dependent Docs auto-conversion, rendered-selection copy breaks); live v17 sidebar labels (Scan tab, Scan Document, Convert All). Gemini's own "Export to Docs" was NOT measured — the post says so. -->
+<!-- Sources: .tmp/r118_paste_measure.md and the 11-09 post (paste test 2026-10-28: $…$ / $$…$$ shapes, account-dependent Docs auto-conversion, rendered-selection copy breaks); live v17 sidebar labels (Scan tab, Scan Document, Convert All). Gemini's own "Export to Docs" measured 2026-11-03 (R195, one answer, one account): formulas arrive as native Docs equations; code-run blocks come along as text. -->
 
 To get Gemini's LaTeX into Google Docs™ as equations, copy the answer with Gemini's copy button and paste it into the document. Gemini writes maths as `$…$` and `$$…$$`; Docs may turn some of it into equations on the paste, and whatever is still LaTeX text, the free LaTeXFlow add-on converts with **Scan Document** and **Convert All**.
 
@@ -35,7 +35,7 @@ There are two ways to get an answer out of the chat:
 - **The copy button under the answer** copies the text with its LaTeX. This is the one to use.
 - **Selecting the rendered formulas with the mouse** copies the characters you see, not the LaTeX behind them. In our paste test of rendered maths, Docs received one symbol per line, parts of the formula repeated, and no LaTeX anywhere ([the measured paste](/blog/en/posts/copy-latex-from-chatgpt-to-google-docs/), section 4). Nothing can rebuild a formula from that, so copy again with the button.
 
-<!-- TODO shot: gemini.google.com answer with an inline $…$ and a display $$…$$ formula, the copy button under the answer highlighted (pointer on it). Crop to the answer card. -->
+![The lower half of a Gemini answer solving x² − 5x + 6 = 0: rendered display formulas such as x = (5 ± 1)/2, inline maths in the sentences such as "The solutions are x = 2 and x = 3", and the row of buttons under the answer with the pointer on the copy button and its Copy response tooltip](/assets/img/posts/2026-11-15/01-gemini-copy-button.png){: width="680" }
 
 ## 3. Paste into Google Docs™, then convert what is left
 
@@ -65,9 +65,11 @@ For long problem sets, ask in batches of five to ten; the format tends to slip n
 
 ## 5. What about Gemini's "Export to Docs"?
 
-Gemini can also send an answer to a new Google Docs™ document by itself. We have not measured what that export does to formulas, so this post does not promise anything about it. If the exported document shows formulas as LaTeX text, the same Scan Document and Convert All steps convert them; if it shows them as equations already, there is nothing left to do.
+Gemini can also send an answer to a new Google Docs™ document by itself: the share button under the answer, then **Export to Docs**. We tried it on 3 November 2026 with one answer (the quadratic-formula solution above, written with `$…$` and `$$…$$`): every formula, inline and display, arrived as a Docs equation, so there was nothing left to convert. Two things came along with it: the Python code Gemini ran to check its answer arrived as text blocks at the top of the document, and the display fractions were set at text size, smaller than the rendered view in the chat.
 
-<!-- TODO shot (optional, only if measured): Gemini's Share & export → Export to Docs result for an answer with $…$ and $$…$$ — whether formulas arrive as LaTeX text, Docs equations or something else. If measured, replace section 5's "not measured" wording with the result. -->
+That is one answer in one account, not a guarantee. If an exported document does show formulas as LaTeX text, the same Scan Document and Convert All steps convert them.
+
+![A new Google Docs™ document made by Gemini's Export to Docs: the sentences keep inline maths such as x² − 5x + 6 = 0 and a = 1, b = −5, c = 6 as Docs equations, and the four display formulas — the quadratic formula, the substitution and two simplification steps — are centred Docs equations; the quadratic formula is selected, showing the blue equation box](/assets/img/posts/2026-11-15/04-export-to-docs.png){: width="628" }
 
 ## 6. FAQ
 
