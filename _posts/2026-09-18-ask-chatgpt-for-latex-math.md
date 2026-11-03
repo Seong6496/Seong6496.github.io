@@ -1,5 +1,5 @@
 ---
-title: "How to Ask ChatGPT for Math You Can Actually Paste Into a Document"
+title: "ChatGPT LaTeX: How to Ask for Math You Can Actually Paste Into a Document"
 date: 2026-09-18 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [LaTeXFlow, Guide]
 tags: [chatgpt, gemini, latex, prompt, docx, ai, equations]
 math: true
 pin: false
-description: "Whether a chatbot answer converts cleanly is decided by the request, not by the conversion tool. Why the delimiter a tool can read is not the delimiter you should ask for, what survives the copy path, how to rescue an answer you already have, and how to check the format before you paste a hundred lines."
+description: "Whether ChatGPT's LaTeX converts cleanly is decided by the request, not by the conversion tool. Why the delimiter a tool can read is not the delimiter you should ask for, what survives the copy path, the copy button versus selecting rendered math, how to rescue an answer you already have, and how to check the format before you paste a hundred lines."
 ---
 
 You asked a chatbot for some maths problems, copied the answer, and pasted it into a document. On screen the fractions and integral signs were immaculate. In the document you have this:
@@ -104,9 +104,20 @@ Summarised:
 
 That is why you must not ask for `\(…\)` in a prompt. Not because the tool cannot read it, but because **it never reaches the document**.
 
-The mechanism of the stripping itself, and how bracket mode recovers from it, is walked through with screenshots in [ChatGPT wrote your math in square brackets](/blog/en/posts/chatgpt-bracket-math-to-latex/).
+The mechanism of the stripping itself, and how bracket mode recovers from it, is walked through with screenshots in [ChatGPT LaTeX to Word: Fixing Equations After Copy and Paste](/blog/en/posts/chatgpt-bracket-math-to-latex/).
 
-## 4. The third failure: math written out in words
+## 4. Copying LaTeX out of ChatGPT: the copy button vs. selecting rendered math
+
+There are two ways to get an answer out of the chat window, and only one of them carries the LaTeX.
+
+- **The copy button under the answer** copies the answer as text, LaTeX included. What arrives is one of the shapes in the table above: `$…$` whole, `\[…\]` sometimes as bare `[…]`. All of those can still be converted.
+- **Selecting the rendered maths with the mouse** copies the characters on screen, not the LaTeX behind them. In a paste test into Google Docs™ on 28 October 2026, the result was one symbol per line, parts of the formula repeated, and no LaTeX anywhere. No converter can rebuild a formula from that.
+
+If you need the LaTeX source itself — for a `.tex` file or Overleaf — ask for each equation inside a code block. A code block shows the LaTeX as plain characters, so what you copy is exactly what you see.
+
+Once the copied text is in a Google Docs™ document, the equations still written as LaTeX are what the add-on's **Scan** tab finds and **Convert All** turns into equations; tick **Also detect [ … ]** first if any arrived as bare brackets.
+
+## 5. The third failure: math written out in words
 
 There is another failure with a different character. Sometimes the chatbot **describes the equation in a sentence**:
 
@@ -134,7 +145,7 @@ If the equation genuinely needs explaining, ask for **both**:
 
 That separates the thing to be converted from the thing a human reads, and the tool picks out only the equations.
 
-## 5. Why asking for a file does not help
+## 6. Why asking for a file does not help
 
 Trying to save a step with *"generate 20 practice problems and give me a .docx"* makes the result worse. The chatbot, trying to be helpful, embeds the equations as **Word equation objects**.
 
@@ -145,7 +156,7 @@ An equation object is not text but a separate structure inside the file, so ther
 
 Saving one paste costs you the whole request.
 
-## 6. Rescuing an answer you already have
+## 7. Rescuing an answer you already have
 
 This is the part you need most often in practice. You have a long answer in the wrong format. **Do not ask for it to be regenerated.** Regenerating changes the content. If you carefully picked twenty problems and get a different twenty back, you review everything again from scratch.
 
@@ -163,7 +174,7 @@ The same approach fixes an answer that came back in Unicode symbols (∑, ∫, �
 
 > Replace the Unicode math symbols in your answer with LaTeX commands — ∑ as `\sum`, ∫ as `\int`, ½ as `\frac{1}{2}` — and wrap each formula in `$...$`.
 
-## 7. Pasting without formatting
+## 8. Pasting without formatting
 
 When you copy the answer into the document, paste **text only**. In both Word and Google Docs that is `Ctrl` + `Shift` + `V`, or *Keep text only* in the paste options.
 
@@ -179,7 +190,7 @@ $$
 
 is three separate paragraphs as far as the tool is concerned, and the opening and closing `$$` never pair. Join it into one line and it works.
 
-## 8. Checking that the format took
+## 9. Checking that the format took
 
 Whether your prompt worked is hard to judge by eye. Let the tool tell you. Upload the file and this line appears at the top:
 
@@ -188,12 +199,12 @@ Scanned 84 paragraphs · 61 equations found
 ```
 
 - **Detected count close to the number of equations you can count** → the format took.
-- **Zero** → no delimiters at all, or equation objects. Go back to the reformat request in section 6.
+- **Zero** → no delimiters at all, or equation objects. Go back to the reformat request in section 7.
 - **Fewer than you can count** → only some were wrapped. Look at which form is missing and re-request just that part.
 
 Do this check **before you generate all twenty problems**. Ask for two or three first, paste them, upload. If the format passes, continue the rest in the same conversation. If it fails, you have thrown away three problems instead of twenty.
 
-## 9. Defaults differ by chatbot
+## 10. Defaults differ by chatbot
 
 Ask without specifying a format and different chatbots answer differently. The observed tendencies:
 
@@ -202,13 +213,13 @@ Ask without specifying a format and different chatbots answer differently. The o
 
 These are **tendencies, not guarantees.** Even within one service the result shifts with conversation context and with time. Pinning the format in a line of the prompt is still the reliable move.
 
-## 10. FAQ
+## 11. FAQ
 
 **If bracket mode exists, can I just accept brackets?**
 Mostly, yes. But bracket mode is a heuristic and not perfect. An expression with none of `\`, `^`, `_`, `=` inside the brackets — an interval like `[1,5]`, say — is not caught; and in a document with many brackets, the wrong things can be. Receiving dollars means none of that judgement is needed.
 
 **I put the delimiters in the prompt and it still drifts.**
-Formatting tends to fall apart in the later part of a long answer. Four batches of five beat one batch of twenty. The small-batch check in section 8 helps here too.
+Formatting tends to fall apart in the later part of a long answer. Four batches of five beat one batch of twenty. The small-batch check in section 9 helps here too.
 
 **There are tables as well as equations.**
 Equations inside tables are scanned normally. But a Markdown table pasted into a document can break its structure — if you need a table, build it in the document first and paste only the equations into the cells.
@@ -216,7 +227,7 @@ Equations inside tables are scanned normally. But a Markdown table pasted into a
 **Is the add-on the same?**
 The Google Docs add-on (*Extensions → LatexFlow → Open Equation Panel*) reads the same four delimiters. The difference is that its bracket mode checkbox is **off by default**, so to catch equations that arrived as brackets you need to switch it on.
 
-## 11. Summary
+## 12. Summary
 
 - Success is decided in the **request**, not after the paste.
 - Through the chat window, `$…$` survives whole, `\[…\]` keeps only its brackets, and `\(…\)` disappears without a trace.
