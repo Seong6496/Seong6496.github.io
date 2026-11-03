@@ -245,5 +245,5 @@ $$\sin(x) \qquad \sin\left(x\right) \qquad \sin\bigl(x\bigr)$$
 
 ---
 
-이전 글: [LaTeX 긴 수식 줄바꿈 — multline·split·aligned 언제 무엇을 쓰나](/blog/posts/latex-long-equation-line-break/)
+이전 글: [LaTeX 수식 줄바꿈 — 긴 수식 multline·split·aligned 언제 무엇을 쓰나](/blog/posts/latex-long-equation-line-break/)
 함께 보기: [LaTeX 분수·제곱·루트·적분 — 가장 자주 쓰는 5가지](/blog/posts/latex-fraction-integral/) · [LaTeX 행렬과 연립방정식 — pmatrix·bmatrix·cases](/blog/posts/latex-matrix-cases/) · [LaTeX 수식 오류·실수 완전 해결 가이드](/blog/posts/latex-math-errors-guide/)
