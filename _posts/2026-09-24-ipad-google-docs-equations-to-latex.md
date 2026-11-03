@@ -90,6 +90,9 @@ Same cause. The Drive app only exports a Google Doc as PDF. Use Route A or Route
 **It imported, but zero equations were found.**
 Then the import worked and the document is the problem — either the maths is not wrapped in LaTeX delimiters, or it was inserted with *Insert → Symbols → Equation* and is an object rather than text. Those are two different fixes: [detected 0 equations](/blog/en/posts/no-latex-delimiters-recover-document/) and [equation objects are not text](/blog/en/posts/word-equation-objects-not-text/).
 
+**Can you insert an equation in Google Docs™ on an iPad?**
+Not with an add-on: editor add-ons, LaTeXFlow included, do not run in the iOS Docs app. (This post does not cover the app's own equation tools.) What works is to write each equation as LaTeX text with its delimiters, `$…$` or `$$…$$`, in the app, then either take the document through Route A or Route B here, or open it on a computer later and convert it in place with **Extensions → LatexFlow → Open Equation Panel**, **Scan** tab, **Convert All**.
+
 **I have a PDF and nothing else.**
 There is no route from here. A PDF is not a supported input, and converting one back to `.docx` reliably enough to preserve the maths is its own problem. Go back to the original Google Doc if you still have it.
 
