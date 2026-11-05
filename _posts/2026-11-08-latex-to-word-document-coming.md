@@ -94,6 +94,6 @@ Yes. Overleaf's download menu has an export to Word. It keeps the structure of y
 
 ## 6. Get notified
 
-The converter is in development now. Leave your email and we will write once, when it is ready to try. You can also tell us what you would convert, which helps us decide what to build first.
+The converter is in development now. Leave your email and we will keep you posted as it comes together, and write when it is ready to try. You can also tell us what you would convert, which helps us decide what to build first.
 
 **[Get notified when it's ready →](/latexflow/web/?utm_source=blog&utm_medium=post&utm_campaign=tex2docx_waitlist#tex2docx-notify)**
