@@ -1639,11 +1639,11 @@
           <label class="td-chip"><input type="checkbox" name="use" value="Something else" /><span>Something else</span></label>
         </div>
       </fieldset>
-      <label class="td-consent"><input type="checkbox" id="td-consent" required /><span>Notify me once when the .tex to Word converter is ready. LaTeXFlow (Math System) will use this email only for that notice — no other emails. You can ask us to delete it at any time. <a href="https://mathsystem.dev/latexflow/privacy/" target="_blank" rel="noopener">Privacy Policy</a></span></label>
+      <label class="td-consent"><input type="checkbox" id="td-consent" required /><span>Email me progress updates on the .tex to Word converter until it launches, and the launch notice. LaTeXFlow (Math System) will use this email only for that — every email has an unsubscribe link, and you can ask us to delete it at any time. <a href="https://mathsystem.dev/latexflow/privacy/" target="_blank" rel="noopener">Privacy Policy</a></span></label>
       <p class="td-msg" id="td-msg" role="status" aria-live="polite"></p>
       <button type="submit" class="btn-primary td-submit">Notify me</button>
     </form>
-    <p class="td-thanks" id="td-thanks" hidden><i class="ti ti-circle-check" aria-hidden="true"></i> Thanks — we'll email you once when it's ready.</p>
+    <p class="td-thanks" id="td-thanks" hidden><i class="ti ti-circle-check" aria-hidden="true"></i> Thanks — we'll keep you posted until it's ready.</p>
   </div>
 </dialog>
 
@@ -3960,7 +3960,7 @@ const tdObserver = ('IntersectionObserver' in window)
     e.preventDefault();
     const addr = email.value.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(addr)) { setMsg('Please enter a valid email address.', true); email.focus(); return; }
-    if (!consent.checked) { setMsg('Please tick the box to agree to the one notice email.', true); consent.focus(); return; }
+    if (!consent.checked) { setMsg('Please tick the box to agree to the update emails.', true); consent.focus(); return; }
     const uses = [...form.querySelectorAll('input[name="use"]:checked')].map((c) => c.value);
     const body = new URLSearchParams();
     body.append(TD_FORM.email, addr);
