@@ -1189,6 +1189,121 @@
   @media (prefers-reduced-motion: reduce) {
     #house-toast .house-toast-card { transition: none; }
   }
+
+  /* .tex → Word fake door (R206) — 시작 화면 · 결과 화면 버튼 → 알림 신청 팝업.
+     제품은 아직 없다 (docs/technical_guide/tex_to_docx_web_plan.md §5-1). 이메일은 우리 페이지에서
+     받아 Google Form 으로 백그라운드 전송 — GA4 에는 숫자만 (이메일 절대 X). */
+  .td-door { display: flex; justify-content: center; margin-top: 20px; }
+  .td-door .td-open {
+    display: inline-flex; align-items: center; gap: 6px;
+    min-height: 40px; padding: 0 16px;
+    font-size: 15px; color: var(--text);
+    background: var(--bg-card); border: 0.5px solid var(--border-strong); border-radius: var(--radius);
+  }
+  .td-door .td-open:hover { background: var(--accent-bg); color: var(--accent); }
+  .td-door .td-open i { font-size: 18px; }
+  .td-beta {
+    font-size: 12px; font-weight: 500; color: var(--accent);
+    background: var(--accent-bg); border-radius: 4px; padding: 1px 6px;
+  }
+  /* 팝업 — 사이드 카드와 같은 밝은 토큰, 8px 간격 체계 (8 / 16 / 24), 위아래 패딩 동일 (R206 사용자 피드백) */
+  #td-modal {
+    width: min(480px, calc(100% - 32px));
+    max-width: none;
+    max-height: calc(100% - 32px);
+    inset: 0; margin: auto; padding: 0;
+    border: 1px solid var(--house-cool-line);
+    border-radius: var(--radius-lg);
+    background: var(--bg-card); color: var(--text);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  }
+  #td-modal::backdrop { background: rgba(25, 25, 25, 0.35); }
+  #td-modal .td-inner {
+    position: relative;
+    display: flex; flex-direction: column; gap: 8px;
+    padding: 24px;
+  }
+  #td-modal .td-eyebrow {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
+    color: var(--text-hint); padding-right: 40px;
+  }
+  #td-modal .td-eyebrow .td-caps { text-transform: uppercase; letter-spacing: 0.08em; }
+  #td-modal .td-title {
+    font-family: var(--font-display); font-size: 20px; font-weight: 500; line-height: 1.3;
+    margin: 0; text-wrap: balance;
+  }
+  #td-modal .td-body { font-size: 15px; color: var(--ink-600); line-height: 1.5; margin: 0; }
+  #td-modal .td-body code { font-family: var(--font-mono); font-size: 13px; }
+  #td-modal form { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
+  #td-modal form[hidden] { display: none; }
+  #td-modal .td-field { display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 500; }
+  #td-modal input[type="email"] {
+    font: inherit; font-size: 15px; font-weight: 400;
+    height: 44px; padding: 0 12px;
+    border: 1px solid var(--house-cool-line); border-radius: var(--radius);
+    background: var(--white); color: var(--text);
+    transition: border-color .12s, box-shadow .12s;
+  }
+  #td-modal input[type="email"]::placeholder { color: var(--text-hint); }
+  #td-modal input[type="email"]:focus,
+  #td-modal input[type="email"]:focus-visible {
+    outline: none; border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-bg);
+  }
+  #td-modal fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+  #td-modal legend { font-size: 14px; font-weight: 500; padding: 0; margin-bottom: 8px; }
+  #td-modal .td-opt { font-weight: 400; color: var(--text-hint); }
+  #td-modal .td-chips { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  #td-modal .td-chip { position: relative; display: block; cursor: pointer; }
+  #td-modal .td-chip input {
+    position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none;
+  }
+  #td-modal .td-chip span {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    height: 40px; padding: 0 8px;
+    border: 1px solid var(--house-cool-line); border-radius: 999px;
+    background: var(--white); color: var(--text);
+    font-size: 14px; text-align: center; white-space: nowrap;
+    transition: background .12s, border-color .12s, color .12s;
+  }
+  #td-modal .td-chip:hover span { border-color: var(--accent); }
+  #td-modal .td-chip input:checked + span {
+    background: var(--house-cool-bg); border-color: var(--accent); color: var(--accent); font-weight: 500;
+  }
+  #td-modal .td-chip input:checked + span::before { content: "✓"; font-size: 13px; }
+  #td-modal .td-chip input:focus-visible + span { box-shadow: 0 0 0 3px var(--accent-bg); border-color: var(--accent); }
+  #td-modal .td-consent {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 13px; line-height: 1.5; color: var(--text-muted); cursor: pointer;
+  }
+  #td-modal .td-consent input { flex: none; width: 16px; height: 16px; margin: 2px 0 0; accent-color: var(--accent); }
+  #td-modal .td-consent a { color: var(--accent); }
+  #td-modal .td-submit {
+    width: 100%; height: 44px; padding: 0 16px;
+    font-size: 15px; font-weight: 500; border-radius: var(--radius);
+  }
+  #td-modal .td-msg { font-size: 14px; margin: 0; }
+  #td-modal .td-msg:empty { display: none; }
+  #td-modal .td-msg.is-error { color: #d93025; }
+  #td-modal .td-thanks {
+    display: flex; align-items: center; gap: 8px; margin: 8px 0 0; padding: 16px;
+    background: var(--house-cool-bg); border: 1px solid var(--house-cool-line); border-radius: var(--radius);
+    font-size: 15px; color: var(--text);
+  }
+  #td-modal .td-thanks i { font-size: 20px; color: var(--badge-live-text); }
+  #td-modal .td-thanks[hidden] { display: none; }
+  #td-modal .td-x {
+    position: absolute; top: 12px; right: 12px;
+    width: 36px; height: 36px; padding: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: transparent; border: 0; border-radius: var(--radius);
+    color: var(--text-muted); font-size: 20px; cursor: pointer;
+  }
+  #td-modal .td-x:hover { background: rgba(0, 0, 0, 0.06); color: var(--text); }
+  @media (max-width: 420px) {
+    #td-modal .td-inner { padding: 24px 16px; }
+    #td-modal .td-chip span { font-size: 13px; }
+  }
 </style>
 <script>
   if (location.hostname === 'mathsystem.dev') {
@@ -1334,6 +1449,11 @@
       <span class="badge"><i class="ti ti-brackets" aria-hidden="true"></i> Detects bracket <code>[\...]</code> too</span>
     </div>
 
+    <!-- .tex → Word fake door (R206) — 시작 화면 -->
+    <div class="td-door">
+      <button type="button" class="td-open" data-where="start"><i class="ti ti-file-text" aria-hidden="true"></i> .tex to Word with editable equations <span class="td-beta">soon</span></button>
+    </div>
+
     <!-- ============================================================
          Crawlable landing content (how it works · delimiters · use
          cases · FAQ · privacy). Lives inside #upload-stage so it is
@@ -1442,6 +1562,11 @@
     <div id="eq-list"></div>
 
     <div id="gen-note" hidden></div>
+
+    <!-- .tex → Word fake door (R206) — 결과 화면 (검토 · 0개 · Export 뒤 모두 보인다) -->
+    <div class="td-door">
+      <button type="button" class="td-open" data-where="result"><i class="ti ti-file-text" aria-hidden="true"></i> .tex to Word with editable equations <span class="td-beta">soon</span></button>
+    </div>
   </section>
 </div>
 
@@ -1491,6 +1616,34 @@
       <a class="house-banner-link house-cta" data-banner-id="export-complete" href="https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&amp;utm_source=blog&amp;utm_medium=tool&amp;utm_campaign=latexflow-web&amp;utm_content=export-complete" target="_blank" rel="noopener">Install the add-on <i class="ti ti-arrow-up-right" aria-hidden="true"></i></a>
       <a class="house-banner-link house-sub" data-banner-id="export-complete-guide" href="https://mathsystem.dev/latexflow/export/" target="_blank" rel="noopener">How Export works →</a>
     </div>
+  </div>
+</dialog>
+
+<!-- .tex → Word fake door (R206) — 알림 신청 팝업. 제출은 Google Form 으로 백그라운드 전송 (TD_FORM) -->
+<dialog id="td-modal" aria-labelledby="td-title" aria-describedby="td-body">
+  <div class="td-inner">
+    <button type="button" class="td-x" aria-label="Close"><i class="ti ti-x" aria-hidden="true"></i></button>
+    <span class="td-eyebrow"><span class="td-caps">Coming soon</span> · .tex to Word</span>
+    <h2 class="td-title" id="td-title">Get notified when it's ready</h2>
+    <p class="td-body" id="td-body">Your co-author only uses Word? Turn your <code>.tex</code> into a Word file they can edit — without retyping a single equation.</p>
+    <form id="td-form" novalidate>
+      <label class="td-field">Email
+        <input type="email" id="td-email" name="email" autocomplete="email" placeholder="you@university.edu" required maxlength="254" />
+      </label>
+      <fieldset>
+        <legend>What would you convert? <span class="td-opt">(optional)</span></legend>
+        <div class="td-chips">
+          <label class="td-chip"><input type="checkbox" name="use" value="A journal paper" /><span>A journal paper</span></label>
+          <label class="td-chip"><input type="checkbox" name="use" value="A thesis" /><span>A thesis</span></label>
+          <label class="td-chip"><input type="checkbox" name="use" value="Homework or notes" /><span>Homework or notes</span></label>
+          <label class="td-chip"><input type="checkbox" name="use" value="Something else" /><span>Something else</span></label>
+        </div>
+      </fieldset>
+      <label class="td-consent"><input type="checkbox" id="td-consent" required /><span>Notify me once when the .tex to Word converter is ready. LaTeXFlow (Math System) will use this email only for that notice — no other emails. You can ask us to delete it at any time. <a href="https://mathsystem.dev/latexflow/privacy/" target="_blank" rel="noopener">Privacy Policy</a></span></label>
+      <p class="td-msg" id="td-msg" role="status" aria-live="polite"></p>
+      <button type="submit" class="btn-primary td-submit">Notify me</button>
+    </form>
+    <p class="td-thanks" id="td-thanks" hidden><i class="ti ti-circle-check" aria-hidden="true"></i> Thanks — we'll email you once when it's ready.</p>
   </div>
 </dialog>
 
@@ -3719,6 +3872,116 @@ function submitWebPair(latex, pngB64, type) {
     console.debug('collect submit skipped:', err && err.message);
   }
 }
+
+/* ============================================================
+ * .tex → Word fake door (R206) — 관심 클릭 → 알림 신청 팝업 → Google Form 백그라운드 전송.
+ * 계획: docs/technical_guide/tex_to_docx_web_plan.md §5-1. 제품은 아직 없다.
+ * - 이메일은 우리 페이지에서 받고, Google Form(formResponse)에 no-cors POST 로만 보낸다.
+ *   응답은 opaque 라 저장 여부를 읽을 수 없다 — 네트워크 실패만 에러로 보인다.
+ * - GA4 에는 이메일을 절대 보내지 않는다 (R220 지표, .tmp/r220_metrics.md):
+ *   tex2docx_door_view {placement, source}  — 버튼이 50% 이상 보일 때, 페이지 로드당 위치별 1회 (노출)
+ *   tex2docx_interest_click {placement, where, source} — 버튼 클릭 또는 딥링크(#tex2docx-notify, placement=deeplink)
+ *   tex2docx_notify {placement, where, source, use_count, uses} — uses = journal,thesis,homework,other 코드만
+ *   where 는 R206 이름, placement 와 같은 값 (기존 보고서 호환).
+ * - Form 질문을 고치면 entry ID 가 바뀔 수 있다 → TD_FORM 을 같이 갱신 (.tmp/r206_fake_door.md).
+ * ========================================================== */
+const TD_FORM = {
+  action: 'https://docs.google.com/forms/d/e/1FAIpQLSfd6yk0-8bv5BQjYcLdI-dJPRTF_b2mg2Q97cO6wLUHQvt3Jg/formResponse',
+  email: 'entry.1760943738',
+  use: 'entry.586595424',
+  consent: 'entry.627341080',
+  consentValue: 'I agree',
+};
+let tdWhere = '';
+const TD_HASH = '#tex2docx-notify';
+const TD_USE_CODES = { 'A journal paper': 'journal', 'A thesis': 'thesis', 'Homework or notes': 'homework', 'Something else': 'other' };
+// 유입 출처: utm_source 우선, 없으면 다른 사이트 referrer 의 호스트, 둘 다 없으면 (direct)
+const tdSource = (() => {
+  try {
+    const utm = new URLSearchParams(location.search).get('utm_source');
+    if (utm) return utm.slice(0, 100);
+    if (document.referrer) {
+      const host = new URL(document.referrer).hostname;
+      if (host && host !== location.hostname) return host;
+    }
+  } catch (e) { /* 잘못된 referrer → direct */ }
+  return '(direct)';
+})();
+function tdTrack(name, extra) {
+  if (typeof window.gtag !== 'function') return;
+  gtag('event', name, Object.assign({ page: 'latexflow-web', source: tdSource, transport_type: 'beacon' }, extra || {}));
+}
+const tdSeen = new Set();
+const tdObserver = ('IntersectionObserver' in window)
+  ? new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        const placement = en.target.dataset.where || '';
+        if (!en.isIntersecting || tdSeen.has(placement)) return;
+        tdSeen.add(placement);
+        tdObserver.unobserve(en.target);
+        tdTrack('tex2docx_door_view', { placement });
+      });
+    }, { threshold: 0.5 })
+  : null;
+(function wireTexDocxDoor() {
+  const dlg = document.getElementById('td-modal');
+  const form = document.getElementById('td-form');
+  if (!dlg || !form) return;
+  const email = document.getElementById('td-email');
+  const consent = document.getElementById('td-consent');
+  const msg = document.getElementById('td-msg');
+  const thanks = document.getElementById('td-thanks');
+  const submit = form.querySelector('.td-submit');
+  const setMsg = (text, isError) => { msg.textContent = text; msg.classList.toggle('is-error', !!isError); };
+
+  const openDoor = (placement) => {
+    tdWhere = placement;
+    tdTrack('tex2docx_interest_click', { placement, where: placement });
+    if (typeof dlg.showModal !== 'function' || dlg.open) return;
+    setMsg('', false);
+    dlg.showModal();
+    (thanks.hidden ? email : dlg.querySelector('.td-x')).focus();
+  };
+  document.querySelectorAll('.td-open').forEach((btn) => {
+    btn.addEventListener('click', () => openDoor(btn.dataset.where || ''));
+    if (tdObserver) tdObserver.observe(btn);
+  });
+  // 딥링크 /latexflow/web/#tex2docx-notify (utm 유무 무관) → 로드 시 팝업. 닫으면 해시를 지워 새로고침에 다시 안 뜬다.
+  const fromHash = () => { if (location.hash === TD_HASH) openDoor('deeplink'); };
+  fromHash();
+  window.addEventListener('hashchange', fromHash);
+  dlg.addEventListener('close', () => {
+    if (location.hash === TD_HASH) history.replaceState(null, '', location.pathname + location.search);
+  });
+  dlg.querySelector('.td-x').addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const addr = email.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(addr)) { setMsg('Please enter a valid email address.', true); email.focus(); return; }
+    if (!consent.checked) { setMsg('Please tick the box to agree to the one notice email.', true); consent.focus(); return; }
+    const uses = [...form.querySelectorAll('input[name="use"]:checked')].map((c) => c.value);
+    const body = new URLSearchParams();
+    body.append(TD_FORM.email, addr);
+    uses.forEach((u) => body.append(TD_FORM.use, u));
+    body.append(TD_FORM.consent, TD_FORM.consentValue);
+    submit.disabled = true;
+    setMsg('Sending…', false);
+    try {
+      await fetch(TD_FORM.action, { method: 'POST', mode: 'no-cors', credentials: 'omit', cache: 'no-store', body });
+      tdTrack('tex2docx_notify', { placement: tdWhere, where: tdWhere, use_count: uses.length,
+        uses: uses.map((u) => TD_USE_CODES[u] || 'other').join(',') });
+      form.hidden = true;
+      thanks.hidden = false;
+      dlg.querySelector('.td-x').focus();
+    } catch (err) {
+      setMsg("Couldn't send — please check your connection and try again.", true);
+    } finally {
+      submit.disabled = false;
+    }
+  });
+})();
 </script>
 </body>
 </html>
