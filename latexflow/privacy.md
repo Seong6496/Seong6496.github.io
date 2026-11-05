@@ -84,13 +84,13 @@ For the underlying Google services and their policies, see [Google API Services 
 
 ## 2d. Web App — Converter Waitlist (Optional) `[Web app]` {#waitlist}
 
-The Web app shows a **".tex to Word with editable equations"** button marked **soon**. That converter is not available yet; the button opens a short form where you can ask to be told when it is. Nothing is collected unless you fill in the form and press Submit.
+The Web app shows a **".tex to Word with editable equations"** button marked **soon**. That converter is not available yet; the button opens a short form where you can ask for progress updates until it launches. Nothing is collected unless you fill in the form and press Submit.
 
 - **What is collected** — the **email address** you type, and, only if you tick them, your answers to **"What would you convert?"** (journal paper, thesis, homework or notes, other). Nothing from any document you converted on the page is included.
-- **Purpose** — to send you **one email when the .tex to Word converter is ready**. We do not use the address for anything else, do not send other emails, and do not add it to any mailing list.
+- **Purpose** — to send you **progress updates on the .tex to Word converter until it launches, and the launch notice** (a few emails in total). Every email has an unsubscribe link. We do not use the address for anything else and do not add it to any other mailing list.
 - **Where it is stored** — your browser sends the form directly to **Google Forms**, and the responses are kept in the developer's own Google account. Google processes them under [Google's Privacy Policy](https://policies.google.com/privacy). No third party receives the address.
-- **Retention** — the address is deleted after the notice has been sent, or within 12 months if the converter has not launched by then.
-- **Deletion** — email `mathfolis.support@gmail.com` from the address you signed up with, and we will delete it.
+- **Retention** — the address is deleted when you unsubscribe, after the launch notice has been sent, or within 12 months if the converter has not launched by then.
+- **Deletion** — use the unsubscribe link in any email, or email `mathfolis.support@gmail.com` from the address you signed up with, and we will delete it.
 
 ---
 
