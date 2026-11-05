@@ -74,7 +74,7 @@ When we started measuring, 79.7% of the labels came out with LaTeX's number. Sin
 | Nov 5 | Theorems that share a counter through a chain of other theorems, an appendix written as its own block, and author commands that hide part of the text | 96.5% |
 | Nov 5 | A reference right after a theorem or a figure group points at the right one again, lists numbered like (i), (ii) or with text around the number, and a label name used twice resolves the way LaTeX resolves it | 97.2% |
 | Nov 5 | A figure or table with an empty caption still takes its number, and a list that changes its own numbering style before the first item keeps it | 97.4% |
-| Nov 5 | Figure-like blocks that an author defines (charts, listings, boxes) keep their own names and numbers, and text the author switched off in the source is skipped the way LaTeX skips it | 97.7% |
+| Nov 5 | Figure-like blocks that an author defines with their own name keep that name and their own numbers, and text the author switched off in the source is skipped the way LaTeX skips it | 97.7% |
 
 ![Line chart of the share of labels whose number matches LaTeX's own on 144 arXiv papers. It starts at 79.7%, climbs through 7 changes to 92.1% at the end of the first round on November 4, then through 10 more changes to 97.7% on November 5.](/assets/img/posts/2026-11-15-equation-numbers-latex-to-word/02-progress.png){: width="720" }
 _The same log as a chart. Each dot is one change, re-measured on all 144 papers. Latest (November 5): 97.7% of about 9,500 labels match LaTeX's `.aux`._
