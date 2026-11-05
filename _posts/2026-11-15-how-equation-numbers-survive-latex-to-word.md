@@ -80,6 +80,6 @@ One thing to keep in mind about these numbers: they are development numbers, mea
 
 The number keeps moving; the work on the long tail is going on as you read this. The next post shows the page itself: upload a `.tex`, read the report of anything that needs a look, and see the first pages of your Word document before you download it. That is coming later this month.
 
-If you want to know when you can try it, leave your email. We will write once, when it is ready.
+If you want to know when you can try it, leave your email and we will let you know.
 
 **[Get notified when it's ready →](/latexflow/web/?utm_source=blog&utm_medium=post&utm_campaign=tex2docx_waitlist#tex2docx-notify)**
