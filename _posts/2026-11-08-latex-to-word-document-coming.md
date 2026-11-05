@@ -1,6 +1,6 @@
 ---
 title: "LaTeX to Word Document Without Retyping: Equation Numbers and References That Still Work"
-date: 2026-11-29 09:00:00 +0900
+date: 2026-11-08 09:00:00 +0900
 lang: en
 locale: en_US
 permalink: /blog/en/posts/latex-to-word-document-coming/
@@ -11,7 +11,6 @@ pin: false
 description: "Your paper is in LaTeX, and your co-author, supervisor or journal only works in Word. We are building a converter that turns a .tex file into a Word document they can edit: editable equations, equation numbers and cross-references that stay right and update in Word, citations resolved, and a report of anything that needs a look. What it does, what we measured on 144 arXiv papers, and how to get notified when it is ready."
 ---
 
-<!-- DRAFT (R219, 2026-11-04). Teaser for the coming .tex -> Word converter. Publish only after the fake door (waitlist modal) is live on /latexflow/web/ and the #tex2docx-notify anchor opens it (R220). Numbers: addon repo .tmp/r210_p1_phase1.md (R210, 144 papers with a LaTeX .aux answer key; Word open = 150/150) and .tmp/r209_differentiator_proof.md. User rules: no competitor or product names (the alternative is "the usual free route"); no price words; no limitation list; nothing beyond the first release (single .tex). Date is a placeholder (11-27 is held by draft-r201). -->
 
 Your paper is written in LaTeX. Your co-author, your supervisor or the journal works in Word. So someone has to turn the `.tex` into a `.docx`, and then someone spends an evening fixing what the conversion broke: equation numbers that disappeared, "see (3)" pointing at nothing, theorems without numbers, citations left as bare keys.
 
