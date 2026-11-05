@@ -5,7 +5,7 @@ permalink: /latexflow/privacy/
 description: How LaTeXFlow (Google Docs™ Add-on and Web app) handles your data.
 ---
 
-*Last updated: 2026-11-03*
+*Last updated: 2026-11-05*
 
 > 📋 **Site-wide privacy** (cookies, advertising, third-party services on the blog and tool pages): [mathsystem.dev/blog/privacy/](/blog/privacy/). This page covers **only the LaTeXFlow tool itself** (Add-on permissions, Web app data processing).
 
@@ -79,6 +79,18 @@ The Web app provides an optional **"Import from Google Drive"** button alongside
 - **Revoking access** — You can revoke the Web app's Drive access at any time at [myaccount.google.com/permissions](https://myaccount.google.com/permissions).
 
 For the underlying Google services and their policies, see [Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy) and [Google's Privacy Policy](https://policies.google.com/privacy).
+
+---
+
+## 2d. Web App — Converter Waitlist (Optional) `[Web app]` {#waitlist}
+
+The Web app shows a **".tex to Word with editable equations"** button marked **soon**. That converter is not available yet; the button opens a short form where you can ask to be told when it is. Nothing is collected unless you fill in the form and press Submit.
+
+- **What is collected** — the **email address** you type, and, only if you tick them, your answers to **"What would you convert?"** (journal paper, thesis, homework or notes, other). Nothing from any document you converted on the page is included.
+- **Purpose** — to send you **one email when the .tex to Word converter is ready**. We do not use the address for anything else, do not send other emails, and do not add it to any mailing list.
+- **Where it is stored** — your browser sends the form directly to **Google Forms**, and the responses are kept in the developer's own Google account. Google processes them under [Google's Privacy Policy](https://policies.google.com/privacy). No third party receives the address.
+- **Retention** — the address is deleted after the notice has been sent, or within 12 months if the converter has not launched by then.
+- **Deletion** — email `mathfolis.support@gmail.com` from the address you signed up with, and we will delete it.
 
 ---
 
