@@ -30,6 +30,16 @@ A LaTeX paper is more than text and formulas. Much of what makes it a paper is *
 
 The usual free route — an open-source converter at its default settings — moves the text and most of the formulas across, but it does not run LaTeX's numbering. In our test it kept almost none of these numbers. Your co-author opens a document where "by (2.4)" no longer points at equation (2.4), and the fixing starts.
 
+Here is one passage from one of the arXiv papers we tried, converted both ways and opened in Microsoft Word.
+
+![The same paragraph of a mathematics paper opened in Microsoft Word, twice. Top, the usual free route: the displayed equation is left as LaTeX source starting with dollar signs and begin equation, the reference to it reads "([expansion])", and the citations are missing, leaving "obtained in  through" and "the method in ." Bottom, LaTeXFlow (coming): the equation is typeset with the number (1.1) at the right margin, the text reads "weak formulation of (1.1)", and the citations read [9] and [1, 7, 17, 18]. A dashed line in each panel marks a page break.](/assets/img/posts/2026-11-29-latex-to-word-document-coming/01-equation-references-citations.png){: width="720" }
+_The same passage, both files opened in Word. The usual free route leaves the equation as LaTeX source, prints the reference to it as its label name, and drops the citations. Ours prints equation (1.1), the reference "(1.1)" and the citations [9] and [1, 7, 17, 18]. The dashed line is a page break._
+
+Theorems show the same pattern.
+
+![A theorem from the same paper opened in Microsoft Word, twice. Top, the usual free route: it is headed "Theorem 1", part of its statement is raw LaTeX source, and its three inequalities run inline with no numbers. Bottom, LaTeXFlow (coming): it is headed "Theorem 1.1", the three inequalities are displayed with the numbers (1.2), (1.3) and (1.4), and the remark below refers to "Theorem 1.1".](/assets/img/posts/2026-11-29-latex-to-word-document-coming/02-theorem-numbers.png){: width="720" }
+_The paper's Theorem 1.1. The usual free route numbers it "Theorem 1", leaves part of the statement as LaTeX source, and its three inequalities have no numbers. Ours keeps "Theorem 1.1", the equation numbers (1.2)–(1.4), and the mention of Theorem 1.1 in the remark that follows._
+
 ## 2. What is coming
 
 A converter in your browser, from a `.tex` file to a Word `.docx`:
@@ -39,6 +49,11 @@ A converter in your browser, from a `.tex` file to a Word `.docx`:
 - **Theorem numbers**, figure and table captions, and section numbers, counted the way LaTeX counts them.
 - **Citations resolved** against your bibliography, with the reference list at the end.
 - **A report of anything that needs a look**: an undefined reference, a citation it could not find, an environment it could not convert. Each one is also marked in the document itself, so nothing goes missing quietly.
+
+Press Alt+F9 in Word and you can see the fields behind the passage from section 1.
+
+![The LaTeXFlow (coming) version of the same passage in Microsoft Word with field codes shown: the equation number appears as SEQ H1 and SEQ Equation fields, the references to the equation and to Section 5 appear as REF fields, and each citation appears as a HYPERLINK field pointing at a bookmark in the reference list.](/assets/img/posts/2026-11-29-latex-to-word-document-coming/03-field-codes.png){: width="720" }
+_The same passage with Word's field codes shown (Alt+F9). The equation number is built from SEQ fields, the references to the equation and to Section 5 are REF fields, and each citation links to its entry in the reference list. Alt+F9 again switches back._
 
 The first release takes a single `.tex` file, with your `.bib` or `.bbl` if you have one. Overleaf projects (a `.zip` with figures) are planned next. The conversion runs in your browser.
 
