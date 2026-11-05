@@ -5,7 +5,7 @@ permalink: /latexflow/privacy/
 description: How LaTeXFlow (Google Docs™ Add-on and Web app) handles your data.
 ---
 
-*Last updated: 2026-11-03*
+*Last updated: 2026-11-05*
 
 > 📋 **Site-wide privacy** (cookies, advertising, third-party services on the blog and tool pages): [mathsystem.dev/blog/privacy/](/blog/privacy/). This page covers **only the LaTeXFlow tool itself** (Add-on permissions, Web app data processing).
 
@@ -84,7 +84,7 @@ For the underlying Google services and their policies, see [Google API Services 
 
 ## 2d. Web App — Converter Waitlist (Optional) `[Web app]` {#waitlist}
 
-The Web app shows a **"Convert a .tex / Overleaf project to Word (beta)"** button. That converter is not available yet; the button opens a short form where you can ask to be told when it is. Nothing is collected unless you fill in the form and press Submit.
+The Web app shows a **".tex to Word with editable equations"** button marked **soon**. That converter is not available yet; the button opens a short form where you can ask to be told when it is. Nothing is collected unless you fill in the form and press Submit.
 
 - **What is collected** — the **email address** you type, and, only if you tick them, your answers to **"What would you convert?"** (journal paper, thesis, homework or notes, other). Nothing from any document you converted on the page is included.
 - **Purpose** — to send you **one email when the .tex to Word converter is ready**. We do not use the address for anything else, do not send other emails, and do not add it to any mailing list.
