@@ -70,12 +70,13 @@ When we started measuring, 79.7% of the labels came out with LaTeX's number. Sin
 | Nov 5 | Equations grouped as 2a, 2b, 2c, and counters changed or an appendix started in the middle of a paragraph | 94.7% |
 | Nov 5 | Pseudo-code blocks with numbered lines: each line gets its number, and a reference to a line points at it | 95.3% |
 | Nov 5 | Section numbering depth changed in the middle of a paper, and a figure made of sub-figures with no caption of its own still takes its number | 96.1% |
+| Nov 5 | Pseudo-code written in the other common style gets numbered lines too, counted the way LaTeX counts them | 96.3% |
 
-![Line chart of the share of labels whose number matches LaTeX's own on 144 arXiv papers. It starts at 79.7%, climbs through 7 changes to 92.1% at the end of the first round on November 4, then through 5 more changes to 96.1% on November 5.](/assets/img/posts/2026-11-15-equation-numbers-latex-to-word/02-progress.png){: width="720" }
-_The same log as a chart. Each dot is one change, re-measured on all 144 papers. Latest (November 5): 96.1% of about 9,500 labels match LaTeX's `.aux`._
+![Line chart of the share of labels whose number matches LaTeX's own on 144 arXiv papers. It starts at 79.7%, climbs through 7 changes to 92.1% at the end of the first round on November 4, then through 6 more changes to 96.3% on November 5.](/assets/img/posts/2026-11-15-equation-numbers-latex-to-word/02-progress.png){: width="720" }
+_The same log as a chart. Each dot is one change, re-measured on all 144 papers. Latest (November 5): 96.3% of about 9,500 labels match LaTeX's `.aux`._
 <!-- log:end -->
 
-The first round was the common machinery. Everything after it is the long tail: constructs that only some papers use, each worth between about fifty and a hundred labels across the 144 papers. None of them has needed anything Word can't hold. They need the counting to be read more carefully, one construct at a time.
+The first round was the common machinery. Everything after it is the long tail: constructs that only some papers use, each worth somewhere between twenty and a hundred labels across the 144 papers. None of them has needed anything Word can't hold. They need the counting to be read more carefully, one construct at a time.
 
 One thing to keep in mind about these numbers: they are development numbers, measured on the papers we work with. Before the converter goes live we will run it on papers it has never seen, and that is the number we will stand behind.
 
