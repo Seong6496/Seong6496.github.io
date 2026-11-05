@@ -11,7 +11,7 @@ pin: false
 description: "Word has no idea what equation (2.4) is. To turn a LaTeX paper into a Word document whose numbers and references still work, the converter has to rebuild what LaTeX computes as Word fields. How we build it, how we score it against LaTeX's own answer key on 144 arXiv papers, and where the number stands now."
 ---
 
-<!-- R225 (2026-11-05). Launch sequence post 2 of 4 (plan: addon repo docs/marketing_docs/tex2docx_launch_sequence_2026-11-05.md). Numbers: addon repo .tmp/r210_p1_phase1.md (R209 baseline 79.7%, R210 92.1%, G2 Word check, free-route row) and .tmp/r222/progress.md; section 3 log is generated from addon .tmp/r225/log.json by .tmp/r225/build.py (R227). Rules: no competitor or product names, no price, no limitation list, no release date. -->
+<!-- R225 (2026-11-05). Launch sequence post 2 of 4 (plan: addon repo docs/marketing_docs/tex2docx_launch_sequence_2026-11-05.md). Numbers: addon repo .tmp/r210_p1_phase1.md (R209 baseline 79.7%, R210 92.1%, G2 Word check (field count from .tmp/r222_p1_phase2.md final run), free-route row) and .tmp/r222/progress.md; section 3 log is generated from addon .tmp/r225/log.json by .tmp/r225/build.py (R227). Rules: no competitor or product names, no price, no limitation list, no release date. -->
 
 In [the last post](/blog/en/posts/latex-to-word-document-coming/) we showed one passage of a paper converted to Word two ways: once by the usual free route, where "(1.1)" turned into "([expansion])" and the citations vanished, and once by the converter we are building, where every number was where the PDF puts it.
 
@@ -53,7 +53,7 @@ So the test goes like this:
 2. **Compile each one with pdflatex** and keep its `.aux`.
 3. **Convert each `.tex` to `.docx`**, without looking at the `.aux`. The converter has to do the counting itself.
 4. **Compare every number one by one**: each label, each printed reference, each theorem, each caption, each citation, against the `.aux`. About 9,500 labels in all.
-5. **Open every output in Microsoft Word.** In our last full check, all 150 documents we converted opened without a repair prompt, and when Word updated all 58,742 fields, not one equation number or reference changed. What you see when you open the file is what Word itself computes.
+5. **Open every output in Microsoft Word.** In our last full check, all 150 documents we converted opened without a repair prompt, and when Word updated all 59,382 fields, not one equation number or reference changed. What you see when you open the file is what Word itself computes.
 
 The usual free route goes through the same answer key, measured the same way. On it, the free route matched none of the labelled equation numbers, and printed 18% of the references right, all of them as plain text.
 
