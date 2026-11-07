@@ -1,0 +1,62 @@
+% LaTeX worksheet / exam template - mathsystem.dev
+% Made from a LaTeXFlow Export of a Google Docs(TM) worksheet
+% (https://mathsystem.dev/blog/en/posts/google-docs-worksheet-to-latex-overleaf/),
+% with the changes from section 5 of that post applied by hand:
+% unnumbered headings and answer space after each question.
+% Replace the title, instructions and questions with your own; compile with pdfLaTeX.
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+
+% Answer space after each question. Make it larger or smaller here.
+\newcommand{\answerspace}{\vspace{3cm}}
+
+\begin{document}
+
+\section*{Worksheet 3: Quadratic Functions}
+
+Name: \rule{6cm}{0.4pt} \hfill Date: \rule{3cm}{0.4pt}
+
+\medskip
+
+Answer every question in the space below it and show your working. Calculators are not allowed. You may use the two formulas below.
+
+The quadratic formula:
+\[
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+\]
+The discriminant:
+\[
+\Delta = b^2 - 4ac
+\]
+\subsection*{Questions}
+
+\begin{enumerate}
+  \item Solve $x^2 - 5x + 6 = 0$ by factoring.
+  \answerspace
+  \item Find the vertex of $y = 2x^2 - 8x + 3$.
+  \answerspace
+  \item For which values of $k$ does $x^2 + kx + 9 = 0$ have exactly one real root?
+  \answerspace
+  \item Show that $\Delta < 0$ for $3x^2 + 2x + 1 = 0$, and say what this means for the graph.
+  \answerspace
+  \item Complete the table below for $f(x) = x^2 - 2x$.
+\end{enumerate}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$x$ & $-1$ & $0$ & $1$ & $2$ & $3$ \\
+\hline
+$f(x)$ & $3$ &  &  & $0$ &  \\
+\hline
+\end{tabular}
+\end{center}
+
+\bigskip
+
+Bonus: prove that the sum of the roots of $ax^2 + bx + c = 0$ is $-\frac{b}{a}$.
+
+\end{document}
