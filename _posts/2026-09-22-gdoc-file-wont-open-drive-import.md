@@ -11,6 +11,8 @@ pin: false
 description: "A downloaded .gdoc is a 1 KB pointer, not a document, so no tool can open it. Import from Google Drive fetches the real file: how it works, which formats."
 ---
 
+A `.gdoc` file will not open in any tool because it is a link to the document, not the document. Use **Import from Google Drive** instead: it fetches the real file as `.docx`, with access to only the one file you pick.
+
 You wanted to convert the maths notes you wrote in Google Docs, so you downloaded the file. What arrived looks like this:
 
 ```

@@ -11,6 +11,7 @@ pin: false
 description: "Converting a LaTeX paper to Word loses equation numbers and cross-references. We are building a .tex to .docx converter that keeps them. Get notified."
 ---
 
+Converting a LaTeX paper to Word with the usual free routes keeps the text and most equations, but equation numbers, cross-references, theorem numbers and citations often come out broken or missing. We are building a `.tex` to `.docx` converter that keeps them working.
 
 Your paper is written in LaTeX. Your co-author, your supervisor or the journal works in Word. So someone has to turn the `.tex` into a `.docx`, and then someone spends an evening fixing what the conversion broke: equation numbers that disappeared, "see (3)" pointing at nothing, theorems without numbers, citations left as bare keys.
 

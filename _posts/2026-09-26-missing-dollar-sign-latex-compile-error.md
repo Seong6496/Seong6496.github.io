@@ -11,6 +11,8 @@ pin: false
 description: "The error points at the line where LaTeX gave up, not at the mistake. Why one unclosed dollar sign cascades, and how to find it before you compile."
 ---
 
+`Missing $ inserted` points at the line where LaTeX gave up, not at the mistake. Look above it: count the dollar signs paragraph by paragraph, and the paragraph with an odd count holds the unclosed delimiter.
+
 Hours before a deadline, `pdflatex` stops with this:
 
 ```

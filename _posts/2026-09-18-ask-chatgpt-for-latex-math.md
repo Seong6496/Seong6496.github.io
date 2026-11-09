@@ -11,6 +11,8 @@ pin: false
 description: "Ask ChatGPT for dollar-sign LaTeX before it answers and its math pastes cleanly. Which delimiters survive copying, and how to rescue an answer you have."
 ---
 
+To get chatbot math you can paste into a document, set the format before it answers: ask for every formula in LaTeX, with `$...$` for inline maths and `$$...$$` for display. The exact prompt line, and why it has that shape, are below.
+
 You asked a chatbot for some maths problems, copied the answer, and pasted it into a document. On screen the fractions and integral signs were immaculate. In the document you have this:
 
 ```

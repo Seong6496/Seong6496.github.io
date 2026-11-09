@@ -11,6 +11,8 @@ pin: false
 description: "ChatGPT math pasted into Word arrives in four shapes: square brackets, bare parentheses, broken rows, or dollar signs. How to tell them apart and fix each."
 ---
 
+ChatGPT math pasted into Word often arrives as LaTeX in bare square brackets, because the chat window drops the outer backslashes of `\[ … \]`. That damage is recoverable: LaTeXFlow's bracket mode reads those brackets as equations. It is on by default in the web app and off by default in the Google Docs™ add-on.
+
 You asked ChatGPT for twenty AP Calculus BC practice problems, copied the answer, and pasted it into a Word document. On screen the equations were rendered beautifully. In the document they look like this:
 
 ```

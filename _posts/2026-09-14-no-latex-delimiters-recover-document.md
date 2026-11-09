@@ -11,6 +11,8 @@ pin: false
 description: "Zero equations found almost always means the document has no LaTeX delimiters. How detection decides, what the zero-result screen offers, and the fix."
 ---
 
+If a scan reports 0 equations in a document full of maths, the maths is almost certainly not wrapped in LaTeX delimiters such as `$…$` or `$$…$$`. Open one of the candidate paragraphs the zero-result screen lists, wrap its maths in delimiters, and use the live preview to confirm the count before saving.
+
 The file opened. There was no error. And the review screen says **0 equations**.
 
 If the document is full of mathematics, there is almost always one cause: the maths in it is **not wrapped in LaTeX delimiters**. The tool did not fail to read your document — nothing in it was ever defined as an equation to read.

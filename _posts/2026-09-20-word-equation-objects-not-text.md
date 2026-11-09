@@ -11,6 +11,8 @@ pin: false
 description: "A Word equation-editor equation is an object in the .docx, not text, so no delimiter reaches it. What the file stores, how to tell, and how to convert it."
 ---
 
+A converter finds no equations in a Word file when they were built with Word's equation editor: those are equation objects inside the `.docx`, not text, so no LaTeX delimiter can reach them. For a few, switch them to LaTeX with Word's own LaTeX notation; for many, run the document through a converter once.
+
 You uploaded a Word document with about twenty equations in it to the [web app](/latexflow/web/), and got this:
 
 ```
