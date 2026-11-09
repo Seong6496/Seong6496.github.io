@@ -15,7 +15,8 @@ layout: compress
   {% endif %}
 {% endcapture %}
 
-<html lang="{{ site.lang }}"{{ prefer_mode }}>
+{% comment %} page.lang: 영어 글·/blog/en/ 페이지는 en (_plugins/page-language.rb). 나머지는 site.lang {% endcomment %}
+<html lang="{{ page.lang | default: site.lang }}"{{ prefer_mode }}>
 
   {% include head.html %}
 
