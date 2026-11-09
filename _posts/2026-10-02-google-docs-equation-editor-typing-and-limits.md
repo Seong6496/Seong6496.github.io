@@ -156,7 +156,7 @@ For a piecewise function, the whole job is four steps:
 3. On the **Scan** tab, press **Scan Document** and check the preview on the card.
 4. Press **Insert into Docs** on that card, or **Convert All** for every equation in the document.
 
-The install-to-first-equation walkthrough, consent screen included, is in [How to Use LaTeX in Google Docs™](/blog/en/posts/convert-latex-in-google-docs/).
+The install-to-first-equation walkthrough, consent screen included, is in [how to convert LaTeX to equations in Google Docs™](/blog/en/posts/convert-latex-in-google-docs/).
 
 A reasonable division of labour, then: the native editor for the things it does well — Greek letters, fractions, roots, sums and integrals with limits, typed fast with backslash names and Tab — and LaTeX text plus a converter for the four things it cannot build.
 

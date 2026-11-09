@@ -206,4 +206,4 @@ It has to be a `.docx`. Word is the usual source, but a Google Docs document dow
 
 - Not sure which delimiter to use where → [the four delimiters, and which is safe where](/blog/en/posts/latex-math-delimiters-which-to-use/)
 - Nothing detected at all → [detected 0 equations](/blog/en/posts/no-latex-delimiters-recover-document/)
-- Working in Google Docs rather than a `.docx` → [how to convert LaTeX in Google Docs](/blog/en/posts/convert-latex-in-google-docs/)
+- Working in Google Docs rather than a `.docx` → [how to convert LaTeX to equations in Google Docs](/blog/en/posts/convert-latex-in-google-docs/)

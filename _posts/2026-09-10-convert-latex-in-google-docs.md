@@ -21,9 +21,9 @@ The area of a circle is $\pi r^2$, and $$\int_0^1 x^2\,dx = \frac{1}{3}$$.
 
 and you want it to look like an equation instead of a row of backslashes. Google Docs has no way to do that on its own — its own *Insert → Symbols → Equation* builds a different kind of object entirely, and it will not read your LaTeX.
 
-This is the whole path, once through: install, consent, scan, convert. About five minutes the first time, and roughly fifteen seconds every time after.
+This is the whole path, once through: install, consent, scan, convert. About five minutes the first time, and roughly fifteen seconds every time after. If what you have is a whole `.tex` file rather than LaTeX typed into a Doc, start with [how to get a LaTeX file into Google Docs™](/blog/en/posts/latex-file-into-google-docs-what-works-today/) instead.
 
-## 1. What you have, and what you want
+## 1. LaTeX text in, equations out: what you need first
 
 Two things have to be true before any of this works.
 
@@ -40,7 +40,7 @@ Two things have to be true before any of this works.
 
 There is a fifth, optional one — a bare `[ … ]`, for text pasted out of a chatbot — which is off by default. More on that in section 8.
 
-## 2. Install from the Google Workspace Marketplace
+## 2. Install the LaTeX add-on from the Google Workspace Marketplace
 
 Install [LaTeXFlow from the Google Workspace Marketplace](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=convert-latex-in-google-docs). It is a Google Docs editor add-on, so it installs against your Google account rather than being downloaded to your machine.
 
@@ -94,7 +94,7 @@ Two things you can do to a card before converting:
 - **Click its LaTeX** to edit it in place. What gets converted is the edited value.
 - **Skip** it, if it is not really an equation. `$100` in a sentence about money will be picked up as an opening delimiter; skipping leaves the text alone.
 
-## 6. Converting the LaTeX you typed
+## 6. Converting LaTeX to equations
 
 Press **➕ Insert into Docs** on a single card and that equation is replaced, in place, by a rendered image.
 

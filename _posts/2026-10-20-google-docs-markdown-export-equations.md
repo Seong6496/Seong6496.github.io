@@ -119,6 +119,6 @@ So Markdown is not a round trip for equations in Docs: what goes out as `$…$` 
 
 ---
 
-- How the editor builds the equations that Download keeps → [How to Insert an Equation in Google Docs™: Shortcuts, LaTeX Commands, and the Four Things It Cannot Build](/blog/en/posts/google-docs-equation-editor-typing-and-limits/)
+- How the editor builds the equations that Download keeps → [How to Insert an Equation in Google Docs™ (With Shortcuts)](/blog/en/posts/google-docs-equation-editor-typing-and-limits/)
 - What the editor stores underneath → [What Google Docs' Equation Editor Actually Stores](/blog/en/posts/google-docs-equation-editor-internals/)
-- The other direction, a `.tex` file into Docs → [How to Convert a LaTeX File to Google Docs™: The Free Path and Full Import](/blog/en/posts/latex-file-into-google-docs-what-works-today/)
+- The other direction, a `.tex` file into Docs → [How to Get a LaTeX File Into Google Docs™](/blog/en/posts/latex-file-into-google-docs-what-works-today/)

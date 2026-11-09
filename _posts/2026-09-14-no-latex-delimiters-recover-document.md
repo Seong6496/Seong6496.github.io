@@ -225,4 +225,4 @@ Yes. Export opens as soon as at least one equation is selected. Candidates are s
 A document written with delimiters from the start never meets this screen. This flow exists for the documents you are handed, so that "it found nothing" comes with a next step attached.
 
 - Unsure which delimiter to use → [the four delimiters, and which is safe where](/blog/en/posts/latex-math-delimiters-which-to-use/)
-- Working inside Google Docs rather than a `.docx` → [how to convert LaTeX in Google Docs](/blog/en/posts/convert-latex-in-google-docs/)
+- Working inside Google Docs rather than a `.docx` → [how to convert LaTeX to equations in Google Docs](/blog/en/posts/convert-latex-in-google-docs/)

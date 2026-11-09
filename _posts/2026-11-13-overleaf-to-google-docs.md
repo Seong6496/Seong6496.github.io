@@ -90,7 +90,7 @@ Scan, Convert All and Revert are free. Import and Export are the paid part of La
 Not directly: Overleaf has no Google Docs™ export. Download the source as a `.zip` and import the `.tex` into Docs with an add-on (sections 1 and 2).
 
 **Is there a free way?**
-Yes, for the text and maths only: paste the body of each `.tex` into Docs and convert the equations with the free Scan. Headings, lists, tables and citations are then redone by hand. [How to Convert a LaTeX File to Google Docs™](/blog/en/posts/latex-file-into-google-docs-what-works-today/) walks that path.
+Yes, for the text and maths only: paste the body of each `.tex` into Docs and convert the equations with the free Scan. Headings, lists, tables and citations are then redone by hand. [How to get a LaTeX file into Google Docs™](/blog/en/posts/latex-file-into-google-docs-what-works-today/) walks that path.
 
 **Will the project still compile in Overleaf after editing in Docs?**
 Export writes the document back as a `.tex` with its bibliography, ready to open in Overleaf. What changes in a round trip is listed in [Docs → .tex → Docs](/blog/en/posts/google-docs-latex-round-trip/).
