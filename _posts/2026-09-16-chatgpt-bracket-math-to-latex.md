@@ -108,7 +108,7 @@ Open the [web app](/latexflow/web/) and there is a checkbox under the drop zone.
 
 ![The tool's first screen, showing the bracket mode checkbox](/assets/img/posts/2026-07-17/01-bracket-mode-option.png){: width="720" }
 
-*"Also detect bracket `[\...]` equations (common in AI chatbot output)"* — **on by default** in the web app. If you came here while cleaning up a chatbot answer, drop the file in without touching anything. Your file is read in the browser and is not uploaded to us.
+*"Also detect bracket `[\...]` equations (common in AI chatbot output)"* — **on by default** in the web app. If you came here while cleaning up a chatbot answer, drop the file in without touching anything. Your file is read in the browser and is not uploaded to us. The same web app works as a [LaTeX to Word equation converter](/blog/en/posts/latex-to-word-equation-converter/) for any `.docx` full of LaTeX, bracketed or not.
 
 Ticking it does not push `$…$` or `\[…\]` equations aside. The dollar scan, the backslash scan and the bracket scan each run and add their results to the same detection list, so a document mixing several forms gets all of them. It is an **additive** mode, not a replacement. That is also why the default is on — in a document with no bracket equations, leaving it on changes nothing at all.
 

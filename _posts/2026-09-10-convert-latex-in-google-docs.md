@@ -63,7 +63,7 @@ Four permissions in total, and it is worth knowing what each is for:
 | Connect to an external service | One server-side request: sending an opted-in equation to the collection endpoint |
 | Your email address | Read once, on the collection path, to derive an anonymous identifier |
 
-The first one is the important one. It is the `currentonly` form of document access, which means access to **any other document is impossible**, not merely unused. There is no permission here for your Drive or your other files.
+The first one is the important one. It is the `currentonly` form of document access, which means access to **any other document is impossible**, not merely unused. There is no permission here for your Drive or your other files. [What a Google Docs™ add-on can and cannot see](/blog/en/posts/google-docs-add-on-permissions-explained/) goes through every permission line by line, including how to revoke them.
 
 ## 4. Opening the sidebar
 
@@ -141,7 +141,7 @@ Note that this button wraps as inline `$…$` only. For display maths, type the 
 
 **④ A `$$…$$` split across paragraphs.** One paragraph is one scan unit, so an opening `$$` and a closing `$$` in different paragraphs never pair. Keep display maths in a single paragraph, using `Shift` + `Enter` if you need the line break visually.
 
-And if the maths came out of a chatbot as bare square brackets — `[\frac{1}{2}]` with the backslashes stripped — tick **`Also detect [ … ]`** and scan again. It is off by default in the add-on because a bracket in a document you are writing is more often prose than maths.
+And if the maths came out of a chatbot as bare square brackets — `[\frac{1}{2}]` with the backslashes stripped — tick **`Also detect [ … ]`** and scan again. It is off by default in the add-on because a bracket in a document you are writing is more often prose than maths. For a ChatGPT answer pasted straight into Google Docs™, [what the paste does to each kind of equation](/blog/en/posts/copy-latex-from-chatgpt-to-google-docs/) is measured in its own post.
 
 ## 9. FAQ
 

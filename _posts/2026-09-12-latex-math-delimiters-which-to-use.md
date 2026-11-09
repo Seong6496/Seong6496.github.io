@@ -132,7 +132,7 @@ LaTeXFlow reads all four — in both of its forms, the [web app](/latexflow/web/
 - In the **web app**, that paragraph is pulled out into an **ambiguity card** — `⚠ Odd number of $ — equation boundaries are ambiguous` — and nothing from it is converted until you deal with it. The card gives you two buttons, *Edit text* and *Skip*.
 - In the **add-on**, there is no such card and no odd/even logic at all. The regular expressions simply pair left to right. Take a sentence like `when the price rises by $5, demand is $x$` — the pairing starts at the currency symbol, so what gets captured as an equation is `5, demand is `, a stretch of prose, and the `$x$` you actually meant is missed. The card preview shows you the prose, so you can skip it.
 
-Escaping currency as `\$5` avoids this in both.
+Escaping currency as `\$5` avoids this in both. In a `.tex` file, an unpaired dollar sign shows up at compile time as `Missing $ inserted`, usually far below the real mistake; [finding the unclosed dollar sign](/blog/en/posts/missing-dollar-sign-latex-compile-error/) covers that case.
 
 **Overlap is resolved differently too.** In something like `$\(x\)$` the same span could be claimed twice.
 

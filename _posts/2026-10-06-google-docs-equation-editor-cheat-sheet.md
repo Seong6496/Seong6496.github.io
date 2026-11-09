@@ -155,7 +155,7 @@ The claim "every palette name is typeable" started as a spot check, so here is t
 - Function names are not on any dropdown, yet `\sin`, `\cos` and `\log` + Space convert to upright function names. `\vec`, `\hat`, `\bar` and `\binom` also convert. The full set of names that work without being on the palette has **not** been measured; assume nothing beyond these.
 - One account, one machine, English UI, September 2026. No Docs version number is exposed to check against.
 
-What the editor *stores* for these names is a separate question with a separate measurement: the symbol names come back from Apps Script as `EQUATION_SYMBOL` nodes carrying the same code, the twenty structures as `EQUATION_FUNCTION` nodes, and `\sin` as a symbol rather than three letters — [that post](/blog/en/posts/google-docs-equation-editor-internals/) has the trees.
+What the editor *stores* for these names is a separate question with a separate measurement: the symbol names come back from Apps Script as `EQUATION_SYMBOL` nodes carrying the same code, the twenty structures as `EQUATION_FUNCTION` nodes, and `\sin` as a symbol rather than three letters — [that post](/blog/en/posts/google-docs-equation-editor-internals/) has the trees. The same names are what you get back when you [download the document as Markdown](/blog/en/posts/google-docs-markdown-export-equations/): equation-editor equations come out as LaTeX between dollar signs.
 
 ## 6. When the list runs out
 
@@ -165,5 +165,5 @@ The way around is the same one the earlier post ends on: write those constructs 
 
 ---
 
-- How the editor behaves while you type, with screenshots → [How to Insert an Equation in Google Docs™: Shortcuts, LaTeX Commands, and the Four Things It Cannot Build](/blog/en/posts/google-docs-equation-editor-typing-and-limits/)
+- How the editor behaves while you type, with screenshots → [How to Insert an Equation in Google Docs™ (With Shortcuts)](/blog/en/posts/google-docs-equation-editor-typing-and-limits/)
 - What each of these names becomes in the document's structure → [What Google Docs' Equation Editor Actually Stores](/blog/en/posts/google-docs-equation-editor-internals/)

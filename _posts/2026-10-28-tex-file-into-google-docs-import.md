@@ -95,7 +95,7 @@ Each of these appears as a note in the pick summary before you press Import. The
 
 ## 6. Where it stops
 
-Import gets the text, the structure Docs can hold, and the equations in. It does not bring back what Docs has no place for: real footnotes, captions tied to their figure, cross-references that update, the figure files. The parts that need your hand are marked in the document itself — the bold placeholder lines, `[1]`, `[ref:…]`, `[@…]` — so you can find them by searching for `[`.
+Import gets the text, the structure Docs can hold, and the equations in. It does not bring back what Docs has no place for: real footnotes, captions tied to their figure, cross-references that update, the figure files. The parts that need your hand are marked in the document itself — the bold placeholder lines, `[1]`, `[ref:…]`, `[@…]` — so you can find them by searching for `[`. What does come back unchanged when a document goes from Docs to `.tex` and back is measured in [Google Docs™ to LaTeX and back](/blog/en/posts/google-docs-latex-round-trip/).
 
 - License keys: [LaTeXFlow store](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=tex-file-into-google-docs-import)
 - Activation, cancelling and refunds: [Export & Import guide](/latexflow/export/)

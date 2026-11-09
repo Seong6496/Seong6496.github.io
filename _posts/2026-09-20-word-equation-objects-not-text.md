@@ -176,7 +176,7 @@ Moving dozens of equations by hand is not realistic. For that, run the document 
 pandoc paper.docx -o paper.tex
 ```
 
-It is a command-line tool and needs installing, but against a document with dozens of objects there is no comparison with doing it by hand. From the converted output you can lift the equations back into the original document as text — or simply carry on in LaTeX.
+It is a command-line tool and needs installing, but against a document with dozens of objects there is no comparison with doing it by hand. From the converted output you can lift the equations back into the original document as text — or simply carry on in LaTeX. If you would rather not install anything, Google Docs™ can open the `.docx` and turn its Word equations into Docs equations, which then export as LaTeX: [Word to LaTeX by way of Google Docs™](/blog/en/posts/word-docx-to-latex-via-google-docs/).
 
 ### 8-3. Not writing them that way in the first place
 
@@ -192,7 +192,7 @@ A `.docx` exported by the tool has its equations as PNG images. Are those not al
 AIMATH_FORMULA::v1::\frac{1}{2}bh
 ```
 
-That tag is what makes this the opposite of an equation object. An object has no original LaTeX to recover — it was stored as an equation tree, so there is no source text to go back to. An exported image carries its source with it.
+That tag is what makes this the opposite of an equation object. An object has no original LaTeX to recover — it was stored as an equation tree, so there is no source text to go back to. An exported image carries its source with it. That is the format the [LaTeX to Word equation converter](/blog/en/posts/latex-to-word-equation-converter/) writes: one image per formula, with its LaTeX in the alt text. Going the other way, from a `.tex` file to a Word document whose equations stay editable, is what [our upcoming LaTeX to Word document converter](/blog/en/posts/latex-to-word-document-coming/) is for.
 
 ## 10. FAQ
 

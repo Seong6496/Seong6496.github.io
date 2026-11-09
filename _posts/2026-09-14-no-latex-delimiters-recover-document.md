@@ -118,7 +118,7 @@ Underneath the box is a **live preview**. Stop typing and the same three scanner
 Detected: 2 equations
 ```
 
-along with what each one was read as and how it renders. You can confirm the delimiters landed correctly **before** saving.
+along with what each one was read as and how it renders. You can confirm the delimiters landed correctly **before** saving. Close every `$` you open: in a `.tex` file, one unpaired dollar sign is enough to [stop the compile far from where the mistake is](/blog/en/posts/missing-dollar-sign-latex-compile-error/).
 
 > Editing replaces the whole paragraph with text. Bold, italics and colour on that paragraph are lost. The same warning sits above the edit box.
 {: .prompt-warning }

@@ -27,6 +27,8 @@ Scan is built for documents where the maths is already written as LaTeX text:
 
 If your equations were built with Word's own equation editor, they are already Word equations, and there is nothing to convert. Scan reads text only; it does not read Word equation objects. [Why that is](/blog/en/posts/word-equation-objects-not-text/).
 
+If you are starting from a `.tex` paper and need a Word document with editable equations, numbered equations and working cross-references, that is a different job: [a LaTeX to Word document converter](/blog/en/posts/latex-to-word-document-coming/) is in progress.
+
 ## 2. What it detects
 
 A formula is found when it sits inside one of these delimiters:

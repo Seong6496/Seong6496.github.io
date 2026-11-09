@@ -39,6 +39,8 @@ The keyboard route in Chrome on Windows is **Alt+I, then Y, then E**: Alt+I open
 
 Once a box exists, a second toolbar appears under the main one, labelled *New equation*, with five dropdowns: Greek letters (αβΔ), miscellaneous operations (×÷∃), relations (≤≠⊃), math operations (√()x) and arrows (←↑→). They are greyed out whenever the caret is outside an equation box. There is no dropdown for text mode, matrices or layout — which is the table above in toolbar form.
 
+On an iPad or a phone the Docs app cannot edit equations; Google's own help says to open the document on a computer. To get existing equations out of a Doc on an iPad, see [how to get equations out of Google Docs™ on an iPad](/blog/en/posts/ipad-google-docs-equations-to-latex/).
+
 ## 2. Backslash commands, and the key that actually converts them
 
 Inside the box you can type LaTeX-style names. The editor does not react while you type them:

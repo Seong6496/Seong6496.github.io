@@ -11,7 +11,7 @@ pin: false
 description: "Google Docs™ has no LaTeX download. LaTeXFlow Export writes a .tex you can download or open in Overleaf: one short document through every step, and back."
 ---
 
-Google Docs™ has no LaTeX export of its own: *File → Download* offers formats such as Word, PDF and Markdown, but not `.tex`. The LaTeXFlow add-on's **Export** writes the document as a `.tex` file — headings, lists and equations included — that you can download or open directly in Overleaf.
+Google Docs™ has no LaTeX export of its own: *File → Download* offers formats such as Word, PDF and Markdown, but not `.tex`. (What the Markdown download does to equations is [measured separately](/blog/en/posts/google-docs-markdown-export-equations/).) The LaTeXFlow add-on's **Export** writes the document as a `.tex` file — headings, lists and equations included — that you can download or open directly in Overleaf. A Word document can take the same route: [open the .docx in Google Docs™ first](/blog/en/posts/word-docx-to-latex-via-google-docs/), then export.
 
 This post follows one small document through every step of LaTeXFlow, from typing LaTeX in Google Docs™ to a downloaded `.tex` file and back again. Scan and Convert are free. Export and Import, on the **Export / Import** tab, need a license key. Each screenshot below was taken from the add-on as it is published on the Google Workspace Marketplace.
 
@@ -107,7 +107,7 @@ The heading and the bulleted list come in as a Docs heading and a Docs list. The
 
 ![The imported tab: Sample report as a heading, Introduction and Results as bullet points, and the three equation lines as LaTeX source text, with the sidebar showing 10 / 10 blocks written](/assets/img/posts/2026-10-21/09-import-result.png){: width="720" }
 
-That is by design: Import writes equations as LaTeX text, not as images, so they stay editable. To turn them into rendered equations, open the **Scan** tab in the imported tab and run **Scan Document** and **Convert All** again, as in step 2.
+That is by design: Import writes equations as LaTeX text, not as images, so they stay editable. To turn them into rendered equations, open the **Scan** tab in the imported tab and run **Scan Document** and **Convert All** again, as in step 2. Two real documents taken out to LaTeX and back, and what changed on the way, are in [what survives the round trip](/blog/en/posts/google-docs-latex-round-trip/).
 
 ## 6. Where to go next
 

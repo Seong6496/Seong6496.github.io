@@ -100,7 +100,7 @@ Import, on the **Export / Import** tab of LaTeXFlow, does most of section 4 for 
 
 Press **Import** and `\section` and `\subsection` become Docs headings, `itemize` becomes a bulleted list, and a `tabular` becomes a Docs table. Equations are written as LaTeX text, so the Scan and Convert All steps from section 2 turn them into images afterwards. A few things still change on the way in: a figure becomes a placeholder line, because the image file is not in the `.tex`; citations become `[@key]` markers; and Import reads one file, so it does not follow `\input` or a separate `.bib`. The free path above still works as described.
 
-Import is a paid feature. One real file taken through it part by part, with every screen, is in [You Received a .tex File: Editing It Together in Google Docs™](/blog/en/posts/tex-file-into-google-docs-import/); prices and licence keys are in the [Export & Import guide](/latexflow/export/#import).
+Import is a paid feature. One real file taken through it part by part, with every screen, is in [Edit a .tex File in Google Docs™ With Your Co-author](/blog/en/posts/tex-file-into-google-docs-import/); prices and licence keys are in the [Export & Import guide](/latexflow/export/#import). Taking an imported document back out to `.tex` is covered in [Google Docs™ to LaTeX and back](/blog/en/posts/google-docs-latex-round-trip/).
 
 ## 6. FAQ
 

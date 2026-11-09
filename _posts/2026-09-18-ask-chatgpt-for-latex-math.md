@@ -192,6 +192,8 @@ $$
 
 is three separate paragraphs as far as the tool is concerned, and the opening and closing `$$` never pair. Join it into one line and it works.
 
+In Google Docs™, the paste can also turn some equations into Docs equations by itself; [how to copy math from ChatGPT to Google Docs™](/blog/en/posts/copy-latex-from-chatgpt-to-google-docs/) shows which shapes it converts and which stay as LaTeX text.
+
 ## 9. Checking that the format took
 
 Whether your prompt worked is hard to judge by eye. Let the tool tell you. Upload the file and this line appears at the top:
