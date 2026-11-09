@@ -1,0 +1,57 @@
+# /blog/en/guides/ 의 주제별 묶음 (R236 #2). 항목 = 영어 글의 permalink.
+# 여기 없는 영어 글은 허브 맨 아래 "More guides" 에 자동으로 붙는다 — 새 글이 고아가 되지 않게.
+# 제목·설명은 글 front matter 에서 읽으므로 여기엔 permalink 만 둔다.
+
+- id: latex-in-google-docs
+  title: "LaTeX in Google Docs™"
+  intro: "Moving LaTeX into a Google Docs™ document and back out again: .tex files, Overleaf projects, the add-on, and what survives each trip."
+  posts:
+    - /blog/en/posts/latex-file-into-google-docs-what-works-today/
+    - /blog/en/posts/convert-latex-in-google-docs/
+    - /blog/en/posts/tex-file-into-google-docs-import/
+    - /blog/en/posts/overleaf-to-google-docs/
+    - /blog/en/posts/latexflow-export-import-walkthrough/
+    - /blog/en/posts/google-docs-worksheet-to-latex-overleaf/
+    - /blog/en/posts/google-docs-latex-round-trip/
+    - /blog/en/posts/latex-homework-template/
+    - /blog/en/posts/no-latex-delimiters-recover-document/
+    - /blog/en/posts/gdoc-file-wont-open-drive-import/
+    - /blog/en/posts/latexflow-version-16-faster-import-convert-all/
+    - /blog/en/posts/google-docs-add-on-permissions-explained/
+
+- id: equations-in-google-docs
+  title: "Equations in Google Docs™"
+  intro: "The built-in equation editor: what you can type into it, what it stores, and how to get those equations out on any device."
+  posts:
+    - /blog/en/posts/google-docs-equation-editor-typing-and-limits/
+    - /blog/en/posts/google-docs-equation-editor-cheat-sheet/
+    - /blog/en/posts/google-docs-equation-editor-internals/
+    - /blog/en/posts/ipad-google-docs-equations-to-latex/
+    - /blog/en/posts/google-docs-markdown-export-equations/
+
+- id: latex-and-word
+  title: "LaTeX ↔ Word"
+  intro: "Turning LaTeX into Word equations, a .docx into a .tex file, and choosing between the two for a thesis."
+  posts:
+    - /blog/en/posts/latex-to-word-document-coming/
+    - /blog/en/posts/latex-to-word-equation-converter/
+    - /blog/en/posts/word-docx-to-latex-via-google-docs/
+    - /blog/en/posts/word-equation-objects-not-text/
+    - /blog/en/posts/latex-vs-word-thesis/
+
+- id: chatgpt-and-ai-math
+  title: "ChatGPT and AI math"
+  intro: "Getting math out of ChatGPT and other chatbots in a form a document will accept."
+  posts:
+    - /blog/en/posts/ask-chatgpt-for-latex-math/
+    - /blog/en/posts/copy-latex-from-chatgpt-to-google-docs/
+    - /blog/en/posts/chatgpt-bracket-math-to-latex/
+
+- id: writing-latex
+  title: "Writing LaTeX math"
+  intro: "The LaTeX itself: equations, delimiters, multi-line layouts, and the compile errors they cause."
+  posts:
+    - /blog/en/posts/how-to-write-an-equation-in-latex/
+    - /blog/en/posts/latex-math-delimiters-which-to-use/
+    - /blog/en/posts/latex-equation-multiple-lines/
+    - /blog/en/posts/missing-dollar-sign-latex-compile-error/
