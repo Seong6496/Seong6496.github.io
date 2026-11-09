@@ -55,6 +55,16 @@
 
   {{ seo_tags }}
 
+  <!-- 한·영 쌍둥이 글의 hreflang. 두 글 모두 front matter 에
+       translations: { en: /blog/en/posts/<slug>/, ko: /blog/posts/<slug>/ } 를 갖는다.
+       양쪽이 같은 쌍을 내보내므로 상호 참조가 성립한다. x-default = 영어판. -->
+  {% if page.translations.en and page.translations.ko %}
+    {% assign _base = site.url | append: site.baseurl %}
+    <link rel="alternate" hreflang="en" href="{{ _base }}{{ page.translations.en }}">
+    <link rel="alternate" hreflang="ko" href="{{ _base }}{{ page.translations.ko }}">
+    <link rel="alternate" hreflang="x-default" href="{{ _base }}{{ page.translations.en }}">
+  {% endif %}
+
   <title>
   {%- unless page.layout == "home" -%}
     {{ page.title | append: " | "}}
