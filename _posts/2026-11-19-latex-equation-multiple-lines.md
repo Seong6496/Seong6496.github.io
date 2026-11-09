@@ -1,6 +1,7 @@
 ---
 title: "LaTeX Equation on Multiple Lines: align, split, multline"
 date: 2026-11-19 09:00:00 +0900
+translations: { en: /blog/en/posts/latex-equation-multiple-lines/, ko: /blog/posts/latex-long-equation-line-break/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/latex-equation-multiple-lines/

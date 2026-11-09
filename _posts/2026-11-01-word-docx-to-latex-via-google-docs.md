@@ -1,6 +1,7 @@
 ---
 title: "Word to LaTeX Converter: .docx to .tex via Google Docs™"
 date: 2026-11-01 09:00:00 +0900
+translations: { en: /blog/en/posts/word-docx-to-latex-via-google-docs/, ko: /blog/posts/word-docx-to-latex-google-docs/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/word-docx-to-latex-via-google-docs/

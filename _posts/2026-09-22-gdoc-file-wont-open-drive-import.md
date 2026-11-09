@@ -1,6 +1,7 @@
 ---
 title: "Your .gdoc File Won't Open: Use Google Drive Import Instead"
 date: 2026-09-22 09:00:00 +0900
+translations: { en: /blog/en/posts/gdoc-file-wont-open-drive-import/, ko: /blog/posts/latexflow-google-drive-import/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/gdoc-file-wont-open-drive-import/

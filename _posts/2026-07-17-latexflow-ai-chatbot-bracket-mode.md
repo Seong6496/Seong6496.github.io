@@ -1,6 +1,7 @@
 ---
 title: "AI 챗봇 답변의 [수식], docx 에 그대로 살리기 — bracket-mode 시연"
 date: 2026-07-17 09:00:00 +0900
+translations: { en: /blog/en/posts/chatgpt-bracket-math-to-latex/, ko: /blog/posts/latexflow-ai-chatbot-bracket-mode/ }
 categories: [LaTeXFlow, 사용법]
 tags: [latexflow, ai-chatbot, chatgpt, bracket-mode, markdown, 수식]
 math: true

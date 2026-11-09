@@ -1,6 +1,7 @@
 ---
 title: "LaTeX Missing $ Inserted: Find the Unclosed Dollar Sign"
 date: 2026-09-26 09:00:00 +0900
+translations: { en: /blog/en/posts/missing-dollar-sign-latex-compile-error/, ko: /blog/posts/latexflow-unclosed-dollar-sign/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/missing-dollar-sign-latex-compile-error/

@@ -1,6 +1,7 @@
 ---
 title: "Convert LaTeX to Equations in Google Docs™ With an Add-on"
 date: 2026-09-10 09:00:00 +0900
+translations: { en: /blog/en/posts/convert-latex-in-google-docs/, ko: /blog/posts/latexflow-addon-install-first-conversion/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/convert-latex-in-google-docs/

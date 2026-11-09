@@ -1,6 +1,7 @@
 ---
 title: "Word Equation Objects Are Not Text: Why Converters Find None"
 date: 2026-09-20 09:00:00 +0900
+translations: { en: /blog/en/posts/word-equation-objects-not-text/, ko: /blog/posts/word-equation-objects-not-text/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/word-equation-objects-not-text/

@@ -1,6 +1,7 @@
 ---
 title: "구글 문서로 만든 시험지·학습지, LaTeX 파일로 바꾸는 법"
 date: 2026-10-27 09:00:00 +0900
+translations: { en: /blog/en/posts/google-docs-worksheet-to-latex-overleaf/, ko: /blog/posts/google-docs-exam-worksheet-to-latex/ }
 categories: [LaTeXFlow, 사용법]
 tags: [latexflow, google-docs, latex, 시험지, 학습지, 단원평가, 객관식, kotex, overleaf]
 math: false

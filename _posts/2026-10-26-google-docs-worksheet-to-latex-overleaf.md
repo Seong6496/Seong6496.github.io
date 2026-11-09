@@ -1,6 +1,7 @@
 ---
 title: "Google Docs™ Worksheet to LaTeX and Overleaf, With Template"
 date: 2026-10-26 09:00:00 +0900
+translations: { en: /blog/en/posts/google-docs-worksheet-to-latex-overleaf/, ko: /blog/posts/google-docs-exam-worksheet-to-latex/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/google-docs-worksheet-to-latex-overleaf/

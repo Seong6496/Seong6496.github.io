@@ -1,6 +1,7 @@
 ---
 title: "Edit a .tex File in Google Docs™ With Your Co-author"
 date: 2026-10-28 09:00:00 +0900
+translations: { en: /blog/en/posts/tex-file-into-google-docs-import/, ko: /blog/posts/open-tex-file-in-google-docs/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/tex-file-into-google-docs-import/

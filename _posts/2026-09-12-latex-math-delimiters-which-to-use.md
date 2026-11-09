@@ -1,6 +1,7 @@
 ---
 title: "LaTeX Math Delimiters: Which of the Four to Use"
 date: 2026-09-12 09:00:00 +0900
+translations: { en: /blog/en/posts/latex-math-delimiters-which-to-use/, ko: /blog/posts/latex-math-delimiters-guide/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/latex-math-delimiters-which-to-use/

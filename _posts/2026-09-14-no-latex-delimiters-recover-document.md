@@ -1,6 +1,7 @@
 ---
 title: "0 Equations Detected: A Document With No LaTeX Delimiters"
 date: 2026-09-14 09:00:00 +0900
+translations: { en: /blog/en/posts/no-latex-delimiters-recover-document/, ko: /blog/posts/latexflow-no-delimiter-recovery/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/no-latex-delimiters-recover-document/

@@ -1,6 +1,7 @@
 ---
 title: "Google Drive 에서 바로 가져오기 — .gdoc 이 안 열리는 이유와 Picker 경로"
 date: 2026-08-31 09:00:00 +0900
+translations: { en: /blog/en/posts/gdoc-file-wont-open-drive-import/, ko: /blog/posts/latexflow-google-drive-import/ }
 categories: [LaTeXFlow, 사용법]
 tags: [latexflow, google-drive, google-docs, gdoc, docx, picker, oauth]
 math: false

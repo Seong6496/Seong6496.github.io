@@ -1,6 +1,7 @@
 ---
 title: "LaTeX 수식 구분자 네 가지 — 언제 무엇을 쓰나"
 date: 2026-08-29 09:00:00 +0900
+translations: { en: /blog/en/posts/latex-math-delimiters-which-to-use/, ko: /blog/posts/latex-math-delimiters-guide/ }
 categories: [LaTeX, Reference]
 tags: [latex, 구분자, delimiter, 인라인수식, 디스플레이수식, latexflow, 수식]
 math: true

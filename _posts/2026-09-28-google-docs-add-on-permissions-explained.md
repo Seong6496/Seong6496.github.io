@@ -1,6 +1,7 @@
 ---
 title: "What a Google Docs™ Add-on Can See: Permissions Explained"
 date: 2026-09-28 09:00:00 +0900
+translations: { en: /blog/en/posts/google-docs-add-on-permissions-explained/, ko: /blog/posts/latexflow-addon-permission-scopes/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/google-docs-add-on-permissions-explained/

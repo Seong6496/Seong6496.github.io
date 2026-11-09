@@ -1,6 +1,7 @@
 ---
 title: "How to Copy Math From ChatGPT to Google Docs™"
 date: 2026-11-09 09:00:00 +0900
+translations: { en: /blog/en/posts/copy-latex-from-chatgpt-to-google-docs/, ko: /blog/posts/google-docs-paste-math-chatgpt/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/copy-latex-from-chatgpt-to-google-docs/

@@ -1,6 +1,7 @@
 ---
 title: "What Google Docs' Equation Editor Actually Stores"
 date: 2026-09-01 09:00:00 +0900
+translations: { en: /blog/en/posts/google-docs-equation-editor-internals/, ko: /blog/posts/google-docs-equation-editor-structure/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/google-docs-equation-editor-internals/

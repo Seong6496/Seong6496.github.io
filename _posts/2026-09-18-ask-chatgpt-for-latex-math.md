@@ -1,6 +1,7 @@
 ---
 title: "ChatGPT LaTeX: How to Ask for Math You Can Paste"
 date: 2026-09-18 09:00:00 +0900
+translations: { en: /blog/en/posts/ask-chatgpt-for-latex-math/, ko: /blog/posts/chatgpt-math-request-format/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/ask-chatgpt-for-latex-math/

@@ -1,6 +1,7 @@
 ---
 title: "How to Get Equations Out of Google Docs™ on an iPad"
 date: 2026-09-24 09:00:00 +0900
+translations: { en: /blog/en/posts/ipad-google-docs-equations-to-latex/, ko: /blog/posts/ipad-google-docs-latexflow/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/ipad-google-docs-equations-to-latex/

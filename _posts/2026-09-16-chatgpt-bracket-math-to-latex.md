@@ -1,6 +1,7 @@
 ---
 title: "ChatGPT LaTeX to Word: Fixing Equations After Copy and Paste"
 date: 2026-09-16 09:00:00 +0900
+translations: { en: /blog/en/posts/chatgpt-bracket-math-to-latex/, ko: /blog/posts/latexflow-ai-chatbot-bracket-mode/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/chatgpt-bracket-math-to-latex/
