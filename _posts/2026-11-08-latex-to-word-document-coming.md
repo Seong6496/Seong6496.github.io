@@ -16,7 +16,7 @@ Your paper is written in LaTeX. Your co-author, your supervisor or the journal w
 
 **We are building a converter for exactly this.** Upload your `.tex`, and get back a Word document your co-author can edit, with the equations, numbers and references still working.
 
-**[Get notified when it's ready →](/latexflow/web/?utm_source=blog&utm_medium=post&utm_campaign=tex2docx_waitlist#tex2docx-notify)**
+**[Get notified when it's ready →](https://mathsystem.dev/latexflow/web/?utm_source=blog&utm_medium=post&utm_campaign=tex2docx_waitlist#tex2docx-notify)**
 
 ## 1. What breaks today when LaTeX becomes Word
 
@@ -96,4 +96,4 @@ Yes. Overleaf's download menu has an export to Word. It keeps the structure of y
 
 The converter is in development now. Leave your email and we will keep you posted as it comes together, and write when it is ready to try. You can also tell us what you would convert, which helps us decide what to build first.
 
-**[Get notified when it's ready →](/latexflow/web/?utm_source=blog&utm_medium=post&utm_campaign=tex2docx_waitlist#tex2docx-notify)**
+**[Get notified when it's ready →](https://mathsystem.dev/latexflow/web/?utm_source=blog&utm_medium=post&utm_campaign=tex2docx_waitlist#tex2docx-notify)**
