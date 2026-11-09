@@ -1,0 +1,60 @@
+---
+layout: page
+title: "LaTeX, Google Docs™ and Word Guides by Topic"
+description: "Every English guide on Math System, grouped by what you are trying to do: LaTeX in Google Docs™, equations in Google Docs™, LaTeX and Word, ChatGPT math, and writing LaTeX."
+permalink: /blog/en/guides/
+---
+
+<!-- R236 #2: 영어 글 주제별 허브. 묶음은 _data/en_guides.yml.
+     묶음에 없는 영어 글은 맨 아래 "More guides" 로 자동 수집해 고아 글이 생기지 않게 한다. -->
+
+{% assign en_posts = site.posts | where: "lang", "en" %}
+{% assign listed = "" %}
+
+<p>
+  Every English guide on this site, grouped by the job you are trying to get done.
+  For the newest first, see <a href="/blog/en/">all English posts</a>.
+</p>
+
+<ul>
+{% for group in site.data.en_guides %}
+  <li><a href="#{{ group.id }}">{{ group.title }}</a></li>
+{% endfor %}
+</ul>
+
+{% for group in site.data.en_guides %}
+<h2 id="{{ group.id }}">{{ group.title }}</h2>
+<p>{{ group.intro }}</p>
+<ul>
+  {% for url in group.posts %}
+    {% assign post = en_posts | where: "url", url | first %}
+    {% if post %}
+      {% assign listed = listed | append: "|" | append: post.url %}
+  <li>
+    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    {% if post.description %}<br><span class="text-muted">{{ post.description | strip_html | truncate: 160 | escape }}</span>{% endif %}
+  </li>
+    {% endif %}
+  {% endfor %}
+</ul>
+{% endfor %}
+
+{% capture more %}
+  {% for post in en_posts %}
+    {% assign key = "|" | append: post.url %}
+    {% unless listed contains key %}
+  <li>
+    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    {% if post.description %}<br><span class="text-muted">{{ post.description | strip_html | truncate: 160 | escape }}</span>{% endif %}
+  </li>
+    {% endunless %}
+  {% endfor %}
+{% endcapture %}
+
+{% assign more_trimmed = more | strip %}
+{% if more_trimmed != "" %}
+<h2 id="more-guides">More guides</h2>
+<ul>
+{{ more }}
+</ul>
+{% endif %}

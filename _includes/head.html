@@ -55,6 +55,23 @@
 
   {{ seo_tags }}
 
+  <!-- 한·영 쌍둥이 글의 hreflang. 두 글 모두 front matter 에
+       translations: { en: /blog/en/posts/<slug>/, ko: /blog/posts/<slug>/ } 를 갖는다.
+       양쪽이 같은 쌍을 내보내므로 상호 참조가 성립한다. x-default = 영어판.
+       한쪽이 예약 발행(미래 날짜)이라 이번 빌드에 없으면 아무것도 내보내지 않는다 —
+       404 를 가리키는 hreflang 방지. 예약 글이 빌드에 들어오는 날 양쪽이 함께 켜진다. -->
+  {% assign _hl_en = nil %}{% assign _hl_ko = nil %}
+  {% if page.translations.en and page.translations.ko %}
+    {% assign _hl_en = site.posts | where: "url", page.translations.en | first %}
+    {% assign _hl_ko = site.posts | where: "url", page.translations.ko | first %}
+  {% endif %}
+  {% if _hl_en and _hl_ko %}
+    {% assign _base = site.url | append: site.baseurl %}
+    <link rel="alternate" hreflang="en" href="{{ _base }}{{ page.translations.en }}">
+    <link rel="alternate" hreflang="ko" href="{{ _base }}{{ page.translations.ko }}">
+    <link rel="alternate" hreflang="x-default" href="{{ _base }}{{ page.translations.en }}">
+  {% endif %}
+
   <title>
   {%- unless page.layout == "home" -%}
     {{ page.title | append: " | "}}
