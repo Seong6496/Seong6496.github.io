@@ -17,7 +17,7 @@ In [the last post](/blog/en/posts/latex-to-word-document-coming/) we showed one 
 
 The fair question is: does that hold up beyond one hand-picked page? This post is the answer, in two parts — how the numbers are built, and how we check them.
 
-**[Get notified when it's ready →](/latexflow/web/?utm_source=blog&utm_medium=post&utm_campaign=tex2docx_waitlist#tex2docx-notify)**
+**[Get notified when it's ready →](https://mathsystem.dev/latexflow/web/?utm_source=blog&utm_medium=post&utm_campaign=tex2docx_waitlist#tex2docx-notify)**
 
 ## 1. Word does not know what "equation (2.4)" is
 
@@ -91,4 +91,4 @@ The number keeps moving; the work on the long tail is going on as you read this.
 
 If you want to know when you can try it, leave your email and we will let you know.
 
-**[Get notified when it's ready →](/latexflow/web/?utm_source=blog&utm_medium=post&utm_campaign=tex2docx_waitlist#tex2docx-notify)**
+**[Get notified when it's ready →](https://mathsystem.dev/latexflow/web/?utm_source=blog&utm_medium=post&utm_campaign=tex2docx_waitlist#tex2docx-notify)**
