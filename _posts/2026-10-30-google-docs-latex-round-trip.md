@@ -1,5 +1,5 @@
 ---
-title: "Docs → .tex → Docs: What Survives the Round Trip"
+title: "Google Docs™ to LaTeX and Back: What Survives the Round Trip"
 date: 2026-10-30 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [Google Docs, Tutorial]
 tags: [latex, google-docs, tex-file, export, import, round-trip, add-on, equations]
 math: false
 pin: false
-description: "Two real documents taken out of Google Docs™ to LaTeX and back with LaTeXFlow Export and Import: a worksheet (Docs → .tex → Docs) and a short paper (.tex → Docs → .tex). What comes back the same, what comes back changed, and what does not come back — for anyone deciding which copy should be the working one."
+description: "Two documents taken from Google Docs™ to LaTeX and back with LaTeXFlow Export and Import: what returns the same, what changes, what does not survive."
 ---
 
 LaTeXFlow has **Export** (Google Docs™ → `.tex`) and **Import** (`.tex` → Google Docs™). Used one after the other, they make a loop, and the natural question is how much of a document is still the same after going round once. This post answers it with two real documents rather than a feature list:

@@ -1,6 +1,7 @@
 ---
-title: "ChatGPT LaTeX: How to Ask for Math You Can Actually Paste Into a Document"
+title: "ChatGPT LaTeX: How to Ask for Math You Can Paste"
 date: 2026-09-18 09:00:00 +0900
+translations: { en: /blog/en/posts/ask-chatgpt-for-latex-math/, ko: /blog/posts/chatgpt-math-request-format/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/ask-chatgpt-for-latex-math/
@@ -8,8 +9,10 @@ categories: [LaTeXFlow, Guide]
 tags: [chatgpt, gemini, latex, prompt, docx, ai, equations]
 math: true
 pin: false
-description: "Whether ChatGPT's LaTeX converts cleanly is decided by the request, not by the conversion tool. Why the delimiter a tool can read is not the delimiter you should ask for, what survives the copy path, the copy button versus selecting rendered math, how to rescue an answer you already have, and how to check the format before you paste a hundred lines."
+description: "Ask ChatGPT for dollar-sign LaTeX before it answers and its math pastes cleanly. Which delimiters survive copying, and how to rescue an answer you have."
 ---
+
+To get chatbot math you can paste into a document, set the format before it answers: ask for every formula in LaTeX, with `$...$` for inline maths and `$$...$$` for display. The exact prompt line, and why it has that shape, are below.
 
 You asked a chatbot for some maths problems, copied the answer, and pasted it into a document. On screen the fractions and integral signs were immaculate. In the document you have this:
 
@@ -189,6 +192,8 @@ $$
 ```
 
 is three separate paragraphs as far as the tool is concerned, and the opening and closing `$$` never pair. Join it into one line and it works.
+
+In Google Docs™, the paste can also turn some equations into Docs equations by itself; [how to copy math from ChatGPT to Google Docs™](/blog/en/posts/copy-latex-from-chatgpt-to-google-docs/) shows which shapes it converts and which stay as LaTeX text.
 
 ## 9. Checking that the format took
 

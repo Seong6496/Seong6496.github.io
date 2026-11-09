@@ -1,6 +1,7 @@
 ---
 title: "수식이 0개로 나왔습니다 — 구분자가 하나도 없는 문서 되살리기"
 date: 2026-08-23 09:00:00 +0900
+translations: { en: /blog/en/posts/no-latex-delimiters-recover-document/, ko: /blog/posts/latexflow-no-delimiter-recovery/ }
 categories: [LaTeXFlow, 사용법]
 tags: [latexflow, docx, latex, 구분자, 수식탐지, 문제해결]
 math: true

@@ -1,6 +1,7 @@
 ---
 title: "워드(.docx) 문서를 LaTeX로 바꾸기 — 구글 문서를 거치는 방법"
 date: 2026-11-04 09:00:00 +0900
+translations: { en: /blog/en/posts/word-docx-to-latex-via-google-docs/, ko: /blog/posts/word-docx-to-latex-google-docs/ }
 categories: [LaTeXFlow, 사용법]
 tags: [latexflow, google-docs, word, docx, latex, 워드, 수식, 변환, 평가지]
 math: false

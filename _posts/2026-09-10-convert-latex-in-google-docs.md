@@ -1,6 +1,7 @@
 ---
-title: "How to Use LaTeX in Google Docs™: Install the Add-on and Convert Your First Equation"
+title: "Convert LaTeX to Equations in Google Docs™ With an Add-on"
 date: 2026-09-10 09:00:00 +0900
+translations: { en: /blog/en/posts/convert-latex-in-google-docs/, ko: /blog/posts/latexflow-addon-install-first-conversion/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/convert-latex-in-google-docs/
@@ -8,7 +9,7 @@ categories: [LaTeXFlow, Guide]
 tags: [google-docs, latex, add-on, google-workspace-marketplace, equations, tutorial]
 math: true
 pin: false
-description: "How to use LaTeX in Google Docs™: LaTeX you type stays as plain text, and a free add-on turns it into equations. Once through: installing from the Marketplace, what the consent screen asks, scanning, converting, and what the document holds afterwards."
+description: "LaTeX you type in Google Docs™ stays plain text. A free add-on converts it to equations: install from the Marketplace, consent, scan, convert, check."
 ---
 
 LaTeX you type into Google Docs™ stays as plain text; Docs does not turn it into equations. An add-on can: this post installs LaTeXFlow, which is free for converting, and turns a first equation from LaTeX into an image.
@@ -21,9 +22,9 @@ The area of a circle is $\pi r^2$, and $$\int_0^1 x^2\,dx = \frac{1}{3}$$.
 
 and you want it to look like an equation instead of a row of backslashes. Google Docs has no way to do that on its own — its own *Insert → Symbols → Equation* builds a different kind of object entirely, and it will not read your LaTeX.
 
-This is the whole path, once through: install, consent, scan, convert. About five minutes the first time, and roughly fifteen seconds every time after.
+This is the whole path, once through: install, consent, scan, convert. About five minutes the first time, and roughly fifteen seconds every time after. If what you have is a whole `.tex` file rather than LaTeX typed into a Doc, start with [how to get a LaTeX file into Google Docs™](/blog/en/posts/latex-file-into-google-docs-what-works-today/) instead.
 
-## 1. What you have, and what you want
+## 1. LaTeX text in, equations out: what you need first
 
 Two things have to be true before any of this works.
 
@@ -40,7 +41,7 @@ Two things have to be true before any of this works.
 
 There is a fifth, optional one — a bare `[ … ]`, for text pasted out of a chatbot — which is off by default. More on that in section 8.
 
-## 2. Install from the Google Workspace Marketplace
+## 2. Install the LaTeX add-on from the Google Workspace Marketplace
 
 Install [LaTeXFlow from the Google Workspace Marketplace](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=convert-latex-in-google-docs). It is a Google Docs editor add-on, so it installs against your Google account rather than being downloaded to your machine.
 
@@ -63,7 +64,7 @@ Four permissions in total, and it is worth knowing what each is for:
 | Connect to an external service | One server-side request: sending an opted-in equation to the collection endpoint |
 | Your email address | Read once, on the collection path, to derive an anonymous identifier |
 
-The first one is the important one. It is the `currentonly` form of document access, which means access to **any other document is impossible**, not merely unused. There is no permission here for your Drive or your other files.
+The first one is the important one. It is the `currentonly` form of document access, which means access to **any other document is impossible**, not merely unused. There is no permission here for your Drive or your other files. [What a Google Docs™ add-on can and cannot see](/blog/en/posts/google-docs-add-on-permissions-explained/) goes through every permission line by line, including how to revoke them.
 
 ## 4. Opening the sidebar
 
@@ -94,7 +95,7 @@ Two things you can do to a card before converting:
 - **Click its LaTeX** to edit it in place. What gets converted is the edited value.
 - **Skip** it, if it is not really an equation. `$100` in a sentence about money will be picked up as an opening delimiter; skipping leaves the text alone.
 
-## 6. Converting the LaTeX you typed
+## 6. Converting LaTeX to equations
 
 Press **➕ Insert into Docs** on a single card and that equation is replaced, in place, by a rendered image.
 
@@ -141,7 +142,7 @@ Note that this button wraps as inline `$…$` only. For display maths, type the 
 
 **④ A `$$…$$` split across paragraphs.** One paragraph is one scan unit, so an opening `$$` and a closing `$$` in different paragraphs never pair. Keep display maths in a single paragraph, using `Shift` + `Enter` if you need the line break visually.
 
-And if the maths came out of a chatbot as bare square brackets — `[\frac{1}{2}]` with the backslashes stripped — tick **`Also detect [ … ]`** and scan again. It is off by default in the add-on because a bracket in a document you are writing is more often prose than maths.
+And if the maths came out of a chatbot as bare square brackets — `[\frac{1}{2}]` with the backslashes stripped — tick **`Also detect [ … ]`** and scan again. It is off by default in the add-on because a bracket in a document you are writing is more often prose than maths. For a ChatGPT answer pasted straight into Google Docs™, [what the paste does to each kind of equation](/blog/en/posts/copy-latex-from-chatgpt-to-google-docs/) is measured in its own post.
 
 ## 9. FAQ
 

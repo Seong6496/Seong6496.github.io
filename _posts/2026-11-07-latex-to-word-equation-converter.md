@@ -1,5 +1,5 @@
 ---
-title: "LaTeX to Word Equation Converter: Every Equation in a .docx at Once"
+title: "LaTeX to Word Equation Converter: All Equations in a .docx"
 date: 2026-11-07 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [LaTeXFlow, Guide]
 tags: [latex, word, docx, equations, chatgpt, scan, web-app, tutorial]
 math: false
 pin: false
-description: "A Word document full of LaTeX — an AI answer, a draft paper — and you want equations instead of backslashes. LaTeXFlow Scan converts every LaTeX equation in a .docx at once, free and online. The result is an equation image per formula, with the LaTeX kept in the alt text, not an editable Word equation. Step by step."
+description: "A Word document full of LaTeX from an AI answer or a draft? LaTeXFlow Scan converts every equation in the .docx at once, free and online, to images."
 ---
 
 To turn every LaTeX equation in a Word document into an equation at once, drop the `.docx` onto [LaTeXFlow Scan](/latexflow/web/): it finds each formula, shows you a preview, and gives you back a `.docx` in which every formula is a rendered equation. Each one is an **image** with its LaTeX kept in the alt text — not an editable Word equation — so it looks right everywhere the document is opened, and the source is still there when you need it.
@@ -26,6 +26,8 @@ Scan is built for documents where the maths is already written as LaTeX text:
 - **A document someone else sent you** in either of those states.
 
 If your equations were built with Word's own equation editor, they are already Word equations, and there is nothing to convert. Scan reads text only; it does not read Word equation objects. [Why that is](/blog/en/posts/word-equation-objects-not-text/).
+
+If you are starting from a `.tex` paper and need a Word document with editable equations, numbered equations and working cross-references, that is a different job: [a LaTeX to Word document converter](/blog/en/posts/latex-to-word-document-coming/) is in progress.
 
 ## 2. What it detects
 

@@ -1,5 +1,5 @@
 ---
-title: "How to Insert an Equation in Google Docs™: Shortcuts, LaTeX Commands, and the Four Things It Cannot Build"
+title: "How to Insert an Equation in Google Docs™ (With Shortcuts)"
 date: 2026-10-02 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [Google Docs, Guide]
 tags: [google-docs, equation-editor, equations, latex, shortcuts, matrix, guide]
 math: true
 pin: false
-description: "To insert an equation in Google Docs™, use Insert > Symbols > Equation, or Alt+I Y E. Then: which backslash commands it takes and what key actually converts them, how to move between fraction and root slots without the mouse, and the four constructs it cannot make at all: matrices, piecewise cases, double integrals and multi-line aligned equations, with the way to get them anyway. Measured on a live document, screenshots included."
+description: "Insert > Symbols > Equation, or Alt+I Y E. Which backslash commands it takes, the key that converts them, moving between slots, and four limits."
 ---
 
 If you only need one thing from this post, it is the table. Everything else here is about typing faster inside the editor; the table is about what no amount of typing will produce.
@@ -38,6 +38,8 @@ _Insert > Symbols > Equation. The underlined accelerator letters in the menu —
 The keyboard route in Chrome on Windows is **Alt+I, then Y, then E**: Alt+I opens the Insert menu, Y opens Symbols, E inserts an empty equation box at the caret. There is no single-chord shortcut for a new equation that I could find, and I did not try the Ctrl+Alt combinations.
 
 Once a box exists, a second toolbar appears under the main one, labelled *New equation*, with five dropdowns: Greek letters (αβΔ), miscellaneous operations (×÷∃), relations (≤≠⊃), math operations (√()x) and arrows (←↑→). They are greyed out whenever the caret is outside an equation box. There is no dropdown for text mode, matrices or layout — which is the table above in toolbar form.
+
+On an iPad or a phone the Docs app cannot edit equations; Google's own help says to open the document on a computer. To get existing equations out of a Doc on an iPad, see [how to get equations out of Google Docs™ on an iPad](/blog/en/posts/ipad-google-docs-equations-to-latex/).
 
 ## 2. Backslash commands, and the key that actually converts them
 
@@ -156,7 +158,7 @@ For a piecewise function, the whole job is four steps:
 3. On the **Scan** tab, press **Scan Document** and check the preview on the card.
 4. Press **Insert into Docs** on that card, or **Convert All** for every equation in the document.
 
-The install-to-first-equation walkthrough, consent screen included, is in [How to Use LaTeX in Google Docs™](/blog/en/posts/convert-latex-in-google-docs/).
+The install-to-first-equation walkthrough, consent screen included, is in [how to convert LaTeX to equations in Google Docs™](/blog/en/posts/convert-latex-in-google-docs/).
 
 A reasonable division of labour, then: the native editor for the things it does well — Greek letters, fractions, roots, sums and integrals with limits, typed fast with backslash names and Tab — and LaTeX text plus a converter for the four things it cannot build.
 

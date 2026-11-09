@@ -1,6 +1,7 @@
 ---
-title: "Detected 0 Equations: Recovering a Document With No LaTeX Delimiters"
+title: "0 Equations Detected: A Document With No LaTeX Delimiters"
 date: 2026-09-14 09:00:00 +0900
+translations: { en: /blog/en/posts/no-latex-delimiters-recover-document/, ko: /blog/posts/latexflow-no-delimiter-recovery/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/no-latex-delimiters-recover-document/
@@ -8,8 +9,10 @@ categories: [LaTeXFlow, Troubleshooting]
 tags: [latex, docx, delimiters, equation-detection, troubleshooting, google-docs]
 math: true
 pin: false
-description: "The file opened, there was no error, and the equation count came back zero. Almost always that means the document contains no LaTeX delimiters at all. How detection actually decides, how the zero-result screen proposes candidate paragraphs, and how to fix one paragraph and re-detect."
+description: "Zero equations found almost always means the document has no LaTeX delimiters. How detection decides, what the zero-result screen offers, and the fix."
 ---
+
+If a scan reports 0 equations in a document full of maths, the maths is almost certainly not wrapped in LaTeX delimiters such as `$…$` or `$$…$$`. Open one of the candidate paragraphs the zero-result screen lists, wrap its maths in delimiters, and use the live preview to confirm the count before saving.
 
 The file opened. There was no error. And the review screen says **0 equations**.
 
@@ -116,7 +119,7 @@ Underneath the box is a **live preview**. Stop typing and the same three scanner
 Detected: 2 equations
 ```
 
-along with what each one was read as and how it renders. You can confirm the delimiters landed correctly **before** saving.
+along with what each one was read as and how it renders. You can confirm the delimiters landed correctly **before** saving. Close every `$` you open: in a `.tex` file, one unpaired dollar sign is enough to [stop the compile far from where the mistake is](/blog/en/posts/missing-dollar-sign-latex-compile-error/).
 
 > Editing replaces the whole paragraph with text. Bold, italics and colour on that paragraph are lost. The same warning sits above the edit box.
 {: .prompt-warning }
@@ -225,4 +228,4 @@ Yes. Export opens as soon as at least one equation is selected. Candidates are s
 A document written with delimiters from the start never meets this screen. This flow exists for the documents you are handed, so that "it found nothing" comes with a next step attached.
 
 - Unsure which delimiter to use → [the four delimiters, and which is safe where](/blog/en/posts/latex-math-delimiters-which-to-use/)
-- Working inside Google Docs rather than a `.docx` → [how to convert LaTeX in Google Docs](/blog/en/posts/convert-latex-in-google-docs/)
+- Working inside Google Docs rather than a `.docx` → [how to convert LaTeX to equations in Google Docs](/blog/en/posts/convert-latex-in-google-docs/)

@@ -1,6 +1,7 @@
 ---
 title: "애드온이 볼 수 있는 것과 볼 수 없는 것 — 요청하는 권한 전부"
 date: 2026-09-21 09:00:00 +0900
+translations: { en: /blog/en/posts/google-docs-add-on-permissions-explained/, ko: /blog/posts/latexflow-addon-permission-scopes/ }
 categories: [LaTeXFlow, 사용법]
 tags: [latexflow, google-docs, 애드온, 권한, oauth, scope, 개인정보]
 math: false

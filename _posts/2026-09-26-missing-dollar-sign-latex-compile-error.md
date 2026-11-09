@@ -1,6 +1,7 @@
 ---
-title: "One Missing Dollar Sign, One Failed Compile: Finding It Before LaTeX Does"
+title: "LaTeX Missing $ Inserted: Find the Unclosed Dollar Sign"
 date: 2026-09-26 09:00:00 +0900
+translations: { en: /blog/en/posts/missing-dollar-sign-latex-compile-error/, ko: /blog/posts/latexflow-unclosed-dollar-sign/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/missing-dollar-sign-latex-compile-error/
@@ -8,8 +9,10 @@ categories: [LaTeX, Troubleshooting]
 tags: [latex, compile-error, missing-dollar, math-mode, pdflatex, troubleshooting]
 math: true
 pin: false
-description: "Missing dollar inserted, and the line number it points at is not where the problem is. Why an unclosed math delimiter poisons everything after it, why one mistake produces a cascade of errors, and how to catch the odd-count paragraph while it is still a manuscript."
+description: "The error points at the line where LaTeX gave up, not at the mistake. Why one unclosed dollar sign cascades, and how to find it before you compile."
 ---
+
+`Missing $ inserted` points at the line where LaTeX gave up, not at the mistake. Look above it: count the dollar signs paragraph by paragraph, and the paragraph with an odd count holds the unclosed delimiter.
 
 Hours before a deadline, `pdflatex` stops with this:
 

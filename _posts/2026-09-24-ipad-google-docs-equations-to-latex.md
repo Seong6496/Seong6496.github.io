@@ -1,6 +1,7 @@
 ---
-title: "How to Get Equations Out of Google Docs on an iPad"
+title: "How to Get Equations Out of Google Docs™ on an iPad"
 date: 2026-09-24 09:00:00 +0900
+translations: { en: /blog/en/posts/ipad-google-docs-equations-to-latex/, ko: /blog/posts/ipad-google-docs-latexflow/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/ipad-google-docs-equations-to-latex/
@@ -8,7 +9,7 @@ categories: [LaTeXFlow, Guide]
 tags: [ipad, ios, google-docs, google-drive, docx, latex, mobile]
 math: false
 pin: false
-description: "On a desktop you download the Doc as Word and drop it in. On an iPad the Drive app hands you a PDF instead, and a PDF has no structure a converter can read. Two routes around it, in the order worth trying."
+description: "On an iPad the Drive app exports a Google Doc as PDF, which a converter cannot read. Two routes that get your equations out, in the order worth trying."
 ---
 
 On a desktop this is one step. Open the Google Doc, choose *File → Download → Microsoft Word (.docx)*, drag the file onto the [web app](/latexflow/web/), done.

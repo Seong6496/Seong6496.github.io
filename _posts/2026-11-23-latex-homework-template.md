@@ -1,5 +1,5 @@
 ---
-title: "A LaTeX Homework Template, and How to Fill It From Google Docs™"
+title: "LaTeX Homework Template, Filled From Google Docs™"
 date: 2026-11-23 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [LaTeX, Tutorial]
 tags: [latex, template, homework, problem-set, overleaf, google-docs, export, amsthm]
 math: false
 pin: false
-description: "A free LaTeX homework and problem set template to download: a header with name, course and assignment on every page, numbered Problem and Solution environments, and nothing but standard packages, so it compiles as it is in Overleaf or with pdfLaTeX. How to fill it in, and how to write the problems in Google Docs™ first and export them."
+description: "A free LaTeX homework and problem set template: name and course header, numbered Problem and Solution environments, standard packages only. How to fill it."
 ---
 
 <!-- Sources: assets/files/2026-11-23/homework-template.tex written for this post and compiled with pdfLaTeX (MiKTeX, 2026-11-03): 0 errors, 0 warnings, 1 page. Export behaviour (numbered list -> enumerate, $$ -> \[ \], headings -> \section): 10-26 and 11-01 posts, live v17 labels. -->

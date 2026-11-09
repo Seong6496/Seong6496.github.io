@@ -1,6 +1,7 @@
 ---
-title: "From a Google Docs™ Worksheet to a .tex File You Can Open in Overleaf, Plus a LaTeX Template"
+title: "Google Docs™ Worksheet to LaTeX and Overleaf, With Template"
 date: 2026-10-26 09:00:00 +0900
+translations: { en: /blog/en/posts/google-docs-worksheet-to-latex-overleaf/, ko: /blog/posts/google-docs-exam-worksheet-to-latex/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/google-docs-worksheet-to-latex-overleaf/
@@ -8,7 +9,7 @@ categories: [Google Docs, Tutorial]
 tags: [latex, google-docs, tex-file, export, overleaf, worksheet, teachers, equations]
 math: false
 pin: false
-description: "A one-page maths worksheet written in Google Docs™ — headings, numbered questions, a table, inline and display equations — exported to a .tex file with LaTeXFlow and compiled in Overleaf. What each part becomes in the file, what the PDF looks like, what to check before you print, and the result as a LaTeX worksheet or exam template to download."
+description: "A one-page maths worksheet in Google Docs™, exported to .tex with LaTeXFlow and compiled in Overleaf: what each part becomes, the PDF, and a template."
 ---
 
 Many worksheets and tests start in Google Docs™ because that is where colleagues comment and where last year's copy lives. At some point you may want the same sheet as LaTeX: for a cleaner PDF, for a question bank, or because the rest of the course is already in Overleaf. This post takes one real worksheet through LaTeXFlow **Export** and into Overleaf, and looks at what each part of the sheet becomes. Export needs a license key; the setup clicks are in the [step-by-step Google Docs™ to LaTeX guide](/blog/en/posts/latexflow-export-import-walkthrough/).

@@ -1,6 +1,7 @@
 ---
 title: "LaTeX 수식 줄바꿈 — 긴 수식 multline·split·aligned 언제 무엇을 쓰나"
 date: 2026-09-30 09:00:00 +0900
+translations: { en: /blog/en/posts/latex-equation-multiple-lines/, ko: /blog/posts/latex-long-equation-line-break/ }
 categories: [LaTeX, 수식]
 tags: [latex, 줄바꿈, 긴수식, multline, split, aligned, gather, equation, amsmath, 수식]
 math: true

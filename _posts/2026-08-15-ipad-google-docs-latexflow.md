@@ -1,6 +1,7 @@
 ---
 title: "iPad 에서 Google Docs 수식을 LaTeX 로 — 다운로드 PDF 함정 우회하기"
 date: 2026-08-15 08:00:00 +0900
+translations: { en: /blog/en/posts/ipad-google-docs-equations-to-latex/, ko: /blog/posts/ipad-google-docs-latexflow/ }
 categories: [LaTeXFlow, 사용법]
 tags: [latexflow, google-docs, ipad, docx, 수식, 도구]
 math: false

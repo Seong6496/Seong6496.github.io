@@ -1,5 +1,5 @@
 ---
-title: "How to Convert a LaTeX File to Google Docs™: The Free Path and Full Import"
+title: "LaTeX to Google Docs™: Convert a .tex File, Free or Full"
 date: 2026-10-12 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [Google Docs, Tutorial]
 tags: [latex, google-docs, tex-file, scan, delimiters, add-on, equations, tutorial]
 math: true
 pin: false
-description: "Two ways to convert a LaTeX (.tex) file to Google Docs™: paste the body and convert the equations for free, or import the whole file — headings, lists, tables, equations — with LaTeXFlow Import. What each one carries over, step by step."
+description: "Two ways to get a LaTeX (.tex) file into Google Docs™: paste the body and convert the equations free, or import headings, lists, tables and equations."
 ---
 
 There are two ways to convert a LaTeX file to Google Docs™. The free one: paste the body of the `.tex` into a document and convert the equations with the LaTeXFlow add-on; headings, lists and tables are then redone by hand. The paid one: LaTeXFlow **Import** reads the `.tex` file and writes headings, lists, tables and equations into the document for you.
@@ -100,7 +100,7 @@ Import, on the **Export / Import** tab of LaTeXFlow, does most of section 4 for 
 
 Press **Import** and `\section` and `\subsection` become Docs headings, `itemize` becomes a bulleted list, and a `tabular` becomes a Docs table. Equations are written as LaTeX text, so the Scan and Convert All steps from section 2 turn them into images afterwards. A few things still change on the way in: a figure becomes a placeholder line, because the image file is not in the `.tex`; citations become `[@key]` markers; and Import reads one file, so it does not follow `\input` or a separate `.bib`. The free path above still works as described.
 
-Import is a paid feature. One real file taken through it part by part, with every screen, is in [You Received a .tex File: Editing It Together in Google Docs™](/blog/en/posts/tex-file-into-google-docs-import/); prices and licence keys are in the [Export & Import guide](/latexflow/export/#import).
+Import is a paid feature. One real file taken through it part by part, with every screen, is in [Edit a .tex File in Google Docs™ With Your Co-author](/blog/en/posts/tex-file-into-google-docs-import/); prices and licence keys are in the [Export & Import guide](/latexflow/export/#import). Taking an imported document back out to `.tex` is covered in [Google Docs™ to LaTeX and back](/blog/en/posts/google-docs-latex-round-trip/).
 
 ## 6. FAQ
 
@@ -110,7 +110,7 @@ Google Docs™ cannot open a `.tex` file. Either paste the body into a document 
 
 ### How do I use LaTeX in Google Docs?
 
-Not on its own: LaTeX typed into a document stays as plain text. With an add-on you can write LaTeX and convert it into equations; [How to Use LaTeX in Google Docs™](/blog/en/posts/convert-latex-in-google-docs/) walks through it from installing the add-on to the first equation.
+Not on its own: LaTeX typed into a document stays as plain text. With an add-on you can write LaTeX and convert it into equations; [converting LaTeX to equations with the add-on](/blog/en/posts/convert-latex-in-google-docs/) walks through it from installing the add-on to the first equation.
 
 ### How can I convert LaTeX equations to Google Docs?
 
@@ -118,4 +118,4 @@ Paste them into the document with their delimiters — `$…$`, `$$…$$`, `\(�
 
 ### Can I use LaTeX code in Google Docs?
 
-Yes, as text that an add-on converts. Write the code between delimiters, as in a `.tex` file; the [guide to using LaTeX in Google Docs™](/blog/en/posts/convert-latex-in-google-docs/) covers writing it and what Scan reads.
+Yes, as text that an add-on converts. Write the code between delimiters, as in a `.tex` file; the [guide to converting LaTeX to equations in Google Docs™](/blog/en/posts/convert-latex-in-google-docs/) covers writing it and what Scan reads.

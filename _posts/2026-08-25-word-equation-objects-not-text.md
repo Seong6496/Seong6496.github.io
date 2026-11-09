@@ -1,6 +1,7 @@
 ---
 title: "Word 수식 편집기로 넣은 수식이 왜 안 읽히나 — 수식 개체와 텍스트의 차이"
 date: 2026-08-25 09:00:00 +0900
+translations: { en: /blog/en/posts/word-equation-objects-not-text/, ko: /blog/posts/word-equation-objects-not-text/ }
 categories: [LaTeXFlow, 사용법]
 tags: [latexflow, docx, word, omml, 수식개체, 변환, 문제해결]
 math: true

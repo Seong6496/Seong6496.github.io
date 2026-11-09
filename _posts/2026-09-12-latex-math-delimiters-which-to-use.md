@@ -1,6 +1,7 @@
 ---
-title: "LaTeX Math Delimiters: Which of the Four to Use, and Where Each Breaks"
+title: "LaTeX Math Delimiters: Which of the Four to Use"
 date: 2026-09-12 09:00:00 +0900
+translations: { en: /blog/en/posts/latex-math-delimiters-which-to-use/, ko: /blog/posts/latex-math-delimiters-guide/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/latex-math-delimiters-which-to-use/
@@ -8,7 +9,7 @@ categories: [LaTeX, Reference]
 tags: [latex, delimiters, inline-math, display-math, tex, reference]
 math: true
 pin: false
-description: "One dollar sign, two dollar signs, backslash-paren, backslash-bracket. Four ways to wrap the same equation, from two different eras, with different failure modes in Markdown, in chatbot answers, and in conversion tools. Which one to reach for, and what each one costs."
+description: "Dollar, double dollar, backslash-paren, backslash-bracket: how each LaTeX delimiter fails in Markdown, chatbot answers and converters, and which to use."
 ---
 
 There are four ways to wrap the same equation, and they are not interchangeable.
@@ -132,7 +133,7 @@ LaTeXFlow reads all four — in both of its forms, the [web app](/latexflow/web/
 - In the **web app**, that paragraph is pulled out into an **ambiguity card** — `⚠ Odd number of $ — equation boundaries are ambiguous` — and nothing from it is converted until you deal with it. The card gives you two buttons, *Edit text* and *Skip*.
 - In the **add-on**, there is no such card and no odd/even logic at all. The regular expressions simply pair left to right. Take a sentence like `when the price rises by $5, demand is $x$` — the pairing starts at the currency symbol, so what gets captured as an equation is `5, demand is `, a stretch of prose, and the `$x$` you actually meant is missed. The card preview shows you the prose, so you can skip it.
 
-Escaping currency as `\$5` avoids this in both.
+Escaping currency as `\$5` avoids this in both. In a `.tex` file, an unpaired dollar sign shows up at compile time as `Missing $ inserted`, usually far below the real mistake; [finding the unclosed dollar sign](/blog/en/posts/missing-dollar-sign-latex-compile-error/) covers that case.
 
 **Overlap is resolved differently too.** In something like `$\(x\)$` the same span could be claimed twice.
 
@@ -204,7 +205,7 @@ Nothing pairs with anything here. Open and close each equation with the same not
 - Asking a chatbot → dollar signs only
 - Got an answer back with nothing but bare brackets → turn bracket mode on
 
-If the document you want to convert is a Google Doc, the delimiters above are exactly what [the add-on](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=latex-math-delimiters-which-to-use) looks for: [how to convert LaTeX in Google Docs](/blog/en/posts/convert-latex-in-google-docs/).
+If the document you want to convert is a Google Doc, the delimiters above are exactly what [the add-on](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=latex-math-delimiters-which-to-use) looks for: [how to convert LaTeX to equations in Google Docs](/blog/en/posts/convert-latex-in-google-docs/).
 
 ## 10. FAQ
 

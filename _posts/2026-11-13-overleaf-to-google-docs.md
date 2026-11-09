@@ -1,5 +1,5 @@
 ---
-title: "Overleaf to Google Docs™: Moving a Project with Its Chapters, .bib and Figures"
+title: "Overleaf to Google Docs™: Chapters, .bib and Figures"
 date: 2026-11-13 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [Google Docs, Tutorial]
 tags: [overleaf, latex, google-docs, import, bibliography, add-on, equations, collaboration]
 math: false
 pin: false
-description: "Overleaf has no Google Docs™ export. How to convert an Overleaf project to Google Docs™: download the source as a .zip, import the .tex files with LaTeXFlow Import, paste the .bib into the document's Bibliography and put the figures back from the zip. What each part of a multi-file project needs, step by step."
+description: "Overleaf has no Google Docs™ export. Download the source .zip, import the .tex with LaTeXFlow, paste the .bib into Bibliography, put the figures back."
 ---
 
 Overleaf cannot export to Google Docs™, so to move an Overleaf project into Docs you download its source as a `.zip` and import the `.tex` from it. LaTeXFlow **Import** writes the headings, lists, tables and equations into the document; the `.bib` file and the figures from the same `.zip` go in with two short steps of their own.
@@ -90,7 +90,7 @@ Scan, Convert All and Revert are free. Import and Export are the paid part of La
 Not directly: Overleaf has no Google Docs™ export. Download the source as a `.zip` and import the `.tex` into Docs with an add-on (sections 1 and 2).
 
 **Is there a free way?**
-Yes, for the text and maths only: paste the body of each `.tex` into Docs and convert the equations with the free Scan. Headings, lists, tables and citations are then redone by hand. [How to Convert a LaTeX File to Google Docs™](/blog/en/posts/latex-file-into-google-docs-what-works-today/) walks that path.
+Yes, for the text and maths only: paste the body of each `.tex` into Docs and convert the equations with the free Scan. Headings, lists, tables and citations are then redone by hand. [How to get a LaTeX file into Google Docs™](/blog/en/posts/latex-file-into-google-docs-what-works-today/) walks that path.
 
 **Will the project still compile in Overleaf after editing in Docs?**
 Export writes the document back as a `.tex` with its bibliography, ready to open in Overleaf. What changes in a round trip is listed in [Docs → .tex → Docs](/blog/en/posts/google-docs-latex-round-trip/).

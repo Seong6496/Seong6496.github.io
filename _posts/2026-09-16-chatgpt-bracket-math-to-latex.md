@@ -1,6 +1,7 @@
 ---
 title: "ChatGPT LaTeX to Word: Fixing Equations After Copy and Paste"
 date: 2026-09-16 09:00:00 +0900
+translations: { en: /blog/en/posts/chatgpt-bracket-math-to-latex/, ko: /blog/posts/latexflow-ai-chatbot-bracket-mode/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/chatgpt-bracket-math-to-latex/
@@ -8,8 +9,10 @@ categories: [LaTeXFlow, Guide]
 tags: [chatgpt, latex, word, bracket-mode, markdown, docx, cases, ai]
 math: true
 pin: false
-description: "Copy and paste a ChatGPT answer into Word and its LaTeX equations arrive in one of four shapes: bare square brackets, bare parentheses, cases and matrix rows glued together by a lost backslash, or clean dollar signs. A diagnosis table for telling them apart, which ones can be recovered, and how bracket mode brings the bracket shape back."
+description: "ChatGPT math pasted into Word arrives in four shapes: square brackets, bare parentheses, broken rows, or dollar signs. How to tell them apart and fix each."
 ---
+
+ChatGPT math pasted into Word often arrives as LaTeX in bare square brackets, because the chat window drops the outer backslashes of `\[ … \]`. That damage is recoverable: LaTeXFlow's bracket mode reads those brackets as equations. It is on by default in the web app and off by default in the Google Docs™ add-on.
 
 You asked ChatGPT for twenty AP Calculus BC practice problems, copied the answer, and pasted it into a Word document. On screen the equations were rendered beautifully. In the document they look like this:
 
@@ -106,7 +109,7 @@ Open the [web app](/latexflow/web/) and there is a checkbox under the drop zone.
 
 ![The tool's first screen, showing the bracket mode checkbox](/assets/img/posts/2026-07-17/01-bracket-mode-option.png){: width="720" }
 
-*"Also detect bracket `[\...]` equations (common in AI chatbot output)"* — **on by default** in the web app. If you came here while cleaning up a chatbot answer, drop the file in without touching anything. Your file is read in the browser and is not uploaded to us.
+*"Also detect bracket `[\...]` equations (common in AI chatbot output)"* — **on by default** in the web app. If you came here while cleaning up a chatbot answer, drop the file in without touching anything. Your file is read in the browser and is not uploaded to us. The same web app works as a [LaTeX to Word equation converter](/blog/en/posts/latex-to-word-equation-converter/) for any `.docx` full of LaTeX, bracketed or not.
 
 Ticking it does not push `$…$` or `\[…\]` equations aside. The dollar scan, the backslash scan and the bracket scan each run and add their results to the same detection list, so a document mixing several forms gets all of them. It is an **additive** mode, not a replacement. That is also why the default is on — in a document with no bracket equations, leaving it on changes nothing at all.
 
@@ -206,4 +209,4 @@ It has to be a `.docx`. Word is the usual source, but a Google Docs document dow
 
 - Not sure which delimiter to use where → [the four delimiters, and which is safe where](/blog/en/posts/latex-math-delimiters-which-to-use/)
 - Nothing detected at all → [detected 0 equations](/blog/en/posts/no-latex-delimiters-recover-document/)
-- Working in Google Docs rather than a `.docx` → [how to convert LaTeX in Google Docs](/blog/en/posts/convert-latex-in-google-docs/)
+- Working in Google Docs rather than a `.docx` → [how to convert LaTeX to equations in Google Docs](/blog/en/posts/convert-latex-in-google-docs/)

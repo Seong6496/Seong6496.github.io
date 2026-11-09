@@ -1,5 +1,5 @@
 ---
-title: "LaTeX vs Word (and Google Docs™) for a Thesis: Draft in One, Submit in the Other"
+title: "LaTeX vs Word for a Thesis: Draft in One, Submit in Other"
 date: 2026-11-21 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [LaTeX, Essay]
 tags: [latex, word, google-docs, overleaf, thesis, export, comparison, writing]
 math: false
 pin: false
-description: "LaTeX vs Word for a thesis or paper, compared on what actually decides it: equations, references, numbering, collaboration, layout and the time it takes to learn. Where each one is the better tool, and how to avoid choosing for the whole project: draft in Word or Google Docs™, and move to LaTeX when the template or the journal asks for it."
+description: "LaTeX vs Word (and Google Docs™) for a thesis, on equations, references, numbering, collaboration, layout and learning time, and when to switch."
 ---
 
 <!-- Sources: Overleaf docs "Importing and exporting files" (docs.overleaf.com, read 2026-11-03): New project > Import > Word document (.docx), converted with Pandoc. LaTeXFlow Export/Import round trip: 10-30 post (text, structure, equations come back; layout does not). Word LaTeX input: 11-17 post / Microsoft Learn. No competitor products named beyond the editors themselves. -->

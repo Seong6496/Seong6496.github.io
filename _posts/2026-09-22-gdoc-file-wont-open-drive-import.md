@@ -1,6 +1,7 @@
 ---
-title: "Your .gdoc File Will Not Open: Why, and the Drive Import Path Around It"
+title: "Your .gdoc File Won't Open: Use Google Drive Import Instead"
 date: 2026-09-22 09:00:00 +0900
+translations: { en: /blog/en/posts/gdoc-file-wont-open-drive-import/, ko: /blog/posts/latexflow-google-drive-import/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/gdoc-file-wont-open-drive-import/
@@ -8,8 +9,10 @@ categories: [LaTeXFlow, Troubleshooting]
 tags: [google-drive, google-docs, gdoc, docx, picker, oauth, troubleshooting]
 math: false
 pin: false
-description: "Download a Google Doc and you get a one-kilobyte file no tool will open, because a .gdoc is a pointer rather than a document. What the Import from Google Drive button does, which permission it uses, and which of the formats in the picker are actually readable."
+description: "A downloaded .gdoc is a 1 KB pointer, not a document, so no tool can open it. Import from Google Drive fetches the real file: how it works, which formats."
 ---
+
+A `.gdoc` file will not open in any tool because it is a link to the document, not the document. Use **Import from Google Drive** instead: it fetches the real file as `.docx`, with access to only the one file you pick.
 
 You wanted to convert the maths notes you wrote in Google Docs, so you downloaded the file. What arrived looks like this:
 
@@ -52,7 +55,7 @@ Drive import requests exactly one scope: `drive.file`. As the name says, it is *
 | What the tool can see | **the one file you picked** in the picker |
 | What the tool cannot see | the rest of your Drive, your folder list, any other document |
 
-Browsing folders and scanning your file list happens inside **a window Google puts up**. The tool cannot look into that window; it receives only the single file you pressed select on.
+Browsing folders and scanning your file list happens inside **a window Google puts up**. The tool cannot look into that window; it receives only the single file you pressed select on. The permissions the Google Docs™ add-on asks for are a separate set, covered in [what a Google Docs™ add-on can see](/blog/en/posts/google-docs-add-on-permissions-explained/).
 
 Sign-in is required only for this button. The drag-and-drop route needs no account at all.
 
@@ -143,7 +146,7 @@ No sign-in, no consent screen. For a single one-off document this can be quicker
 | With several files | better — one button press each | repeat the export per document |
 | Downloaded file clutter | none | accumulates in your downloads folder |
 
-Converting several documents in a row favours the button; converting one favours the export.
+Converting several documents in a row favours the button; converting one favours the export. On an iPad the Drive app hands you a PDF rather than a `.docx`; [getting equations out of Google Docs™ on an iPad](/blog/en/posts/ipad-google-docs-equations-to-latex/) has two routes around that.
 
 ## 9. What to check after import
 

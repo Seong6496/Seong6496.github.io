@@ -1,5 +1,5 @@
 ---
-title: "How to Write an Equation in LaTeX: The Five Pieces You Need First"
+title: "How to Write an Equation in LaTeX: The Five Basics"
 date: 2026-11-25 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [LaTeX, Tutorial]
 tags: [latex, equations, beginner, math-mode, fractions, greek-letters, google-docs, tutorial]
 math: true
 pin: false
-description: "How to write an equation in LaTeX, for a first-timer: math mode and its delimiters, superscripts and subscripts with braces, fractions and roots, Greek letters and symbols, sums and integrals with limits. Each piece with the code and what it looks like, the five mistakes beginners make, and a place to try it without installing anything."
+description: "How to write an equation in LaTeX: math mode, superscripts and subscripts, fractions and roots, Greek letters, sums, integrals, and five common mistakes."
 ---
 
 <!-- Sources: standard LaTeX/amsmath syntax; LaTeXFlow Equation tab behaviour (live preview, Insert into Docs, always display) from the 09-10 post and the v17 sidebar; Scan delimiters per the 09-12 post. -->

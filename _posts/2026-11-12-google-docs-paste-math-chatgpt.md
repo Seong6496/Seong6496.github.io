@@ -1,6 +1,7 @@
 ---
 title: "구글 독스에 수식 붙여 넣기 — 챗지피티 수식이 깨질 때 고치는 순서"
 date: 2026-11-12 09:00:00 +0900
+translations: { en: /blog/en/posts/copy-latex-from-chatgpt-to-google-docs/, ko: /blog/posts/google-docs-paste-math-chatgpt/ }
 categories: [LaTeXFlow, 사용법]
 tags: [latexflow, google-docs, 구글-독스, chatgpt, 챗지피티, gemini, 수식, 붙여넣기, scan]
 math: false

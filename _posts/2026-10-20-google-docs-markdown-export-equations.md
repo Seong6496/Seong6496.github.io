@@ -1,5 +1,5 @@
 ---
-title: "Download as Markdown from Google Docs™: What Happens to Your Equations"
+title: "Google Docs™ to Markdown: What Happens to Your Equations"
 date: 2026-10-20 09:00:00 +0900
 lang: en
 locale: en_US
@@ -9,7 +9,7 @@ tags: [google-docs, markdown, export, equations, latex, equation-editor, copy-as
 math: false
 pin: false
 render_with_liquid: false
-description: "Google Docs™ has two ways to get Markdown out — File > Download > Markdown (.md) and Edit > Copy as Markdown — and they treat equations differently. Measured on one test document: Download keeps equation-editor equations as real LaTeX in $…$; Copy as Markdown flattens them to bare characters and drops Greek letters; LaTeX typed as text comes out escaped (\\$E \\= mc^2\\$); an image becomes a base64 data URI, with the alt description as the ![alt] text and the alt title as the link title — which is where the LaTeXFlow add-on's LaTeX ends up. Paste from Markdown does not turn $…$ back into equations."
+description: "Google Docs™ has two Markdown exports, Download as .md and Copy as Markdown, and they treat equations differently. Measured on one test document."
 ---
 
 You have a Google Docs™ document with equations in it and you want Markdown — for a static site, a notes app, a README, or to hand the text to a tool that reads Markdown. Docs has two built-in ways to get it, and on the same document they do not agree about equations.
@@ -119,6 +119,6 @@ So Markdown is not a round trip for equations in Docs: what goes out as `$…$` 
 
 ---
 
-- How the editor builds the equations that Download keeps → [How to Insert an Equation in Google Docs™: Shortcuts, LaTeX Commands, and the Four Things It Cannot Build](/blog/en/posts/google-docs-equation-editor-typing-and-limits/)
+- How the editor builds the equations that Download keeps → [How to Insert an Equation in Google Docs™ (With Shortcuts)](/blog/en/posts/google-docs-equation-editor-typing-and-limits/)
 - What the editor stores underneath → [What Google Docs' Equation Editor Actually Stores](/blog/en/posts/google-docs-equation-editor-internals/)
-- The other direction, a `.tex` file into Docs → [How to Convert a LaTeX File to Google Docs™: The Free Path and Full Import](/blog/en/posts/latex-file-into-google-docs-what-works-today/)
+- The other direction, a `.tex` file into Docs → [How to Get a LaTeX File Into Google Docs™](/blog/en/posts/latex-file-into-google-docs-what-works-today/)

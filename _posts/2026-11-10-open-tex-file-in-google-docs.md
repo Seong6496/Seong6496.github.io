@@ -1,6 +1,7 @@
 ---
 title: "지도교수님이 보낸 .tex 검토 메모, 구글 문서로 가져와 댓글 달기"
 date: 2026-11-10 09:00:00 +0900
+translations: { en: /blog/en/posts/tex-file-into-google-docs-import/, ko: /blog/posts/open-tex-file-in-google-docs/ }
 categories: [LaTeXFlow, 사용법]
 tags: [latexflow, google-docs, latex, tex-파일, 공동-작업, 댓글, 지도교수, 논문]
 math: false

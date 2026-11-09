@@ -1,6 +1,7 @@
 ---
 title: "구글 문서를 LaTeX 수식 입력기로 — 애드온 설치부터 첫 변환까지"
 date: 2026-09-13 09:00:00 +0900
+translations: { en: /blog/en/posts/convert-latex-in-google-docs/, ko: /blog/posts/latexflow-addon-install-first-conversion/ }
 categories: [LaTeXFlow, 사용법]
 tags: [latexflow, google-docs, 애드온, marketplace, 설치, 수식, 사용법]
 math: true

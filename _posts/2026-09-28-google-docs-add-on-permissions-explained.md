@@ -1,6 +1,7 @@
 ---
-title: "What a Google Docs Add-on Can and Cannot See: The Permissions, Explained"
+title: "What a Google Docs™ Add-on Can See: Permissions Explained"
 date: 2026-09-28 09:00:00 +0900
+translations: { en: /blog/en/posts/google-docs-add-on-permissions-explained/, ko: /blog/posts/latexflow-addon-permission-scopes/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/google-docs-add-on-permissions-explained/
@@ -8,7 +9,7 @@ categories: [Google Docs, Reference]
 tags: [google-docs, add-on, oauth, permissions, scopes, privacy, reference]
 math: false
 pin: false
-description: "The install consent screen compresses everything into a few lines. Here is each permission the add-on requests, what it reaches, what it does not reach, why it is needed at all, and how to revoke it later."
+description: "Each permission a Google Docs™ add-on asks for at install: what it reaches, what it does not, why it is needed, and how to revoke it later."
 ---
 
 Installing a Google Docs add-on puts a consent screen in front of you with a handful of checkboxes on it, each written in the compressed language Google uses for permission summaries. It is reasonable to want to know what you are actually agreeing to.

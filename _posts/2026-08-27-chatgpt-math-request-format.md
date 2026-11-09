@@ -1,6 +1,7 @@
 ---
 title: "ChatGPT 에 수식을 요청하는 올바른 방법 — 붙여넣기 전에 형식을 정한다"
 date: 2026-08-27 09:00:00 +0900
+translations: { en: /blog/en/posts/ask-chatgpt-for-latex-math/, ko: /blog/posts/chatgpt-math-request-format/ }
 categories: [LaTeXFlow, 사용법]
 tags: [latexflow, chatgpt, ai, 프롬프트, latex, docx, 수식]
 math: true

@@ -1,6 +1,7 @@
 ---
 title: "What Google Docs' Equation Editor Actually Stores"
 date: 2026-09-01 09:00:00 +0900
+translations: { en: /blog/en/posts/google-docs-equation-editor-internals/, ko: /blog/posts/google-docs-equation-editor-structure/ }
 lang: en
 locale: en_US
 permalink: /blog/en/posts/google-docs-equation-editor-internals/
@@ -8,7 +9,7 @@ categories: [Google Docs, Reference]
 tags: [google-docs, equations, latex, apps-script, reference]
 math: true
 pin: false
-description: "We opened up equations built with the Google Docs equation editor and logged the structure Apps Script returns. It is a small tree with LaTeX command names already in it. Here is the full function table, the symbol list, and the things Docs cannot build at all."
+description: "We logged what Apps Script returns for Google Docs™ equations: a small tree with LaTeX command names inside. The function table, symbols and limits."
 ---
 
 If you build an equation in Google Docs with *Insert → Symbols → Equation*, what is actually stored?
@@ -291,8 +292,8 @@ We build [LaTeXFlow](/latexflow/), which converts LaTeX written in a document in
 
 The short answer is that they are recoverable, deterministically, from a table small enough to fit in this post. We had assumed this would need something cleverer.
 
-If you are writing your own converter, the table in section 5 and the symbol lists in section 6 are the whole map. If you find a code we missed — particularly on a non-English Docs interface, which we could not test — we would like to know.
+If you are writing your own converter, the table in section 5 and the symbol lists in section 6 are the whole map. If you find a code we missed — particularly on a non-English Docs interface, which we could not test — we would like to know. For a route that needs no code at all, Google Docs™' own Markdown download already [writes equation-editor equations as LaTeX between dollar signs](/blog/en/posts/google-docs-markdown-export-equations/).
 
 ---
 
-- Inserting and typing equations in the editor itself → [How to Insert an Equation in Google Docs™: Shortcuts, LaTeX Commands, and the Four Things It Cannot Build](/blog/en/posts/google-docs-equation-editor-typing-and-limits/)
+- Inserting and typing equations in the editor itself → [How to Insert an Equation in Google Docs™ (With Shortcuts)](/blog/en/posts/google-docs-equation-editor-typing-and-limits/)

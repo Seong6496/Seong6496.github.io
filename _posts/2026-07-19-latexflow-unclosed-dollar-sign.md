@@ -1,6 +1,7 @@
 ---
 title: "$ 하나 빠뜨렸는데 컴파일 실패 — LaTeXFlow Ambiguity 카드로 미리 잡기"
 date: 2026-07-19 09:00:00 +0900
+translations: { en: /blog/en/posts/missing-dollar-sign-latex-compile-error/, ko: /blog/posts/latexflow-unclosed-dollar-sign/ }
 categories: [LaTeXFlow, 사용법]
 tags: [latexflow, docx, latex, 컴파일에러, unclosed-dollar, ambiguity, 수식, 논문, 대학원생]
 math: true
