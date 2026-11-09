@@ -1,5 +1,5 @@
 ---
-title: "You Received a .tex File: Editing It Together in Google Docs™"
+title: "Edit a .tex File in Google Docs™ With Your Co-author"
 date: 2026-10-28 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [Google Docs, Tutorial]
 tags: [latex, google-docs, tex-file, import, bibliography, add-on, equations, collaboration]
 math: false
 pin: false
-description: "A co-author sends a short paper as a .tex file and you want to comment and edit it in Google Docs™. What LaTeXFlow Import does with each part of the file: sections, lists, a table with matrices, a footnote, two citations, a figure and its caption. What arrives as Docs structure, what arrives as marked text, and what you still do by hand."
+description: "A co-author sends a .tex file and you want to comment in Google Docs™. What LaTeXFlow Import does with sections, lists, tables, citations and figures."
 ---
 
 The [earlier post on bringing a LaTeX file into Google Docs™](/blog/en/posts/latex-file-into-google-docs-what-works-today/) ended at its step 4: the structure of the file — headings, lists, tables, footnotes — had to be rebuilt by hand. This post takes the same situation with **Import**, on the **Export / Import** tab of LaTeXFlow, and goes through one real file part by part. Import needs a license key; the click-by-click setup is in the [Export and Import walkthrough](/blog/en/posts/latexflow-export-import-walkthrough/).

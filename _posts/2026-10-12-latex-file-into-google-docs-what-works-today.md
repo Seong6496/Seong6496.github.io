@@ -1,5 +1,5 @@
 ---
-title: "How to Convert a LaTeX File to Google Docs™: The Free Path and Full Import"
+title: "LaTeX to Google Docs™: Convert a .tex File, Free or Full"
 date: 2026-10-12 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [Google Docs, Tutorial]
 tags: [latex, google-docs, tex-file, scan, delimiters, add-on, equations, tutorial]
 math: true
 pin: false
-description: "Two ways to convert a LaTeX (.tex) file to Google Docs™: paste the body and convert the equations for free, or import the whole file — headings, lists, tables, equations — with LaTeXFlow Import. What each one carries over, step by step."
+description: "Two ways to get a LaTeX (.tex) file into Google Docs™: paste the body and convert the equations free, or import headings, lists, tables and equations."
 ---
 
 There are two ways to convert a LaTeX file to Google Docs™. The free one: paste the body of the `.tex` into a document and convert the equations with the LaTeXFlow add-on; headings, lists and tables are then redone by hand. The paid one: LaTeXFlow **Import** reads the `.tex` file and writes headings, lists, tables and equations into the document for you.

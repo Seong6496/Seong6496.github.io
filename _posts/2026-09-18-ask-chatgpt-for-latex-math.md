@@ -1,5 +1,5 @@
 ---
-title: "ChatGPT LaTeX: How to Ask for Math You Can Actually Paste Into a Document"
+title: "ChatGPT LaTeX: How to Ask for Math You Can Paste"
 date: 2026-09-18 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [LaTeXFlow, Guide]
 tags: [chatgpt, gemini, latex, prompt, docx, ai, equations]
 math: true
 pin: false
-description: "Whether ChatGPT's LaTeX converts cleanly is decided by the request, not by the conversion tool. Why the delimiter a tool can read is not the delimiter you should ask for, what survives the copy path, the copy button versus selecting rendered math, how to rescue an answer you already have, and how to check the format before you paste a hundred lines."
+description: "Ask ChatGPT for dollar-sign LaTeX before it answers and its math pastes cleanly. Which delimiters survive copying, and how to rescue an answer you have."
 ---
 
 You asked a chatbot for some maths problems, copied the answer, and pasted it into a document. On screen the fractions and integral signs were immaculate. In the document you have this:

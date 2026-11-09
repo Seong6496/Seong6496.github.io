@@ -1,5 +1,5 @@
 ---
-title: "LaTeX Math Delimiters: Which of the Four to Use, and Where Each Breaks"
+title: "LaTeX Math Delimiters: Which of the Four to Use"
 date: 2026-09-12 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [LaTeX, Reference]
 tags: [latex, delimiters, inline-math, display-math, tex, reference]
 math: true
 pin: false
-description: "One dollar sign, two dollar signs, backslash-paren, backslash-bracket. Four ways to wrap the same equation, from two different eras, with different failure modes in Markdown, in chatbot answers, and in conversion tools. Which one to reach for, and what each one costs."
+description: "Dollar, double dollar, backslash-paren, backslash-bracket: how each LaTeX delimiter fails in Markdown, chatbot answers and converters, and which to use."
 ---
 
 There are four ways to wrap the same equation, and they are not interchangeable.

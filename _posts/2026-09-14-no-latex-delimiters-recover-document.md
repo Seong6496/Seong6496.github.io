@@ -1,5 +1,5 @@
 ---
-title: "Detected 0 Equations: Recovering a Document With No LaTeX Delimiters"
+title: "0 Equations Detected: A Document With No LaTeX Delimiters"
 date: 2026-09-14 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [LaTeXFlow, Troubleshooting]
 tags: [latex, docx, delimiters, equation-detection, troubleshooting, google-docs]
 math: true
 pin: false
-description: "The file opened, there was no error, and the equation count came back zero. Almost always that means the document contains no LaTeX delimiters at all. How detection actually decides, how the zero-result screen proposes candidate paragraphs, and how to fix one paragraph and re-detect."
+description: "Zero equations found almost always means the document has no LaTeX delimiters. How detection decides, what the zero-result screen offers, and the fix."
 ---
 
 The file opened. There was no error. And the review screen says **0 equations**.

@@ -1,5 +1,5 @@
 ---
-title: "Your .gdoc File Will Not Open: Why, and the Drive Import Path Around It"
+title: "Your .gdoc File Won't Open: Use Google Drive Import Instead"
 date: 2026-09-22 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [LaTeXFlow, Troubleshooting]
 tags: [google-drive, google-docs, gdoc, docx, picker, oauth, troubleshooting]
 math: false
 pin: false
-description: "Download a Google Doc and you get a one-kilobyte file no tool will open, because a .gdoc is a pointer rather than a document. What the Import from Google Drive button does, which permission it uses, and which of the formats in the picker are actually readable."
+description: "A downloaded .gdoc is a 1 KB pointer, not a document, so no tool can open it. Import from Google Drive fetches the real file: how it works, which formats."
 ---
 
 You wanted to convert the maths notes you wrote in Google Docs, so you downloaded the file. What arrived looks like this:

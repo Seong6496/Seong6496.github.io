@@ -8,7 +8,7 @@ categories: [LaTeXFlow, Guide]
 tags: [chatgpt, latex, word, bracket-mode, markdown, docx, cases, ai]
 math: true
 pin: false
-description: "Copy and paste a ChatGPT answer into Word and its LaTeX equations arrive in one of four shapes: bare square brackets, bare parentheses, cases and matrix rows glued together by a lost backslash, or clean dollar signs. A diagnosis table for telling them apart, which ones can be recovered, and how bracket mode brings the bracket shape back."
+description: "ChatGPT math pasted into Word arrives in four shapes: square brackets, bare parentheses, broken rows, or dollar signs. How to tell them apart and fix each."
 ---
 
 You asked ChatGPT for twenty AP Calculus BC practice problems, copied the answer, and pasted it into a Word document. On screen the equations were rendered beautifully. In the document they look like this:

@@ -1,5 +1,5 @@
 ---
-title: "Google Docs™ to LaTeX: Exporting a Document with LaTeXFlow, Step by Step"
+title: "Google Docs™ to LaTeX: Export a Document Step by Step"
 date: 2026-10-21 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [Google Docs, Tutorial]
 tags: [latex, google-docs, tex-file, export, import, overleaf, add-on, equations, tutorial]
 math: true
 pin: false
-description: "Google Docs™ cannot download a document as LaTeX. LaTeXFlow Export writes it as a .tex file you can download or open in Overleaf. One short document taken through every step — equations, licence key, Export, then Import back into Docs — as it appeared on screen."
+description: "Google Docs™ has no LaTeX download. LaTeXFlow Export writes a .tex you can download or open in Overleaf: one short document through every step, and back."
 ---
 
 Google Docs™ has no LaTeX export of its own: *File → Download* offers formats such as Word, PDF and Markdown, but not `.tex`. The LaTeXFlow add-on's **Export** writes the document as a `.tex` file — headings, lists and equations included — that you can download or open directly in Overleaf.

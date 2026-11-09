@@ -8,7 +8,7 @@ categories: [Google Docs, Reference]
 tags: [google-docs, equations, latex, apps-script, reference]
 math: true
 pin: false
-description: "We opened up equations built with the Google Docs equation editor and logged the structure Apps Script returns. It is a small tree with LaTeX command names already in it. Here is the full function table, the symbol list, and the things Docs cannot build at all."
+description: "We logged what Apps Script returns for Google Docs™ equations: a small tree with LaTeX command names inside. The function table, symbols and limits."
 ---
 
 If you build an equation in Google Docs with *Insert → Symbols → Equation*, what is actually stored?

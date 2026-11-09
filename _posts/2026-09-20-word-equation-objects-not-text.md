@@ -1,5 +1,5 @@
 ---
-title: "Word Equation Objects Are Not Text — Why Your Converter Finds Nothing"
+title: "Word Equation Objects Are Not Text: Why Converters Find None"
 date: 2026-09-20 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [LaTeXFlow, Troubleshooting]
 tags: [word, docx, omml, equations, conversion, troubleshooting]
 math: true
 pin: false
-description: "An equation typed with the Word equation editor is not a run of characters — it is a separate object inside the file, and no amount of adding dollar signs around it will help. What the docx actually stores, how to tell which kind you have, and the routes back to text."
+description: "A Word equation-editor equation is an object in the .docx, not text, so no delimiter reaches it. What the file stores, how to tell, and how to convert it."
 ---
 
 You uploaded a Word document with about twenty equations in it to the [web app](/latexflow/web/), and got this:

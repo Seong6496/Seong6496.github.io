@@ -1,5 +1,5 @@
 ---
-title: "LaTeX to Word Document Without Retyping: Equation Numbers and References That Still Work"
+title: "LaTeX to Word Document: Keep Equation Numbers and References"
 date: 2026-11-08 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [LaTeXFlow, Guide]
 tags: [latex, word, docx, tex-to-docx, equations, cross-references, citations, web-app]
 math: false
 pin: false
-description: "Your paper is in LaTeX, and your co-author, supervisor or journal only works in Word. We are building a converter that turns a .tex file into a Word document they can edit: editable equations, equation numbers and cross-references that stay right and update in Word, citations resolved, and a report of anything that needs a look. What it does, what we measured on 144 arXiv papers, and how to get notified when it is ready."
+description: "Converting a LaTeX paper to Word loses equation numbers and cross-references. We are building a .tex to .docx converter that keeps them. Get notified."
 ---
 
 

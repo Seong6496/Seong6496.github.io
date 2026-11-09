@@ -1,5 +1,5 @@
 ---
-title: "How to Use LaTeX in Google Docs™: Install the Add-on and Convert Your First Equation"
+title: "Convert LaTeX to Equations in Google Docs™ With an Add-on"
 date: 2026-09-10 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [LaTeXFlow, Guide]
 tags: [google-docs, latex, add-on, google-workspace-marketplace, equations, tutorial]
 math: true
 pin: false
-description: "How to use LaTeX in Google Docs™: LaTeX you type stays as plain text, and a free add-on turns it into equations. Once through: installing from the Marketplace, what the consent screen asks, scanning, converting, and what the document holds afterwards."
+description: "LaTeX you type in Google Docs™ stays plain text. A free add-on converts it to equations: install from the Marketplace, consent, scan, convert, check."
 ---
 
 LaTeX you type into Google Docs™ stays as plain text; Docs does not turn it into equations. An add-on can: this post installs LaTeXFlow, which is free for converting, and turns a first equation from LaTeX into an image.

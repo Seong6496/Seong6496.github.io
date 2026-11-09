@@ -1,5 +1,5 @@
 ---
-title: "Faster Import and Convert All in LaTeXFlow Version 16: What We Measured"
+title: "LaTeXFlow Version 16: Faster Import and Convert All"
 date: 2026-11-11 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [Google Docs, LaTeXFlow]
 tags: [latex, google-docs, tex-file, import, convert-all, equations, add-on, release-notes]
 math: false
 pin: false
-description: "LaTeXFlow Version 16 for Google Docs™ imports large .tex files that Version 15 could not finish, and converts LaTeX to equation images several times faster. The measured times, how they were taken, why they vary from day to day, and what to do when Google Docs™ stops part-way."
+description: "LaTeXFlow Version 16 for Google Docs™ imports large .tex files Version 15 could not finish, and converts LaTeX several times faster. The measured times."
 ---
 <!-- R138 (added): v16 speed post. R180: v16 live 10-30, v17 11-02; progress is a percentage (R146), large-file
      notice (R148, timings R144 real sidebar), Continue import only choice (R157). Sources: .tmp/r108_import_speed_fix.md §6, .tmp/r111_import_speed2.md §0, .tmp/r123_review2_fixes.md,

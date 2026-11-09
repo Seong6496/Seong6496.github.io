@@ -1,5 +1,5 @@
 ---
-title: "How to Copy Math from ChatGPT to Google Docs™: What the Paste Does, and What to Fix After"
+title: "How to Copy Math From ChatGPT to Google Docs™"
 date: 2026-11-09 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [LaTeXFlow, Guide]
 tags: [chatgpt, gemini, latex, google-docs, paste, bracket-mode, scan, add-on]
 math: false
 pin: false
-description: "How to copy math equations from ChatGPT to Google Docs™: paste with the copy button, and some equations become Docs equations on their own while others stay as LaTeX text. A measured paste of ChatGPT- and Gemini-style answers: which shapes Docs converted, how the free LaTeXFlow add-on converts the rest, and the one way of copying that cannot be repaired."
+description: "Paste with ChatGPT's copy button: some equations become Docs equations, others stay as LaTeX text. Which shapes convert, and how to fix the rest."
 ---
 
 To copy math from ChatGPT to Google Docs™, copy the answer with its copy button and paste it. Docs may turn some of it into equations by itself, and whatever it leaves as LaTeX text, the free LaTeXFlow add-on converts in one scan. Use that button rather than selecting the rendered maths with the mouse: a selection of rendered maths does not carry the LaTeX, and nothing can rebuild it afterwards.

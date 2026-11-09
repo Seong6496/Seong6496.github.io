@@ -1,5 +1,5 @@
 ---
-title: "Google Docs Equation Editor Cheat Sheet: Every Name You Can Type, Its LaTeX Equivalent, and the Ones Docs Rejects"
+title: "Google Docs™ Equation Editor Cheat Sheet: LaTeX Commands"
 date: 2026-10-06 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [Google Docs, Reference]
 tags: [google-docs, equation-editor, cheat-sheet, latex, shortcuts, symbols, reference]
 math: true
 pin: false
-description: "A lookup table for the Google Docs equation editor (Insert > Symbols > Equation): all 125 palette names you can type as backslash commands — 40 Greek, 32 operations, 21 relations, 12 arrows, 20 structures — with their LaTeX equivalents, the seven Google-only structure names and what they mean in LaTeX, the commands Docs silently rejects (\\neq, \\to, \\left, \\iint, matrices), and how far each claim was verified."
+description: "All 125 names the Google Docs™ equation editor takes as backslash commands, their LaTeX equivalents, the Google-only names, and the ones it rejects."
 ---
 
 This is the table version of [how to insert an equation in Google Docs™](/blog/en/posts/google-docs-equation-editor-typing-and-limits/). That post explains how the editor behaves; this one is for looking a name up. If you already know that Space converts a backslash name and that the toolbar is the whole vocabulary, skip to the tables.

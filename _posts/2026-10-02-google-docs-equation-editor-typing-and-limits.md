@@ -1,5 +1,5 @@
 ---
-title: "How to Insert an Equation in Google Docs™: Shortcuts, LaTeX Commands, and the Four Things It Cannot Build"
+title: "How to Insert an Equation in Google Docs™ (With Shortcuts)"
 date: 2026-10-02 09:00:00 +0900
 lang: en
 locale: en_US
@@ -8,7 +8,7 @@ categories: [Google Docs, Guide]
 tags: [google-docs, equation-editor, equations, latex, shortcuts, matrix, guide]
 math: true
 pin: false
-description: "To insert an equation in Google Docs™, use Insert > Symbols > Equation, or Alt+I Y E. Then: which backslash commands it takes and what key actually converts them, how to move between fraction and root slots without the mouse, and the four constructs it cannot make at all: matrices, piecewise cases, double integrals and multi-line aligned equations, with the way to get them anyway. Measured on a live document, screenshots included."
+description: "Insert > Symbols > Equation, or Alt+I Y E. Which backslash commands it takes, the key that converts them, moving between slots, and four limits."
 ---
 
 If you only need one thing from this post, it is the table. Everything else here is about typing faster inside the editor; the table is about what no amount of typing will produce.
