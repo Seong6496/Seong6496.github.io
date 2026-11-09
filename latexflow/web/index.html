@@ -1498,6 +1498,13 @@
       <h3>AI chatbot answers pasted into a doc</h3>
       <p>Paste a ChatGPT or Claude answer into a <code>.docx</code> and the display math often arrives as <code>[ … ]</code> — the outer backslashes were eaten by the chat window's markdown. Bracket mode catches exactly that case. Tip: ask the chatbot for <code>$…$</code> and <code>$$…$$</code>, and paste it as text — don't ask it to “make a .docx”, or it exports Word math objects this tool can't read.</p>
 
+      <!-- R236 #2 (2026-11-09): LaTeX ↔ Word 블로그 글로 가는 본문 링크. 고아 글 해소 + 주제 묶음.
+           latex-to-word-document-coming 은 출시 전 .tex → Word 변환기 안내 글 — "곧" 으로만 소개할 것.
+           latex-vs-word-thesis(EN, 11-21 예약) 는 발행 뒤에 여기 붙일 것 — 지금 걸면 404. -->
+      <h2>Guides on LaTeX and Word</h2>
+      <p>For a walkthrough of this tool on a real file, see <a href="https://mathsystem.dev/blog/en/posts/latex-to-word-equation-converter/">converting every LaTeX equation in a Word document at once</a>. If the converter finds nothing in your file, the equations are probably Word equation objects rather than text — <a href="https://mathsystem.dev/blog/en/posts/word-equation-objects-not-text/">why Word equation objects are not text</a> explains how to tell and how to get them back.</p>
+      <p>Going the other way, a <code>.docx</code> with Word equations can become a <code>.tex</code> file without installing anything: <a href="https://mathsystem.dev/blog/en/posts/word-docx-to-latex-via-google-docs/">Word to LaTeX by way of Google Docs™</a>. And if your paper is already in LaTeX but a co-author only uses Word, we are building <a href="https://mathsystem.dev/blog/en/posts/latex-to-word-document-coming/">a .tex to Word converter that keeps equation numbers and references</a>. All English guides are grouped <a href="https://mathsystem.dev/blog/en/guides/">by topic</a>.</p>
+
       <h2>Frequently asked questions</h2>
       <div class="faq-item">
         <div class="faq-q">Does my document get uploaded to a server?</div>
