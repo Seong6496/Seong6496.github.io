@@ -76,14 +76,15 @@ When we started measuring, 79.7% of the labels came out with LaTeX's number. Sin
 | Nov 5 | A figure or table with an empty caption still takes its number, and a list that changes its own numbering style before the first item keeps it | 97.4% |
 | Nov 5 | Figure-like blocks that an author defines with their own name keep that name and their own numbers, and text the author switched off in the source is skipped the way LaTeX skips it | 97.7% |
 | Nov 5 | Sub-figure captions written in two more ways, label names built from an author's command, theorems restated later in the paper, and appendix numbering in two journal classes | 98.1% |
+| Nov 6 | References inside footnotes are now checked too, a reference written as a formula on its own stays a live reference, and references inside equations print the right number | 98.2% |
 
-![Line chart of the share of labels whose number matches LaTeX's own on 144 arXiv papers. It starts at 79.7%, climbs through 7 changes to 92.1% at the end of the first round on November 4, then through 11 more changes to 98.1% on November 5.](/assets/img/posts/2026-11-15-equation-numbers-latex-to-word/02-progress.png){: width="720" }
-_The same log as a chart. Each dot is one change, re-measured on all 144 papers. Latest (November 5): 98.1% of about 9,500 labels match LaTeX's `.aux`._
+![Line chart of the share of labels whose number matches LaTeX's own on 144 arXiv papers. It starts at 79.7%, climbs through 7 changes to 92.1% at the end of the first round on November 4, then through 12 more changes to 98.2% on November 6.](/assets/img/posts/2026-11-15-equation-numbers-latex-to-word/02-progress.png){: width="720" }
+_The same log as a chart. Each dot is one change, re-measured on all 144 papers. Latest (November 6): 98.2% of about 9,500 labels match LaTeX's `.aux`._
 <!-- log:end -->
 
 The first round was the common machinery. Everything after it is the long tail: constructs that only some papers use, each worth anywhere from a dozen to about a hundred labels across the 144 papers. None of them has needed anything Word can't hold. They need the counting to be read more carefully, one construct at a time.
 
-One thing to keep in mind about these numbers: they are development numbers, measured on the papers we work with. Before the converter goes live we will run it on papers it has never seen, and that is the number we will stand behind.
+One thing to keep in mind about these numbers: they are development numbers, measured on the papers we work with. So this week we ran the converter, unchanged, on 55 papers it had never seen. Most came through the same way, but a handful used constructs none of the 144 had: an appendix numbered in a custom format, equations hidden behind an author's own shorthand, a bibliography style the converter didn't read yet. Each of those cost its paper most of its numbers. We are fixing them now, as general rules rather than per-paper patches, and then we test on another set of papers it has never seen. That is the number we will publish.
 
 ## 4. What comes next
 
