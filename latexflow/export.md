@@ -77,12 +77,12 @@ If anything goes wrong — no key in the receipt email, a key that will not acti
 
 ## Refunds
 
-If Export or Import does not work for your document, email **mathfolis.support@gmail.com** with your order number and we will refund the purchase:
+We refund a purchase when the licence key was never activated, when you were charged twice or in error, or when Export produces no `.tex` file or Import writes nothing to the document, we reproduce it with the same document or file, and we cannot fix it within 7 days of your report. We do not refund because of the content of a produced file, a change of mind, or a pass that has been used. Email **mathfolis.support@gmail.com** with your order number:
 
-- **7-day pass:** within **7 days** of purchase, while the pass runs.
+- **7-day pass:** within **7 days** of purchase.
 - **Monthly or yearly subscription:** within **14 days** of the first payment. Renewal payments are not refunded; cancel before the next renewal instead.
 
-Tell us what went wrong; it helps us fix it for the next person.
+When a purchase is refunded, its licence key is revoked. The full rule is in the [Terms of Service, section 1c](/latexflow/terms/#addon-refunds).
 
 Lemon Squeezy, as the payment processor, may also refund a purchase within 60 days of purchase at its own discretion. Refunds go back to the original payment method and can take up to 10 days to appear on your statement.
 

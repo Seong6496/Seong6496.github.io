@@ -2,12 +2,12 @@
 layout: latexflow-doc
 title: Terms of Service
 permalink: /latexflow/terms/
-description: Terms of Service for the LaTeXFlow Google Docs™ Add-on and Web app.
+description: Terms of Service for the LaTeXFlow Google Docs™ Add-on, Web app and .tex to Word converter.
 ---
 
-*Last updated: 2026-10-12*
+*Last updated: 2026-11-17. Purchases made before 2026-11-17 keep the terms that were in force when they were bought.*
 
-By installing or using **LaTeXFlow** — either the **Google Docs™ Add-on** ("the Add-on") or the **Web app** at `mathsystem.dev/latexflow/web/` ("the Web app") — you agree to these Terms of Service. Sections marked **(Add-on)** apply only to the Add-on; sections marked **(Web app)** apply only to the Web app; unmarked sections apply to both.
+By installing or using **LaTeXFlow** — the **Google Docs™ Add-on** ("the Add-on"), the **Web app** at `mathsystem.dev/latexflow/web/` ("the Web app") or the **.tex to Word converter** at `mathsystem.dev/latexflow/tex-to-docx/` ("the Converter") — you agree to these Terms of Service. Sections marked **(Add-on)** apply only to the Add-on; sections marked **(Web app)** apply only to the Web app; sections marked **(Converter)** apply only to the Converter; unmarked sections apply to all of them.
 
 The Service is provided by Teolemma.
 
@@ -19,7 +19,7 @@ The Add-on is a Google Workspace Add-on that converts LaTeX mathematical express
 
 ## 1b. Description of Service (Web app)
 
-The Web app is a browser-based tool at `mathsystem.dev/latexflow/web/` that converts LaTeX expressions inside a `.docx` file — uploaded directly or imported from Google Drive — into rendered PNG images. Document conversion runs in your browser. What is collected, and how to opt out, is described in the [Privacy Policy](/latexflow/privacy/). The Web app is provided free of charge and has no paid features.
+The Web app is a browser-based tool at `mathsystem.dev/latexflow/web/` that converts LaTeX expressions inside a `.docx` file — uploaded directly or imported from Google Drive — into rendered PNG images. Document conversion runs in your browser. What is collected, and how to opt out, is described in the [Privacy Policy](/latexflow/privacy/). The Web app is provided free of charge and has no paid features. The .tex to Word converter is a separate tool, described in Section 1d.
 
 ## 1c. Paid Features, Licences and Refunds (Add-on)
 
@@ -40,8 +40,44 @@ A subscription renews automatically at the end of each month or year until it is
 **Payments.** Payments are processed by **Lemon Squeezy** as merchant of record. Your purchase contract for the payment is with Lemon Squeezy, and its terms apply to the payment; your card statement shows `LEMSQZY*`. VAT or sales tax may be added at checkout depending on your country.
 
 **Refunds.**
+{: #addon-refunds}
 
-If Export or Import does not work for your document, email **mathfolis.support@gmail.com** with your order number and we will refund the purchase, provided you write within **7 days of purchase** for a 7-day pass, or within **14 days of the first payment** for a monthly or yearly subscription. Renewal payments of a subscription are not refunded; cancel before the next renewal instead. Lemon Squeezy, as the payment processor, may also refund a purchase within 60 days of purchase at its own discretion. Refunds go back to the original payment method and can take up to 10 days to appear on your statement.
+We refund a purchase only when one of these facts is true and you email **mathfolis.support@gmail.com** with your order number within **7 days of purchase** for a 7-day pass, or within **14 days of the first payment** for a monthly or yearly subscription:
+
+- the licence key was never activated;
+- you were charged twice or in error;
+- Export produces no `.tex` file, or Import writes nothing to the document, we reproduce this with the same document or file, and we cannot fix it within 7 days of your report.
+
+We do not refund because of the content of a file or document that was produced (a formula, the layout, a command that was not carried over), a change of mind, or a pass that has been used. Export and Import cannot be tried before buying; the [Export & Import page](/latexflow/export/) lists what they carry over and what they do not. Renewal payments of a subscription are not refunded; cancel before the next renewal instead. When a purchase is refunded, its licence key is revoked.
+
+Lemon Squeezy, as the payment processor, may also refund a purchase within 60 days of purchase at its own discretion. Refunds go back to the original payment method and can take up to 10 days to appear on your statement.
+
+**Chargebacks** are handled by the payment processor under its own rules.
+
+## 1d. Passes, Licences and Refunds (Converter)
+
+**What is free.** Any `.tex` file can be converted without a licence: the first 3 pages of the Word file and the full conversion report are free. A licence key unlocks the full `.docx` for every conversion while the pass is active. Prices are shown on the converter page and may change; a change does not affect a pass already bought, and an active subscription keeps the price it started with.
+
+**Products.** A **7-day pass**, a one-time payment that ends 7 days after purchase, and a **monthly subscription**, which renews each month until it is cancelled. You can cancel at any time from the Polar customer portal; after cancelling, the subscription stays active until the end of the month already paid for. When a pass or a subscription ends, the full `.docx` locks again; the free first 3 pages and the report stay available, and files you have already downloaded are yours.
+
+**Licence.** Each purchase provides one licence key. A key works in up to 2 browsers at a time; "Deactivate on this browser" on the converter page frees one so the key can be used elsewhere. The key is personal to the buyer and may not be shared, published or resold. Keys for the Add-on do not unlock the Converter, and Converter keys do not unlock the Add-on.
+
+**Delivery.** Polar sends an email with an **Access purchase** button that opens the Polar customer portal, where the licence key is shown. After a first purchase the key is also filled in on the converter page.
+
+**Payments.** Converter purchases are processed by **Polar Software, Inc.** as merchant of record. Your purchase contract for the payment is with Polar, and the [Polar Buyer Terms](https://polar.sh/legal/checkout-buyer-terms) apply to it. Sales tax or VAT is calculated at checkout depending on your country. (Add-on purchases are processed by Lemon Squeezy — Section 1c.)
+
+**Refunds.**
+{: #converter-refunds}
+
+We refund a purchase only when one of these facts is true and you email **mathfolis.support@gmail.com** with your order number within **7 days of purchase** for a 7-day pass, or within **14 days of the first payment** for a monthly subscription:
+
+- the licence key was never activated;
+- you were charged twice or in error;
+- a `.tex` upload produces no `.docx` (the conversion stops with an error), we reproduce this with the same file, and we cannot fix it within 7 days of your report.
+
+We do not refund because of the content of a `.docx` that was produced (a formula, the layout, a command that was not carried over), a change of mind, or a pass that has been used. The free first 3 pages and the full report let you check the result on your own file before buying. Renewal payments are not refunded; cancel before the next renewal instead. When a purchase is refunded, its licence key is revoked.
+
+Polar, as the merchant of record, may also refund a purchase within 60 days of purchase at its own discretion. Refunds go back to the original payment method and can take up to 10 days to appear on your statement.
 
 **Chargebacks** are handled by the payment processor under its own rules.
 

@@ -183,6 +183,12 @@ defaults:
       path: assets/js/dist
     values:
       swcache: true
+  # R253 quiet phase: the .tex to Word converter page (copied in by sync-landing) stays out of the sitemap
+  # until the public release (12-01, after Polar approval). Remove this block at release (readiness 3.2).
+  - scope:
+      path: latexflow/tex-to-docx
+    values:
+      sitemap: false
 
 sass:
   style: compressed

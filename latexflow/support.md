@@ -65,11 +65,22 @@ A. Look for the Lemon Squeezy receipt in the inbox and spam folder of the addres
 A. That is the purchase. Lemon Squeezy is the merchant of record for LaTeXFlow, so the charge appears under their name rather than ours. Their explanation is at [lemonsqueezy.com/why-did-lemon-squeeezy-charge-me](https://www.lemonsqueezy.com/why-did-lemon-squeeezy-charge-me).
 
 **Q. How do I request a refund?**
-A. The refund policy is on the [Export & Import page](/latexflow/export/#refunds) and in the [Terms of Service](/latexflow/terms/), section 1c. To request one, email **mathfolis.support@gmail.com** with your order number and, if you can, what went wrong. Lemon Squeezy may also refund a purchase within 60 days at its own discretion. A refund can take up to 10 days to show on your statement.
+A. We refund when the key was never activated, when you were charged twice or in error, or when Export produces no `.tex` file or Import writes nothing, we reproduce it and cannot fix it within 7 days — not because of the content of a produced file. Email **mathfolis.support@gmail.com** with your order number within 7 days of purchase (7-day pass) or 14 days of the first payment (subscription); the full rule is in the [Terms of Service, section 1c](/latexflow/terms/#addon-refunds).
 
 **Q. How do I activate my key, or move it to another Google account?**
 A. In Google Docs™, open the LaTeXFlow sidebar, paste the key into the **License** field and click **Activate**. One key opens both Export and Import, in every document you open with that Google account. A key — 7-day pass or subscription — is used on one Google account at a time. To move it, click **Deactivate** in the sidebar on the old account; that frees the key, and you can paste and activate it on the new one. The key is personal to you — please do not share it.
 
+### .tex to Word converter passes (Converter)
+{: #converter-passes}
+
+**Q. Where is my converter licence key?**
+A. Open your Polar email and click **Access purchase** to get your key. After a first purchase the key is also filled in on the converter page.
+
+**Q. Why does my card statement show Polar?**
+A. Polar is the merchant of record for converter passes, so the charge appears under their name. Add-on purchases are made through Lemon Squeezy.
+
+**Q. How do I request a refund for a converter pass?**
+A. We refund when the key was never activated, when you were charged twice or in error, or when a `.tex` upload produces no `.docx`, we reproduce it and cannot fix it within 7 days — not because of the content of a produced `.docx`; the free first 3 pages and the report let you check before buying. Email **mathfolis.support@gmail.com** with your order number within 7 days of purchase (7-day pass) or 14 days of the first payment (monthly); the full rule is in the [Terms of Service, section 1d](/latexflow/terms/#converter-refunds).
 
 ### Web app (mathsystem.dev/latexflow/web/)
 
@@ -95,4 +106,5 @@ A. The Web app sends only the equation source and rendered PNG (no other documen
 - [Privacy Policy](/latexflow/privacy/)
 - [Terms of Service](/latexflow/terms/)
 - [Export & Import — how it works, licence and refunds](/latexflow/export/)
+- [.tex to Word converter — passes and refunds](/latexflow/terms/#converter-refunds)
 - [LaTeXFlow store — prices and purchase](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=doc&utm_campaign=support&utm_content=links)
