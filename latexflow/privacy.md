@@ -2,16 +2,16 @@
 layout: latexflow-doc
 title: Privacy Policy
 permalink: /latexflow/privacy/
-description: How LaTeXFlow (Google Docs™ Add-on and Web app) handles your data.
+description: How LaTeXFlow (Google Docs™ Add-on, Web app and .tex to Word converter) handles your data.
 ---
 
-*Last updated: 2026-11-05*
+*Last updated: 2026-11-17*
 
 > 📋 **Site-wide privacy** (cookies, advertising, third-party services on the blog and tool pages): [mathsystem.dev/blog/privacy/](/blog/privacy/). This page covers **only the LaTeXFlow tool itself** (Add-on permissions, Web app data processing).
 
 This Privacy Policy describes how **LaTeXFlow** — both the **Google Docs™ Add-on** ("the Add-on") and the **Web app at mathsystem.dev** ("the Web app") — collects, uses, and protects your information.
 
-**Every section and every claim below is labelled `[Add-on]`, `[Web app]`, or `[Both]`.** The two products are documented on one page because they share one collection endpoint, one storage bucket, one region, and one service account; the labels tell you which product any given statement applies to.
+**Every section and every claim below is labelled `[Add-on]`, `[Web app]`, or `[Both]`.** The two products are documented on one page because they share one collection endpoint, one storage bucket, one region, and one service account; the labels tell you which product any given statement applies to. The **.tex to Word converter** at `mathsystem.dev/latexflow/tex-to-docx/` ("the Converter") uses none of these: it is covered only by the sections labelled **`[Converter]`** (§2e and its row in §7), and no `[Both]` statement applies to it.
 
 ---
 
@@ -84,13 +84,26 @@ For the underlying Google services and their policies, see [Google API Services 
 
 ## 2d. Web App — Converter Waitlist (Optional) `[Web app]` {#waitlist}
 
-The Web app shows a **".tex to Word with editable equations"** button marked **soon**. That converter is not available yet; the button opens a short form where you can ask for progress updates until it launches. Nothing is collected unless you fill in the form and press Submit.
+The Web app shows a **".tex to Word with editable equations"** button marked **soon**. The button opens a short form where you can ask for progress updates on the .tex to Word converter (§2e) and for its launch notice. Nothing is collected unless you fill in the form and press Submit.
 
 - **What is collected** — the **email address** you type, and, only if you tick them, your answers to **"What would you convert?"** (journal paper, thesis, homework or notes, other). Nothing from any document you converted on the page is included.
 - **Purpose** — to send you **progress updates on the .tex to Word converter until it launches, and the launch notice** (a few emails in total). Every email has an unsubscribe link. We do not use the address for anything else and do not add it to any other mailing list.
 - **Where it is stored** — your browser sends the form directly to **Google Forms**, and the responses are kept in the developer's own Google account. Google processes them under [Google's Privacy Policy](https://policies.google.com/privacy). No third party receives the address.
 - **Retention** — the address is deleted when you unsubscribe, after the launch notice has been sent, or within 12 months if the converter has not launched by then.
 - **Deletion** — use the unsubscribe link in any email, or email `mathfolis.support@gmail.com` from the address you signed up with, and we will delete it.
+
+---
+
+## 2e. .tex to Word Converter `[Converter]` {#converter}
+
+The Converter at `mathsystem.dev/latexflow/tex-to-docx/` turns a LaTeX source file into a Word `.docx`. It runs **entirely in your browser**.
+
+- **Your files** — the `.tex`, `.bib`, `.bbl` and archive files you drop are read and converted inside your browser. **They are not uploaded, stored or sent anywhere** — not to us and not to any third party. The Converter has no collection endpoint and builds no training dataset.
+- **Licence key check** — only when you enter a licence key, the page sends **the key and a random activation label for this browser** to **Polar** (`api.polar.sh`) to check it, activate it for this browser, or deactivate it. Nothing about your files is included.
+- **What stays in your browser** — the key, its activation id and the result of the last check are kept in this browser's local storage so the full `.docx` stays unlocked on your next visit. "Deactivate on this browser" removes them.
+- **Right after a purchase** — after a first purchase Polar hands the page a one-time customer session; the page uses it once to read your new licence key and fill it in. The session is not stored.
+- **Payments** — passes are bought through Polar's checkout shown on the page. **Polar Software, Inc. is the merchant of record for Converter purchases** and handles your payment and billing details under the [Polar Privacy Policy](https://polar.sh/legal/privacy); the page never sees them. (Add-on purchases are made through Lemon Squeezy — §3c.)
+- **Deletion** — nothing about your files exists outside your browser. For a Polar purchase record, email `mathfolis.support@gmail.com`; we will pass the request on to Polar where needed.
 
 ---
 
@@ -270,6 +283,7 @@ To request deletion of previously submitted Web app records, email `mathfolis.su
 | Google Cloud Storage (`asia-northeast3`) | `[Both]` Storage of training data, in our own project (§4) | Only as our infrastructure processor (§4a) |
 | Google Cloud Functions (`asia-northeast3`) | `[Both]` Collection endpoint `collect-web-pair`, in our own project — one function serves both products | Only as our infrastructure processor (§4a) |
 | jsDelivr CDN | `[Both]` Serves the Temml and MathJax rendering libraries to your browser and to the Add-on sidebar | **No.** Only library files are requested; no document content or user data is included |
+| Polar (Polar Software, Inc.) | `[Converter]` Merchant of record for Converter passes; checks Converter licence keys (§2e). The Converter loads Polar's checkout script from jsDelivr | **No.** The Converter uses no Google user data; Polar receives only the licence key, a random activation label and, at checkout, the payment details you enter |
 
 **Google Sheets is not used by either product.**
 
