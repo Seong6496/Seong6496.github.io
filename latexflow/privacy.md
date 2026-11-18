@@ -98,12 +98,12 @@ The Web app shows a **".tex to Word with editable equations"** button marked **s
 
 The Converter at `mathsystem.dev/latexflow/tex-to-docx/` turns a LaTeX source file into a Word `.docx`. It runs **entirely in your browser**.
 
-- **Your files** — the `.tex`, `.bib`, `.bbl` and archive files you drop are read and converted inside your browser. **We never share your files or data externally without your consent.** So a refresh keeps your work, this tab keeps a copy on your device until you close the tab or start over. The Converter has no collection endpoint and builds no training dataset.
+- **Your files** — the `.tex`, `.bib`, `.bbl` and archive files you drop are read and converted inside your browser. **We never share your files or data externally without your consent.** The Converter has no collection endpoint and builds no training dataset.
 - **Licence key check** — only when you enter a licence key, the page sends **the key and a random activation label for this browser** to **Polar** (`api.polar.sh`) to check it, activate it for this browser, or deactivate it. Nothing about your files is included.
 - **What stays in your browser** — the key, its activation id and the result of the last check are kept in this browser's local storage so the full `.docx` stays unlocked on your next visit. "Deactivate on this browser" removes them.
 - **Right after a purchase** — after a first purchase Polar hands the page a one-time customer session; the page uses it once to read your new licence key and fill it in. The session is not stored.
 - **Payments** — passes are bought through Polar's checkout shown on the page. **Polar Software, Inc. is the merchant of record for Converter purchases** and handles your payment and billing details under the [Polar Privacy Policy](https://polar.sh/legal/privacy); the page never sees them. (Add-on purchases are made through Lemon Squeezy — §3c.)
-- **Deletion** — we hold nothing about your files; this tab's copy on your device goes when you close the tab or start over. For a Polar purchase record, email `mathfolis.support@gmail.com`; we will pass the request on to Polar where needed.
+- **Deletion** — we hold nothing about your files. For a Polar purchase record, email `mathfolis.support@gmail.com`; we will pass the request on to Polar where needed.
 
 ---
 
