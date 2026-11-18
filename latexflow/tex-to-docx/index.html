@@ -483,7 +483,8 @@
     <div class="section-label">Conversion report</div>
     <div class="report" id="report"></div>
 
-    <!-- R255 (user): side-by-side Word shots of the free route vs ours, where the HTML preview was (R254). Not a sales
+    <!-- R257: data-proofer-ignore on the lazy images (no src until shown) - the blog build's html-proofer rejects a src-less <img>.
+         R255 (user): side-by-side Word shots of the free route vs ours, where the HTML preview was (R254). Not a sales
          element - shown in Phase A too. Inline 1200 px webp; click = the 2000 px webp in a <dialog> (R257: no png fallbacks).
          Files: shots/ (sync-landing copies the folder; page-check checks every file named here exists). -->
     <div class="section-label">Side by side in Word</div>
@@ -497,31 +498,31 @@
       </div>
       <figure class="shot" role="tabpanel" id="shot-0" aria-labelledby="shot-tab-0">
         <a class="shot-open" href="shots/01_numbering_large.webp" target="_blank" rel="noopener" aria-label="Open a larger image">
-          <img data-src="shots/01_numbering.webp" width="1200" height="467" alt="The same half page in Word: the free converter drops section and equation numbers and the citation and leaves ‘[eqn:schur]’ and raw LaTeX; LaTeXFlow shows sections 1–2, citation [1], equations (1)–(3) and ‘Eq. (1)’.">
+          <img data-proofer-ignore data-src="shots/01_numbering.webp" width="1200" height="467" alt="The same half page in Word: the free converter drops section and equation numbers and the citation and leaves ‘[eqn:schur]’ and raw LaTeX; LaTeXFlow shows sections 1–2, citation [1], equations (1)–(3) and ‘Eq. (1)’.">
         </a>
         <figcaption>The same half page in Word: the free converter drops section and equation numbers and the citation and leaves ‘[eqn:schur]’ and raw LaTeX; LaTeXFlow shows sections 1–2, citation [1], equations (1)–(3) and ‘Eq. (1)’.</figcaption>
       </figure>
       <figure class="shot" role="tabpanel" id="shot-1" aria-labelledby="shot-tab-1" hidden>
         <a class="shot-open" href="shots/02_theorems_large.webp" target="_blank" rel="noopener" aria-label="Open a larger image">
-          <img data-src="shots/02_theorems.webp" width="1200" height="571" alt="A lemma and its proof in Word: the free converter numbers it Lemma 11 and refers to Lemma 10; LaTeXFlow keeps the paper’s Lemma 3.2, equation (3.2) and the reference to Lemma 3.1.">
+          <img data-proofer-ignore data-src="shots/02_theorems.webp" width="1200" height="571" alt="A lemma and its proof in Word: the free converter numbers it Lemma 11 and refers to Lemma 10; LaTeXFlow keeps the paper’s Lemma 3.2, equation (3.2) and the reference to Lemma 3.1.">
         </a>
         <figcaption>A lemma and its proof in Word: the free converter numbers it Lemma 11 and refers to Lemma 10; LaTeXFlow keeps the paper’s Lemma 3.2, equation (3.2) and the reference to Lemma 3.1.</figcaption>
       </figure>
       <figure class="shot" role="tabpanel" id="shot-2" aria-labelledby="shot-tab-2" hidden>
         <a class="shot-open" href="shots/03_citations_large.webp" target="_blank" rel="noopener" aria-label="Open a larger image">
-          <img data-src="shots/03_citations.webp" width="1200" height="863" alt="In-text citations and the reference list in Word: the free converter leaves the citations empty and the list unnumbered; LaTeXFlow shows [1, 2, 3] in the text and a numbered References list.">
+          <img data-proofer-ignore data-src="shots/03_citations.webp" width="1200" height="863" alt="In-text citations and the reference list in Word: the free converter leaves the citations empty and the list unnumbered; LaTeXFlow shows [1, 2, 3] in the text and a numbered References list.">
         </a>
         <figcaption>In-text citations and the reference list in Word: the free converter leaves the citations empty and the list unnumbered; LaTeXFlow shows [1, 2, 3] in the text and a numbered References list.</figcaption>
       </figure>
       <figure class="shot" role="tabpanel" id="shot-3" aria-labelledby="shot-tab-3" hidden>
         <a class="shot-open" href="shots/04_fields_large.webp" target="_blank" rel="noopener" aria-label="Open a larger image">
-          <img data-src="shots/04_fields.webp" width="1200" height="441" alt="The same introduction in Word with field shading on: LaTeXFlow’s section, equation and theorem numbers and references are grey live Word fields; the free converter shows ‘[eqk]’, raw LaTeX and no fields.">
+          <img data-proofer-ignore data-src="shots/04_fields.webp" width="1200" height="441" alt="The same introduction in Word with field shading on: LaTeXFlow’s section, equation and theorem numbers and references are grey live Word fields; the free converter shows ‘[eqk]’, raw LaTeX and no fields.">
         </a>
         <figcaption>The same introduction in Word with field shading on: LaTeXFlow’s section, equation and theorem numbers and references are grey live Word fields; the free converter shows ‘[eqk]’, raw LaTeX and no fields.</figcaption>
       </figure>
       <figure class="shot" role="tabpanel" id="shot-4" aria-labelledby="shot-tab-4" hidden>
         <a class="shot-open" href="shots/05_equations_large.webp" target="_blank" rel="noopener" aria-label="Open a larger image">
-          <img data-src="shots/05_equations.webp" width="1200" height="592" alt="A system of differential equations in Word: the free converter leaves it as raw LaTeX source; LaTeXFlow shows it as an editable, numbered Word equation (2).">
+          <img data-proofer-ignore data-src="shots/05_equations.webp" width="1200" height="592" alt="A system of differential equations in Word: the free converter leaves it as raw LaTeX source; LaTeXFlow shows it as an editable, numbered Word equation (2).">
         </a>
         <figcaption>A system of differential equations in Word: the free converter leaves it as raw LaTeX source; LaTeXFlow shows it as an editable, numbered Word equation (2).</figcaption>
       </figure>
@@ -529,7 +530,7 @@
     </div>
     <dialog class="shot-dialog" id="shot-dialog" aria-label="Larger image">
       <button type="button" class="shot-close" id="shot-close" aria-label="Close"><i class="ti ti-x" aria-hidden="true"></i></button>
-      <img id="shot-large" alt="">
+      <img id="shot-large" alt="" data-proofer-ignore>
     </dialog>
   </section>
 
