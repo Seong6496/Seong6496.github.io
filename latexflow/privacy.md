@@ -31,13 +31,13 @@ Everything a Google Docs™ Add-on user — or a reviewer — needs, in one tabl
 | **Who receives it** | **No third party receives Google user data.** Not sold, not shared, not transferred, not disclosed — for any purpose, including advertising. Google Cloud is the only infrastructure processor. See §4a.<br>Google user data goes to no third party; only for the Export and Import license check does Lemon Squeezy receive your license key and a random instance name — see [§3c](#license-check). |
 | **How it is protected** | HTTPS/TLS in transit · Google-managed encryption at rest · write-only service account · public access prevention · pseudonymization · the collection endpoint never logs your LaTeX. See §4b. |
 | **One thing to know about failures** | If a conversion fails, the Add-on writes a diagnostic line to its own Apps Script execution log, and that line **can include the LaTeX that failed**. Nothing is transmitted or stored by us. See §3b. |
-| **Deleting your data** | Email `mathfolis.support@gmail.com` from the Google account you used with the Add-on. See §6. |
+| **Deleting your data** | Email `support@mathsystem.dev` from the Google account you used with the Add-on. See §6. |
 
 ---
 
 ## 1. Who We Are `[Both]`
 
-LaTeXFlow is operated by Teolemma (contact: mathfolis.support@gmail.com). The Add-on is published on the Google Workspace Marketplace; the Web app is hosted at `mathsystem.dev/latexflow/web/`. Teolemma is the data controller for both products.
+LaTeXFlow is operated by Teolemma (contact: support@mathsystem.dev). The Add-on is published on the Google Workspace Marketplace; the Web app is hosted at `mathsystem.dev/latexflow/web/`. Teolemma is the data controller for both products.
 
 ---
 
@@ -90,7 +90,7 @@ The Web app shows a **".tex to Word with editable equations"** button marked **s
 - **Purpose** — to send you **progress updates on the .tex to Word converter until it launches, and the launch notice** (a few emails in total). Every email has an unsubscribe link. We do not use the address for anything else and do not add it to any other mailing list.
 - **Where it is stored** — your browser sends the form directly to **Google Forms**, and the responses are kept in the developer's own Google account. Google processes them under [Google's Privacy Policy](https://policies.google.com/privacy). No third party receives the address.
 - **Retention** — the address is deleted when you unsubscribe, after the launch notice has been sent, or within 12 months if the converter has not launched by then.
-- **Deletion** — use the unsubscribe link in any email, or email `mathfolis.support@gmail.com` from the address you signed up with, and we will delete it.
+- **Deletion** — use the unsubscribe link in any email, or email `support@mathsystem.dev` from the address you signed up with, and we will delete it.
 
 ---
 
@@ -103,7 +103,7 @@ The Converter at `mathsystem.dev/latexflow/tex-to-docx/` turns a LaTeX source fi
 - **What stays in your browser** — the key, its activation id and the result of the last check are kept in this browser's local storage so the full `.docx` stays unlocked on your next visit. "Deactivate on this browser" removes them.
 - **Right after a purchase** — after a first purchase Polar hands the page a one-time customer session; the page uses it once to read your new licence key and fill it in. The session is not stored.
 - **Payments** — passes are bought through Polar's checkout shown on the page. **Polar Software, Inc. is the merchant of record for Converter purchases** and handles your payment and billing details under the [Polar Privacy Policy](https://polar.sh/legal/privacy); the page never sees them. (Add-on purchases are made through Lemon Squeezy — §3c.)
-- **Deletion** — nothing about your files exists outside your browser. For a Polar purchase record, email `mathfolis.support@gmail.com`; we will pass the request on to Polar where needed.
+- **Deletion** — nothing about your files exists outside your browser. For a Polar purchase record, email `support@mathsystem.dev`; we will pass the request on to Polar where needed.
 
 ---
 
@@ -228,7 +228,7 @@ These protections apply to all data described in §3a, including data derived fr
 | **Caching** | `[Both]` Stored objects are written with `Cache-Control: private, no-store`. |
 | **Region** | `[Both]` All storage is in **`asia-northeast3` (Seoul, Republic of Korea)** — see §4a. |
 | **Retention** | `[Both]` Training data is retained while it remains useful for model training; records unused for more than 12 months are reviewed quarterly and deleted if no longer needed. See §6. |
-| **Deletion on request** | `[Add-on]` Email `mathfolis.support@gmail.com` **from the Google account you used with the Add-on** — we recompute your identifier from that address and delete the matching records. Nothing else is needed.<br>`[Web app]` Email the same address including your `latexflow_anon_hash` value (§5b). |
+| **Deletion on request** | `[Add-on]` Email `support@mathsystem.dev` **from the Google account you used with the Add-on** — we recompute your identifier from that address and delete the matching records. Nothing else is needed.<br>`[Web app]` Email the same address including your `latexflow_anon_hash` value (§5b). |
 
 ---
 
@@ -257,7 +257,7 @@ localStorage.setItem('latexflow_collect_optout', '1')
 
 The opt-out is enforced immediately by the Web app and persists until you clear site data. While the opt-out is set, no further submissions are sent. You may also simply avoid using the Web app if you prefer not to contribute.
 
-To request deletion of previously submitted Web app records, email `mathfolis.support@gmail.com` together with the value of `latexflow_anon_hash` from your browser (read it from the Console using `localStorage.getItem('latexflow_anon_hash')`). Without that identifier we cannot locate your submissions, because no email, name, or IP address is stored alongside them.
+To request deletion of previously submitted Web app records, email `support@mathsystem.dev` together with the value of `latexflow_anon_hash` from your browser (read it from the Console using `localStorage.getItem('latexflow_anon_hash')`). Without that identifier we cannot locate your submissions, because no email, name, or IP address is stored alongside them.
 
 ---
 
@@ -269,7 +269,7 @@ To request deletion of previously submitted Web app records, email `mathfolis.su
 
 **How to request deletion:**
 
-- **`[Add-on]`** Email `mathfolis.support@gmail.com` **from the Google account you used with the Add-on**. Your identifier is derived from your email address, so we can recompute it from the address you write from and delete the matching records. You do not need to supply anything else.
+- **`[Add-on]`** Email `support@mathsystem.dev` **from the Google account you used with the Add-on**. Your identifier is derived from your email address, so we can recompute it from the address you write from and delete the matching records. You do not need to supply anything else.
 - **`[Web app]`** Email the same address and include your `latexflow_anon_hash` value, as described in §5b. Without it we cannot locate your submissions, because nothing identifying is stored alongside them.
 
 ---
@@ -307,5 +307,5 @@ We may update this policy from time to time. The "Last updated" date at the top 
 
 For privacy-related questions or data deletion requests:
 
-**Email:** mathfolis.support@gmail.com
+**Email:** support@mathsystem.dev
 **Support page:** [mathsystem.dev/latexflow/support/](/latexflow/support/) — FAQ and a public message board

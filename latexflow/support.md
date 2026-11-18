@@ -32,7 +32,7 @@ Please include:
 - **(Web app)** Your browser and OS, and whether you used drag-drop or Google Drive import
 
 For privacy requests, or anything you would rather not post publicly, email
-**mathfolis.support@gmail.com**.
+**support@mathsystem.dev**.
 
 ---
 
@@ -59,13 +59,13 @@ A. Go to **Extensions → LatexFlow → Data Collection Settings** in Google Doc
 A. Buy a 7-day pass or a subscription (monthly or yearly) in the [LaTeXFlow store](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=doc&utm_campaign=support&utm_content=faq). The payment is processed by Lemon Squeezy as merchant of record. Your licence key is **in the Lemon Squeezy receipt email**, which arrives right after payment and is sent to the email address you used at checkout.
 
 **Q. I have not received my key.**
-A. Look for the Lemon Squeezy receipt in the inbox and spam folder of the address you used at checkout — it is sent there, not to a Google account. If there is no receipt, email **mathfolis.support@gmail.com** with the email address you paid with and, if you have it, the order number (please do not post order numbers on the public board).
+A. Look for the Lemon Squeezy receipt in the inbox and spam folder of the address you used at checkout — it is sent there, not to a Google account. If there is no receipt, email **support@mathsystem.dev** with the email address you paid with and, if you have it, the order number (please do not post order numbers on the public board).
 
 **Q. What is `LEMSQZY*` on my card statement?**
 A. That is the purchase. Lemon Squeezy is the merchant of record for LaTeXFlow, so the charge appears under their name rather than ours. Their explanation is at [lemonsqueezy.com/why-did-lemon-squeeezy-charge-me](https://www.lemonsqueezy.com/why-did-lemon-squeeezy-charge-me).
 
 **Q. How do I request a refund?**
-A. We refund when the key was never activated, when you were charged twice or in error, or when Export produces no `.tex` file or Import writes nothing, we reproduce it and cannot fix it within 7 days — not because of the content of a produced file. Email **mathfolis.support@gmail.com** with your order number within 7 days of purchase (7-day pass) or 14 days of the first payment (subscription); the full rule is in the [Terms of Service, section 1c](/latexflow/terms/#addon-refunds).
+A. We refund when the key was never activated, when you were charged twice or in error, or when Export produces no `.tex` file or Import writes nothing, we reproduce it and cannot fix it within 7 days — not because of the content of a produced file. Email **support@mathsystem.dev** with your order number within 7 days of purchase (7-day pass) or 14 days of the first payment (subscription); the full rule is in the [Terms of Service, section 1c](/latexflow/terms/#addon-refunds).
 
 **Q. How do I activate my key, or move it to another Google account?**
 A. In Google Docs™, open the LaTeXFlow sidebar, paste the key into the **License** field and click **Activate**. One key opens both Export and Import, in every document you open with that Google account. A key — 7-day pass or subscription — is used on one Google account at a time. To move it, click **Deactivate** in the sidebar on the old account; that frees the key, and you can paste and activate it on the new one. The key is personal to you — please do not share it.
@@ -80,7 +80,7 @@ A. Open your Polar email and click **Access purchase** to get your key. After a 
 A. Polar is the merchant of record for converter passes, so the charge appears under their name. Add-on purchases are made through Lemon Squeezy.
 
 **Q. How do I request a refund for a converter pass?**
-A. We refund when the key was never activated, when you were charged twice or in error, or when a `.tex` upload produces no `.docx`, we reproduce it and cannot fix it within 7 days — not because of the content of a produced `.docx`; the free first 3 pages and the report let you check before buying. Email **mathfolis.support@gmail.com** with your order number within 7 days of purchase (7-day pass) or 14 days of the first payment (monthly); the full rule is in the [Terms of Service, section 1d](/latexflow/terms/#converter-refunds).
+A. We refund when the key was never activated, when you were charged twice or in error, or when a `.tex` upload produces no `.docx`, we reproduce it and cannot fix it within 7 days — not because of the content of a produced `.docx`; the free first 3 pages and the report let you check before buying. Email **support@mathsystem.dev** with your order number within 7 days of purchase (7-day pass) or 14 days of the first payment (monthly); the full rule is in the [Terms of Service, section 1d](/latexflow/terms/#converter-refunds).
 
 ### Web app (mathsystem.dev/latexflow/web/)
 
@@ -97,7 +97,7 @@ A. The result screen first reports what was actually read — `Scanned N paragra
 A. Each PNG includes the original LaTeX in its alt-text (`AIMATH_FORMULA::v1::` tag). You can recover the source for any equation from the image's alt-text field in Word or Google Docs™.
 
 **Q. How do I turn off data collection in the Web app?**
-A. The Web app sends only the equation source and rendered PNG (no other document content) to our collection endpoint. An in-app toggle is on the roadmap; in the meantime, email mathfolis.support@gmail.com and we will arrange an opt-out for your account.
+A. The Web app sends only the equation source and rendered PNG (no other document content) to our collection endpoint. An in-app toggle is on the roadmap; in the meantime, email support@mathsystem.dev and we will arrange an opt-out for your account.
 
 ---
 
