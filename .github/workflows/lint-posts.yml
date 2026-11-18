@@ -83,11 +83,17 @@ jobs:
       # 예외 처리: 금지 표현을 "쓰지 말라" 고 인용하는 줄은 같은 줄에
       #   lint-allow-forbidden
       # 마커를 달면 건너뛴다. 카피 자체에는 절대 쓰지 말 것.
+      #
+      # 법적 문서 제외 (R258, 사용자 결정 2026-11-18): latexflow/privacy.md · latexflow/terms.md ·
+      # _tabs/privacy.md 는 제품별로 범위를 정한 사실을 적는 문서이고 사람이 검토한다 (예: 라이선스 키가
+      # 브라우저 local storage 에 남는다는 고지). 이 세 파일만 검사에서 뺀다 — 글·초안·다른 탭·다른
+      # latexflow 페이지·index.html 은 그대로 검사한다.
       - name: Detect forbidden absolute privacy claims
         run: |
           set +e
           export LC_ALL=C.UTF-8
           SCAN="_posts/ _drafts/ _tabs/ latexflow/ index.html"
+          LEGAL='^(latexflow/privacy\.md|latexflow/terms\.md|_tabs/privacy\.md):'   # R258: legal pages, reviewed by people
 
           PATTERNS=(
             "EN 'leaves your browser/device' 계열:::leaves your (browser|device|computer|machine|laptop)"
@@ -107,7 +113,7 @@ jobs:
           for entry in "${PATTERNS[@]}"; do
             desc="${entry%%:::*}"
             pat="${entry#*:::}"
-            hits=$(grep -rEni --binary-files=without-match -- "$pat" $SCAN 2>/dev/null | grep -v 'lint-allow-forbidden')
+            hits=$(grep -rEni --binary-files=without-match -- "$pat" $SCAN 2>/dev/null | grep -v 'lint-allow-forbidden' | grep -Ev "$LEGAL")
             if [ -n "$hits" ]; then
               echo "::error::금지 표현 (절대형 프라이버시 주장) 발견 — ${desc}. 수식 LaTeX 원문과 렌더 PNG 는 익명 수집되므로 이 주장은 사실과 다릅니다. 말해도 되는 것: 무료 · 설치/가입 불필요 · 변환(감지·렌더)은 브라우저에서 실행 · .docx 파일 자체는 서버로 업로드되지 않음 · 수식 LaTeX 와 렌더 PNG 는 익명 수집됨. 규칙 원문은 google-docs-latex-addon/docs/technical_guide/web_data_collection_privacy.md 7.3."
               echo ""
