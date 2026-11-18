@@ -77,7 +77,7 @@ If anything goes wrong — no key in the receipt email, a key that will not acti
 
 ## Refunds
 
-We refund a purchase when the licence key was never activated, when you were charged twice or in error, or when Export produces no `.tex` file or Import writes nothing to the document, we reproduce it with the same document or file, and we cannot fix it within 7 days of your report. We do not refund because of the content of a produced file, a change of mind, or a pass that has been used. Email **mathfolis.support@gmail.com** with your order number:
+We refund a purchase when the licence key was never activated, when you were charged twice or in error, or when Export produces no `.tex` file or Import writes nothing to the document, we reproduce it with the same document or file, and we cannot fix it within 7 days of your report. We do not refund because of the content of a produced file, a change of mind, or a pass that has been used. Email **support@mathsystem.dev** with your order number:
 
 - **7-day pass:** within **7 days** of purchase.
 - **Monthly or yearly subscription:** within **14 days** of the first payment. Renewal payments are not refunded; cancel before the next renewal instead.

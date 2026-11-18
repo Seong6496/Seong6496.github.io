@@ -42,7 +42,7 @@ A subscription renews automatically at the end of each month or year until it is
 **Refunds.**
 {: #addon-refunds}
 
-We refund a purchase only when one of these facts is true and you email **mathfolis.support@gmail.com** with your order number within **7 days of purchase** for a 7-day pass, or within **14 days of the first payment** for a monthly or yearly subscription:
+We refund a purchase only when one of these facts is true and you email **support@mathsystem.dev** with your order number within **7 days of purchase** for a 7-day pass, or within **14 days of the first payment** for a monthly or yearly subscription:
 
 - the licence key was never activated;
 - you were charged twice or in error;
@@ -69,7 +69,7 @@ Lemon Squeezy, as the payment processor, may also refund a purchase within 60 da
 **Refunds.**
 {: #converter-refunds}
 
-We refund a purchase only when one of these facts is true and you email **mathfolis.support@gmail.com** with your order number within **7 days of purchase** for a 7-day pass, or within **14 days of the first payment** for a monthly subscription:
+We refund a purchase only when one of these facts is true and you email **support@mathsystem.dev** with your order number within **7 days of purchase** for a 7-day pass, or within **14 days of the first payment** for a monthly subscription:
 
 - the licence key was never activated;
 - you were charged twice or in error;
@@ -138,4 +138,4 @@ These Terms are governed by the laws of the Republic of Korea, without regard to
 
 ## 8. Contact
 
-Questions about these Terms: mathfolis.support@gmail.com
+Questions about these Terms: support@mathsystem.dev
