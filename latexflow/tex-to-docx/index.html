@@ -5,7 +5,7 @@
 <!-- R248 (S5): what this page may load and where it may send. connect-src = LS licence API + GA4 only, so even a bug
      cannot post a file anywhere else. R249: lemon.js host + frame-src for the LS checkout overlay. script-src hashes = the two inline scripts: dev/page-check.js --write after
      editing them (sync-landing runs --check and refuses a stale hash). The worker is a blob: and inherits this policy. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://www.googletagmanager.com https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.6.0/dist/embed.global.js 'sha256-u/EKapQWZSiFAq5K8nAO9iXdsdvzFMcyOy2eh5U2aqQ=' 'sha256-JuPSdOg1g6cNb7yGd3JXAnwyvXSJ+Il8T9PIk6Ajq18='; worker-src blob:; connect-src https://api.polar.sh https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src https://fonts.gstatic.com https://cdn.jsdelivr.net; frame-src https://api.polar.sh https://buy.polar.sh https://polar.sh; base-uri 'none'; form-action 'none'; object-src 'none'" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://www.googletagmanager.com https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.6.0/dist/embed.global.js 'sha256-u/EKapQWZSiFAq5K8nAO9iXdsdvzFMcyOy2eh5U2aqQ=' 'sha256-qY8is18yJ+NWxp6AGeiDN52g11HFmD/hbCsUyowv0kk='; worker-src blob:; connect-src https://api.polar.sh https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src https://fonts.gstatic.com https://cdn.jsdelivr.net; frame-src https://api.polar.sh https://buy.polar.sh https://polar.sh; base-uri 'none'; form-action 'none'; object-src 'none'" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>LaTeXFlow · LaTeX to Word: Convert a .tex File to an Editable .docx</title>
 <meta name="description" content="Convert a LaTeX (.tex) file to a Word .docx in your browser. Equations become editable Word equations, numbers and cross-references carry over, and a report lists everything that changed." />
@@ -747,7 +747,7 @@ const LEMON_JS_URL = 'https://assets.lemonsqueezy.com/lemon.js';
 // the LS path above stays as it was. dev/page-check.js --write writes the CSP hosts for the provider chosen here,
 // and --release refuses sandbox. Everything here is public (no token: only Polar's customer-portal endpoints).
 const PAY_PROVIDER = 'polar';      // 'polar' | 'lemonsqueezy'
-const POLAR_ENV    = 'production'; // 'sandbox' | 'production' — R254: production; its checkouts stay '' until Phase B (= sales off)
+const POLAR_ENV    = 'production'; // 'sandbox' | 'production' — R261 Phase B: production checkouts filled (= sales on)
 const POLAR_CONFIG = {
   sandbox: {                       // test only — its Monthly product is still $12.99 (R254: production Monthly = $19.99)
     api: 'https://sandbox-api.polar.sh',
@@ -764,10 +764,16 @@ const POLAR_CONFIG = {
   },
   production: {
     api: 'https://api.polar.sh',
-    orgId: '',
-    portal: '',                    // https://polar.sh/<org slug>/portal
-    checkouts: { web_pass7: '', web_monthly: '' },
-    benefits: {},
+    orgId: '63850fbe-bf95-46a8-8e43-ee1fd9cdf6d7',
+    portal: 'https://polar.sh/teolemma/portal',          // the buyer's customer portal (keys, activations, subscription)
+    checkouts: {                   // R261 Phase B: the user's production checkout links (11-19)
+      web_pass7:   'https://buy.polar.sh/polar_cl_twMpXh7H22gDfHuD98ITaph6MpkPgB6UZo46e162zov',
+      web_monthly: 'https://buy.polar.sh/polar_cl_JObrFNytlt92FgIKBmFTFUmSjUIJOMlyTfh1a1aZTnc',
+    },
+    benefits: {                    // read from the public checkout client API (R261)
+      '583e1e34-b01b-40c8-9889-df34bb97ec7f': 'web_pass7',     // 7-day pass license key ($6.99 one-time)
+      '3a66e0ba-8348-4079-8d21-02804f987ff8': 'web_monthly',   // Monthly license key ($19.99 / month)
+    },
   },
 };
 const POLAR = POLAR_CONFIG[POLAR_ENV];
