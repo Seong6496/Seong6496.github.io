@@ -1,0 +1,2095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<!-- R248 (S5): what this page may load and where it may send. connect-src = LS licence API + GA4 only, so even a bug
+     cannot post a file anywhere else. R249: lemon.js host + frame-src for the LS checkout overlay. script-src hashes = the two inline scripts: dev/page-check.js --write after
+     editing them (sync-landing runs --check and refuses a stale hash). The worker is a blob: and inherits this policy. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://www.googletagmanager.com https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.6.0/dist/embed.global.js 'sha256-u/EKapQWZSiFAq5K8nAO9iXdsdvzFMcyOy2eh5U2aqQ=' 'sha256-qY8is18yJ+NWxp6AGeiDN52g11HFmD/hbCsUyowv0kk='; worker-src blob:; connect-src https://api.polar.sh https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src https://fonts.gstatic.com https://cdn.jsdelivr.net; frame-src https://api.polar.sh https://buy.polar.sh https://polar.sh; base-uri 'none'; form-action 'none'; object-src 'none'" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LaTeXFlow · LaTeX to Word: Convert a .tex File to an Editable .docx</title>
+<meta name="description" content="Convert a LaTeX (.tex) file to a Word .docx in your browser. Equations become editable Word equations, numbers and cross-references carry over, and a report lists everything that changed." />
+<link rel="canonical" href="https://mathsystem.dev/latexflow/tex-to-docx/" />
+<!-- R211: 품질 게이트(plan §7) 통과 전까지 색인 금지. 출시 때 이 줄을 지운다. -->
+<meta name="robots" content="noindex" />
+
+<!-- JSZip 은 Worker 안에서만 쓴다 (importScripts) — 여기서는 URL 만 넘긴다 -->
+
+<!-- Design tokens — Scan (web-prototype/index.html) 과 같은 paper theme. light only (brand 결정) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.4.0/dist/tabler-icons.min.css" integrity="sha384-ldmpcx1x0Xzlz3FRdxRDXdddHL6gUAnUo8m6ERvU0MbQIl53rnzI7hCF+Fd8lRsX" crossorigin="anonymous" />
+
+<style>
+  :root {
+    --paper:      #FBFAF6;
+    --white:      #FFFFFF;
+    --ink-900:    #191919;
+    --ink-600:    #5C5A53;
+    --ink-500:    #75726A;
+    --ink-400:    #9B9890;
+    --accent-700: #1F4FA3;
+    --accent-800: #173E82;
+    --hairline:      rgba(0, 0, 0, 0.12);
+    --hairline-soft: rgba(0, 0, 0, 0.08);
+    --badge-live-bg:   #E1F5EE;
+    --badge-live-text: #0F6E56;
+    --badge-beta-bg:   #FAEEDA;
+    --badge-beta-text: #854F0B;
+    --warn-stripe: #D8B45A;
+    --drop-stripe: #d93025;
+
+    --bg:           var(--paper);
+    --bg-card:      var(--white);
+    --text:         var(--ink-900);
+    --text-muted:   var(--ink-500);
+    --text-hint:    var(--ink-400);
+    --accent:       var(--accent-700);
+    --accent-hover: var(--accent-800);
+    --accent-bg:    rgba(31, 79, 163, 0.08);
+    --border:       var(--hairline);
+    --border-soft:  var(--hairline-soft);
+    --border-strong: rgba(0, 0, 0, 0.22);
+
+    --font-display: 'STIX Two Text', 'Times New Roman', serif;
+    --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo', 'Pretendard', 'Noto Sans KR', sans-serif;
+    --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', 'D2Coding', monospace;
+
+    --radius:    8px;
+    --radius-lg: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  [hidden] { display: none !important; }   /* R254: a class display (flex / inline-flex) beat the hidden attribute - a single .tex showed the main-file picker */
+  code, kbd, samp, pre { font-family: var(--font-mono); }
+  body { font-family: var(--font-body); color: var(--text); background: var(--bg); line-height: 1.5; }
+
+  /* ── header (Scan 과 동일) ── */
+  header {
+    background: var(--bg-card); padding: 11px 16px; border-bottom: 0.5px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .brand { display: flex; align-items: baseline; gap: 7px; }
+  .brand-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border-radius: 6px; background: var(--accent-bg); color: var(--accent);
+    font-size: 17px; margin-right: 3px; align-self: center;
+  }
+  .brand-name { font-family: var(--font-display); font-weight: 500; font-size: 17px; }
+  .brand-sub  { font-size: 14px; color: var(--text-muted); }
+  .brand-link { font-size: 14px; color: var(--text-hint); text-decoration: none; transition: color .12s; }
+  .brand-link:hover { color: var(--text); }
+  .brand-link i { font-size: 15px; margin-left: 2px; }
+
+  main { padding: 0 16px; }
+  .col { max-width: 800px; margin: 0 auto; }
+  #upload-stage { margin: 56px auto 24px; }
+
+  /* ── hero ── */
+  .hero { margin-bottom: 24px; }
+  .beta-pill {
+    display: inline-block; font-size: 13px; font-weight: 500; padding: 2px 9px; border-radius: 5px;
+    background: var(--badge-beta-bg); color: var(--badge-beta-text); margin-bottom: 12px;
+  }
+  .hero-h1 {
+    font-family: var(--font-display); font-size: 33px; line-height: 1.25; font-weight: 500;
+    letter-spacing: -0.5px; margin: 0 0 12px;
+  }
+  .hero-sub  { font-size: 20px; line-height: 1.45; color: var(--text-muted); margin: 0 0 8px; }
+  .hero-desc { font-size: 17px; line-height: 1.6; color: var(--text-hint); }
+
+  /* ── upload card (Scan #upload-stage > .card) ── */
+  .card {
+    background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 26px;
+  }
+  #drop-zone {
+    border: 1.5px dashed var(--border-strong); border-radius: var(--radius); background: var(--bg-card);
+    min-height: 190px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 32px 20px; cursor: pointer; transition: border-color .15s, background .15s;
+  }
+  #drop-zone:hover, #drop-zone.over, #drop-zone:focus-visible { border-color: var(--accent); background: var(--accent-bg); outline: none; }
+  #drop-zone .doc-icon { font-size: 31px; margin-bottom: 10px; opacity: 0.6; }
+  #drop-zone .big   { font-size: 17px; margin-bottom: 4px; }
+  #drop-zone .small { font-size: 15px; color: var(--text-hint); }
+  #drop-zone code { font-size: 14px; }
+
+  .subnote { font-size: 15px; color: var(--text-muted); margin-top: 12px; display: flex; align-items: center; gap: 6px; }
+  .subnote i { color: var(--badge-live-text); font-size: 17px; }
+
+  .file-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; align-items: center; }
+  .file-chip {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 14px; padding: 4px 6px 4px 10px;
+    background: var(--bg-card); border: 0.5px solid var(--border-strong); border-radius: 999px; max-width: 100%;
+  }
+  .file-chip .kind { font-size: 12px; font-weight: 500; color: var(--accent); text-transform: uppercase; letter-spacing: .04em; }
+  .file-chip .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 260px; }
+  .file-chip .size { color: var(--text-hint); font-size: 13px; }
+  .file-chip button.x {
+    width: 24px; height: 24px; padding: 0; display: inline-flex; align-items: center; justify-content: center;
+    background: transparent; color: var(--text-muted); border-radius: 999px; font-size: 15px;
+  }
+  .file-chip button.x:hover { background: rgba(0,0,0,.06); color: var(--text); }
+  .link-btn {
+    background: none; border: 0; padding: 4px 2px; color: var(--accent); font-size: 14px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .link-btn:hover { text-decoration: underline; }
+
+  /* options (접힘) */
+  details.options { margin-top: 18px; border-top: 0.5px solid var(--border-soft); padding-top: 14px; }
+  details.options > summary {
+    cursor: pointer; font-size: 15px; color: var(--text-muted); list-style: none; display: inline-flex; align-items: center; gap: 6px;
+  }
+  details.options > summary::-webkit-details-marker { display: none; }
+  details.options > summary i { transition: transform .15s; }
+  details.options[open] > summary i { transform: rotate(90deg); }
+  .opt-grid { display: grid; gap: 12px; margin-top: 12px; }
+  .opt { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--text); flex-wrap: wrap; }
+  .opt .lbl { min-width: 130px; color: var(--text-muted); }
+  .opt select {
+    font: inherit; font-size: 15px; padding: 5px 8px; border: 0.5px solid var(--border-strong);
+    border-radius: 6px; background: var(--bg-card); color: var(--text);
+  }
+  .opt input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); }
+  .opt .hint { font-size: 13px; color: var(--text-hint); flex-basis: 100%; padding-left: 140px; }
+  @media (max-width: 540px) { .opt .hint { padding-left: 0; } }
+
+  .actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+
+  button { font-family: inherit; border: none; border-radius: 6px; cursor: pointer; transition: background .12s; }
+  .btn-primary { background: var(--accent); color: var(--white); font-size: 16px; font-weight: 500; padding: 10px 20px; }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-primary:disabled { opacity: .4; cursor: not-allowed; }
+  .btn-primary:disabled:hover { background: var(--accent); }
+  .btn-ghost { background: transparent; color: var(--text-muted); border: 0.5px solid var(--border); font-size: 15px; padding: 8px 14px; }
+  .btn-ghost:hover { background: var(--bg); color: var(--text); }
+  .btn-primary i, .btn-ghost i { margin-right: 4px; }
+
+  #status { margin-top: 14px; font-size: 15px; min-height: 20px; color: var(--text-muted); }
+  #status.error { color: var(--badge-beta-text); }
+
+  .trust-badges { display: flex; gap: 20px; justify-content: center; margin-top: 24px; flex-wrap: wrap; }
+  .trust-badges .badge { font-size: 15px; color: var(--text-hint); display: inline-flex; align-items: center; gap: 5px; }
+  .trust-badges .badge i { font-size: 17px; }
+
+  /* ── progress ── */
+  #progress-stage { margin: 40px auto 24px; }
+  .progress-card { background: var(--bg-card); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 22px 24px; }
+  .progress-card .doc { font-weight: 500; font-size: 16px; margin-bottom: 14px; overflow-wrap: anywhere; }
+  .steps-list { list-style: none; display: grid; gap: 10px; }
+  .steps-list li { display: flex; align-items: center; gap: 10px; font-size: 16px; color: var(--text-hint); }
+  .steps-list li .dot {
+    width: 20px; height: 20px; border-radius: 999px; border: 1.5px solid var(--border-strong);
+    display: inline-flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0;
+  }
+  .steps-list li.active { color: var(--text); }
+  .steps-list li.active .dot { border-color: var(--accent); }
+  .steps-list li.active .dot::after { content: ''; width: 8px; height: 8px; border-radius: 999px; background: var(--accent); animation: pulse 1s ease-in-out infinite; }
+  .steps-list li.done { color: var(--text-muted); }
+  .steps-list li.done .dot { border-color: var(--badge-live-text); background: var(--badge-live-bg); color: var(--badge-live-text); }
+  .steps-list li.done .dot::after { content: '✓'; }
+  .steps-list .count { font-variant-numeric: tabular-nums; color: var(--text-muted); }
+  .bar { height: 4px; background: var(--border-soft); border-radius: 2px; margin: 4px 0 0 30px; overflow: hidden; }
+  .bar > span { display: block; height: 100%; width: 0; background: var(--accent); transition: width .15s; }
+  @keyframes pulse { 0%,100% { opacity: .35; } 50% { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .steps-list li.active .dot::after { animation: none; } }
+
+  /* ── failure ── */
+  .fail-card {
+    background: var(--bg-card); border: 0.5px solid var(--border); border-left: 2px solid var(--drop-stripe);
+    border-radius: var(--radius); padding: 18px 20px; margin-top: 16px;
+  }
+  .fail-card h2 { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+  .fail-card p { font-size: 15px; color: var(--ink-600); margin-bottom: 8px; }
+  .fail-card code { font-size: 14px; background: var(--bg); padding: 0 4px; border-radius: 3px; }
+
+  /* ── result ── */
+  #result-stage { margin: 32px auto 24px; }
+  .toolbar {
+    background: var(--bg-card); border: 0.5px solid var(--border); border-radius: var(--radius);
+    padding: 11px 16px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 16px;
+  }
+  .toolbar .doc { font-weight: 500; font-size: 16px; overflow-wrap: anywhere; }
+  .toolbar .counts { font-size: 15px; color: var(--text-muted); }
+  .toolbar .spacer { flex: 1; }
+  .main-pick { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; color: var(--text-muted); }
+  .main-pick select {
+    font: inherit; font-size: 15px; padding: 4px 8px; border: 0.5px solid var(--border-strong);
+    border-radius: 6px; background: var(--bg-card); color: var(--text); max-width: 260px;
+  }
+  /* R255 comparison shots (tabs + click-to-enlarge) */
+  .shots { background: var(--bg-card); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 12px 14px 14px; }
+  .shot-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .shot-tab {
+    font: inherit; font-size: 14px; padding: 5px 12px; border-radius: 999px; border: 0.5px solid var(--border-strong);
+    background: var(--bg); color: var(--text-muted); cursor: pointer;
+  }
+  .shot-tab[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--white); }
+  .shot { margin: 0; }
+  .shot-open { display: block; cursor: zoom-in; border: 0.5px solid var(--border-soft); border-radius: 6px; overflow: hidden; background: var(--white); }
+  .shot img { display: block; width: 100%; height: auto; }
+  .shot figcaption { font-size: 14px; color: var(--ink-600); margin-top: 8px; }
+  .shot-numbers { font-size: 14px; color: var(--text-muted); margin-top: 10px; padding-top: 10px; border-top: 0.5px solid var(--border-soft); }
+  .shot-dialog { border: 0; padding: 0; width: 96vw; max-width: 96vw; max-height: 94vh; background: var(--white); border-radius: 8px; overflow-x: hidden; overflow-y: auto; }
+  .shot-dialog::backdrop { background: rgba(20, 20, 20, .72); }
+  .shot-dialog img { display: block; width: 100%; height: auto; }
+  .shot-close {
+    position: sticky; top: 8px; float: right; margin: 8px; z-index: 1; width: 34px; height: 34px; border-radius: 50%;
+    border: 0.5px solid var(--border-strong); background: var(--bg); color: var(--text); font-size: 18px; cursor: pointer;
+  }
+  .section-label { font-size: 14px; font-weight: 500; color: var(--text-hint); letter-spacing: 0.07em; margin: 22px 4px 8px; text-transform: uppercase; }
+
+  .report { display: grid; gap: 10px; }
+  .rgroup {
+    background: var(--bg-card); border: 0.5px solid var(--border); border-left: 2px solid var(--accent);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  .rgroup.kept    { border-left-color: var(--badge-live-text); }
+  .rgroup.changed { border-left-color: var(--accent); }
+  .rgroup.dropped { border-left-color: var(--drop-stripe); }
+  .rgroup.needs   { border-left-color: var(--warn-stripe); }
+  .rgroup-head {
+    display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 0.5px solid var(--border-soft);
+  }
+  .rgroup.needs .rgroup-head { background: var(--badge-beta-bg); }
+  .rgroup-head .title { font-weight: 600; font-size: 16px; }
+  .rgroup-head .sub   { font-size: 14px; color: var(--text-muted); }
+  .rgroup-head .spacer { flex: 1; }
+  .rgroup-head .total { font-size: 14px; font-variant-numeric: tabular-nums; color: var(--text-muted); }
+  .rgroup .empty { padding: 10px 14px; font-size: 14px; color: var(--text-hint); }
+  .ritem { border-top: 0.5px solid var(--border-soft); }
+  .ritem:first-of-type { border-top: 0; }
+  .ritem > summary {
+    list-style: none; cursor: pointer; padding: 9px 14px; display: flex; gap: 10px; align-items: baseline; font-size: 15px;
+  }
+  .ritem > summary::-webkit-details-marker { display: none; }
+  .ritem > summary .chev { color: var(--text-hint); font-size: 13px; transition: transform .15s; }
+  .ritem[open] > summary .chev { transform: rotate(90deg); }
+  .ritem > summary .txt { flex: 1; }
+  .ritem > summary .n { font-variant-numeric: tabular-nums; color: var(--text-muted); font-size: 14px; }
+  .ritem .lines { padding: 0 14px 12px 36px; font-size: 14px; color: var(--text-muted); font-family: var(--font-mono); line-height: 1.7; overflow-wrap: anywhere; }
+
+
+  /* download + lock card */
+  .dl-card { background: var(--bg-card); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 20px 22px; }
+  .dl-card .dl-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .dl-card .dl-note { font-size: 14px; color: var(--text-muted); }
+  .licensed-chip {
+    display: inline-flex; align-items: center; gap: 5px; font-size: 13px; padding: 3px 9px; border-radius: 5px;
+    background: var(--badge-live-bg); color: var(--badge-live-text);
+  }
+  .unlock { margin-top: 18px; padding-top: 16px; border-top: 0.5px solid var(--border-soft); }
+  .unlock h3 { font-size: 17px; font-weight: 600; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+  .unlock p  { font-size: 15px; color: var(--ink-600); margin-bottom: 14px; }
+  .lock { border-left: 2px solid var(--warn-stripe); }
+  .lock h3 { font-size: 17px; font-weight: 600; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+  .lock p  { font-size: 15px; color: var(--ink-600); margin-bottom: 14px; }
+  .key-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .key-row input {
+    flex: 1 1 260px; min-width: 0; font: 15px var(--font-mono); padding: 8px 10px; border: 0.5px solid var(--border-strong);
+    border-radius: 6px; background: var(--bg); color: var(--text);
+  }
+  .key-msg { font-size: 14px; margin-top: 8px; min-height: 20px; color: var(--text-muted); }
+  .key-msg.error { color: var(--badge-beta-text); }
+  .key-msg a { color: inherit; text-decoration: underline; }
+  .licensed-wrap { display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .license-line { margin-top: 10px; }
+  .get-license { display: inline-flex; align-items: center; gap: 4px; margin-top: 12px; font-size: 15px; color: var(--accent); text-decoration: none; font-weight: 500; }
+  .get-license:hover { text-decoration: underline; }
+  .key-msg .portal-link { font-size: 13px; margin-left: 4px; }
+  .get-row { display: flex; gap: 12px 14px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
+  .get-row .get-license { margin-top: 0; }
+
+  .house-cta {
+    display: inline-flex; align-items: center; gap: 6px; background: var(--accent); color: var(--white);
+    font-size: 15px; font-weight: 500; padding: 9px 16px; border-radius: var(--radius); text-decoration: none;
+  }
+  .house-cta:hover { background: var(--accent-hover); }
+
+  /* ── info ── */
+  .info { margin-top: 64px; padding-top: 8px; border-top: 0.5px solid var(--border); }
+  .info h2 { font-family: var(--font-display); font-size: 22px; font-weight: 500; margin: 36px 0 12px; }
+  .info h2:first-of-type { margin-top: 28px; }
+  .info p, .info li { line-height: 1.65; color: var(--ink-600); }
+  .info p { margin: 0 0 12px; }
+  .info ul { margin: 0 0 12px; padding-left: 22px; }
+  .info li { margin-bottom: 4px; }
+  .info code { font-size: 0.88em; background: var(--accent-bg); color: var(--accent-hover); padding: 1px 5px; border-radius: 4px; }
+  .info a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--border); }
+
+  .site-footer {
+    max-width: 800px; margin: 48px auto 0; padding: 18px 16px 28px; border-top: 0.5px solid var(--border);
+    display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; font-size: 14px;
+  }
+  .site-footer a { color: var(--text-hint); text-decoration: none; }
+  .site-footer a:hover { color: var(--text-muted); text-decoration: underline; }
+
+  .mock-banner {
+    background: var(--badge-beta-bg); color: var(--badge-beta-text); font-size: 13px; text-align: center; padding: 6px 16px;
+  }
+
+  @media (max-width: 540px) {
+    #upload-stage { margin-top: 32px; }
+    .hero-h1 { font-size: 27px; }
+    .hero-sub { font-size: 18px; }
+    .card { padding: 18px; }
+  }
+</style>
+<script>
+  /* GA4 — mathsystem.dev 에서만. 이 페이지는 Clarity · AdSense 를 싣지 않는다:
+     Clarity 세션 녹화는 화면에 그려진 미리보기(사용자 원고)를 가져갈 수 있어
+     "We never share your files or data externally without your consent." 와 어긋난다. GA4 에는 숫자만 보낸다. */
+  if (location.hostname === 'mathsystem.dev') {
+    var _ga = document.createElement('script');
+    _ga.async = true;
+    _ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-CF55QKHZBZ';
+    document.head.appendChild(_ga);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ dataLayer.push(arguments); };
+    gtag('js', new Date());
+    gtag('config', 'G-CF55QKHZBZ');
+  }
+</script>
+</head>
+<body>
+
+<div class="mock-banner" id="mock-banner" hidden>Developer preview: converting with the mock engine (tex2docx-mock.js). Output is not real.</div>
+
+<header>
+  <div class="brand">
+    <span class="brand-icon" aria-hidden="true"><i class="ti ti-math-function"></i></span>
+    <span class="brand-name">LaTeXFlow</span>
+    <span class="brand-sub">LaTeX → Word</span>
+  </div>
+  <a class="brand-link" href="https://mathsystem.dev/" target="_blank" rel="noopener">MathSystem <i class="ti ti-external-link" aria-hidden="true"></i></a>
+</header>
+
+<main>
+<div class="col">
+
+  <!-- ① 업로드 -->
+  <section id="upload-stage">
+    <div class="hero">
+      <span class="beta-pill">Beta</span>
+      <h1 class="hero-h1">Turn a .tex file into a Word document.</h1>
+      <p class="hero-sub">Equations you can edit in Word, with their numbers.</p>
+      <p class="hero-desc">Drop your LaTeX source. The full report and the first 3 pages are free. Equations become Word equations, cross-references and citations carry over, and a report shows what was kept, what changed, and what needs you.</p>
+    </div>
+
+    <div class="card">
+      <div id="drop-zone" role="button" tabindex="0" aria-label="Choose .tex files or a project archive">
+        <div class="doc-icon" aria-hidden="true"><i class="ti ti-file-upload"></i></div>
+        <div class="big">Drop your <code>.tex</code> files here</div>
+        <div class="small">or click to choose · add the <code>.bbl</code> or <code>.bib</code> too · an Overleaf or arXiv source archive works as is</div>
+      </div>
+      <input type="file" id="file-input" accept=".tex,.ltx,.bib,.bbl,.sty,.cls,.def,.txt,.tikz,.zip,.tar,.gz,.tgz" multiple hidden />
+      <input type="file" id="bib-input" accept=".bib,.bbl" multiple hidden />
+
+      <div class="file-row" id="file-row" hidden></div>
+
+      <p class="subnote"><i class="ti ti-lock" aria-hidden="true"></i> We never share your files or data externally without your consent.</p>
+
+      <details class="options" id="options">
+        <summary><i class="ti ti-chevron-right" aria-hidden="true"></i> Options</summary>
+        <div class="opt-grid">
+          <label class="opt">
+            <span class="lbl">Paper size</span>
+            <select id="opt-paper">
+              <option value="letter">Letter</option>
+              <option value="a4">A4</option>
+            </select>
+          </label>
+          <label class="opt">
+            <span class="lbl">Cross-references</span>
+            <input type="checkbox" id="opt-live" checked />
+            <span>Live Word cross-references</span>
+            <span class="hint">On: numbers are Word fields that update when you add an equation (F9). Off: plain numbers.</span>
+          </label>
+          <label class="opt" id="opt-style-row" hidden>
+            <span class="lbl">Reference style</span>
+            <select id="opt-style">
+              <option value="numeric">Numeric [1]</option>
+              <option value="authoryear">Author–year (Knuth, 1984)</option>
+              <option value="alpha">Alpha [Knu84]</option>
+            </select>
+            <span class="hint">Used because only a .bib was added. Add the .bbl from your LaTeX build to keep your exact bibliography style.</span>
+          </label>
+        </div>
+      </details>
+
+      <div class="actions">
+        <button type="button" class="btn-primary" id="btn-convert" disabled><i class="ti ti-arrows-exchange" aria-hidden="true"></i>Convert to .docx</button>
+      </div>
+      <div id="status" role="status" aria-live="polite"></div>
+      <div id="license-line" class="license-line" hidden></div>
+    </div>
+
+    <div class="trust-badges" aria-label="What you get">
+      <span class="badge"><i class="ti ti-math" aria-hidden="true"></i> Editable Word equations</span>
+      <span class="badge"><i class="ti ti-list-numbers" aria-hidden="true"></i> Numbers and cross-references</span>
+      <span class="badge"><i class="ti ti-report" aria-hidden="true"></i> A report of every change</span>
+    </div>
+
+    <section class="info" aria-label="About the converter">
+      <h2>What carries over</h2>
+      <ul>
+        <li>Inline and display math, including <code>equation</code>, <code>align</code>, <code>gather</code>, <code>cases</code> and matrices, as editable Word equations.</li>
+        <li>Section, equation, theorem, figure and table numbers, and <code>\ref</code> / <code>\eqref</code> as Word cross-references.</li>
+        <li>Citations and the bibliography from your <code>.bbl</code> (or a built-in style from your <code>.bib</code>).</li>
+        <li>Headings, lists, tables with merged cells, footnotes, and your own <code>\newcommand</code> macros.</li>
+        <li>Multi-file papers: <code>\input</code>, <code>\include</code>, <code>\subfile</code> and <code>\import</code> files are read in place, from the files or the <code>.zip</code> / <code>.tar.gz</code> you drop.</li>
+      </ul>
+      <h2>What does not, yet</h2>
+      <p>Images are marked with a placeholder for now (they are not unpacked from an archive), and TikZ drawings and slides (<code>beamer</code>) are not converted. Every gap is listed in the report and marked inside the document, so nothing goes missing silently.</p>
+      <h2>Privacy</h2>
+      <p>The conversion runs in your browser. We never share your files or data externally without your consent. <span id="privacy-key">If you enter a license key, only the key and a random id for this browser are sent to our payment provider (<span id="pay-name">Polar</span>) to check it.</span> See the <a href="https://mathsystem.dev/latexflow/privacy/">Privacy Policy</a>.</p>
+    </section>
+  </section>
+
+  <!-- ③ 진행 -->
+  <section id="progress-stage" hidden>
+    <div class="progress-card">
+      <div class="doc" id="progress-doc"></div>
+      <ol class="steps-list" id="steps-list">
+        <li data-stage="read"><span class="dot"></span><span>Reading</span></li>
+        <li data-stage="parse"><span class="dot"></span><span>Parsing</span></li>
+        <li data-stage="equations"><span class="dot"></span><span>Equations <span class="count" id="eq-count"></span></span></li>
+        <li data-stage="write"><span class="dot"></span><span>Writing</span></li>
+      </ol>
+      <div class="bar" id="eq-bar" hidden><span></span></div>
+    </div>
+  </section>
+
+  <!-- 실패 -->
+  <section id="fail-stage" hidden>
+    <div class="fail-card" id="fail-card"></div>
+    <div class="actions"><button type="button" class="btn-primary" id="btn-fail-retry" hidden><i class="ti ti-refresh" aria-hidden="true"></i>Try again</button><button type="button" class="btn-ghost" id="btn-fail-back"><i class="ti ti-arrow-left" aria-hidden="true"></i>Try another file</button></div>
+  </section>
+
+  <!-- ④–⑥ 결과 -->
+  <section id="result-stage" hidden>
+    <div class="toolbar">
+      <span class="doc" id="result-doc"></span>
+      <label class="main-pick" id="main-pick-row" hidden><span>Main file</span> <select id="main-pick" aria-label="Main file"></select></label>
+      <span class="counts" id="result-counts"></span>
+      <span class="spacer"></span>
+      <button type="button" class="btn-ghost" id="btn-reset">Start over</button>
+    </div>
+
+    <!-- ⑤ 다운로드 / 잠금 카드 -->
+    <div id="dl-area"></div>
+
+    <div class="section-label">Conversion report</div>
+    <div class="report" id="report"></div>
+
+    <!-- R257: data-proofer-ignore on the lazy images (no src until shown) - the blog build's html-proofer rejects a src-less <img>.
+         R255 (user): side-by-side Word shots of the free route vs ours, where the HTML preview was (R254). Not a sales
+         element - shown in Phase A too. Inline 1200 px webp; click = the 2000 px webp in a <dialog> (R257: no png fallbacks).
+         Files: shots/ (sync-landing copies the folder; page-check checks every file named here exists). -->
+    <div class="section-label">Side by side in Word</div>
+    <div class="shots">
+      <div class="shot-tabs" role="tablist" aria-label="Comparison shots">
+        <button type="button" role="tab" class="shot-tab" id="shot-tab-0" aria-controls="shot-0" aria-selected="true">Numbering</button>
+        <button type="button" role="tab" class="shot-tab" id="shot-tab-1" aria-controls="shot-1" aria-selected="false" tabindex="-1">Theorems</button>
+        <button type="button" role="tab" class="shot-tab" id="shot-tab-2" aria-controls="shot-2" aria-selected="false" tabindex="-1">Citations</button>
+        <button type="button" role="tab" class="shot-tab" id="shot-tab-3" aria-controls="shot-3" aria-selected="false" tabindex="-1">Live fields</button>
+        <button type="button" role="tab" class="shot-tab" id="shot-tab-4" aria-controls="shot-4" aria-selected="false" tabindex="-1">Equations</button>
+      </div>
+      <figure class="shot" role="tabpanel" id="shot-0" aria-labelledby="shot-tab-0">
+        <a class="shot-open" href="shots/01_numbering_large.webp" target="_blank" rel="noopener" aria-label="Open a larger image">
+          <img data-proofer-ignore data-src="shots/01_numbering.webp" width="1200" height="467" alt="The same half page in Word: the free converter drops section and equation numbers and the citation and leaves ‘[eqn:schur]’ and raw LaTeX; LaTeXFlow shows sections 1–2, citation [1], equations (1)–(3) and ‘Eq. (1)’.">
+        </a>
+        <figcaption>The same half page in Word: the free converter drops section and equation numbers and the citation and leaves ‘[eqn:schur]’ and raw LaTeX; LaTeXFlow shows sections 1–2, citation [1], equations (1)–(3) and ‘Eq. (1)’.</figcaption>
+      </figure>
+      <figure class="shot" role="tabpanel" id="shot-1" aria-labelledby="shot-tab-1" hidden>
+        <a class="shot-open" href="shots/02_theorems_large.webp" target="_blank" rel="noopener" aria-label="Open a larger image">
+          <img data-proofer-ignore data-src="shots/02_theorems.webp" width="1200" height="571" alt="A lemma and its proof in Word: the free converter numbers it Lemma 11 and refers to Lemma 10; LaTeXFlow keeps the paper’s Lemma 3.2, equation (3.2) and the reference to Lemma 3.1.">
+        </a>
+        <figcaption>A lemma and its proof in Word: the free converter numbers it Lemma 11 and refers to Lemma 10; LaTeXFlow keeps the paper’s Lemma 3.2, equation (3.2) and the reference to Lemma 3.1.</figcaption>
+      </figure>
+      <figure class="shot" role="tabpanel" id="shot-2" aria-labelledby="shot-tab-2" hidden>
+        <a class="shot-open" href="shots/03_citations_large.webp" target="_blank" rel="noopener" aria-label="Open a larger image">
+          <img data-proofer-ignore data-src="shots/03_citations.webp" width="1200" height="863" alt="In-text citations and the reference list in Word: the free converter leaves the citations empty and the list unnumbered; LaTeXFlow shows [1, 2, 3] in the text and a numbered References list.">
+        </a>
+        <figcaption>In-text citations and the reference list in Word: the free converter leaves the citations empty and the list unnumbered; LaTeXFlow shows [1, 2, 3] in the text and a numbered References list.</figcaption>
+      </figure>
+      <figure class="shot" role="tabpanel" id="shot-3" aria-labelledby="shot-tab-3" hidden>
+        <a class="shot-open" href="shots/04_fields_large.webp" target="_blank" rel="noopener" aria-label="Open a larger image">
+          <img data-proofer-ignore data-src="shots/04_fields.webp" width="1200" height="441" alt="The same introduction in Word with field shading on: LaTeXFlow’s section, equation and theorem numbers and references are grey live Word fields; the free converter shows ‘[eqk]’, raw LaTeX and no fields.">
+        </a>
+        <figcaption>The same introduction in Word with field shading on: LaTeXFlow’s section, equation and theorem numbers and references are grey live Word fields; the free converter shows ‘[eqk]’, raw LaTeX and no fields.</figcaption>
+      </figure>
+      <figure class="shot" role="tabpanel" id="shot-4" aria-labelledby="shot-tab-4" hidden>
+        <a class="shot-open" href="shots/05_equations_large.webp" target="_blank" rel="noopener" aria-label="Open a larger image">
+          <img data-proofer-ignore data-src="shots/05_equations.webp" width="1200" height="592" alt="A system of differential equations in Word: the free converter leaves it as raw LaTeX source; LaTeXFlow shows it as an editable, numbered Word equation (2).">
+        </a>
+        <figcaption>A system of differential equations in Word: the free converter leaves it as raw LaTeX source; LaTeXFlow shows it as an editable, numbered Word equation (2).</figcaption>
+      </figure>
+      <p class="shot-numbers">Tested on 53 papers it had never seen: equation numbers 96.1% vs 0.0%, references 93.6% vs 25.5%, citations 92.2% vs 8.2%.</p>
+    </div>
+    <dialog class="shot-dialog" id="shot-dialog" aria-label="Larger image">
+      <button type="button" class="shot-close" id="shot-close" aria-label="Close"><i class="ti ti-x" aria-hidden="true"></i></button>
+      <img id="shot-large" alt="" data-proofer-ignore>
+    </dialog>
+  </section>
+
+</div>
+</main>
+
+<footer class="site-footer">
+  <a href="https://mathsystem.dev/latexflow/web/">LaTeXFlow Scan</a>
+  <a href="https://mathsystem.dev/latexflow/privacy/">Privacy Policy</a>
+  <a href="https://mathsystem.dev/latexflow/terms/">Terms of Service</a>
+  <a href="https://mathsystem.dev/latexflow/support/">Support</a>
+</footer>
+
+<!-- Web Worker 본문 — Blob URL 로 띄운다 (배포 파일을 index.html + tex2docx.bundle.js 둘로 유지).
+     파서·엔진·작성기(번들)와 LS 확인은 전부 Worker 안. 메인 스레드는 화면만. -->
+<script type="text/plain" id="worker-src">
+'use strict';
+var api = null;
+
+self.onmessage = async function (ev) {
+  var m = ev.data;
+  if (m.type === 'init') {
+    try {
+      try { importScripts(m.api); }
+      catch (e) { if (!m.fallback) throw e; importScripts(m.fallback); }
+      api = self.Tex2Docx;
+      if (api && api.version === 'mock') importScripts(m.jszip);   // the real bundle has its own zip writer
+      if (!api || typeof api.convert !== 'function') throw new Error('Tex2Docx.convert missing');
+      self.postMessage({ type: 'ready', version: String(api.version || '') });
+    } catch (e) {
+      self.postMessage({ type: 'init_failed', message: String((e && e.message) || e) });
+    }
+    return;
+  }
+
+  if (m.type === 'convert') {
+    // API = .tmp/r210_api.md v1: convert(files, opts) → Promise<Result>, rejects Tex2DocxError { code, message }.
+    // The bundle decodes bytes itself (UTF-8, Latin-1 fallback reported) — the worker passes bytes as they are.
+    var t0 = Date.now();
+    try {
+      var files = m.files.map(function (f) { return { name: f.name, bytes: new Uint8Array(f.buf) }; });
+      // R245: files may be archives (.zip / .tar.gz / .tgz / .tar / .gz) — the bundle unpacks them here, no network
+      var res = await api.convert(files, {
+        paper: m.options.paper, liveFields: m.options.liveFields, bibStyle: m.options.bibStyle,
+        mainFile: m.options.mainFile || undefined,                                     // R245: the user's main-file pick
+        preview: m.options.preview || undefined,                                       // R213: { pages: 3 } on the free path
+        onProgress: function (p) {
+          self.postMessage({ type: 'progress', id: m.id, stage: p.stage === 'zip' ? 'write' : p.stage, done: p.done, total: p.total });
+        },
+      });
+      var b = res.docxBytes;
+      var docx = b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength);
+      self.postMessage({
+        type: 'done', id: m.id, docx: docx, fileName: res.fileName, report: res.report || {}, stats: res.stats || {},
+        files: res.files || null,                                                       // R245: { main, mains, included, missing, archives }
+        ms: Date.now() - t0,
+      }, [docx]);
+    } catch (e) {
+      self.postMessage({ type: 'failed', id: m.id, error: { code: (e && e.code) || 'internal', message: String((e && e.message) || e) } });
+    }
+    return;
+  }
+
+  if (m.type === 'license') {
+    // R214: the web converter has its own LS product, activation limit 2 (one seat per browser).
+    // The key / instance go ONLY to api.lemonsqueezy.com — never logged, never to GA4.
+    var OPS = { activate: 1, validate: 1, deactivate: 1 };
+    if (!OPS[m.op]) return;
+    if (m.pay && m.pay.provider === 'polar') { await polarLicense(m); return; }   // R252
+    var form = Object.keys(m.params).map(function (k) { return encodeURIComponent(k) + '=' + encodeURIComponent(m.params[k]); }).join('&');
+    var call;
+    try {
+      var resp = await fetch('https://api.lemonsqueezy.com/v1/licenses/' + m.op, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: form,
+      });
+      var body = null;
+      try { body = await resp.json(); } catch (e) { body = null; }
+      call = { code: resp.status, body: body };
+    } catch (e) {
+      call = { network: true };
+    }
+    // R248 (B2): the seat an activate created at LS, even when our judgement then refuses it — the page frees it again
+    var made = (m.op === 'activate' && call.body && call.body.activated === true && call.body.instance && call.body.instance.id) ? String(call.body.instance.id) : null;
+    self.postMessage({ type: 'license', id: m.id, judgment: judgeOp(m.op, call), activatedInstance: made });
+  }
+};
+
+/* Judgement is addon's (LicenseLS-derived, exported by the bundle). Assumed signature (R214):
+   Tex2Docx.license.judge(call, nowSec, op) with op 'activate' | 'validate' → { ok, plan, exp, instanceId } | { ok:false, reason, … }.
+   Deactivate is judged here unless the bundle exports judgeDeactivate(call). */
+function judgeOp(op, call) {
+  var L = api && api.license;
+  if (op === 'deactivate') {
+    if (L && typeof L.judgeDeactivate === 'function') return L.judgeDeactivate(call);
+    if (!call || call.network || call.code === 429 || call.code >= 500 || !call.body) return { ok: false, reason: 'network', transient: true };
+    if (call.body.deactivated === true) return { ok: true };
+    if (/instance/i.test(String(call.body.error || ''))) return { ok: true, gone: true };   // LS no longer has this seat
+    return { ok: false, reason: 'ls_refused' };
+  }
+  if (!L || typeof L.judge !== 'function') return { ok: false, reason: 'no_judge' };
+  return L.judge(call, Math.floor(Date.now() / 1000), op);
+}
+
+/* R252 — Polar license keys (customer-portal endpoints, no token). The page keeps LS's names
+   (license_key / instance_id / instance_name); here they become Polar's key / activation_id / label.
+   The key goes ONLY to m.pay.api (CSP connect-src) — never logged, never to GA4.
+   Judged here, not in the bundle: Tex2Docx.license.judge reads LS meta (store / variant), which Polar does not have. */
+var POLAR_PATH = { activate: 'activate', validate: 'validate', deactivate: 'deactivate' };
+var POLAR_BUDGET_MS = 12 * 1000;   // < LICENSE_CALL_MS (20 s) on the page
+function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+async function polarLicense(m) {
+  var p = m.params, pay = m.pay;
+  var body = { key: p.license_key, organization_id: pay.orgId };
+  if (m.op === 'activate') body.label = p.instance_name;
+  else if (p.instance_id) body.activation_id = p.instance_id;
+  var call = { network: true };
+  // Unauthenticated limit is 3 req/s: back off on 429 (Retry-After when given). The whole call — tries, waits and
+  // each fetch (aborted at the deadline) — stays inside POLAR_BUDGET_MS, well under the page's LICENSE_CALL_MS, so the
+  // page always gets this answer. Only a 429 is retried: Polar did not act on it. A network error or a timeout is
+  // never retried — an activate whose reply was lost may still have taken a seat, and Polar has no unauthenticated
+  // way to find it (activate does not reuse a label: live 11-17), so a retry would take a second one.
+  var deadline = Date.now() + POLAR_BUDGET_MS;
+  for (var attempt = 0; attempt < 4; attempt++) {
+    var left = deadline - Date.now();
+    if (left <= 0) break;
+    var ctl = new AbortController();
+    var timer = setTimeout(function () { ctl.abort(); }, left);
+    try {
+      var resp = await fetch(pay.api + '/v1/customer-portal/license-keys/' + POLAR_PATH[m.op], {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+        signal: ctl.signal,
+      });
+      var json = null;
+      try { json = resp.status === 204 ? null : await resp.json(); } catch (e) { json = null; }
+      call = { code: resp.status, body: json };
+      clearTimeout(timer);
+      if (resp.status !== 429) break;
+      var ra = Number(resp.headers.get('Retry-After'));
+      var wait = ra > 0 ? Math.min(ra, 5) * 1000 : 400 * Math.pow(2, attempt);
+      if (Date.now() + wait >= deadline) break;
+      await sleep(wait);
+    } catch (e) { clearTimeout(timer); call = { network: true }; break; }
+  }
+  var j = judgePolar(m.op, call, Math.floor(Date.now() / 1000), pay, !!body.activation_id);
+  var made = (m.op === 'activate' && call.code === 200 && call.body && call.body.id) ? String(call.body.id) : null;
+  self.postMessage({ type: 'license', id: m.id, judgment: j, activatedInstance: made });
+}
+function polarExp(lk) {
+  var t = lk && lk.expires_at ? Date.parse(lk.expires_at) : NaN;
+  return isFinite(t) ? Math.floor(t / 1000) : null;
+}
+function judgePolar(op, call, nowSec, pay, withActivation) {
+  if (!call || call.network || call.code === 429 || call.code >= 500) return { ok: false, reason: 'network', transient: true };
+  var detail = String((call.body && (call.body.detail || call.body.error)) || '');
+  if (op === 'deactivate') {
+    if (call.code === 204 || call.code === 200) return { ok: true };
+    if (call.code === 404) return { ok: true, gone: true };       // Polar no longer has this activation
+    return { ok: false, reason: 'ls_refused' };
+  }
+  if (call.code === 404 || call.code === 403 || call.code === 422) {
+    if (/limit/i.test(detail)) return { ok: false, reason: 'limit_reached' };
+    if (/expired/i.test(detail)) return { ok: false, reason: 'expired' };
+    if (/no longer active|revoked/i.test(detail)) return { ok: false, reason: 'expired' };
+    if (/disabled/i.test(detail)) return { ok: false, reason: 'disabled' };
+    if (/activation/i.test(detail) || (withActivation && call.code === 404 && op === 'validate')) return { ok: false, reason: 'instance_gone' };
+    return { ok: false, reason: call.code === 403 ? 'ls_refused' : 'bad_key' };
+  }
+  if (call.code !== 200 || !call.body) return { ok: false, reason: 'ls_refused' };
+  var lk = op === 'activate' ? call.body.license_key : call.body;
+  if (!lk) return { ok: false, reason: 'ls_refused' };
+  if (lk.organization_id && lk.organization_id !== pay.orgId) return { ok: false, reason: 'foreign_key' };
+  var plan = pay.benefits[lk.benefit_id];
+  if (!plan) return { ok: false, reason: 'unknown_plan', benefit: String(lk.benefit_id || '') };
+  var exp = polarExp(lk);
+  if (lk.status === 'disabled') return { ok: false, reason: 'disabled', plan: plan, exp: exp };
+  if (lk.status !== 'granted') return { ok: false, reason: 'expired', plan: plan, exp: exp };   // revoked = subscription ended
+  if (exp != null && exp <= nowSec) return { ok: false, reason: 'expired', plan: plan, exp: exp };
+  var iid = op === 'activate' ? call.body.id : (call.body.activation && call.body.activation.id);
+  return { ok: true, plan: plan, exp: exp, instanceId: iid ? String(iid) : undefined };
+}
+</script>
+
+<script>
+'use strict';
+
+/* ============================================================
+ * 상수
+ * ========================================================== */
+// R213 (user decision 2026-11-04, option 나): the free tier is the first 3 pages of the Word file.
+//   The report stays free and complete. Free path = convert with { preview: { pages } } (the engine
+//   cuts at a block boundary and adds an end box); a valid key = convert without it (full file).
+const FREE_PREVIEW_PAGES = 3;
+// R214 (user decisions 2026-11-04): a SEPARATE web product — 7-day pass $6.99 · monthly $12.99 (R254, 11-18: monthly → $19.99), LS keys with
+//   activation limit 2 (one seat per browser). Add-on keys do not unlock the converter (judge → addon_key).
+//   Store / product / variant IDs live in the bundle's license cfg (addon).
+// R248 (B1): the two product checkouts. TODO(user, by 11-24): paste the LS checkout URLs
+// (https://teolemma.lemonsqueezy.com/buy/<id>) when the products exist — until then the link is the store page.
+// dev/page-check.js --release fails while either is empty or not on LS_CHECKOUT_ORIGIN (= the CSP frame-src).
+const CHECKOUT_URLS = {
+  web_pass7:   '',   // LaTeXFlow .tex to Word — 7-day pass $6.99
+  web_monthly: '',   // LaTeXFlow .tex to Word — Monthly $19.99
+};
+const LICENSE_STORE_URL = 'https://teolemma.lemonsqueezy.com/';
+// R249 (user decision 11-13): the passes are bought on this page — lemon.js opens LS's checkout in an overlay
+// (LS stays the merchant). lemon.js is loaded only when the unlock card shows, never before.
+const LS_CHECKOUT_ORIGIN = 'https://teolemma.lemonsqueezy.com';
+const LEMON_JS_URL = 'https://assets.lemonsqueezy.com/lemon.js';
+
+// R252: LS stops processing payments on 2027-03-31 → Polar (merchant of record). ONE switch picks the provider;
+// the LS path above stays as it was. dev/page-check.js --write writes the CSP hosts for the provider chosen here,
+// and --release refuses sandbox. Everything here is public (no token: only Polar's customer-portal endpoints).
+const PAY_PROVIDER = 'polar';      // 'polar' | 'lemonsqueezy'
+const POLAR_ENV    = 'production'; // 'sandbox' | 'production' — R261 Phase B: production checkouts filled (= sales on)
+const POLAR_CONFIG = {
+  sandbox: {                       // test only — its Monthly product is still $12.99 (R254: production Monthly = $19.99)
+    api: 'https://sandbox-api.polar.sh',
+    orgId: 'b770c1f0-ed85-4fa5-a5f0-13434918f62f',
+    portal: 'https://sandbox.polar.sh/teolemma/portal',   // the buyer's customer portal (keys, activations, subscription)
+    checkouts: {
+      web_pass7:   'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_qJv4CsMbNiPHd67KN3Wwa1YdjfdH5TTFcFws32eKzOx/redirect',
+      web_monthly: 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_wNZ3Q6rRkVGEbDrfxrBocvfOh69TkJ7V4gcEb39KY2R/redirect',
+    },
+    benefits: {                    // license-key benefit id → plan (a key of any other benefit = unknown_plan)
+      '8ee59dcf-c1f0-450b-9284-7d4441f73e73': 'web_pass7',     // 7day pass license key (limit 2, 7 days)
+      'cfed5e09-17c5-44c2-aa00-cff8795fa0f2': 'web_monthly',   // Month pass license key (limit 2)
+    },
+  },
+  production: {
+    api: 'https://api.polar.sh',
+    orgId: '63850fbe-bf95-46a8-8e43-ee1fd9cdf6d7',
+    portal: 'https://polar.sh/teolemma/portal',          // the buyer's customer portal (keys, activations, subscription)
+    checkouts: {                   // R261 Phase B: the user's production checkout links (11-19)
+      web_pass7:   'https://buy.polar.sh/polar_cl_twMpXh7H22gDfHuD98ITaph6MpkPgB6UZo46e162zov',
+      web_monthly: 'https://buy.polar.sh/polar_cl_JObrFNytlt92FgIKBmFTFUmSjUIJOMlyTfh1a1aZTnc',
+    },
+    benefits: {                    // read from the public checkout client API (R261)
+      '583e1e34-b01b-40c8-9889-df34bb97ec7f': 'web_pass7',     // 7-day pass license key ($6.99 one-time)
+      '3a66e0ba-8348-4079-8d21-02804f987ff8': 'web_monthly',   // Monthly license key ($19.99 / month)
+    },
+  },
+};
+const POLAR = POLAR_CONFIG[POLAR_ENV];
+// the button in Polar's purchase email that opens the customer portal (the key is there, not in the email).
+// label confirmed by the user (R252b, 11-17)
+const POLAR_EMAIL_BUTTON = 'Access purchase';
+// @polar-sh/checkout embed, pinned + SRI (sha384 of the npm tarball's dist/embed.global.js = jsdelivr's bytes)
+const POLAR_EMBED_URL = 'https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.6.0/dist/embed.global.js';
+const POLAR_EMBED_SRI = 'sha384-e96p3bMSNUJbavzl83jvbh/LCSQfSkbXCpnzovVeJvZR7Cs9PJEEIlJnmC3khotO';
+const PAY_NAME = PAY_PROVIDER === 'polar' ? 'Polar' : 'Lemon Squeezy';
+// what the worker needs for a key call (the LS path ignores it: its judgement is the bundle's)
+const PAY_WORKER = PAY_PROVIDER === 'polar'
+  ? { provider: 'polar', api: POLAR.api, orgId: POLAR.orgId, benefits: POLAR.benefits }
+  : { provider: 'lemonsqueezy' };
+const SUPPORT_URL = 'https://mathsystem.dev/latexflow/support/';
+const PRICE_LINE = '7-day pass $6.99 · Monthly $19.99';   // R254 (user, 11-18): monthly $12.99 → $19.99
+// Hard ceiling regardless of license = the bundle's too_large limit (r210_api.md v1: main file > 8 MB).
+const HARD_MAX_TEX_BYTES = 8 * 1024 * 1024;
+// R245: the bundle's archive guards (r244 LIMITS) — checked here first so a too-big drop never reaches the worker.
+//   The 96 MB unpacked / 5,000 entries limits inside an archive are the bundle's (archive_too_large / archive_too_many).
+const MAX_ARCHIVE_BYTES = 64 * 1024 * 1024;
+const MAX_TOTAL_BYTES   = 96 * 1024 * 1024;
+const MAX_FILES         = 5000;
+// R248 nit: .ltx / .def / .txt / .tikz are included by real papers (\input{fig.tikz}, a .def of macros) — the engine reads any text file
+const TEXT_EXTS    = { tex: '.tex', ltx: '.ltx', bib: '.bib', bbl: '.bbl', sty: '.sty', cls: '.cls', def: '.def', txt: '.txt', tikz: '.tikz' };
+const ARCHIVE_EXTS = { zip: 1, tar: 1, gz: 1, tgz: 1 };
+// Web plan table — separate from the add-on LFX_PLANS (plan §5-3: do not touch the add-on rows).
+const WEB_PLANS = {                                         // ids = Tex2Docx.license.cfg.plans (addon, R214)
+  web_pass7:   { label: '7-day pass', kind: 'pass' },
+  web_monthly: { label: 'Monthly subscription', kind: 'sub' },
+};
+// { k, iid, plan, exp, okAt, st } — R252: one entry per provider (+ Polar env), so an LS seat id is never sent to Polar
+const LICENSE_CACHE_KEY = PAY_PROVIDER === 'polar' ? 'latexflow_tex2docx_license_polar_' + POLAR_ENV : 'latexflow_tex2docx_license';
+const INSTANCE_KEY      = 'latexflow_tex2docx_instance';   // random per-browser instance name (LS instance_name)
+const LICENSE_CACHE_MS  = 24 * 3600 * 1000;                // validate once per 24 h, never past the key's end date
+
+const params = new URLSearchParams(location.search);
+const IS_LOCAL = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+const USE_MOCK = params.get('mock') === '1';
+// R254: localhost only: ?sales=preview -> sandbox.html (written by dev/page-check.js --write, never synced) = this page
+// with Polar sandbox: buy buttons, key box and the real embedded TEST checkout. Same tab, so a reload keeps the screen.
+if (IS_LOCAL && params.get('sales') === 'preview' && POLAR_ENV !== 'sandbox' && !/sandbox\.html$/.test(location.pathname)) {
+  location.replace(new URL('sandbox.html' + location.search, location.href).href);
+}
+const BUNDLE_URL = new URL('tex2docx.bundle.js', location.href).href;
+const MOCK_URL   = new URL('tex2docx-mock.js', location.href).href;
+const JSZIP_URL  = 'https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js';
+
+/* ============================================================
+ * GA4 — 숫자만 (파일 이름 · 본문 · 수식 · 키 금지)
+ * ========================================================== */
+function track(name, nums) {
+  if (typeof window.gtag !== 'function') return;
+  const p = { page: 'latexflow-tex2docx', transport_type: 'beacon' };
+  Object.keys(nums || {}).forEach((k) => { if (typeof nums[k] === 'number' && isFinite(nums[k])) p[k] = nums[k]; });
+  gtag('event', name, p);
+}
+
+/* ============================================================
+ * 상태
+ * ========================================================== */
+// R245: files = every accepted File (loose sources and archives), mainFile = the user's pick from files.mains (null = engine's)
+const state = { files: [], mainFile: null, result: null, docxUrl: null, license: null, busy: false, gen: 0 };
+
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
+const kb = (bytes) => Math.max(1, Math.round(bytes / 1024));
+function fmtSize(bytes) { return bytes < 1024 * 1024 ? kb(bytes) + ' KB' : (bytes / 1024 / 1024).toFixed(1) + ' MB'; }
+function setStatus(msg, isError) { const s = $('status'); s.textContent = msg || ''; s.className = isError ? 'error' : ''; }
+function show(stage) {
+  ['upload-stage', 'progress-stage', 'fail-stage', 'result-stage'].forEach((id) => { $(id).hidden = id !== stage; });
+  window.scrollTo(0, 0);
+  keepScreen({ stage });
+}
+
+/* ============================================================
+ * Worker
+ * ========================================================== */
+let worker = null, workerReady = null, reqSeq = 0;
+const pending = new Map();      // request id → { resolve, reject, onProgress, timer, idleMs }
+// R229: a request with no message (progress or answer) for this long counts as a crashed worker.
+// Progress resets the clock, so a long conversion that keeps reporting is never cut off.
+const WORKER_IDLE_MS = (IS_LOCAL && Number(params.get('worker_idle_ms'))) || 90 * 1000;
+const LICENSE_CALL_MS = 20 * 1000;
+function workerError(code, message) { return Object.assign(new Error(message), { code }); }
+/* The worker died (uncaught error, out of memory, stuck): fail every open request and start fresh next time. */
+function killWorker(err) {
+  if (worker) worker.terminate();
+  worker = null; workerReady = null;
+  pending.forEach((req) => { clearTimeout(req.timer); req.reject(err); });
+  pending.clear();
+}
+function armTimer(id, req) {
+  clearTimeout(req.timer);
+  req.timer = setTimeout(() => {
+    // a slow licence server is not a dead worker: drop only that request
+    if (req.soft) { pending.delete(id); req.reject(workerError('timeout', 'No answer in time.')); return; }
+    killWorker(workerError('worker', 'The converter stopped responding.'));
+  }, req.idleMs);
+}
+function startWorker() {
+  if (workerReady) return workerReady;
+  const blob = new Blob([$('worker-src').textContent], { type: 'text/javascript' });
+  const w = worker = new Worker(URL.createObjectURL(blob));
+  const ready = workerReady = new Promise((resolve, reject) => {
+    w.onmessage = (ev) => {
+      const m = ev.data;
+      if (m.type === 'ready') { if (m.version === 'mock') $('mock-banner').hidden = false; resolve(m.version); return; }
+      if (m.type === 'init_failed') { reject(new Error(m.message)); return; }
+      const req = pending.get(m.id);
+      if (!req) return;
+      if (m.type === 'progress') { armTimer(m.id, req); if (req.onProgress) req.onProgress(m); return; }
+      clearTimeout(req.timer);
+      pending.delete(m.id);
+      req.resolve(m);
+    };
+    w.onerror = (e) => {
+      if (e && e.preventDefault) e.preventDefault();
+      const err = workerError('worker', (e && e.message) || 'worker error');
+      reject(err);                                         // before ready: init fails
+      if (worker === w) killWorker(err);                   // after ready: every open request fails
+    };
+  });
+  w.postMessage({
+    type: 'init', jszip: JSZIP_URL,
+    api: USE_MOCK ? MOCK_URL : BUNDLE_URL,
+    fallback: (!USE_MOCK && IS_LOCAL) ? MOCK_URL : null,    // dev only: no bundle yet → mock
+  });
+  ready.catch(() => { if (worker === w) { w.terminate(); worker = null; workerReady = null; } });
+  return ready;
+}
+function callWorker(msg, transfer, onProgress, softMs) {
+  const id = ++reqSeq;
+  return new Promise((resolve, reject) => {
+    if (!worker) { reject(workerError('worker', 'The converter is not running.')); return; }
+    const req = { resolve, reject, onProgress, idleMs: softMs || WORKER_IDLE_MS, soft: !!softMs };
+    pending.set(id, req);
+    armTimer(id, req);
+    worker.postMessage(Object.assign({ id }, msg), transfer || []);
+  });
+}
+
+/* ============================================================
+ * 파일 받기
+ * ========================================================== */
+function ext(name) { const m = /\.([^.]+)$/.exec(name || ''); return m ? m[1].toLowerCase() : ''; }
+
+// a file's path in the set: the folder path when a folder was chosen (the bundle resolves includes by it), else its name
+const pathOf = (f) => f.keepPath || f.webkitRelativePath || f.name;   // keepPath: a file restored after a reload (R254)
+const isArchive = (f) => !!ARCHIVE_EXTS[ext(f.name)];
+const hasExt = (e) => state.files.some((f) => ext(f.name) === e);
+/* Something the engine can find a main file in: a .tex, or an archive (which may hold one). */
+const hasInput = () => state.files.some((f) => ext(f.name) === 'tex' || ext(f.name) === 'ltx' || isArchive(f));
+
+function addFiles(list) {
+  const notes = [], skipped = [];
+  Array.from(list || []).forEach((f) => {
+    const e = ext(f.name);
+    // a whole project folder selected at once brings .bst, images, .log … — one quiet line, not an error per file
+    if (!TEXT_EXTS[e] && !ARCHIVE_EXTS[e]) { skipped.push(f.name); return; }
+    // R229 (low 10): the same ceiling for every text file; archives get the bundle's archive ceiling
+    const max = ARCHIVE_EXTS[e] ? MAX_ARCHIVE_BYTES : HARD_MAX_TEX_BYTES;
+    if (f.size > max) { notes.push(f.name + ' is ' + fmtSize(f.size) + ' — the limit is ' + fmtSize(max) + '.'); return; }
+    const i = state.files.findIndex((g) => pathOf(g) === pathOf(f));
+    if (i >= 0) state.files[i] = f; else state.files.push(f);     // the same file again replaces the old one
+  });
+  const total = state.files.reduce((n, f) => n + f.size, 0);
+  if (state.files.length > MAX_FILES || total > MAX_TOTAL_BYTES) {
+    notes.push('That is more than the browser converter takes at once (' + MAX_FILES.toLocaleString('en-US') + ' files, ' + fmtSize(MAX_TOTAL_BYTES) + ').');
+    state.files = [];
+  }
+  state.mainFile = null;                              // a new set of files: the engine picks the main file again
+  renderFiles();
+  keepFiles();
+  const isError = notes.length > 0 || (skipped.length > 0 && !state.files.length);   // size / limit, or nothing usable
+  if (skipped.length) {
+    const names = skipped.slice(0, 3).join(', ') + (skipped.length > 3 ? ' and ' + (skipped.length - 3) + ' more' : '');
+    notes.push((state.files.length ? 'Not read: ' : 'Not a LaTeX source file or source archive: ') + names + '.');
+  }
+  setStatus(notes.join(' '), isError);
+  if (hasInput()) startWorker().catch(() => {});      // warm the bundle while the user looks at the options
+}
+
+function chipKind(f) {
+  if (isArchive(f)) return 'Archive';
+  return TEXT_EXTS[ext(f.name)];
+}
+
+function renderFiles() {
+  const row = $('file-row');
+  row.textContent = '';
+  // archives first, then .tex, then the rest — in the order they were added
+  const order = (f) => isArchive(f) ? 0 : ext(f.name) === 'tex' ? 1 : 2;
+  state.files.slice().sort((a, b) => order(a) - order(b)).forEach((f) => {
+    const chip = el('span', 'file-chip');
+    chip.append(el('span', 'kind', chipKind(f)), el('span', 'name', pathOf(f)), el('span', 'size', fmtSize(f.size)));
+    const x = el('button', 'x');
+    x.type = 'button';
+    x.setAttribute('aria-label', 'Remove ' + pathOf(f));
+    x.innerHTML = '<i class="ti ti-x" aria-hidden="true"></i>';
+    x.addEventListener('click', () => { state.files = state.files.filter((g) => g !== f); state.mainFile = null; renderFiles(); keepFiles(); setStatus(''); });
+    chip.append(x);
+    row.append(chip);
+  });
+  const looseBibOnly = hasExt('bib') && !hasExt('bbl') && !state.files.some(isArchive);
+  if (hasExt('tex') && !hasExt('bib') && !hasExt('bbl') && !state.files.some(isArchive)) {
+    const add = el('button', 'link-btn');
+    add.type = 'button';
+    add.innerHTML = '<i class="ti ti-plus" aria-hidden="true"></i>Add .bib / .bbl';
+    add.addEventListener('click', () => $('bib-input').click());
+    row.append(add);
+  }
+  row.hidden = !row.childElementCount;
+  $('opt-style-row').hidden = !looseBibOnly;
+  if (looseBibOnly) $('options').open = true;
+  $('btn-convert').disabled = !hasInput();
+}
+
+/* The name shown while converting: the archive, the single .tex, or a count. After a result: the engine's main file. */
+function inputLabel() {
+  const r = state.result;
+  if (r && r.files && r.files.main) return r.files.main;
+  const arcs = state.files.filter(isArchive), texs = state.files.filter((f) => ext(f.name) === 'tex');
+  if (arcs.length === 1 && !texs.length) return arcs[0].name;
+  if (texs.length === 1 && !arcs.length) return texs[0].name;
+  return state.files.length + ' files';
+}
+
+const dz = $('drop-zone');
+dz.addEventListener('click', () => $('file-input').click());
+dz.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); $('file-input').click(); } });
+dz.addEventListener('dragover', (e) => { e.preventDefault(); dz.classList.add('over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('over'));
+dz.addEventListener('drop', (e) => { e.preventDefault(); dz.classList.remove('over'); addFiles(e.dataTransfer.files); });
+$('file-input').addEventListener('change', (e) => { addFiles(e.target.files); e.target.value = ''; });
+$('bib-input').addEventListener('change', (e) => { addFiles(e.target.files); e.target.value = ''; });
+
+/* ============================================================
+ * 변환
+ * ========================================================== */
+const STAGES = ['read', 'parse', 'equations', 'write'];
+function setStage(stage, done, total) {
+  const i = STAGES.indexOf(stage);
+  $('steps-list').querySelectorAll('li').forEach((li, j) => {
+    li.classList.toggle('done', j < i);
+    li.classList.toggle('active', j === i);
+  });
+  const bar = $('eq-bar');
+  if (stage === 'equations' && total) {
+    $('eq-count').textContent = done + '/' + total;
+    bar.hidden = false;
+    bar.firstElementChild.style.width = Math.round(100 * done / total) + '%';
+  } else if (i > STAGES.indexOf('equations')) {
+    bar.hidden = true;
+  }
+}
+
+$('btn-convert').addEventListener('click', convert);
+
+/* One conversion in the Worker. Files are re-read from the File objects each time (the buffers
+   are transferred), so the full run after an unlock does not need the user to drop the file again. */
+async function runConvert(preview, onProgress) {
+  await startWorker();
+  // R229: the full file only after LS says yes in this tab — never from localStorage alone (fail closed)
+  if (!preview && !(await verifyLicense())) preview = true;
+  const picked = state.files.slice();
+  const bufs = await Promise.all(picked.map((f) => f.arrayBuffer()));
+  const files = picked.map((f, i) => ({ name: pathOf(f), buf: bufs[i] }));
+  const options = {
+    paper: $('opt-paper').value,
+    liveFields: $('opt-live').checked,
+    bibStyle: $('opt-style').value,
+    mainFile: state.mainFile,
+    preview: preview ? { pages: FREE_PREVIEW_PAGES } : null,
+  };
+  const texBytes = bufs.reduce((n, b) => n + b.byteLength, 0);    // everything dropped (GA4: size only)
+  const m = await callWorker({ type: 'convert', files, options }, files.map((f) => f.buf), onProgress);
+  if (m.type === 'failed') throw Object.assign(new Error(m.error.message), m.error, { texBytes });
+  m.texBytes = texBytes;
+  m.preview = !!preview;
+  return m;
+}
+
+/* A preview result whose engine actually cut something. No cut (short paper) → the free file is the whole document. */
+function previewCut(r) { return (r && r.stats && r.stats.previewCut) || null; }
+/* An engine with the R213 preview always answers previewCut (an object, or null when the whole file fits).
+   No previewCut key at all = an engine without the preview → its "preview" is the full file (fail closed). */
+function hasPreviewEngine(r) { return !!(r && r.stats && Object.prototype.hasOwnProperty.call(r.stats, 'previewCut')); }
+// "whole file fits" arrives as null (r213 note) or as { blocks: null, … } (bundle 2d92f99) — both mean no cut
+function isCut(r) {
+  const c = previewCut(r);
+  return !!(r && r.preview && c && c.blocks != null && !(c.totalEstPages <= c.estPages));
+}
+function totalPages(r) {
+  const s = (r && r.stats) || {};
+  if (s.estPages) return s.estPages;                                     // always the FULL document's estimate
+  const c = previewCut(r);
+  return (c && c.totalEstPages) || state.totalPages || null;
+}
+
+async function convert() {
+  if (!hasInput() || state.busy) return;
+  state.busy = true;
+  state.licenseNote = null;
+  $('progress-doc').textContent = state.mainFile || inputLabel();
+  $('eq-count').textContent = '';
+  $('eq-bar').hidden = true;
+  show('progress-stage');
+  setStage('read');
+  state.totalPages = null;
+  let m;
+  try {
+    m = await runConvert(!hasStoredKey(), (p) => setStage(p.stage, p.done, p.total));
+  } catch (e) {
+    state.busy = false;
+    if (e.texBytes && !state.restoring) track('tex2docx_convert', { ok: 0, size_kb: kb(e.texBytes) });
+    state.restoring = false;
+    fail(e.code ? e : { code: 'load', message: e.message });
+    return;
+  }
+  state.busy = false;
+  state.result = m;
+  state.totalPages = totalPages(m);
+  const s = m.stats || {};
+  if (!state.restoring) track('tex2docx_convert', {
+    ok: 1, size_kb: kb(m.texBytes), ms: m.ms, equations: s.equations, numbered: s.numberedEquations, refs: s.refs,
+    refs_undefined: s.refsUndefined, citations: s.citations, dropped: countOf(m.report && m.report.dropped),
+    needs: countOf(m.report && m.report.needsYou), preview: m.preview ? 1 : 0, total_pages: roundPages(state.totalPages),
+    files: state.files.length, archives: state.files.filter(isArchive).length,                // R245: counts only
+    includes: m.files && m.files.included ? m.files.included.length : undefined,
+    missing: m.files && m.files.missing ? m.files.missing.length : undefined,
+  });
+  state.restoring = false;
+  renderResult();
+  keepResult(m);
+  if (isLicensed() && m.preview) upgradeToFull();
+}
+
+function roundPages(n) { return n == null ? undefined : Math.max(1, Math.round(n)); }
+
+function countOf(items) { return (items || []).reduce((n, it) => n + (it.count || 0), 0); }
+
+/* 실패 화면 — plan §3: \begin{document} 없음 · beamer · 비 UTF-8 (변환은 되고 보고서에 표시) · .zip */
+function fail(err) {
+  const card = $('fail-card');
+  card.textContent = '';
+  const code = err && err.code;
+  let title = 'This file could not be converted.';
+  let body = [];
+  if (code === 'no_document') {
+    title = 'No \\begin{document} in this file.';
+    body = ['This looks like a part of a project (a chapter or a preamble file). Drop the .tex file that has \\documentclass and \\begin{document}.'];
+  } else if (code === 'beamer') {
+    title = 'Slides are not supported.';
+    body = ['This file uses the beamer class. The converter makes Word documents, not slide decks.'];
+  } else if (code === 'no_tex') {
+    title = 'Add your .tex file.';
+    body = ['No .tex file was found in what you dropped.'];
+  } else if (code === 'too_large') {
+    title = 'This file is too large to convert in the browser.';
+    body = ['The limit is ' + fmtSize(HARD_MAX_TEX_BYTES) + '.'];
+  } else if (code === 'archive_bad') {
+    title = 'This archive could not be read.';
+    body = ['Use a .zip, .tar.gz, .tgz or .tar file, or drop the .tex files themselves.'];
+  } else if (code === 'archive_too_large') {
+    title = 'This archive is too large to convert in the browser.';
+    body = ['The limit is ' + fmtSize(MAX_ARCHIVE_BYTES) + ' packed and ' + fmtSize(MAX_TOTAL_BYTES) + ' unpacked.'];
+  } else if (code === 'archive_too_many') {
+    title = 'This archive has too many files.';
+    body = ['The limit is ' + MAX_FILES.toLocaleString('en-US') + ' files.'];
+  } else if (code === 'archive_unsupported') {
+    title = 'This browser cannot unpack archives.';
+    body = ['Update the browser, or drop the .tex files themselves.'];
+  } else if (code === 'load') {
+    title = 'The converter did not load.';
+    body = ['Check your connection and reload the page.'];
+  } else if (code === 'worker') {
+    title = 'The converter stopped.';
+    body = ['This can happen when the browser runs low on memory. Try again — closing other tabs can help.'];
+  } else {
+    title = 'Something went wrong.';
+    // r210's suggested privacy sentence for this screen trips lint-copy's R36 absolute-claim pattern — left out on purpose
+    body = ['If it happens again, please tell us on the Support page — the message below helps.'];
+  }
+  card.append(el('h2', null, title));
+  body.forEach((p) => card.append(el('p', null, p)));
+  if (err && err.line) card.append(el('p', null, 'Line ' + err.line + '.'));
+  if (code === 'internal' || code === 'load' || code === 'worker') {
+    if (err && err.message) { const p = el('p'); p.append(el('code', null, err.message)); card.append(p); }
+  }
+  $('btn-fail-retry').hidden = !(code === 'worker' || code === 'load') || !hasInput();
+  show('fail-stage');
+}
+$('btn-fail-back').addEventListener('click', () => show('upload-stage'));
+$('btn-fail-retry').addEventListener('click', convert);
+
+/* ============================================================
+ * 결과 — 보고서 · 미리보기 · 다운로드
+ * ========================================================== */
+const GROUPS = [
+  { key: 'needsYou', title: 'Needs you', sub: 'Fix these in Word' },
+  { key: 'dropped', title: 'Dropped',   sub: 'Not converted — a placeholder marks each one' },
+  { key: 'changed', title: 'Changed',   sub: 'Converted, but differently' },
+  { key: 'kept',    title: 'Kept',      sub: 'Carried over as in your source' },
+];
+
+function renderResult() {
+  const r = state.result;
+  const report = r.report || {};
+  const groups = withMissing(report, r.files);
+
+  $('result-doc').textContent = inputLabel();
+  renderMainPick(r.files);
+  const s = r.stats || {};
+  const bits = [];
+  if (s.equations != null) bits.push(s.equations + ' equation' + (s.equations === 1 ? '' : 's'));
+  if (s.refs) bits.push(s.refs + ' cross-reference' + (s.refs === 1 ? '' : 's'));
+  if (s.citations) bits.push(s.citations + ' citation' + (s.citations === 1 ? '' : 's'));
+  const tp = roundPages(state.totalPages);
+  if (tp) bits.push('full document ≈ ' + tp + ' page' + (tp === 1 ? '' : 's'));
+  $('result-counts').textContent = bits.join(' · ');
+
+  const rep = $('report');
+  rep.textContent = '';
+  GROUPS.forEach((g) => {
+    const items = groups[g.key] || [];
+    const box = el('div', 'rgroup ' + (g.key === 'needsYou' ? 'needs' : g.key));
+    const head = el('div', 'rgroup-head');
+    head.append(el('span', 'title', g.title), el('span', 'sub', g.sub), el('span', 'spacer'), el('span', 'total', String(countOf(items))));
+    box.append(head);
+    if (!items.length) box.append(el('div', 'empty', 'Nothing here.'));
+    items.forEach((it) => {
+      const lines = it.lines || [];
+      // 줄 번호가 없는 항목(개수만)은 펼칠 것이 없으니 접이식이 아닌 한 줄로
+      const d = el(lines.length ? 'details' : 'div', 'ritem');
+      const sum = el(lines.length ? 'summary' : 'div');
+      if (!lines.length) sum.style.cssText = 'padding:9px 14px;display:flex;gap:10px;align-items:baseline;font-size:15px';
+      const chev = el('i', 'ti ti-chevron-right chev'); chev.setAttribute('aria-hidden', 'true');
+      if (!lines.length) chev.style.visibility = 'hidden';
+      sum.append(chev, el('span', 'txt', it.message), el('span', 'n', String(it.count)));
+      d.append(sum);
+      if (lines.length) {
+        // the bundle sends at most 50 line numbers; count may be larger
+        const more = (it.count || 0) - lines.length;
+        d.append(el('div', 'lines', (lines.length === 1 ? 'Line ' : 'Lines ') + lines.join(', ') + (more > 0 && lines.length > 1 ? ' … and ' + more + ' more' : '')));
+      }
+      box.append(d);
+    });
+    rep.append(box);
+  });
+
+  // R254 (user): no HTML preview — it did not match Word; the free .docx and the report are the result
+  loadShot(document.querySelector('.shot:not([hidden])'));   // R255
+  setDocxUrl(r);
+  renderDownload();
+  show('result-stage');
+}
+
+/* R245: files.missing (includes not in the set) in the Needs you group. The engine already writes an
+   input_missing row per file it marked in the document — only names no row mentions get one here. */
+function withMissing(report, files) {
+  const missing = (files && files.missing) || [];
+  if (!missing.length) return report;
+  const needs = report.needsYou || [];
+  const named = (n) => needs.some((it) => (it.detail && it.detail.file === n) || String(it.message || '').indexOf(n) >= 0);
+  const extra = missing.filter((n) => !named(n) && !named(n.replace(/^.*\//, '')))
+    .map((n) => ({ code: 'include_not_found', message: 'An included file was not found in your upload: ' + n + '.', count: 1 }));
+  return extra.length ? Object.assign({}, report, { needsYou: needs.concat(extra) }) : report;
+}
+
+/* R245: several \documentclass + \begin{document} candidates → a picker; a change converts again with that main file. */
+function renderMainPick(files) {
+  const mains = (files && files.mains) || [];
+  const row = $('main-pick-row'), sel = $('main-pick');
+  row.hidden = mains.length < 2;
+  $('result-doc').hidden = !row.hidden;
+  sel.textContent = '';
+  if (row.hidden) return;
+  mains.forEach((n) => { const o = el('option', null, n); o.value = n; sel.append(o); });
+  sel.value = state.mainFile || files.main;
+}
+$('main-pick').addEventListener('change', (e) => {
+  const cur = state.result && state.result.files && state.result.files.main;
+  if (state.busy || state.upgrading || e.target.value === cur) { e.target.value = state.mainFile || cur; return; }
+  state.mainFile = e.target.value;
+  keepScreen({ mainFile: state.mainFile });
+  state.gen++;                                        // an upgrade still running for the old main file is dropped
+  convert();
+});
+
+function setDocxUrl(r) {
+  if (state.docxUrl) URL.revokeObjectURL(state.docxUrl);
+  state.docxUrl = URL.createObjectURL(new Blob([r.docx], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' }));
+}
+const passEnded = (L) => L.exp != null && L.exp * 1000 <= Date.now();
+/* Licensed = LS answered ok in this tab (verifiedAt is never read from storage) and the pass has not ended since. */
+function isLicensed() { const L = state.license; return !!(L && L.ok && L.verifiedAt && !passEnded(L)); }
+/* Display only (chip on the upload screen): may come from the 24 h localStorage cache. */
+function showsLicensed() { const L = state.license; return !!(L && L.ok && !passEnded(L)); }
+
+function downloadButton(label) {
+  const btn = el('button', 'btn-primary');
+  btn.type = 'button';
+  btn.innerHTML = '<i class="ti ti-download" aria-hidden="true"></i>';
+  btn.append(document.createTextNode(label));
+  btn.addEventListener('click', download);
+  return btn;
+}
+
+let paywallSeen = false;
+function renderDownload() {
+  const area = $('dl-area');
+  area.textContent = '';
+  const r = state.result;
+  const tp = roundPages(state.totalPages);
+  const card = el('div', 'dl-card');
+  const row = el('div', 'dl-row');
+  card.append(row);
+  area.append(card);
+
+  if (!r.preview && isLicensed() && state.docxUrl) {  // licensed: the full file
+    row.append(downloadButton('Download full .docx'));
+    row.append(licenseChip());
+    return;
+  }
+  if (!r.preview) {                                   // a full result without a live licence: never downloadable
+    row.append(el('span', 'dl-note', 'The full .docx needs an active license. Convert again for the free preview.'));
+  } else if (!hasPreviewEngine(r)) {
+    // fail closed: a bundle without the R213 preview returns the FULL file even when asked for a preview —
+    // never hand that out free. Only a result that says how it cut (stats.previewCut) is downloadable free.
+    row.append(el('span', 'dl-note', 'The free preview is not available in this version. A license unlocks the full .docx.'));
+  } else if (!isCut(r)) {                             // short paper: the free preview already holds everything
+    row.append(downloadButton('Download .docx'));
+    // R248 nit: no page number here — the ≈ N pages above is rounded and could read "4" next to "fits in 3"
+    row.append(el('span', 'dl-note', 'Free — Your entire document is included.'));   // R254 wording (user, 11-18)
+    // R254 (user): no return — the same unlock card follows, worded for longer papers
+  } else {
+    // free preview with a cut: first N pages now, full file with a key
+    row.append(downloadButton('Download first ' + FREE_PREVIEW_PAGES + ' pages (free)'));
+    row.append(el('span', 'dl-note', 'The file ends with a note where the preview stops.'));
+  }
+
+  // R254 quiet phase (and readiness R.1): Polar with no checkout = no sales on the page. Free preview only —
+  // no key box (no production org to check a key against yet) and no store link (the LS store sells the add-on).
+  if (salesOff()) return;
+
+  const lock = el('div', 'unlock');
+  const h = el('h3');
+  h.innerHTML = '<i class="ti ti-lock-open" aria-hidden="true"></i>';
+  const cut = isCut(r);                               // R254: an uncut (short) file gets the same card, worded for longer papers
+  h.append(document.createTextNode(cut ? 'Unlock the full document' + (tp ? ' (≈ ' + tp + ' pages)' : '') : 'Unlock the full .docx for longer papers'));
+  lock.append(h);
+  lock.append(el('p', null, (cut ? 'The report above covers the whole file. A converter pass unlocks the full .docx ('
+    : 'A converter pass unlocks the full .docx of papers longer than ' + FREE_PREVIEW_PAGES + ' pages (') + PRICE_LINE +
+    '). Each key works in up to 2 browsers. Google Docs™ add-on keys do not unlock the converter.'));
+  const keyRow = el('div', 'key-row');
+  const input = el('input');
+  input.type = 'text'; input.id = 'key-input'; input.placeholder = 'Enter license key';
+  input.autocomplete = 'off'; input.spellcheck = false; input.setAttribute('aria-label', 'License key');
+  const check = el('button', 'btn-primary');
+  check.type = 'button'; check.textContent = 'Unlock';
+  keyRow.append(input, check);
+  lock.append(keyRow);
+  const msg = el('div', 'key-msg'); msg.id = 'key-msg'; msg.setAttribute('role', 'status');
+  lock.append(msg);
+  // one button per product once its checkout exists (R249: LS overlay on this page), else the store page (R248 B1)
+  const co = checkoutUrls();
+  const getRow = el('div', 'get-row');
+  if (co) {
+    getRow.append(...buyLinks(co, 'house-cta'));   // R254: filled buttons
+    loadCheckout();                                    // ready before the first click (an async open would be popup-blocked)
+  } else {
+    const get = el('a', 'get-license');
+    get.href = LICENSE_STORE_URL; get.target = '_blank'; get.rel = 'noopener';
+    get.append(document.createTextNode('Get a converter pass '));
+    const i = el('i', 'ti ti-arrow-up-right'); i.setAttribute('aria-hidden', 'true'); get.append(i);
+    get.addEventListener('click', () => track('tex2docx_license_click'));
+    getRow.append(get);
+  }
+  lock.append(getRow);
+  card.append(lock);
+
+  const submit = () => unlock(input.value.trim(), check, msg);
+  check.addEventListener('click', submit);
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') submit(); });
+  if (!paywallSeen && cut) { paywallSeen = true; keepScreen({ paywallSeen: true });   // a paywall view = a cut file only (the metric keeps its meaning)
+    track('tex2docx_paywall_view', { size_kb: kb(r.texBytes), total_pages: tp }); }
+  if (state.license && !state.license.ok) showKeyMsg(msg, state.license);
+  // the note stays through the downgrade's second render (R229 nit); a new file or Start over clears it
+  if (state.licenseNote) { msg.textContent = state.licenseNote; msg.className = 'key-msg'; }
+  if (state.purchased && !(state.license && state.license.ok)) showPurchased(msg, input);   // survives a re-render; never stored
+}
+
+/* ============================================================
+ * R249 — LS checkout overlay (lemon.js). lemon.js only frames the checkout URL and reads that frame's
+ * postMessage events; it fetches nothing itself. The CSP lets it come from LEMON_JS_URL's host and frame
+ * LS_CHECKOUT_ORIGIN only. Nothing about the file goes into the checkout URL.
+ * ========================================================== */
+// localhost only: ?checkout_test=<LS checkout URL> fills both slots, to try the overlay before the real URLs exist
+const CHECKOUT_TEST = IS_LOCAL ? params.get('checkout_test') : null;
+function checkoutUrls() {
+  if (CHECKOUT_TEST) return { web_pass7: CHECKOUT_TEST, web_monthly: CHECKOUT_TEST };
+  const urls = PAY_PROVIDER === 'polar' ? POLAR.checkouts : CHECKOUT_URLS;
+  return urls.web_pass7 && urls.web_monthly ? urls : null;
+}
+const salesOff = () => PAY_PROVIDER === 'polar' && !checkoutUrls();
+// one link per product (R249 overlay)
+function buyLinks(co, cls) {
+  return [[co.web_pass7, 'Buy a 7-day pass ($6.99)'], [co.web_monthly, 'Buy the monthly pass ($19.99)']].map(([href, label]) => {
+    // a plain link to the checkout page is the fallback: lemon.js not loaded (yet / blocked) → LS checkout in a new tab
+    // no "lemonsqueezy-button" class: createLemonSqueezy() would bind its own click too and open the overlay twice
+    const buy = el('a', cls, label);
+    buy.href = href; buy.target = '_blank'; buy.rel = 'noopener';
+    buy.addEventListener('click', (e) => {
+      track('tex2docx_license_click');                  // R214: license events carry no params
+      if (checkoutReady()) { e.preventDefault(); openCheckout(href); }
+    });
+    return buy;
+  });
+}
+const checkoutReady = () => PAY_PROVIDER === 'polar' ? polarReady() : lemonReady();
+const loadCheckout  = () => PAY_PROVIDER === 'polar' ? loadPolar() : loadLemon();
+function openCheckout(href) {
+  if (PAY_PROVIDER !== 'polar') { window.LemonSqueezy.Url.Open(href); return; }   // Url.Open adds embed=1
+  // create() puts the iframe in synchronously (adds embed=true + embed_origin); the promise waits for "loaded"
+  window.Polar.EmbedCheckout.create(href, { theme: 'light' }).then((co) => {
+    let done = false;
+    co.addEventListener('success', (ev) => {
+      // a success URL would take this tab away from the converted file — stay, close the overlay instead
+      if (ev.detail && ev.detail.redirect) { ev.preventDefault(); co.close(); }
+      if (done) return;                                // Polar posts "success" more than once (R252: twice per order)
+      done = true;
+      const tok = polarSessionToken(ev.detail && ev.detail.successURL);
+      // repeat buyer (email already a Polar customer): no token, and Polar turns the overlay into its portal
+      // sign-in — close it; the page says the key was emailed and focuses the key box
+      if (!tok) co.close();
+      onCheckoutSuccess(null);
+      if (tok) polarFetchKey(tok, polarClientSecret(ev.detail.successURL));
+    });
+  }).catch(() => {});
+}
+/* R252: the success event carries no key. For a FIRST-TIME buyer Polar's confirmation screen shows it, and
+   its successURL carries a customer_session_token (scoped to this buyer's customer portal). The page then finds
+   THIS checkout's key exactly, the way Polar's own confirmation does — no clock involved (R252 review nit):
+     GET /v1/checkouts/client/<client_secret>             (public; client_secret = the successURL path) → checkout id
+     GET /v1/customer-portal/benefit-grants/?checkout_id=  (Bearer token) → grant.properties.license_key_id
+     GET /v1/customer-portal/license-keys/<id>            (Bearer token) → key
+   A repeat buyer gets no token (live sandbox, 11-17) → the emailed line. The grant is issued a few seconds after
+   payment, so poll briefly. The token is never stored and goes only to POLAR.api (CSP connect-src). */
+function polarSessionToken(successURL) {
+  try { return new URL(successURL).searchParams.get('customer_session_token') || null; } catch (e) { return null; }
+}
+function polarClientSecret(successURL) {
+  try { const m = /\/checkout\/([^/]+)\/confirmation/.exec(new URL(successURL).pathname); return m ? m[1] : null; } catch (e) { return null; }
+}
+async function polarGet(path, tok) {
+  const headers = { 'Accept': 'application/json' };
+  if (tok) headers.Authorization = 'Bearer ' + tok;
+  const resp = await fetch(POLAR.api + path, { headers });
+  if (resp.status === 401 || resp.status === 403) throw Object.assign(new Error('auth'), { stop: true });
+  return resp.ok ? resp.json() : null;
+}
+async function polarFetchKey(tok, cs) {
+  if (!cs) return;
+  let checkoutId = null;
+  for (let i = 0; i < 8; i++) {
+    await new Promise((r) => setTimeout(r, i ? 2500 : 1000));
+    try {
+      if (!checkoutId) { const co = await polarGet('/v1/checkouts/client/' + encodeURIComponent(cs)); checkoutId = co && co.id; }
+      if (!checkoutId) continue;
+      const g = await polarGet('/v1/customer-portal/benefit-grants/?checkout_id=' + encodeURIComponent(checkoutId), tok);
+      const grant = ((g && g.items) || []).find((x) => POLAR.benefits[x.benefit_id] && x.properties && x.properties.license_key_id);
+      if (!grant) continue;
+      const lk = await polarGet('/v1/customer-portal/license-keys/' + encodeURIComponent(grant.properties.license_key_id), tok);
+      if (!lk || typeof lk.key !== 'string') continue;
+      if (state.license && state.license.ok) return;   // already unlocked meanwhile
+      state.purchased = { key: lk.key };
+      const input = $('key-input'), msg = $('key-msg');
+      if (input && msg) showPurchased(msg, input);
+      return;
+    } catch (e) { if (e && e.stop) return; }
+  }
+}
+
+/* R252 — Polar embed (@polar-sh/checkout, pinned + SRI). It frames the checkout link and reads that frame's
+   postMessage events (origin-checked against polar.sh / sandbox.polar.sh); it fetches nothing itself.
+   The "success" event carries no license key: polarFetchKey reads it with the buyer's session token (below). */
+const polarReady = () => !!(window.Polar && window.Polar.EmbedCheckout && typeof window.Polar.EmbedCheckout.create === 'function');
+let polarLoading = null;
+function loadPolar() {
+  if (polarLoading) return polarLoading;
+  polarLoading = new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = POLAR_EMBED_URL;
+    s.integrity = POLAR_EMBED_SRI;
+    s.crossOrigin = 'anonymous';
+    s.async = true;
+    s.onload = () => (polarReady() ? resolve() : reject(new Error('polar embed')));
+    s.onerror = () => reject(new Error('polar embed'));
+    document.head.appendChild(s);
+  });
+  polarLoading.catch(() => { polarLoading = null; });   // the buttons stay plain links to the checkout page
+  return polarLoading;
+}
+const lemonReady = () => !!(window.LemonSqueezy && window.LemonSqueezy.Url && typeof window.LemonSqueezy.Url.Open === 'function');
+let lemonLoading = null;
+function loadLemon() {
+  if (lemonLoading) return lemonLoading;
+  lemonLoading = new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = LEMON_JS_URL;
+    s.async = true;
+    s.onload = () => {
+      // lemon.js sets itself up on window "load", which has long passed — start it by hand
+      if (typeof window.createLemonSqueezy === 'function') window.createLemonSqueezy();
+      if (!lemonReady()) { reject(new Error('lemon.js')); return; }
+      window.LemonSqueezy.Setup({ eventHandler: onLemonEvent });
+      resolve();
+    };
+    s.onerror = () => reject(new Error('lemon.js'));
+    document.head.appendChild(s);
+  });
+  lemonLoading.catch(() => { lemonLoading = null; });   // the buttons stay plain links to the checkout page
+  return lemonLoading;
+}
+/* Checkout.Success: LS shows its own receipt in the overlay; this page only points at the key box.
+   The key is prefilled only if the event carries one (LS sends it by email in any case). Nothing is stored. */
+function onLemonEvent(ev) {
+  if (!ev || ev.event !== 'Checkout.Success') return;
+  onCheckoutSuccess(findLicenseKey(ev.data));
+}
+function onCheckoutSuccess(key) {
+  state.purchased = { key: key };
+  track('tex2docx_checkout_success');
+  const input = $('key-input'), msg = $('key-msg');
+  if (input && msg) showPurchased(msg, input);
+}
+function findLicenseKey(data) {
+  let found = null;
+  (function walk(o, inLicense, depth) {
+    if (found || !o || typeof o !== 'object' || depth > 8) return;
+    Object.keys(o).forEach((k) => {
+      const v = o[k], lic = inLicense || /licen[sc]e/i.test(k);
+      if (!found && typeof v === 'string' && (k === 'license_key' || (lic && k === 'key')) && /^[A-Za-z0-9-]{16,64}$/.test(v)) found = v;
+      else walk(v, lic, depth + 1);
+    });
+  })(data, false, 0);
+  return found;
+}
+function showPurchased(msg, input) {
+  const k = state.purchased && state.purchased.key;
+  if (k && !input.value) input.value = k;
+  msg.className = 'key-msg';
+  msg.textContent = '';
+  if (k) msg.textContent = 'Payment received. Your license key is filled in.';
+  else if (PAY_PROVIDER === 'polar') {
+    // R252b (user checked a sandbox email): Polar's email has no key, only a button to the customer portal, where the
+    // key is copied — say that plainly, with the button's own label; the portal link stays small after the sentence
+    msg.append(document.createTextNode('Open your Polar email and click ‘' + POLAR_EMAIL_BUTTON + '’ to get your key.'));
+    if (POLAR.portal) {
+      const a = el('a', 'portal-link', 'Customer portal'); a.href = POLAR.portal; a.target = '_blank'; a.rel = 'noopener';
+      msg.append(document.createTextNode(' '), a);
+    }
+  } else msg.textContent = 'Payment received. Your license key is in the receipt email from Lemon Squeezy; paste it here to unlock the full document.';
+  input.focus();
+}
+
+/* After a key unlocks while a cut preview is on screen: convert again without the cut. */
+async function upgradeToFull(btn, msg) {
+  if (state.upgrading) return;
+  state.upgrading = true;
+  const gen = state.gen;
+  if (btn) btn.disabled = true;
+  if (msg) { msg.textContent = 'Key accepted — preparing the full document…'; msg.className = 'key-msg'; }
+  try {
+    const m = await runConvert(false);
+    if (gen !== state.gen) { state.upgrading = false; return; }   // the user started over meanwhile
+    state.result = m;
+    if (!state.totalPages) state.totalPages = totalPages(m);
+    setDocxUrl(m);
+    renderDownload();
+    keepResult(m);
+  } catch (e) {
+    if (btn) btn.disabled = false;
+    if (msg) { msg.textContent = 'The full conversion failed. ' + (e.message || ''); msg.className = 'key-msg error'; }
+  }
+  state.upgrading = false;
+}
+
+/* After Deactivate while the full file is on screen: back to the free preview. */
+async function downgradeToPreview() {
+  const gen = state.gen;
+  // R229: take the full file away first — if the re-convert fails, nothing full stays downloadable
+  if (state.docxUrl) { URL.revokeObjectURL(state.docxUrl); state.docxUrl = null; }
+  renderDownload();
+  try {
+    const m = await runConvert(true);
+    if (gen !== state.gen) return;
+    state.result = m;
+    setDocxUrl(m);
+    renderDownload();
+    keepResult(m);
+  } catch (e) { if (gen === state.gen) renderDownload(); }
+}
+
+function download() {
+  const r = state.result;
+  if (!state.docxUrl || (!r.preview && !isLicensed())) {          // pass ended while the tab was open
+    if (state.license && state.license.ok && passEnded(state.license)) state.license = Object.assign({}, state.license, { ok: false, reason: 'expired' });
+    if (!r.preview && state.docxUrl) { URL.revokeObjectURL(state.docxUrl); state.docxUrl = null; }
+    renderDownload();
+    return;
+  }
+  const base = (r.fileName || inputLabel().replace(/^.*\//, '')).replace(/\.(docx|tex)$/i, '');
+  const a = document.createElement('a');
+  a.href = state.docxUrl;
+  a.download = isCut(r) ? base + ' - first ' + FREE_PREVIEW_PAGES + ' pages.docx' : base + '.docx';
+  document.body.append(a);
+  a.click();
+  a.remove();
+  track('tex2docx_download', { size_kb: kb(r.texBytes), licensed: isLicensed() ? 1 : 0, preview: isCut(r) ? 1 : 0, total_pages: roundPages(state.totalPages) });
+}
+
+$('btn-reset').addEventListener('click', () => {
+  state.gen++;                                        // results of upgrades / downgrades still running are dropped
+  state.files = [];
+  state.mainFile = null;
+  state.result = null;
+  state.totalPages = null;
+  if (state.docxUrl) { URL.revokeObjectURL(state.docxUrl); state.docxUrl = null; }
+  state.licenseNote = null;
+  paywallSeen = false;
+  renderFiles();
+  setStatus('');
+  keepClear();
+  show('upload-stage');
+});
+
+/* ============================================================
+ * R254 (user) - a reload keeps the screen. The files and the free-preview result are kept INSIDE this browser,
+ * for this tab only: IndexedDB (file bytes, result) under a tab id that lives in sessionStorage (+ small screen
+ * state there). None of it is sent out of the browser. Cleared by Start over and by a new set of files; a closed tab's copy
+ * is deleted by the next converter page that opens (a page gets no reliable "tab closed" signal - each open tab
+ * holds a Web Lock, so a copy whose lock is free belongs to a closed tab). A full (licensed) result is never kept:
+ * after a reload it is converted again, after the licence check.
+ * ========================================================== */
+var KEEP_DB = 'latexflow_tex2docx_keep', KEEP_STORE = 'tabs', KEEP_LOCK = 'latexflow_tex2docx_tab_';
+var KEEP_TAB_KEY = 'latexflow_tex2docx_tab', KEEP_SCREEN_KEY = 'latexflow_tex2docx_screen';
+var KEEP_GRACE_MS = 15 * 1000;                     // a copy written this recently may belong to a tab in mid-reload
+function sess(fn) { try { return fn(window.sessionStorage); } catch (e) { return null; } }
+var keepTab = sess((ss) => ss.getItem(KEEP_TAB_KEY));
+var keepRestoring = false;
+function newTabId() {
+  const a = new Uint8Array(12); crypto.getRandomValues(a);
+  keepTab = Array.from(a, (b) => b.toString(16).padStart(2, '0')).join('');
+  sess((ss) => ss.setItem(KEEP_TAB_KEY, keepTab));
+}
+function readScreen() { try { return JSON.parse(sess((ss) => ss.getItem(KEEP_SCREEN_KEY)) || 'null') || {}; } catch (e) { return {}; } }
+function keepScreen(part) {
+  if (keepRestoring) return;                          // the restore itself must not overwrite what it is reading
+  const o = Object.assign(readScreen(), part, { paper: $('opt-paper').value, live: $('opt-live').checked, style: $('opt-style').value });
+  sess((ss) => ss.setItem(KEEP_SCREEN_KEY, JSON.stringify(o)));
+}
+var keepDbP = null;
+function keepDb() {
+  if (!keepDbP) keepDbP = new Promise((res, rej) => {
+    const q = indexedDB.open(KEEP_DB, 1);
+    q.onupgradeneeded = () => q.result.createObjectStore(KEEP_STORE);
+    q.onsuccess = () => res(q.result);
+    q.onerror = () => rej(q.error);
+  });
+  return keepDbP;
+}
+// one IndexedDB call; any failure (private mode, blocked storage, quota) = nothing kept, the page works as before
+async function keepOp(mode, fn) {
+  try {
+    const db = await keepDb();
+    return await new Promise((res, rej) => {
+      const t = db.transaction(KEEP_STORE, mode);
+      const q = fn(t.objectStore(KEEP_STORE));
+      t.oncomplete = () => res(q ? q.result : undefined);
+      t.onerror = t.onabort = () => rej(t.error);
+    });
+  } catch (e) { return undefined; }
+}
+var keepQueue = Promise.resolve();                    // writes in order (a new file set must not lose to an older result)
+function keepWrite(fn) { keepQueue = keepQueue.then(() => keepTab ? keepOp('readwrite', fn) : undefined); return keepQueue; }
+function keepFiles() {
+  const list = state.files.map((f) => ({ path: pathOf(f), file: f }));
+  keepScreen({ stage: 'upload-stage', mainFile: null, totalPages: null, paywallSeen: false });
+  keepWrite((st) => { st.delete(keepTab + ':result'); return st.put({ at: Date.now(), list }, keepTab + ':files'); });
+}
+function keepResult(m) {
+  keepScreen({ mainFile: state.mainFile, totalPages: state.totalPages });
+  if (!m || !m.preview) { keepWrite((st) => st.delete(keepTab + ':result')); return; }   // a full file is never kept
+  const r = Object.assign({}, m);
+  keepWrite((st) => st.put({ at: Date.now(), r }, keepTab + ':result'));
+}
+function keepClear() {
+  sess((ss) => ss.removeItem(KEEP_SCREEN_KEY));
+  keepWrite((st) => { st.delete(keepTab + ':result'); return st.delete(keepTab + ':files'); });
+}
+['opt-paper', 'opt-live', 'opt-style'].forEach((id) => $(id).addEventListener('change', () => keepScreen({})));
+window.addEventListener('pagehide', () => { if (!$('result-stage').hidden) keepScreen({ y: window.scrollY }); });
+
+/* This tab's id: hold its lock while the page is open. A duplicated tab copies sessionStorage (same id, lock taken)
+   -> it gets its own id and a copy of the original's files and result. */
+async function claimTab() {
+  if (!window.indexedDB) { keepTab = null; return; }
+  if (!keepTab) newTabId();
+  if (!(navigator.locks && navigator.locks.request)) return;
+  const got = await new Promise((res) => {
+    navigator.locks.request(KEEP_LOCK + keepTab, { ifAvailable: true }, (lock) => {
+      res(!!lock);
+      return lock ? new Promise(() => {}) : undefined;     // held until the page goes away
+    }).catch(() => res(true));
+  });
+  if (got) return;
+  const old = keepTab;
+  const f = await keepOp('readonly', (st) => st.get(old + ':files'));
+  const r = await keepOp('readonly', (st) => st.get(old + ':result'));
+  newTabId();
+  await new Promise((res) => { navigator.locks.request(KEEP_LOCK + keepTab, () => { res(); return new Promise(() => {}); }).catch(res); });
+  if (f) await keepWrite((st) => { if (r) st.put(r, keepTab + ':result'); return st.put(f, keepTab + ':files'); });
+}
+/* Delete the copies of closed tabs (no lock held) - never this tab's, never one written in the last seconds. */
+async function keepSweep() {
+  if (!keepTab || !(navigator.locks && navigator.locks.query)) return;
+  let held;
+  try { held = new Set(((await navigator.locks.query()).held || []).map((l) => l.name)); } catch (e) { return; }
+  const keys = (await keepOp('readonly', (st) => st.getAllKeys())) || [];
+  const now = Date.now();
+  for (const k of keys) {
+    const id = String(k).split(':')[0];
+    if (id === keepTab || held.has(KEEP_LOCK + id)) continue;
+    const v = await keepOp('readonly', (st) => st.get(k));
+    if (v && now - (v.at || 0) < KEEP_GRACE_MS) continue;
+    await keepOp('readwrite', (st) => st.delete(k));
+  }
+}
+async function restoreScreen() {
+  const scr = readScreen();
+  if (!keepTab || !scr.stage) return;
+  const f = await keepOp('readonly', (st) => st.get(keepTab + ':files'));
+  if (!f || !f.list || !f.list.length || state.files.length || state.busy || state.result) return;   // nothing kept / the user already acted
+  const r = await keepOp('readonly', (st) => st.get(keepTab + ':result'));
+  keepRestoring = true;
+  state.files = f.list.map(({ path, file }) => { try { file.keepPath = path; } catch (e) {} return file; });
+  if (scr.paper) $('opt-paper').value = scr.paper;
+  if (scr.live != null) $('opt-live').checked = scr.live;
+  if (scr.style) $('opt-style').value = scr.style;
+  state.mainFile = scr.mainFile || null;
+  paywallSeen = !!scr.paywallSeen;
+  renderFiles();
+  keepRestoring = false;
+  if (scr.stage === 'result-stage' && r && r.r && r.r.preview) {          // the same screen, no new conversion
+    state.result = r.r;
+    state.totalPages = scr.totalPages || totalPages(r.r);
+    renderResult();
+    if (scr.y) requestAnimationFrame(() => window.scrollTo(0, scr.y));
+    if (isLicensed()) upgradeToFull();
+  } else if (scr.stage === 'result-stage' || scr.stage === 'progress-stage' || scr.stage === 'fail-stage') {
+    state.restoring = true;                           // converted again quietly: no second GA4 convert event
+    convert();
+  } else if (hasInput()) startWorker().catch(() => {});
+}
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';   // restoreScreen puts the scroll back itself
+
+/* ============================================================
+ * 라이선스 (R214) — 웹 전용 상품, LS 활성화 한도 2 (브라우저당 1자리).
+ *   첫 입력: activate(license_key, instance_name) → instance_id 저장
+ *   이후: 24시간에 한 번 validate(license_key, instance_id). 만료·해지·비활성 → 다시 잠김
+ *   "Deactivate on this browser": deactivate(license_key, instance_id) + 로컬 상태 삭제
+ *   판정(상점·상품·변형·패스 종료일·구독 상태·테스트 키)은 번들의 Tex2Docx.license (addon).
+ *   키·instance 는 api.lemonsqueezy.com 외 어디에도 보내지 않는다 (GA4 는 이벤트 이름만).
+ * ========================================================== */
+const REASON_TEXT = {
+  bad_key:       'That key was not recognised. Check for a typo.',
+  foreign_key:   'This key is not a LaTeXFlow converter pass.',
+  unknown_plan:  'This key is not a LaTeXFlow converter pass.',
+  addon_key:     'This is a LaTeXFlow add-on key. The .tex to Word converter needs a converter pass.',
+  test_key:      'This is a test-mode key. Use the key from your purchase email.',
+  disabled:      'This key has been disabled. Contact Support if this looks wrong.',
+  instance_gone: 'This browser is no longer activated for this key. Enter the key again to activate it here.',
+  network:       'Could not reach the license server. Try again in a moment.',
+  ls_refused:    'The license server refused this key.',
+  no_judge:      'License check is not available yet on this page.',
+};
+// R248 (B2): refusals from the key-only check that no activation could change — stop before taking a seat.
+// Anything else (e.g. LS says the key has no instance yet) goes on to activate, which gives the final answer.
+const PRECHECK_FINAL = { bad_key: 1, foreign_key: 1, unknown_plan: 1, addon_key: 1, test_key: 1, disabled: 1, expired: 1, network: 1 };
+const fmtDate = (sec) => new Date(sec * 1000).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+
+function showKeyMsg(msg, j) {
+  msg.textContent = '';
+  msg.className = 'key-msg error';
+  if (j.reason === 'limit_reached') {
+    msg.append(document.createTextNode('This key is already used in 2 browsers. Deactivate it in one of them (or '));
+    const a = el('a', null, 'contact support'); a.href = SUPPORT_URL; a.target = '_blank'; a.rel = 'noopener';
+    msg.append(a, document.createTextNode(') and try again.'));
+  } else if (j.reason === 'expired') {
+    const when = j.exp ? ' on ' + fmtDate(j.exp) : '';
+    msg.textContent = (WEB_PLANS[j.plan] || {}).kind === 'sub' ? 'Your monthly subscription ' + (when ? 'ended' + when : 'has ended') + '.'
+                                           : 'Your ' + ((WEB_PLANS[j.plan] || {}).label || 'pass') + ' ended' + when + '.';
+  } else {
+    msg.textContent = REASON_TEXT[j.reason] || 'This key could not be used.';
+  }
+}
+
+/* localStorage — every access may throw (private window, blocked storage).
+   R248 (S6): when it does not keep what we write, the key + instance live in memory for this tab, so a second
+   unlock in the same tab reuses the seat instead of taking a new one. A new tab cannot know the seat — one line says so. */
+const memStore = {};
+const storageWorks = (() => {
+  try { const t = '__lfx_probe'; localStorage.setItem(t, t); const ok = localStorage.getItem(t) === t; localStorage.removeItem(t); return ok; }
+  catch (e) { return false; }
+})();
+function storeGet(k) {
+  if (storageWorks) { try { const v = localStorage.getItem(k); if (v != null) return v; } catch (e) {} }
+  return Object.prototype.hasOwnProperty.call(memStore, k) ? memStore[k] : null;
+}
+function storeSet(k, v) { memStore[k] = v; if (storageWorks) { try { localStorage.setItem(k, v); } catch (e) {} } }
+function storeRemove(k) { delete memStore[k]; if (storageWorks) { try { localStorage.removeItem(k); } catch (e) {} } }
+// R252 review nit: a private window forgets the seat when it closes, and Polar cannot reuse it (activate makes a new
+// one every time) — said once, when this browser just took a seat AND looks private (R252c: not to everyone).
+// Best effort, no network: Firefox / Safari private windows refuse the origin-private file system; Chromium's
+// incognito quota is far below a normal profile's (under 2 × the JS heap limit). Unknown → nothing is said.
+let privateWindow = null;                               // true / false / null = could not tell
+(async () => {
+  try {
+    if (navigator.storage && typeof navigator.storage.getDirectory === 'function') {
+      try { await navigator.storage.getDirectory(); } catch (e) { privateWindow = true; return; }
+    }
+    if (navigator.storage && navigator.storage.estimate && performance.memory && performance.memory.jsHeapSizeLimit) {
+      const est = await navigator.storage.estimate();
+      privateWindow = est.quota < performance.memory.jsHeapSizeLimit * 2;
+      return;
+    }
+    privateWindow = false;
+  } catch (e) { privateWindow = null; }
+})();
+const PRIVATE_NOTE = 'In a private window, deactivate before closing it — otherwise it keeps one of the key’s 2 browsers.';
+const NO_STORAGE_NOTE = 'This browser is not keeping site data, so the key stays active in this tab only. Entering it in a new tab uses another of its 2 browsers.';
+function readEntry() { try { return JSON.parse(storeGet(LICENSE_CACHE_KEY) || 'null'); } catch (e) { return null; } }
+function writeEntry(e) { storeSet(LICENSE_CACHE_KEY, JSON.stringify(e)); }
+function clearEntry() { storeRemove(LICENSE_CACHE_KEY); }
+function instanceName() {
+  let n = storeGet(INSTANCE_KEY);
+  if (!n) {
+    const b = new Uint8Array(8);
+    crypto.getRandomValues(b);
+    n = 'lfx-web-' + Array.from(b, (x) => x.toString(16).padStart(2, '0')).join('');
+    storeSet(INSTANCE_KEY, n);
+  }
+  return n;
+}
+
+async function lsCall(op, params) {
+  try { await startWorker(); } catch (e) { return { ok: false, reason: 'network', transient: true }; }
+  let m;
+  try { m = await callWorker({ type: 'license', op, params, pay: PAY_WORKER }, null, null, LICENSE_CALL_MS); }
+  catch (e) { return { ok: false, reason: 'network', transient: true }; }
+  const j = m.judgment || { ok: false, reason: 'network', transient: true };
+  return m.activatedInstance ? Object.assign({}, j, { activatedInstance: m.activatedInstance }) : j;
+}
+
+function licenseChip() {
+  const wrap = el('span', 'licensed-wrap');
+  const j = state.license || {};
+  const chip = el('span', 'licensed-chip');
+  chip.innerHTML = '<i class="ti ti-key" aria-hidden="true"></i>';
+  const label = (WEB_PLANS[j.plan] || {}).label || 'Converter pass';
+  chip.append(document.createTextNode(label + ((WEB_PLANS[j.plan] || {}).kind === 'pass' && j.exp ? ' · until ' + fmtDate(j.exp) : ' · active')));
+  const off = el('button', 'link-btn', 'Deactivate on this browser');
+  off.type = 'button';
+  off.addEventListener('click', () => deactivate(off));
+  wrap.append(chip, off);
+  return wrap;
+}
+
+/* Unlock: same key + stored instance → validate; otherwise activate a new seat for this browser. */
+async function unlock(key, btn, msg) {
+  if (!key) { msg.textContent = 'Paste your license key first.'; msg.className = 'key-msg error'; return; }
+  btn.disabled = true;
+  msg.textContent = 'Checking…'; msg.className = 'key-msg';
+  let e = readEntry();
+  const old = (e && e.k !== key && e.iid) ? e : null;   // another key holds this browser's seat
+  if (old) e = null;
+  let j = null;
+  if (e && e.iid) {
+    j = await lsCall('validate', { license_key: key, instance_id: e.iid });
+    if (!j.ok && j.reason === 'instance_gone') { entryGen++; clearEntry(); e = null; j = null; }
+  }
+  if (!j) {
+    // R248 (B2): judge the key BEFORE taking a seat — a typo, an add-on key or another product's key must not use
+    // one of the buyer's activations. validate with the key alone carries the same store / product / variant meta.
+    const pre = await lsCall('validate', { license_key: key });
+    if (!pre.ok && PRECHECK_FINAL[pre.reason]) j = pre;
+    else if (pre.ok && !WEB_PLANS[pre.plan]) j = { ok: false, reason: 'unknown_plan' };
+  }
+  let tookSeat = false;
+  if (!j) {                                             // the key is ours (or LS only said "no seat yet") → take the seat
+    // R252 review: if activate's reply is lost (network / timeout) the seat may exist at Polar with no way to find it
+    // unauthenticated (no activation list; activate never reuses a label) — it then counts until support or the
+    // buyer's customer portal frees it. The worker never retries an activate except on 429 for that reason.
+    j = await lsCall('activate', { license_key: key, instance_name: instanceName() });
+    tookSeat = j.ok;
+    const made = j.activatedInstance;                   // kept: the refusals below replace j
+    if (j.ok && !j.instanceId) j = { ok: false, reason: 'ls_refused' };
+    if (j.ok && !WEB_PLANS[j.plan]) j = { ok: false, reason: 'unknown_plan' };
+    if (j.ok && passEnded(j)) j = { ok: false, reason: 'expired', plan: j.plan, exp: j.exp };   // R252: this clock is past the end date
+    // LS created a seat but we refuse it → give it back at once (best effort; the refusal stands either way)
+    if (!j.ok && made) await lsCall('deactivate', { license_key: key, instance_id: made });
+  }
+  if (j.ok && !WEB_PLANS[j.plan]) j = { ok: false, reason: 'unknown_plan' };
+  if (j.ok && passEnded(j)) j = { ok: false, reason: 'expired', plan: j.plan, exp: j.exp };   // R252: this clock is past the end date
+  if (!j.ok) tookSeat = false;
+  btn.disabled = false;
+  if (!j.ok) { state.license = j; showKeyMsg(msg, j); return; }   // R229: a bad new key leaves the old seat alone
+  // the new seat is active → only now free the old key's seat (best effort, but never silently)
+  let oldNote = null;
+  if (old) {
+    const d = await lsCall('deactivate', { license_key: old.k, instance_id: old.iid });
+    if (!d.ok) oldNote = 'Your previous key could not be released from this browser (' + (REASON_TEXT[d.reason] || 'the license server refused') +
+      ') It still counts as one of its 2 browsers. Contact Support if you need that seat back.';
+  }
+  const now = Date.now();
+  entryGen++;
+  writeEntry({ k: key, iid: j.instanceId || e.iid, plan: j.plan, exp: j.exp == null ? null : j.exp, okAt: now, checkedAt: now, st: 'ok' });
+  state.license = { ok: true, plan: j.plan, exp: j.exp == null ? null : j.exp, verifiedAt: now };
+  track('tex2docx_license_activate');
+  renderLicenseLine();
+  if (state.result && state.result.preview) await upgradeToFull(btn, msg);
+  else if (state.result) renderDownload();
+  if (oldNote) alertLine(oldNote, true);
+  if (!storageWorks) alertLine(NO_STORAGE_NOTE, false);
+  else if (tookSeat && PAY_PROVIDER === 'polar' && privateWindow === true) alertLine(PRIVATE_NOTE, false);
+}
+
+async function deactivate(btn) {
+  const e = readEntry();
+  if (!e || !e.iid) { entryGen++; clearEntry(); state.license = null; onLicenseChanged(); return; }
+  btn.disabled = true;
+  btn.textContent = 'Deactivating…';
+  const j = await lsCall('deactivate', { license_key: e.k, instance_id: e.iid });
+  if (!j.ok) {
+    btn.disabled = false;
+    btn.textContent = 'Deactivate on this browser';
+    alertLine(REASON_TEXT[j.reason] || 'Could not deactivate. Try again in a moment.', true);
+    return;
+  }
+  entryGen++;
+  clearEntry();
+  state.license = null;
+  track('tex2docx_license_deactivate');
+  state.licenseNote = 'Deactivated on this browser — the key can be used in another browser now.';
+  alertLine(state.licenseNote, false);
+  onLicenseChanged();
+}
+
+/* Licence state changed outside a click on this card (load-time validate, deactivate). */
+function onLicenseChanged() {
+  renderLicenseLine();
+  if (!state.result || state.busy) return;
+  if (isLicensed() && state.result.preview) upgradeToFull();
+  else if (!isLicensed() && !state.result.preview) downgradeToPreview();
+  else renderDownload();
+}
+
+/* One line under Convert on the upload screen: pass active / ended. */
+function renderLicenseLine() {
+  const line = $('license-line');
+  line.textContent = '';
+  line.className = 'license-line';
+  if (showsLicensed()) { line.append(licenseChip()); line.hidden = false; return; }
+  if (state.license && !state.license.ok && state.license.reason !== 'network') {
+    const msg = el('span', 'key-msg');
+    showKeyMsg(msg, state.license);
+    line.append(msg);
+    line.hidden = false;
+    return;
+  }
+  line.hidden = true;
+}
+function alertLine(text, isError) {
+  const line = $('license-line');
+  if (!$('upload-stage').hidden) {
+    line.textContent = '';
+    line.append(el('span', 'key-msg' + (isError ? ' error' : ''), text));
+    line.hidden = false;
+  } else if (!$('result-stage').hidden) {              // R229: errors on the result screen were invisible
+    $('dl-area').append(el('div', 'key-msg' + (isError ? ' error' : ''), text));
+  }
+}
+
+/* R229: the cache is for the display only. A full conversion always asks LS first (verifyLicense),
+   and every stored state — ok or ended — is re-validated after 24 h, so a renewed subscription unlocks again. */
+function hasStoredKey() { const e = readEntry(); return !!(e && e.k && e.iid); }
+
+/* One validate answer → storage + state. verifiedAt only ever comes from here or from unlock.
+   R252c: gen = entryGen when the check started. An unlock / deactivate that finished meanwhile wrote a newer entry —
+   then this (late) answer is about the old seat and is dropped, so it cannot wipe what the unlock just wrote. */
+let entryGen = 0;
+function applyValidate(e, j, gen) {
+  if (gen !== undefined && gen !== entryGen) return;
+  const now = Date.now();
+  if (j.ok && !WEB_PLANS[j.plan]) j = { ok: false, reason: 'unknown_plan' };
+  if (j.ok && passEnded(j)) j = { ok: false, reason: 'expired', plan: j.plan, exp: j.exp };   // R252: say so, do not lock silently
+  if (j.ok) {
+    writeEntry(Object.assign({}, e, { plan: j.plan, exp: j.exp == null ? null : j.exp, okAt: now, checkedAt: now, st: 'ok' }));
+    state.license = { ok: true, plan: j.plan, exp: j.exp == null ? null : j.exp, verifiedAt: now };
+  } else if (j.transient) {                             // LS unreachable: locked for now, the entry stays as it was
+    state.license = passEnded(e) ? { ok: false, reason: 'expired', plan: e.plan, exp: e.exp } : { ok: false, reason: 'network' };
+  } else if (j.reason === 'instance_gone') {
+    clearEntry();                                       // deactivated elsewhere (LS dashboard / support)
+    state.license = j;
+  } else {
+    writeEntry(Object.assign({}, e, { st: j.reason, checkedAt: now, plan: j.plan || e.plan, exp: j.exp !== undefined ? j.exp : e.exp }));
+    state.license = j;
+  }
+}
+
+/* Validate the stored seat. R252 review nit: Polar answers 404 "Not found" both when only this browser's activation
+   is gone and (possibly — open until a real period end) when the key itself no longer validates. Ask once more with
+   the key alone: if that also fails, the key that worked here has ended (say "ended", not "no longer activated"). */
+// R252b: one stored-seat check at a time — the load-time check and a conversion's check used to run together
+// (live: 7 calls in a burst → Polar 429 → the wrong reason won). A second caller shares the call in flight.
+let storedCheck = null;
+function validateStored(e) {
+  if (storedCheck && storedCheck.k === e.k && storedCheck.iid === e.iid) return storedCheck.p;
+  const p = validateStoredOnce(e);
+  storedCheck = { k: e.k, iid: e.iid, p };
+  p.then(() => { if (storedCheck && storedCheck.p === p) storedCheck = null; }, () => { storedCheck = null; });
+  return p;
+}
+async function validateStoredOnce(e) {
+  const j = await lsCall('validate', { license_key: e.k, instance_id: e.iid });
+  if (PAY_PROVIDER !== 'polar' || j.ok || j.reason !== 'instance_gone') return j;
+  const k = await lsCall('validate', { license_key: e.k });
+  if (k.ok || k.transient) return j;
+  return k.reason === 'bad_key' ? { ok: false, reason: 'expired', plan: e.plan, exp: e.exp } : k;
+}
+
+// an answer from LS this recent (in this tab) is reused. R252 review: Polar the same idea at 60 s — one validate per
+// full conversion stays far below its 3 unauthenticated req/s, and a revoked key is caught on the next conversion.
+const RECHECK_MS = PAY_PROVIDER === 'polar' ? 60 * 1000 : 10 * 1000;
+async function verifyLicense() {
+  const L = state.license;
+  if (L && L.ok && L.verifiedAt && Date.now() - L.verifiedAt < RECHECK_MS && !passEnded(L)) return true;
+  const e = readEntry();
+  if (!e || !e.k || !e.iid) { if (L && L.ok) state.license = null; return false; }
+  const gen = entryGen;
+  applyValidate(e, await validateStored(e), gen);
+  renderLicenseLine();
+  return isLicensed();
+}
+
+/* Page load: a fresh cache only draws the line under Convert; stale (> 24 h, either state) → validate once. */
+function loadLicense() {
+  const e = readEntry();
+  if (!e || !e.k || !e.iid) return;
+  const now = Date.now();
+  const okEntry = e.st === 'ok' || !e.st;
+  const fresh = now - ((okEntry ? e.okAt : e.checkedAt) || 0) < LICENSE_CACHE_MS;
+  if (fresh && (!okEntry || (!passEnded(e) && WEB_PLANS[e.plan]))) {
+    state.license = okEntry ? { ok: true, plan: e.plan, exp: e.exp } : { ok: false, reason: e.st, plan: e.plan, exp: e.exp };
+    renderLicenseLine();
+    return;
+  }
+  const gen = entryGen;
+  validateStored(e).then((j) => { if (gen !== entryGen) return; applyValidate(e, j, gen); onLicenseChanged(); });
+}
+/* R255 — comparison shots: tabs + the large shot in a <dialog>. No image is fetched before a result is on screen
+   (renderResult loads the open tab's); another tab's image is fetched on its first open. */
+function loadShot(panel) {
+  if (!panel) return;
+  panel.querySelectorAll('[data-src]').forEach((n) => { n.src = n.dataset.src; n.removeAttribute('data-src'); });
+}
+(function () {
+  const tabs = Array.from(document.querySelectorAll('.shot-tab'));
+  const load = loadShot;
+  function select(i, focus) {
+    tabs.forEach((t, j) => {
+      const on = j === i;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      const panel = $(t.getAttribute('aria-controls'));
+      panel.hidden = !on;
+      if (on) load(panel);
+    });
+    if (focus) tabs[i].focus();
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => select(i));
+    t.addEventListener('keydown', (e) => {
+      const k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (k) { e.preventDefault(); select((i + k + tabs.length) % tabs.length, true); }
+    });
+  });
+  const dlg = $('shot-dialog'), big = $('shot-large');
+  if (!dlg || typeof dlg.showModal !== 'function') return;     // no <dialog>: the link opens the large shot in a new tab
+  document.querySelectorAll('.shot-open').forEach((a) => a.addEventListener('click', (e) => {
+    e.preventDefault();
+    const img = a.querySelector('img');
+    big.alt = img.alt;
+    big.src = a.getAttribute('href');
+    dlg.showModal();
+  }));
+  $('shot-close').addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });   // a click on the backdrop
+  dlg.addEventListener('close', () => { big.removeAttribute('src'); });
+})();
+$('pay-name').textContent = PAY_NAME;
+claimTab().then(() => restoreScreen()).then(() => keepSweep()).catch(() => {});
+$('privacy-key').hidden = salesOff();             // R254: no key box while sales are off - no key sentence either
+loadLicense();
+</script>
+</body>
+</html>
