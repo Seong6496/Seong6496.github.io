@@ -81,6 +81,7 @@ The loop is reliable for text, structure and equations, which is most of what yo
 - If the document is shared and commented in Docs, keep **Docs** as the working copy and export when you need the `.tex`. The fixes you make in the `.tex` (section stars, spacing, `\footnote`) are lost the next time you export, so make them at the end.
 - If the document lives in LaTeX and Docs is only for a review round, keep the **`.tex`** as the working copy, import it for comments, and carry the agreed changes back by hand rather than exporting over the original.
 
+- Install the add-on: [LaTeXFlow for Google Docs™](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=google-docs-latex-round-trip)
 - License keys: [LaTeXFlow store](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=google-docs-latex-round-trip)
 - Exporting a document step by step, from the licence key to Overleaf: [Google Docs™ to LaTeX with LaTeXFlow](/blog/en/posts/latexflow-export-import-walkthrough/)
 - What Export and Import convert: [Export & Import guide](/latexflow/export/)

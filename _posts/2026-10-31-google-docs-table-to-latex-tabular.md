@@ -131,6 +131,7 @@ LaTeX 에서 표를 손으로 짜 본 분은 압니다. 칸마다 `&`, 줄마다
 
 정리하면, 표의 칸·병합·굵은 글씨·수식은 구글 문서에서 만든 그대로 `tabular` 로 넘어오고, 모양은 위의 몇 줄로 채웁니다. `&` 와 `\\` 를 손으로 칠 일은 없습니다.
 
+- 애드온 설치: [LaTeXFlow for Google Docs™](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=google-docs-table-to-latex-tabular)
 - 라이선스 키: [LaTeXFlow 스토어](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=google-docs-table-to-latex-tabular)
 - 무엇이 어떻게 바뀌는지, 활성화·해지·환불: [Export & Import 안내](/latexflow/export/)
 - 함께 보기: [구글 문서로 만든 시험지·학습지, LaTeX 파일로 바꾸는 법](/blog/posts/google-docs-exam-worksheet-to-latex/) · [구글 문서로 쓴 논문 초안, Overleaf로 옮기기](/blog/posts/google-docs-paper-draft-to-overleaf/)

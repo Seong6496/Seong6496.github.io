@@ -73,5 +73,6 @@ description: "학위논문 초안, 학회 원고, 기말 시험지를 이번 주
 
 [버전 15](/latexflow/changelog/#version-15) 를 출시 전에 시험할 때, 시험지·논문형 문서 20개를 내보냈는데 모두 받은 그대로 컴파일되었습니다. 마감 주에 할 일은 대부분 그림을 넣고 템플릿에 맞추는 일로 줄어듭니다.
 
+- 애드온 설치: [LaTeXFlow for Google Docs™](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=deadline-google-docs-to-latex-fast)
 - 라이선스 키: [LaTeXFlow 스토어](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=deadline-google-docs-to-latex-fast)
 - 활성화·해지·환불 자세히: [Export & Import 안내](/latexflow/export/)

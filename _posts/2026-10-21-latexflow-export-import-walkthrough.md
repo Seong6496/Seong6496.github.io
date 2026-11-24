@@ -111,6 +111,7 @@ That is by design: Import writes equations as LaTeX text, not as images, so they
 
 ## 6. Where to go next
 
+- Install the add-on: [LaTeXFlow for Google Docs™](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=latexflow-export-import-walkthrough)
 - Passes and subscriptions: [LaTeXFlow store](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=latexflow-export-import-walkthrough&utm_content=next)
 - Activation, cancelling and refunds: [Export guide](/latexflow/export/)
 - First-time install and the free features: [install walkthrough](/blog/en/posts/convert-latex-in-google-docs/)

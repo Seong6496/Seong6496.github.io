@@ -84,5 +84,6 @@ description: "지도교수님이나 공저자가 .tex 파일을 보냈는데 나
 
 받은 파일은 구글 문서에서 댓글과 수정으로 다듬고, 최종본을 LaTeX 쪽에 반영하면 됩니다. 어느 쪽을 원본으로 둘지는 다음 글에서 다룹니다.
 
+- 애드온 설치: [LaTeXFlow for Google Docs™](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=open-tex-file-in-google-docs)
 - 라이선스 키: [LaTeXFlow 스토어](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=open-tex-file-in-google-docs)
 - 무엇이 어떻게 바뀌는지, 활성화·해지·환불: [Export & Import 안내](/latexflow/export/)

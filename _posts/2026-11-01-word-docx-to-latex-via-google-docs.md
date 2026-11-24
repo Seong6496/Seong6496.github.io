@@ -126,5 +126,6 @@ What to expect, and what to do about it:
 
 So the route is: open the `.docx` in Docs, retype the few equations Docs could not convert as LaTeX, and export. The equations in the `.tex` are then exact, and the rest of the work is choosing the look in LaTeX.
 
+- Install the add-on: [LaTeXFlow for Google Docs™](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=word-docx-to-latex-via-google-docs)
 - License keys: [LaTeXFlow store](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=word-docx-to-latex-via-google-docs)
 - What Export converts, activation, cancelling and refunds: [Export & Import guide](/latexflow/export/)

@@ -124,5 +124,6 @@ Once the changes above are in, the file works as a template for the next sheet o
 
 For the next sheet you can also skip the template and write the questions in Google Docs™ as before: Export gives you a new `.tex`, and you copy its questions into the template.
 
+- Install the add-on: [LaTeXFlow for Google Docs™](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=google-docs-worksheet-to-latex-overleaf)
 - License keys: [LaTeXFlow store](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=google-docs-worksheet-to-latex-overleaf)
 - What Export converts, activation, cancelling and refunds: [Export & Import guide](/latexflow/export/)

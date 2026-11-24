@@ -110,5 +110,6 @@ $$\begin{cases} x^2-3x-10\le 0 \\ x^2-4x+3>0 \end{cases}$$
 
 정리하면, 글자·수식·보기 번호·표는 그대로 옮겨지고, 시험지 모양은 위의 몇 줄로 채웁니다. 한 번 만들어 둔 머리말은 다음 시험지에도 그대로 쓸 수 있습니다.
 
+- 애드온 설치: [LaTeXFlow for Google Docs™](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=google-docs-exam-worksheet-to-latex)
 - 라이선스 키: [LaTeXFlow 스토어](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=google-docs-exam-worksheet-to-latex)
 - 무엇이 어떻게 바뀌는지, 활성화·해지·환불: [Export & Import 안내](/latexflow/export/)

@@ -106,5 +106,6 @@ Both, for different people. Writing and compiling stay in Overleaf; co-authors w
 4. Replace each `[Image: …]` line with the figure from the `.zip`.
 5. **Scan → Convert All** when the maths should be rendered.
 
+- Install the add-on: [LaTeXFlow for Google Docs™](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=overleaf-to-google-docs)
 - License keys: [LaTeXFlow store](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=overleaf-to-google-docs)
 - Activation, cancelling and refunds: [Export & Import guide](/latexflow/export/)

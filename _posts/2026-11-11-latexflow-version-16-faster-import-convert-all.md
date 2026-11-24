@@ -82,4 +82,5 @@ Scan and Convert All are free. Import and Export need a license key.
 
 - What else changed: [What's new](/latexflow/changelog/)
 - Import, step by step: [You Received a .tex File: Editing It Together in Google Docs™](/blog/en/posts/tex-file-into-google-docs-import/)
+- Install the add-on: [LaTeXFlow for Google Docs™](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=latexflow-version-16-faster-import-convert-all)
 - License keys: [LaTeXFlow store](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=latexflow-version-16-faster-import-convert-all)
