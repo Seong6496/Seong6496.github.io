@@ -67,5 +67,6 @@ LaTeX 를 몰라도 지킬 수 있는 것들입니다.
 
 함께 보기: [구글 문서로 쓴 논문 초안, Overleaf로 옮기기](/blog/posts/google-docs-paper-draft-to-overleaf/)
 
+- 애드온 설치: [LaTeXFlow for Google Docs™](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=co-author-google-docs-and-latex)
 - 라이선스 키: [LaTeXFlow 스토어](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=co-author-google-docs-and-latex)
 - 무엇이 어떻게 바뀌는지, 활성화·해지·환불: [Export & Import 안내](/latexflow/export/)

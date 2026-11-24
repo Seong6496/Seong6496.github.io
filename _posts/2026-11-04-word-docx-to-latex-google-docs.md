@@ -81,5 +81,6 @@ $$\begin{cases} x^2-3x-10 \le 0 \\ x^2-4x+3 > 0 \end{cases}$$
 
 정리하면, 워드 문서는 구글 문서로 열고, 변환이 어긋난 몇 개의 수식만 LaTeX 로 다시 친 뒤 내보내면 됩니다. 그러면 `.tex` 의 수식은 정확하고, 남는 일은 LaTeX 에서 모양을 고르는 것뿐입니다.
 
+- 애드온 설치: [LaTeXFlow for Google Docs™](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=word-docx-to-latex-google-docs)
 - 라이선스 키: [LaTeXFlow 스토어](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=word-docx-to-latex-google-docs)
 - 무엇이 어떻게 바뀌는지, 활성화·해지·환불: [Export & Import 안내](/latexflow/export/)

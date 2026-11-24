@@ -103,6 +103,7 @@ Zotero, Google Scholar, 학회 사이트에서 받은 BibTeX 항목을 `.bib` �
 
 초안을 쓸 때 `[@키]` 와 `(1)` 만 적어 두면, 옮기는 날 할 일은 **Convert to LaTeX** 한 번과 그림 넣기 정도입니다.
 
+- 애드온 설치: [LaTeXFlow for Google Docs™](https://workspace.google.com/marketplace/app/latexflow/59137436133?flow_type=2&utm_source=blog&utm_medium=post&utm_campaign=google-docs-paper-draft-to-overleaf)
 - 라이선스 키: [LaTeXFlow 스토어](https://teolemma.lemonsqueezy.com/?utm_source=blog&utm_medium=post&utm_campaign=google-docs-paper-draft-to-overleaf)
 - 무엇이 어떻게 바뀌는지, 활성화·해지·환불: [Export & Import 안내](/latexflow/export/)
 - 지난 글: [구글 문서로 만든 시험지·학습지, LaTeX 파일로 바꾸는 법](/blog/posts/google-docs-exam-worksheet-to-latex/)
