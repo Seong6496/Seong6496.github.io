@@ -13,7 +13,7 @@ Prices and purchase: [LaTeXFlow store](https://teolemma.lemonsqueezy.com/?utm_so
 
 ## Export: what it does
 
-Export turns the Google Docs™ document you have open into a `.tex` file, in one step, from the LaTeXFlow sidebar. The conversion runs inside Google Docs™ itself: your manuscript is not uploaded to a server — not ours, not anyone else's. Equations made with the Docs equation editor, equations LaTeXFlow inserted, and LaTeX you typed between `$…$` delimiters all come out as LaTeX. You can download the file, copy it to the clipboard, or open it directly as a new Overleaf project.
+Export turns the Google Docs™ document you have open into a `.tex` file, in one step, from the LaTeXFlow sidebar. The conversion runs inside Google Docs™ itself. We never share your files or data externally without your consent. Equations made with the Docs equation editor, equations LaTeXFlow inserted, and LaTeX you typed between `$…$` delimiters all come out as LaTeX. You can download the file, copy it to the clipboard, or open it directly as a new Overleaf project.
 
 ---
 
