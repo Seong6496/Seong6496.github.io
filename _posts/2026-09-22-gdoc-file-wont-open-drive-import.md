@@ -44,7 +44,7 @@ Press **Import from Google Drive** at the top of the upload card and three thing
 
 Your part is two actions: press the button, pick the file. The download, the format conversion and the re-upload are handled in one go. From the moment the file arrives, this route and the drag-and-drop route are identical.
 
-The fetched file is read in your browser and is not uploaded to us. The **LaTeX source and rendered image of each converted equation** are collected anonymously to improve recognition quality ([details](/latexflow/privacy/)).
+We never share your files or data externally without your consent. The **LaTeX source and rendered image of each converted equation** are collected anonymously to improve recognition quality ([details](/latexflow/privacy/)).
 
 ## 3. Which permission it uses
 
