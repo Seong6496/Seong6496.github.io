@@ -53,7 +53,7 @@ Drive import requests exactly one scope: `drive.file`. As the name says, it is *
 | What the tool can see | **the one file you picked** in the picker |
 | What the tool cannot see | the rest of your Drive, your folder list, any other document |
 
-Browsing folders and scanning your file list happens inside **a window Google puts up**. The tool cannot look into that window; it receives only the single file you pressed select on. The permissions the Google Docs™ add-on asks for are a separate set, covered in [what a Google Docs™ add-on can see](/blog/en/posts/google-docs-add-on-permissions-explained/).
+Browsing folders and scanning your file list happens inside **a window Google puts up**. The tool cannot look into that window; it receives only the single file you pressed select on.
 
 Sign-in is required only for this button. The drag-and-drop route needs no account at all.
 

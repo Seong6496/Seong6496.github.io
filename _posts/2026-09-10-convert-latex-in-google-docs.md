@@ -64,7 +64,7 @@ Four permissions in total, and it is worth knowing what each is for:
 | Connect to an external service | One outbound request from the add-on's server-side code |
 | Your email address | Read once, inside the add-on |
 
-The first one is the important one. It is the `currentonly` form of document access, which means access to **any other document is impossible**, not merely unused. There is no permission here for your Drive or your other files. [What a Google Docs™ add-on can and cannot see](/blog/en/posts/google-docs-add-on-permissions-explained/) goes through every permission line by line, including how to revoke them.
+The first one is the important one. It is the `currentonly` form of document access, which means access to **any other document is impossible**, not merely unused. There is no permission here for your Drive or your other files.
 
 ## 4. Opening the sidebar
 
