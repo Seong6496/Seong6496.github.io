@@ -40,7 +40,7 @@ Two other things are worth stating before you pick a route, because they save ti
 
 If the OAuth consent does not bother you, **Route A** is the shortest. If you would rather avoid OAuth, or you already use the Google Docs app, **Route B** is the natural one.
 
-We never share your files or data externally without your consent. The **LaTeX source and rendered image of each converted equation** are collected anonymously to improve conversion quality ([details](/latexflow/privacy/)).
+The **LaTeX source and rendered image of each converted equation** are collected anonymously to improve conversion quality ([details](/latexflow/privacy/)).
 
 ## 3. Route A: import from Google Drive inside the tool
 
