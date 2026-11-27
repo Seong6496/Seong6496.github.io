@@ -61,8 +61,6 @@ The misses are spread over a handful of papers; the largest share came from one 
 
 The full report and the first 3 pages of the Word file are free, so you can check how your own bibliography comes through before paying anything.
 
-The conversion runs in your browser. We never share your files or data externally without your consent.
-
 ## 5. FAQ
 
 **Can I convert a .bib file to a Word reference list?**

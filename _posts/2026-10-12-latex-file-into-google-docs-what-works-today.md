@@ -32,7 +32,7 @@ Everything else in the file — sectioning commands, lists, tables, citations, f
 
 **Step 2 — paste into a Google Docs™ document.** Paste as plain text (`Ctrl+Shift+V` on Windows, `Cmd+Shift+V` on a Mac) so no stray formatting comes along. You now have a document full of readable text with LaTeX commands sitting in it as characters.
 
-**Step 3 — open LaTeXFlow.** In the document: **Extensions → LatexFlow → Open Equation Panel**. If this is the first run, the add-on shows a two-page consent screen about optional data collection; answer it either way, every feature works the same. The [install walkthrough](/blog/en/posts/convert-latex-in-google-docs/) covers that screen in detail.
+**Step 3 — open LaTeXFlow.** In the document: **Extensions → LatexFlow → Open Equation Panel**. On the first run a dialog appears; answer it either way, every feature works the same. The [install walkthrough](/blog/en/posts/convert-latex-in-google-docs/) covers the first run in detail.
 
 **Step 4 — Scan.** Switch to the **Scan** tab and press **🔍 Scan Document**. The sidebar lists every span it recognised as an equation, one card each, with a preview. Look through the cards. A card that is not maths — a price with a stray dollar sign is the usual case — can be skipped.
 

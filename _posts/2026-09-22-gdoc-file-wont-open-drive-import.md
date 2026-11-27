@@ -44,8 +44,6 @@ Press **Import from Google Drive** at the top of the upload card and three thing
 
 Your part is two actions: press the button, pick the file. The download, the format conversion and the re-upload are handled in one go. From the moment the file arrives, this route and the drag-and-drop route are identical.
 
-We never share your files or data externally without your consent. The **LaTeX source and rendered image of each converted equation** are collected anonymously to improve recognition quality ([details](/latexflow/privacy/)).
-
 ## 3. Which permission it uses
 
 Drive import requests exactly one scope: `drive.file`. As the name says, it is **per-file**.
@@ -55,7 +53,7 @@ Drive import requests exactly one scope: `drive.file`. As the name says, it is *
 | What the tool can see | **the one file you picked** in the picker |
 | What the tool cannot see | the rest of your Drive, your folder list, any other document |
 
-Browsing folders and scanning your file list happens inside **a window Google puts up**. The tool cannot look into that window; it receives only the single file you pressed select on. The permissions the Google Docs™ add-on asks for are a separate set, covered in [what a Google Docs™ add-on can see](/blog/en/posts/google-docs-add-on-permissions-explained/).
+Browsing folders and scanning your file list happens inside **a window Google puts up**. The tool cannot look into that window; it receives only the single file you pressed select on.
 
 Sign-in is required only for this button. The drag-and-drop route needs no account at all.
 

@@ -51,8 +51,6 @@ Every one of our files opened in Word without a repair prompt, and updating all 
 
 The full report and the first 3 pages of the Word file are free, so you can check your own paper before paying anything. For the whole file there is a 7-day pass ($6.99), which fits one submission or revision round, and a monthly plan ($19.99).
 
-The conversion runs in your browser. We never share your files or data externally without your consent.
-
 ## 4. Settings that matter for a journal
 
 **Live cross-references, or plain numbers.** By default, section, equation, table and figure numbers and every `\ref` / `\eqref` are Word fields: add an equation, update fields (F9), and the numbers after it move, as they would in LaTeX. Some production teams ask for a manuscript without fields. Switch **Live Word cross-references** off and the numbers are written as plain text.
