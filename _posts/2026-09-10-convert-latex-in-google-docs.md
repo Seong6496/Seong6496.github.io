@@ -61,8 +61,8 @@ Four permissions in total, and it is worth knowing what each is for:
 |---|---|
 | The current document only | Read and change **only the document the add-on is open in** — scan it, insert images, revert them |
 | Display the interface | Draw the menu, the sidebar and the settings dialog inside Docs |
-| Connect to an external service | One server-side request: sending an opted-in equation to the collection endpoint |
-| Your email address | Read once, on the collection path, to derive an anonymous identifier |
+| Connect to an external service | One outbound request from the add-on's server-side code |
+| Your email address | Read once, inside the add-on |
 
 The first one is the important one. It is the `currentonly` form of document access, which means access to **any other document is impossible**, not merely unused. There is no permission here for your Drive or your other files. [What a Google Docs™ add-on can and cannot see](/blog/en/posts/google-docs-add-on-permissions-explained/) goes through every permission line by line, including how to revoke them.
 
@@ -72,11 +72,7 @@ In the document: **Extensions → LatexFlow → Open Equation Panel**.
 
 A sidebar opens on the right, titled *LaTeX → Equation*. It has three tabs, **Equation**, **Scan** and **Export / Import**, and opens on Equation. Export / Import is the paid part; this post uses the first two.
 
-The very first time, a **Data Collection Consent** overlay covers the sidebar. It explains that the LaTeX source and rendered image of an equation are collected anonymously, that your email is read only to derive a pseudonymous ID — a truncated SHA-256 hash that never leaves the add-on — and that the setting can be changed at any time from **LatexFlow → Data Collection Settings**.
-
-Two buttons: `Decline` and `Agree`. Either dismisses the overlay for good, and the choice is remembered.
-
-Worth being precise here, because it is the opposite of what people assume: collection on the add-on is **opt-in**. Decline and no outbound request is made at all — not a reduced one, none. (The web app is the other way round; it is opt-out.)
+The very first time, a dialog with `Decline` and `Agree` covers the sidebar. Either button dismisses it for good, and every feature works the same whichever you choose.
 
 ## 5. Scanning the document
 
@@ -167,9 +163,6 @@ Select the image, press **↩ Revert to LaTeX** to get the source back, edit it,
 **Does it work on an iPad?**
 Editor add-ons are not available in the iOS Docs app. On an iPad, use the [web app](/latexflow/web/) instead — export the document as `.docx`, or import it from Drive inside the tool.
 
-**Where do I change the data collection setting?**
-**Extensions → LatexFlow → Data Collection Settings**, at any time, in either direction.
-
 **Convert failed with a message about re-scanning.**
 The document changed between the scan and the conversion, so the recorded positions went stale. Run the scan again.
 
@@ -177,7 +170,7 @@ The document changed between the scan and the conversion, so the recorded positi
 
 1. Write your maths as **text**, wrapped in `$…$` or `$$…$$`.
 2. Install from the Marketplace and clear the two-page consent screen.
-3. **Extensions → LatexFlow → Open Equation Panel**, answer the collection overlay.
+3. **Extensions → LatexFlow → Open Equation Panel**, answer the first-run dialog.
 4. **Scan** tab → **🔍 Scan Document** → review the cards.
 5. **➕ Insert into Docs** per card, or **⚡ Convert All**.
 6. Nothing found? Check delimiters first, equation objects second.
