@@ -1,0 +1,103 @@
+% LaTeX homework / problem set template - mathsystem.dev
+% https://mathsystem.dev/blog/en/posts/latex-homework-template/
+% Fill in the four \newcommand lines below, then replace the problems.
+% Compile with pdfLaTeX (locally or in Overleaf). Uses only standard packages.
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+
+% ---- Your details -------------------------------------------------
+\newcommand{\studentname}{Your Name}
+\newcommand{\course}{MATH 101}
+\newcommand{\assignment}{Homework 1}
+\newcommand{\duedate}{Due: 1 December 2026}
+
+% ---- Header on every page -----------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\studentname}
+\chead{\course}
+\rhead{\assignment}
+\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+
+% ---- Problems and solutions ---------------------------------------
+% \begin{problem} ... \end{problem}   numbered automatically: Problem 1, 2, ...
+% \begin{solution} ... \end{solution} ends with a square
+\newcounter{problem}
+\newenvironment{problem}
+  {\refstepcounter{problem}\par\bigskip\noindent\textbf{Problem \theproblem.}\ }
+  {\par}
+\newenvironment{solution}
+  {\begin{proof}[Solution]}
+  {\end{proof}}
+
+\begin{document}
+
+\begin{center}
+  {\Large \textbf{\course\ --- \assignment}}\\[4pt]
+  \studentname \hfill \duedate
+\end{center}
+
+\begin{problem}\label{prob:quadratic}
+Solve $x^2 - 5x + 6 = 0$.
+\end{problem}
+
+\begin{solution}
+Factor the left-hand side:
+\[
+x^2 - 5x + 6 = (x-2)(x-3) = 0,
+\]
+so $x = 2$ or $x = 3$.
+\end{solution}
+
+\begin{problem}
+Compute $\displaystyle \int_0^1 x^2 \, dx$.
+\end{problem}
+
+\begin{solution}
+\[
+\int_0^1 x^2 \, dx = \left[ \frac{x^3}{3} \right]_0^1 = \frac{1}{3}.
+\]
+\end{solution}
+
+\begin{problem}
+Show that for all $n \ge 1$,
+\begin{enumerate}[label=(\alph*)]
+  \item $\displaystyle \sum_{k=1}^{n} k = \frac{n(n+1)}{2}$;
+  \item $\displaystyle \sum_{k=1}^{n} (2k-1) = n^2$.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}[label=(\alph*)]
+  \item By induction. For $n = 1$ both sides are $1$. If it holds for $n$, then
+  \begin{align*}
+    \sum_{k=1}^{n+1} k &= \frac{n(n+1)}{2} + (n+1) \\
+                       &= \frac{(n+1)(n+2)}{2}.
+  \end{align*}
+  \item Using (a), $\sum_{k=1}^{n} (2k-1) = 2 \cdot \frac{n(n+1)}{2} - n = n^2$.
+\end{enumerate}
+\end{solution}
+
+\begin{problem}
+Let
+\[
+f(x) =
+\begin{cases}
+  x^2 & x \ge 0, \\
+  -x  & x < 0.
+\end{cases}
+\]
+Is $f$ continuous at $0$? (Compare Problem~\ref{prob:quadratic}, which needs no cases.)
+\end{problem}
+
+\begin{solution}
+Both one-sided limits at $0$ equal $0 = f(0)$, so $f$ is continuous at $0$.
+\end{solution}
+
+\end{document}
